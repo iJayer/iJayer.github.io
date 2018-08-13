@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/</loc>
     <lastmod>2018-08-13T22:04:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -25,7 +32,7 @@
   
   <url>
     <loc>https://zhezh09.github.io/tags/blog/</loc>
-    <lastmod>2018-08-13T22:04:38+08:00</lastmod>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -38,42 +45,56 @@
   
   <url>
     <loc>https://zhezh09.github.io/tags/github/</loc>
-    <lastmod>2018-08-13T22:04:38+08:00</lastmod>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zhezh09.github.io/tags/hugo/</loc>
-    <lastmod>2018-08-13T22:04:38+08:00</lastmod>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zhezh09.github.io/categories/others/</loc>
-    <lastmod>2018-08-13T22:04:38+08:00</lastmod>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zhezh09.github.io/post/</loc>
-    <lastmod>2018-08-13T22:04:38+08:00</lastmod>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zhezh09.github.io/tags/</loc>
-    <lastmod>2018-08-13T22:04:38+08:00</lastmod>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/tags/tools/</loc>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/tags/win/</loc>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zhezh09.github.io/</loc>
-    <lastmod>2018-08-13T22:04:38+08:00</lastmod>
+    <lastmod>2018-08-13T22:05:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

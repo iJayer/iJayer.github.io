@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Aug 2018 22:04:38 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Aug 2018 22:05:21 +0800</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>20180813 博客搭建-03 HugoServer注册为Win服务</title>
+      <link>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Mon, 13 Aug 2018 22:05:21 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
+      <description>WinSW 把 win 下的命令行程序包装为 service 运行 Install Install doc click here Config 以配置 win 平台下的 hugo server 为例：运行 Git Bash, 执行如下命令 # 新建 Hugo Server 运行目录: hugod $ mkdir -p /d/software/hugod # 拷贝已下载的 WinSW 可执</description>
+    </item>
     
     <item>
       <title>20180813 博客搭建-02 GitHub Pages托管和部署</title>
