@@ -6,10 +6,19 @@
     <description>Recent content in Blog on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Aug 2018 22:05:21 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Aug 2018 13:38:03 +0800</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>20180814 博客搭建-04 让.github.io出现在Google搜索中</title>
+      <link>https://zhezh09.github.io/post/others/20180814-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-04-%E8%AE%A9.github.io%E5%87%BA%E7%8E%B0%E5%9C%A8google%E6%90%9C%E7%B4%A2%E4%B8%AD/</link>
+      <pubDate>Tue, 14 Aug 2018 13:38:03 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/others/20180814-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-04-%E8%AE%A9.github.io%E5%87%BA%E7%8E%B0%E5%9C%A8google%E6%90%9C%E7%B4%A2%E4%B8%AD/</guid>
+      <description>Google Search Console 可在 Google 搜索地址栏输入：site:http://xxxx.github.io 查看该域名是否被 Google 收录 Google Search Console 添加站点步骤如下： 添加 url 下载验证</description>
+    </item>
     
     <item>
       <title>20180813 博客搭建-03 HugoServer注册为Win服务</title>
