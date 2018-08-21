@@ -12,39 +12,55 @@
     
     
     <item>
-      <title>20180814 博客搭建-04 让.github.io出现在Google搜索中</title>
+      <title>博客搭建-04 让.github.io出现在Google搜索中</title>
       <link>https://zhezh09.github.io/post/others/20180814-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-04-%E8%AE%A9.github.io%E5%87%BA%E7%8E%B0%E5%9C%A8google%E6%90%9C%E7%B4%A2%E4%B8%AD/</link>
       <pubDate>Tue, 14 Aug 2018 13:38:03 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/post/others/20180814-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-04-%E8%AE%A9.github.io%E5%87%BA%E7%8E%B0%E5%9C%A8google%E6%90%9C%E7%B4%A2%E4%B8%AD/</guid>
-      <description>Google Search Console 可在 Google 搜索地址栏输入：site:http://xxxx.github.io 查看该域名是否被 Google 收录 Google Search Console 添加站点步骤如下： 添加 url 下载验证</description>
+      <description>&lt;p&gt;如何让博客内容出现在 Google 🔍 中呢？？？&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>20180813 博客搭建-03 HugoServer注册为Win服务</title>
+      <title>博客搭建-03 HugoServer注册为Win服务</title>
       <link>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</link>
       <pubDate>Mon, 13 Aug 2018 22:05:21 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
-      <description>WinSW 把 win 下的命令行程序包装为 service 运行 Install Install doc click here Config 以配置 win 平台下的 hugo server 为例：运行 Git Bash, 执行如下命令 # 新建 Hugo Server 运行目录: hugod $ mkdir -p /d/software/hugod # 拷贝已下载的 WinSW 可执</description>
+      <description>&lt;p&gt;WinSW: 把 win 下的命令行程序包装为 service 运行&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>20180813 博客搭建-02 GitHub Pages托管和部署</title>
+      <title>博客搭建-02 GitHub Pages托管和部署</title>
       <link>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/</link>
       <pubDate>Mon, 13 Aug 2018 22:04:38 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/</guid>
-      <description>GitHub 上的托管和部署 Github Pages 是 Github 推出的一项功能，可以免费托管静态网站，将你的静态文件放在仓库里，然后在仓库的 Settings 里面，翻到下面的 GitHub Pages 部分，可以将此仓库</description>
+      <description>&lt;p&gt;将 Hugo 生成的网站部署和托管到 GitHub Pages&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>20180813 博客搭建-01 Hugo安装和使用</title>
+      <title>博客搭建-01 Hugo安装和使用</title>
       <link>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-01-hugo%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 13 Aug 2018 22:03:40 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-01-hugo%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
-      <description>准备 准备一些需要用的工具和软件： Hugo: 静态网站生成工具，用来编译静态网站的, 输出在：public 目录 GitHub: 用来部署和托管网站，网站仓库：userna</description>
+      <description>&lt;p&gt;准备一些需要用的工具和软件：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gohugo.io/getting-started/quick-start/&#34;&gt;Hugo&lt;/a&gt;: 静态网站生成工具，用来编译静态网站的, 输出在：public 目录&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.github.com/&#34;&gt;GitHub&lt;/a&gt;: 用来部署和托管网站，网站仓库：username.github.io&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/kohsuke/winsw&#34;&gt;WinSW&lt;/a&gt;: 把 win 下的命令行程序包装为 service 运行, 这里用来包装 &lt;code&gt;hugo server&lt;/code&gt;，启动本地实时预览服务&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cloudinary.com/&#34;&gt;Cloudinary&lt;/a&gt;: 云存储，用作图床, 注册后即可使用&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://knightcai.github.io/2017/12/19/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0-Gitalk-%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/&#34;&gt;GiTalk&lt;/a&gt;: 网站评论插件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
