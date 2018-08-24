@@ -77,7 +77,7 @@
 
 <meta itemprop="datePublished" content="2018-08-22T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-08-22T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2897">
+<meta itemprop="wordCount" content="2885">
 
 
 
@@ -164,7 +164,7 @@
               <a href="/categories/tech/"> tech </a>
             
           </div>
-        <span class="more-meta"> 2897 words </span>
+        <span class="more-meta"> 2885 words </span>
         <span class="more-meta"> 6 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -200,7 +200,13 @@
 <ul>
 <li><a href="#pointers">pointers</a></li>
 <li><a href="#slices">slices</a></li>
+<li><a href="#maps">maps</a></li>
+<li><a href="#channels">channels</a></li>
+<li><a href="#functions">functions</a></li>
+<li><a href="#interfaces">interfaces</a></li>
 </ul></li>
+<li><a href="#nil-is-useful">nil is useful</a></li>
+<li><a href="#see-also">See Also</a></li>
 </ul>
 </nav>
   </div>
@@ -231,8 +237,8 @@
 
 
 <ul>
-<li>[原文地址][#1]<br /></li>
-<li>[译文地址][#2]</li>
+<li><a href="https://speakerd.s3.amazonaws.com/presentations/b88490edd6e9435aa785afa713cc30e2/understanding_nil__1_.pdf">原文地址</a></li>
+<li><a href="https://www.jianshu.com/p/dd80f6be7969" title="理解Go语言的nil">译文地址</a></li>
 </ul>
 
 <h1 id="nil-是什么"><code>nil</code> 是什么?</h1>
@@ -483,8 +489,9 @@ for i := 0; i &lt; 10; i++ {
     fmt.Printf(&quot;len: %2d cap: %2d\n&quot;, len(s), cap(s))
     s = append(s, i)
 }
+</code></pre>
 
-$ go run main.go
+<pre><code class="language-bash">$ go run main.go
 len: 0 cap: 0 []  → s is nil!
 len: 1 cap: 1 [0]   → allocation
 len: 2 cap: 2 [0 1]   → reallocation
@@ -501,23 +508,23 @@ len: 9 cap: 16 [0 1 2 3 4 5 6 7 8]  → reallocation
 
 <p>slice 内部：</p>
 
-<div class='align-center'>
-  <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1535095055/blog/images/go-slices-internals.png" alt="go-slices-internals" /></p>
+<div align=center>
+<img src="https://res.cloudinary.com/zher-files/image/upload/v1535095055/blog/images/go-slices-internals.png"/>
+</div>
 
-<div class='align-left'>
-  <p>当有元素的时候：<code>slice := make([]byte, 5)</code></p>
+<p>当有元素的时候：<code>slice := make([]byte, 5)</code></p>
 
-<div class='align-center'>
-  <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1535088922/blog/images/go-slices-has-elements.png" alt="go-slices-has-elements" /></p>
+<div align=center>
+<img src="https://res.cloudinary.com/zher-files/image/upload/v1535088922/blog/images/go-slices-has-elements.png"/>
+</div>
 
-<div class='align-left'>
-  <p>nil slice: <code>var s []byte</code></p>
+<p>nil slice: <code>var s []byte</code></p>
 
-<div class='align-center'>
-  <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1535095019/blog/images/go-slices-nil.png" alt="go-slices-nil" /></p>
+<div align=center>
+<img src="https://res.cloudinary.com/zher-files/image/upload/v1535095019/blog/images/go-slices-nil.png"/>
+</div>
 
-<div class='align-left'>
-  <p>所以：我们无需担心 slice 的大小，使用 append 的话 slice 会自动扩容。(视频中说 slice 自动扩容速度很快，不必担心性能问题，这个值得商榷，在确定 slice 大小的情况下只进行一次内存分配总是好的)</p>
+<p>所以：我们无需担心 slice 的大小，使用 append 的话 slice 会自动扩容。(视频中说 slice 自动扩容速度很快，不必担心性能问题，这个值得商榷，在确定 slice 大小的情况下只进行一次内存分配总是好的)</p>
 
 <h2 id="maps">maps</h2>
 
@@ -534,7 +541,7 @@ m[i] = x        // panic: assignment to entry in nil map
 
 <p>对于 <code>nil</code> 的 <code>map</code>， 我们可以简单把它看成是一个只读的 map，不能进行写操作，否则就会 panic。那么，<code>nil</code> 的 map 有什么用呢？ 看下这个例子：</p>
 
-<h3 id="using-maps">using maps</h3>
+<p><strong>using maps</strong></p>
 
 <pre><code class="language-go">func NewGet(url string, headers map[string]string) (*http.Request, error) {
     req, er := http.NewRequest(http.MethodGet, url, nil)
@@ -564,7 +571,7 @@ NewGet(&quot;http://google.com&quot;, nil)
 
 <p>是不是，简洁很多？ so, 把 <code>nil</code> map 作为一个只读的空的 map 进行读取吧</p>
 
-<h2 id="channel">channel</h2>
+<h2 id="channels">channels</h2>
 
 <pre><code class="language-go">// nil channels
 var c chan t
@@ -649,7 +656,7 @@ close(c)        // panic: close of nil channel
 }
 </code></pre>
 
-<h2 id="interface">interface</h2>
+<h2 id="interfaces">interfaces</h2>
 
 <p>interface 并不是一个指针，它的底层实现由两部分组成，一个是类型，一个是值，也就类似于：(Type, Value). 只有当类型和值都是 nil 的时候，才等于 nil. 看看下面的代码：</p>
 
@@ -688,7 +695,7 @@ func main() {
 
 <p>这里最终的输出结果也是 false。 为什么呢？ 尽管 wrapDo 函数返回的是 error 类型， 但是 do 返回的却是 *doError 类型，也就是变成了 (*doError, nil)， 自然也就和 nil 不相等了。因此，不要返回具体的错误类型。遵从这两条建议，才可以放心的使用 <code>if x != nil</code>.</p>
 
-<h1 id="nil-is-useful"><code>nil is useful</code></h1>
+<h1 id="nil-is-useful">nil is useful</h1>
 
 <p>最后，做个总结吧！😋 <code>nil is useful</code></p>
 
@@ -711,18 +718,6 @@ interfaces  the most userd signal in Go (err != nil)
 <li><a href="https://speakerd.s3.amazonaws.com/presentations/b88490edd6e9435aa785afa713cc30e2/understanding_nil__1_.pdf">GopherCon 2016：slide of understanding nil</a></li>
 <li><a href="https://www.jianshu.com/p/dd80f6be7969" title="理解Go语言的nil">理解Go语言的nil</a></li>
 </ul>
-
-</div>
-
-<p></div></p>
-
-<p></div></p>
-
-<p></div></p>
-
-<p></div></p>
-
-</div>
     </div>
 
     
