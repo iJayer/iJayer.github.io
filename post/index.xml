@@ -6,10 +6,23 @@
     <description>Recent content in Posts on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 26 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Web扩展知识-01-一些性能测试指标概念</title>
+      <link>https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;strong&gt;学习笔记&lt;/strong&gt;：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>理解 Golang 的 nil (转)</title>

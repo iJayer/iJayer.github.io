@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Web扩展知识-01-一些性能测试指标概念 - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="学习笔记：Web性能相关：QPS、TPS、RT、PV、UV、吞吐率、吞吐量等概念了解" />
+<meta name="keywords" content="web" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Web扩展知识-01-一些性能测试指标概念" />
+<meta property="og:description" content="学习笔记：Web性能相关：QPS、TPS、RT、PV、UV、吞吐率、吞吐量等概念了解" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/" />
+
+
+
+<meta property="article:published_time" content="2018-08-26T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-08-26T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Web扩展知识-01-一些性能测试指标概念">
+<meta itemprop="description" content="学习笔记：Web性能相关：QPS、TPS、RT、PV、UV、吞吐率、吞吐量等概念了解">
+
+
+<meta itemprop="datePublished" content="2018-08-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-08-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3855">
+
+
+
+<meta itemprop="keywords" content="web," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Web扩展知识-01-一些性能测试指标概念"/>
+<meta name="twitter:description" content="学习笔记：Web性能相关：QPS、TPS、RT、PV、UV、吞吐率、吞吐量等概念了解"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Web扩展知识-01-一些性能测试指标概念</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-26 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 3855 words </span>
+        <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-网站的-pv-vv-uv-ip-值">1. 网站的 PV、VV、UV、IP 值</a>
+<ul>
+<li><a href="#1-1-pv">1.1. PV</a></li>
+<li><a href="#1-2-vv">1.2. VV</a></li>
+<li><a href="#1-3-pv-与-vv-的区别">1.3. PV 与 VV 的区别</a></li>
+<li><a href="#1-4-uv">1.4. UV</a></li>
+<li><a href="#1-5-ip">1.5. IP</a></li>
+<li><a href="#1-6-uv-与-ip-区别">1.6. UV 与 IP 区别</a></li>
+</ul></li>
+<li><a href="#2-web-性能相关">2. Web 性能相关</a>
+<ul>
+<li><a href="#2-1-qps-与-tps">2.1. QPS 与 TPS</a>
+<ul>
+<li><a href="#2-1-1-qps">2.1.1. QPS</a></li>
+<li><a href="#2-1-2-tps">2.1.2. TPS</a></li>
+<li><a href="#2-1-3-如何计算-qps-与-tps">2.1.3. 如何计算 QPS 与 TPS ？</a></li>
+<li><a href="#2-1-4-qps-tps-和性能的关系">2.1.4. QPS、TPS 和性能的关系</a></li>
+<li><a href="#2-1-5-结论">2.1.5. 结论</a></li>
+</ul></li>
+<li><a href="#2-2-请求时间-响应时间">2.2. 请求时间(响应时间)</a>
+<ul>
+<li><a href="#2-2-1-事务响应时间">2.2.1. 事务响应时间</a></li>
+<li><a href="#2-2-2-响应时间的3-5-10原则">2.2.2. 响应时间的3/5/10原则</a></li>
+</ul></li>
+<li><a href="#2-3-并发">2.3. 并发</a>
+<ul>
+<li><a href="#2-3-1-什么是并发">2.3.1. 什么是并发</a>
+<ul>
+<li><a href="#2-3-1-1-狭义-严格-并发">2.3.1.1. 狭义（严格）并发</a></li>
+<li><a href="#2-3-1-2-广义并发">2.3.1.2. 广义并发</a></li>
+<li><a href="#2-3-1-3-两者区别">2.3.1.3. 两者区别:</a></li>
+</ul></li>
+<li><a href="#2-3-2-并发连接数">2.3.2. 并发连接数</a></li>
+<li><a href="#2-3-3-并发用户数">2.3.3. 并发用户数</a></li>
+</ul></li>
+<li><a href="#2-4-吞吐量">2.4. 吞吐量</a></li>
+<li><a href="#2-5-吞吐率">2.5. 吞吐率</a></li>
+<li><a href="#2-6-点击率">2.6. 点击率</a></li>
+<li><a href="#2-7-请求等待时间">2.7. 请求等待时间</a>
+<ul>
+<li><a href="#2-7-1-用户平均请求等待时间-time-per-request">2.7.1. 用户平均请求等待时间(Time per request)</a></li>
+<li><a href="#2-7-2-服务器平均请求等待时间-time-per-request-across-all-concurrent-requests">2.7.2. 服务器平均请求等待时间(Time per request: across all concurrent requests)</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#3-see-also">3. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p><strong>学习笔记</strong>：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&hellip;</p>
+
+<p></p>
+
+<h1 id="1-网站的-pv-vv-uv-ip-值">1. 网站的 PV、VV、UV、IP 值</h1>
+
+<h2 id="1-1-pv">1.1. PV</h2>
+
+<p>PV(Page View): 即页面浏览量或点击量，PV 是网站分析的一个术语，用以衡量网站用户访问的网页的数量。一般来说，PV 与来访者的数量成正比，但是 PV 并不直接决定页面的真实来访者数量，如同一个来访者通过不断刷新页面，也可以制造出非常高的 PV。 即，用户每一次对网站中的每一个网页访问均被记录一个 PV。</p>
+
+<h2 id="1-2-vv">1.2. VV</h2>
+
+<p>VV(Visit View): 即访客的访问次数，用以记录所有访客一天内访问了多少次您的网站。当访客完成所有浏览，并最终关掉该网站的所有页面时便完成了一次访问，同一访客一天内可能有多次访问行为，访问次数累计。</p>
+
+<h2 id="1-3-pv-与-vv-的区别">1.3. PV 与 VV 的区别</h2>
+
+<p>如：你今天 10 点钟打开了百度，访问了它的三个页面；11 点钟又打开了百度，访问了它的两个页面，则 PV 数 +5，VV 数+2.</p>
+
+<blockquote>
+<p>PV是指页面的浏览次数，VV是指你访问网站的次数。</p>
+</blockquote>
+
+<h2 id="1-4-uv">1.4. UV</h2>
+
+<p>UV(Unique Visitor): 独立访客数，指 1 天内访问某站点的人数，以 cookie 为依据。1 天内同一访客的多次访问只计为 1 个访客</p>
+
+<h2 id="1-5-ip">1.5. IP</h2>
+
+<p>IP(Internet Protocol): 即独立 IP 数，指访问过某站点的 IP 总数，以用户的 IP 地址作为统计依据。00:00-24:00内相同 IP 地址之被计算一次。</p>
+
+<h2 id="1-6-uv-与-ip-区别">1.6. UV 与 IP 区别</h2>
+
+<p>如：你和你的家人用各自的账号在同一台电脑上登录新浪微博，则 IP 数 +1，UV 数 +2。由于使用的是同一台电脑，所以 IP不变，但使用的不同账号(Cookie 不同)，所以 UV+2</p>
+
+<h1 id="2-web-性能相关">2. Web 性能相关</h1>
+
+<p>Web 性能相关要素：QPS、TPS(事务)、响应时间、并发连接数、并发用户数、吞吐量、吞吐率(RPS)等</p>
+
+<h2 id="2-1-qps-与-tps">2.1. QPS 与 TPS</h2>
+
+<h3 id="2-1-1-qps">2.1.1. QPS</h3>
+
+<p>QPS(Queries Per Second): 意思是 <code>每秒查询率</code>，即一台服务器每秒能够响应的查询次数，也即是<code>最大吞吐能力</code>，是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准。</p>
+
+<p>例如：</p>
+
+<p>应用A，每个 select 查询需要 1ms, 一个 connection 的话，一直不停的执行，1S 内可执行 1000 次，也就是 1000qps。<br />
+应用B，每个 select 查询需要 100ms, 一个 connection 的话，一直不停的执行，1S 内可执行 10 次，也就是 10qps。</p>
+
+<p>上面不同系统的两个qps是无法对比的，不能说哪个好哪个坏，满足业务稳定安全最重要。</p>
+
+<h3 id="2-1-2-tps">2.1.2. TPS</h3>
+
+<p>TPS(Transactions Per Second): 也就是 <code>事务数/秒</code>，它是 <code>衡量系统处理能力</code> 的重要指标。一个 <code>事务</code>: 是指一个客户机向服务器发送请求然后服务器做出反应的过程。客户机在发送请求时开始计时，收到服务器响应后结束计时，以此来计算使用的时间和完成的事务个数，最终利用这些数据来估计得分。</p>
+
+<blockquote>
+<p>一般的，评价系统性能均以每秒钟完成的事务的数量来衡量，系统整体处理能力取决于处理能力最低模块的 TPS 值。</p>
+</blockquote>
+
+<p>一个事务的完整过程如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1535278771/blog/images/20180826-tps-process.png" alt="事务" /></p>
+
+<h3 id="2-1-3-如何计算-qps-与-tps">2.1.3. 如何计算 QPS 与 TPS ？</h3>
+
+<p>QPS(TPS) = 并发数/平均响应时间  或者 并发数 = QPS * 平均响应时间 (这里的响应时间单位：s)</p>
+
+<p>举例：我们一个 HTTP 的响应时间是 20ms，在 10 个并发的情况下， QPS = 10 * (1000ms/ 20ms) = 500, 即这台服务器每秒能够响应 500 此查询。</p>
+
+<p>这里有个关键点就是：QPS 一定是跟并发数联系在一起的，离开并发数谈 QPS 是没有意义的</p>
+
+<h3 id="2-1-4-qps-tps-和性能的关系">2.1.4. QPS、TPS 和性能的关系</h3>
+
+<p>一个系统<code>吞吐量</code>通常由 <code>QPS(TPS)</code>、<code>并发数</code>两个因素决定，每套系统的这两个值都有一个相对极限值，在应用场景访问压力下，只要某一项达到系统最高值，系统的吞吐量就上不去了，如果压力继续增大，系统的吞吐量反而会下降，原因是系统超负荷工作，上下文切换、内存等等其他消耗导致系统性能下降。来看下面一张图<a href="http://www.xmeter.net/wordpress/?p=261">(图片来自 Here)</a>：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1535276438/blog/images/20180826-qps-tps.jpg" alt="QPS、TPS和性能的关系" /></p>
+
+<p>开始，系统只有一个用户，CPU 工作肯定是不饱合的。一方面该服务器可能有多个cpu，但是只处理单个进程，另一方面，在处理一个进程中，有些阶段可能是IO阶段，这个时候会造成CPU等待，但是又没有可以被处理的其他请求进程。随着并发用户数的增加，CPU 利用率上升，QPS 相应也增加（公式为 QPS = 并发用户数/平均响应时间；随着并发用户数的增加，平均响应时间也在增加，而且平均响应时间的增加是一个指数增加曲线。而当并发数增加到很大时，每秒钟都会有很多请求需要处理，会造成进程（线程）频繁切换，反正真正用于处理请求的时间变少，每秒能够处 理的请求数反而变少，同时用户的请求等待时间也会变大，甚至超过用户的心理底线。</p>
+
+<h3 id="2-1-5-结论">2.1.5. 结论</h3>
+
+<p>我们对单台服务器进行压测有了性能测试数据以后，我们可以根据业务上能接受最大客户响应时间对应到相应的 QPS 数，从而计算出需要的服务器的数量。举例来说，响应时间 10ms 和 1000ms 对通过浏览器的客户是没有明显体验差别的，基于 1000ms 估算服务器的数量我们的成本会降低很多。</p>
+
+<p>每天 300w PV 的在单台机器上，这台机器需要多少 QPS？对于这样的问题，假设每天 80% 的访问集中在 20% 的时间里，这 20% 时间叫做<code>峰值时间</code>。( 3000000*0.8 ) / (3600 * 24 * 0.2 ) = 139 (QPS).</p>
+
+<p>还是上面的数据，如果一台机器的 QPS 是 58，需要几台机器来支持？ 答：139 / 58 = 3</p>
+
+<h2 id="2-2-请求时间-响应时间">2.2. 请求时间(响应时间)</h2>
+
+<p>表示请求从客户端发起服务器接受，Server 处理完请求并响应结束这个过程所耗费的时间，通常叫做TTLB（Time to last byte）</p>
+
+<p>请求响应过程图：</p>
+
+<pre><code>|￣￣￣￣￣￣￣| ____T1___  |￣￣￣￣￣￣￣|  ____T1___  |￣￣￣￣￣￣￣￣| 
+|  HTTP 请求  |            |  Web服务处理 |            |  DB或其他服务  |
+|             | ____T4___  |             | ____T4___  |               |  
+ ￣￣￣￣￣￣￣              ￣￣￣￣￣￣￣              ￣￣￣￣￣￣￣￣￣
+</code></pre>
+
+<p>典型的 <code>同步方式</code> 的HTTP请求时间为 T1+T2+T3+T4</p>
+
+<p>从宏观角度来看 <code>响应时间 = 网络响应时间 + 程序响应时间</code></p>
+
+<h3 id="2-2-1-事务响应时间">2.2.1. 事务响应时间</h3>
+
+<p>事务响应时间是直接衡量系统性能的参数.</p>
+
+<p>事务由一系列请求组成，事务的响应时间主要是针对用户而言，属于宏观上的概念。是为了向用户说明业务响应时间而提出的。例如:跨行取款事务的响应时间就是由一系列的请求组成的。</p>
+
+<h3 id="2-2-2-响应时间的3-5-10原则">2.2.2. 响应时间的3/5/10原则</h3>
+
+<ul>
+<li>在3秒钟之内，页面给予用户响应并有所显示，可认为是“很不错的”；</li>
+<li>在3~5秒钟内，页面给予用户响应并有所显示，可认为是“好的”；</li>
+<li>在5~10秒钟内，页面给予用户响应并有所显示，可认为是“勉强接受的”；</li>
+<li>超过10秒就让人有点不耐烦了，用户很可能不会继续等待下去；</li>
+</ul>
+
+<p>我们在互联网企业内对web页面的响应时间要求在 1500ms 内，而HTTP的服务响应时间要求在 100ms 内。</p>
+
+<h2 id="2-3-并发">2.3. 并发</h2>
+
+<h3 id="2-3-1-什么是并发">2.3.1. 什么是并发</h3>
+
+<h4 id="2-3-1-1-狭义-严格-并发">2.3.1.1. 狭义（严格）并发</h4>
+
+<p>所有用户在同一时刻做同一操作，这种操作是指同一业务类型。比如抢购某商品的时候，大量用户在同一时刻点击『立即抢购』</p>
+
+<h4 id="2-3-1-2-广义并发">2.3.1.2. 广义并发</h4>
+
+<p>这种并发与前一种并发的区别是，尽管多个用户对系统发出了请求或者进行了操作，但是这些请求或者操作可以是相同的，也可以是不同的。对整个系统而言，仍然是有很多用户同时对系统进行操作，因此也属于并发的范畴。</p>
+
+<h4 id="2-3-1-3-两者区别">2.3.1.3. 两者区别:</h4>
+
+<p>可以看出，广义上的并发更接近实际情况，对于大多数系统而言只有很少的用户进行『严格意义上的并发操作』（电商抢购是典型的）</p>
+
+<p>但是对 Web 性能测试而言，两种并发都要覆盖，通常先做严格意义上的并发测试，这种测试针对使用频繁的模块，严格意义的并发测试往往和『功能测试』关联起来，因为并发功能遇到异常通常都是程序问题，这种测试也是健壮性和稳定性测试的一部分。</p>
+
+<h3 id="2-3-2-并发连接数">2.3.2. 并发连接数</h3>
+
+<p>某个时刻，服务器所接受的请求数目，简单的讲，就是一个会话。</p>
+
+<h3 id="2-3-3-并发用户数">2.3.3. 并发用户数</h3>
+
+<p>并发用户数：指某一时刻同时向服务器发送请求的用户总数。</p>
+
+<p>假如100个用户同时向服务器分别进行10次请求，与1个用户向服务器连续进行1000次请求。两个的效果一样么？</p>
+
+<p>一个用户向服务器连续进行 1000次 请求的过程中，任何时刻服务器的网卡接受缓存区中只有来自该用户的 1 个请求，而 100 个用户同时向服务器分别进行 10次 请求的过程中，<code>服务器网卡接收缓冲区中最多有 100 个等待处理的请求，显然这时候服务器的压力更大</code>。</p>
+
+<p>一个服务器最多支持多少并发用户数呢？ 举例说明在 <a href="https://ruby-china.org/topics/26221#%E5%85%AD%E3%80%81%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E7%9A%84%E5%89%8D%E6%8F%90">Here，Here，Here</a></p>
+
+<h2 id="2-4-吞吐量">2.4. 吞吐量</h2>
+
+<p>吞吐量：指在一次性能测试过程中网络上传输数据量的总和。 吞吐量/传输时间 = 吞吐率</p>
+
+<h2 id="2-5-吞吐率">2.5. 吞吐率</h2>
+
+<p>吞吐率(Throughput)：指<code>单位时间</code>内网络上<code>传输的数据量</code>，也可以指<code>单位时间</code>内处理的客户端<code>请求数量</code>, 它是衡量网络性能的重要指标, 也是服务器 <code>并发处理能力</code> 的量化描述，单位：reqs/s。通常情况下，吞吐率用 “字节数/秒” 来衡量。当然你也可以用 “请求数/秒” 和 “页面数/秒” 来衡量。其实不管一个请求还是一个页面，它的本质都是在网络上传输的数据，那么用来表述数据的单位就是字节数。</p>
+
+<p>计算公式：总请求数 / 处理完成这些请求所花费的时间，即 Request per second = Complete requests / Time taken for tests</p>
+
+<h2 id="2-6-点击率">2.6. 点击率</h2>
+
+<p>每秒钟用户向 WEB 服务器提交的 HTTP 请求数。</p>
+
+<p>这个指标是WEB应用特有的一个指标，WEB应用是&rdquo;请求-响应&rdquo;模式，用户发出一次请求，服务器就要处理一次，所以点击是WEB应用能够处理的交易的最小单位。</p>
+
+<p>如果把每次点击定义为一个交易，点击率和TPS就是一个概念。容易看出，点击率越大，对服务器的压力越大。</p>
+
+<p>点击率只是一个性能参考指标，重要的是分析点击时产生的影响。需要注意的是，这里的点击并非指鼠标的一次单击操作，因为在一次单击操作中，客户端可能向服务器发出多个HTTP请求.</p>
+
+<h2 id="2-7-请求等待时间">2.7. 请求等待时间</h2>
+
+<h3 id="2-7-1-用户平均请求等待时间-time-per-request">2.7.1. 用户平均请求等待时间(Time per request)</h3>
+
+<p>计算公式：处理完成所有请求数所花费的时间 / （总请求数 | 并发用户数），即 Time per request = Time taken for tests /（ Complete requests / Concurrency Level）</p>
+
+<h3 id="2-7-2-服务器平均请求等待时间-time-per-request-across-all-concurrent-requests">2.7.2. 服务器平均请求等待时间(Time per request: across all concurrent requests)</h3>
+
+<p>计算公式：处理完成所有请求数所花费的时间 / 总请求数，即 Time taken for / testsComplete requests</p>
+
+<p>可以看到，它是吞吐率的倒数。同时，它也等于用户平均请求等待时间/并发用户数，即 Time per request / Concurrency Level</p>
+
+<h1 id="3-see-also">3. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://jasonsimple.gitbooks.io/linux-web/chapter1.html#iii%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86%E7%82%B92-pv-uv-ip">概念：扩展知识点2 pv uv ip</a></li>
+<li><a href="https://www.zhihu.com/question/20448467">概念：如何清楚易懂的解释“UV和PV＂的定义？</a></li>
+<li><a href="http://www.xmeter.net/wordpress/?p=261">概念：性能测试基础知识—QPS和TPS</a></li>
+<li><a href="http://blog.liujiangbei.com/14843968184619.html#toc_0">概念：Web性能相关</a></li>
+<li><a href="https://ruby-china.org/topics/26221">概念：吞吐率、吞吐量、TPS、性能测试&ndash;一步一步构建高性能 Web 站点</a></li>
+<li><a href="http://tdcq.iteye.com/blog/2298989">对一个软件做性能测试时需要关注那些性能呢？</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-08-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/web/">web</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/">
+            <span class="next-text nav-default">理解 Golang 的 nil (转)</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-08-26 00:00:00 \x2b0000 UTC',
+    title: 'Web扩展知识-01-一些性能测试指标概念',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
