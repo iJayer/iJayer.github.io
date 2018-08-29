@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记 - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记" />
+<meta name="keywords" content="golang, module" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记" />
+<meta property="og:description" content="Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/" />
+
+
+
+<meta property="article:published_time" content="2018-08-29T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-08-29T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记">
+<meta itemprop="description" content="Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记">
+
+
+<meta itemprop="datePublished" content="2018-08-29T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-08-29T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1944">
+
+
+
+<meta itemprop="keywords" content="code,golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记"/>
+<meta name="twitter:description" content="Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-29 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 1944 words </span>
+        <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-go-module-初始化">1. Go Module 初始化</a>
+<ul>
+<li><a href="#1-1-新建项目">1.1. 新建项目</a>
+<ul>
+<li><a href="#1-1-1-创建我们的测试项目-demo">1.1.1. 创建我们的测试项目：demo</a></li>
+<li><a href="#1-1-2-创建用于测试的-go-源码文件-main-go">1.1.2. 创建用于测试的 Go 源码文件：main.go</a></li>
+<li><a href="#1-1-3-构建模块">1.1.3. 构建模块</a>
+<ul>
+<li><a href="#1-1-3-1-mod-选项">1.1.3.1. -mod 选项</a></li>
+</ul></li>
+<li><a href="#1-1-4-包管理">1.1.4. 包管理</a>
+<ul>
+<li><a href="#1-1-4-1-手动处理依赖">1.1.4.1. 手动处理依赖</a></li>
+<li><a href="#1-1-4-2-go-get-升级">1.1.4.2. go get 升级</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#1-2-已存在项目">1.2. 已存在项目</a></li>
+</ul></li>
+<li><a href="#2-see-also">2. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p>Go1.11 新特性 — 依赖管理工具：Go Modules 使用过程学习笔记，内容包括:</p>
+
+<ul>
+<li>如何在 <code>新</code> 的项目上使用 go modules</li>
+<li>如何在 <code>旧</code> 的项目中引入 go modules</li>
+</ul>
+
+<p></p>
+
+<blockquote>
+<p>Statement: 文中部分内容参考自网络博客(地址在文末)，并结合自己的学习过程稍加整理和总结，欢迎广大 Gophers 交流指正 🙂</p>
+</blockquote>
+
+<p>在 <a href="https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-01/">上一篇</a> 文章中对 Go Module 相关概念做了简单学习和了解，接下来学习一下 Go Module 的具体使用方式吧, So, Go.</p>
+
+<p>实践环境：go version go1.11 windows/amd64</p>
+
+<h1 id="1-go-module-初始化">1. Go Module 初始化</h1>
+
+<blockquote>
+<p>Note: Go Module 和传统的 GOPATH 不同，不需要包含例如：src、bin 这样的子目录，一个源代码目录甚至是空目录都可以作为 <code>module</code>，只要其中包含 go.mod 文件即可。</p>
+</blockquote>
+
+<p>Next, 我们先用一个空目录(GOPATH之外)来创建第一个包含 Go Module 的项目吧！</p>
+
+<h2 id="1-1-新建项目">1.1. 新建项目</h2>
+
+<p>要初始化 module, 需要使用如下命令:</p>
+
+<pre><code class="language-bash">$ go mod init [module]
+</code></pre>
+
+<h3 id="1-1-1-创建我们的测试项目-demo">1.1.1. 创建我们的测试项目：demo</h3>
+
+<pre><code class="language-bash"># 首先查看一下，当前目录是在 GOPATH 之外
+$ echo $GOPATH
+D:\code\Go_Path
+
+$ pwd
+/d/code/Temp_Code/src/demo.go.modules
+
+# 初始化 Module
+$ go mod init demo
+
+$ ls
+go.mod
+
+# Note: 命令执行完成后会在当前目录下生成一个 go.mod 文件，里面只有一行内容 `module demo`
+</code></pre>
+
+<h3 id="1-1-2-创建用于测试的-go-源码文件-main-go">1.1.2. 创建用于测试的 Go 源码文件：main.go</h3>
+
+<pre><code class="language-go">// 可以看到该文件只包含了一个依赖包：&quot;github.com/sirupsen/logrus&quot;
+
+package main
+
+import (
+    &quot;sync&quot;
+
+    &quot;github.com/sirupsen/logrus&quot;
+)
+
+type Cache struct {
+    sync.Map
+}
+
+func main() {
+    cache := Cache{Map:sync.Map{}}
+
+    cache.Store(&quot;i&quot;, &quot;1&quot;)
+    cache.Store(&quot;j&quot;, &quot;2&quot;)
+    cache.Store(&quot;k&quot;, &quot;3&quot;)
+
+    cache.Range(func(key, value interface{}) bool {
+    	logrus.Infoln(key, value)
+    	return true
+    })
+}
+</code></pre>
+
+<h3 id="1-1-3-构建模块">1.1.3. 构建模块</h3>
+
+<p>当我们使用 <code>go build</code>、<code>go test</code> 以及 <code>go list</code> 时，Go 会自动更新 go.mod 文件，并且将依赖关系写入其中。</p>
+
+<pre><code class="language-bash">$ go build ./...
+go: finding github.com/sirupsen/logrus v1.0.6
+go: finding golang.org/x/crypto v0.0.0-20180820150726-614d502a4dac
+go: finding golang.org/x/sys v0.0.0-20180828065106-d99a578cf41b
+go: downloading github.com/sirupsen/logrus v1.0.6
+go: downloading golang.org/x/crypto v0.0.0-20180820150726-614d502a4dac
+go: downloading golang.org/x/sys v0.0.0-20180828065106-d99a578cf41b
+</code></pre>
+
+<p>可以看到 go 自动查找了依赖并完成下载，但是下载的依赖包并不是下载到了 <code>$GOPATH</code> 中，而是在 <code>$GOPATH/pkg/mod</code> 目录下，且多个项目可以共享缓存的 module</p>
+
+<p>然后，我们来看看当前目录发生了什么</p>
+
+<pre><code class="language-bash">$ ls
+demo.exe  go.mod  go.sum  main.go
+
+# demo.exe 不用多说，是编译生成的可执行文件
+
+# 在来看看 go.mod 里面的变化
+$ cat go.mod
+module demo
+
+require (
+        github.com/sirupsen/logrus v1.0.6
+        golang.org/x/crypto v0.0.0-20180820150726-614d502a4dac // indirect
+        golang.org/x/sys v0.0.0-20180828065106-d99a578cf41b // indirect
+)
+# Note: go.mod 中记录了我们项目的直接或间接引用的包
+
+# 另外，多了一个 go.sum 文件，我们来看看里面是什么内容
+$ cat go.sum
+github.com/sirupsen/logrus v1.0.6 h1:hcP1GmhGigz/O7h1WVUM5KklBp1JoNS9FggWKdj/j3s=
+github.com/sirupsen/logrus v1.0.6/go.mod h1:pMByvHTf9Beacp5x1UXfOR9xyW/9antXMhjMPG0dEzc=
+golang.org/x/crypto v0.0.0-20180820150726-614d502a4dac h1:7d7lG9fHOLdL6jZPtnV4LpI41SbohIJ1Atq7U991dMg=
+golang.org/x/crypto v0.0.0-20180820150726-614d502a4dac/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
+golang.org/x/sys v0.0.0-20180828065106-d99a578cf41b h1:cmOZLU2i7CLArKNViO+ZCQ47wqYFyKEIpbGWp+b6Uoc=
+golang.org/x/sys v0.0.0-20180828065106-d99a578cf41b/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+
+# Note: 在 go.sum 是我们直接引用的 package 和它自身需要的依赖的版本记录，go module 就是根据这些去找对应的 package 的。
+</code></pre>
+
+<p>顺带一提，如果我们不做任何修改，默认会使用最新的包版本，如果包打过tag，那么就会使用最新的那个tag对应的版本。</p>
+
+<p>现在来说说如何定义一个modules，modules 是由Go源文件目录结构定义的，如果目录下含有 <code>go.mod</code> 文件，该目录称为模块根目录 <code>（module root）</code>。模块根目录及其子目录所有的 Go 包都是属于该 modules 的，但是如果子目录包含有了自己的 <code>go.mod</code> 文件，就不再隶属于父 module 下， 而是有了自己的 module。 举一个例子：<a href="https://my.oschina.net/u/553243/blog/1934149">(这部分内容参考链接)</a></p>
+
+<pre><code class="language-bash">qiang@DESKTOP-2A835P9 MINGW64 /d/code/gopath/src/gitlab.luojilab.com/zeroteam/ddkafka (module)
+$ tree
+.
+|-- README.md
+|-- go.mod
+|-- go.sum
+|-- models.go
+|-- mq_interface.go
+|-- sarama
+|   |-- sarama_consumer.go
+|   |-- sarama_consumer_test.go
+|   |-- sarama_producer.go
+|   `-- sarama_producter_test.go
+`-- segmentio
+    |-- segmention_Consumer.go
+    |-- segmention_consumer_test.go
+    |-- segmention_producer.go
+    `-- segmention_producter_test.go
+</code></pre>
+
+<blockquote>
+<p>gitlab.luojilab.com/zeroteam/ddkafka 目录下含有了go.mod文件， 所以其子目录 sarama 和segmentio 都属于 gitlab.luojilab.com/zeroteam/ddkafka 模块，但是如果在 segmentio 目录中加入了<code>go.mod</code>，那么 segmentio 就不再隶属于 gitlab.luojilab.com/zeroteam/ddkafka 模块了。</p>
+</blockquote>
+
+<h4 id="1-1-3-1-mod-选项">1.1.3.1. -mod 选项</h4>
+
+<p>此外，<code>go build</code> 命令新增加了一个编译选项: <code>-mod</code>：</p>
+
+<pre><code class="language-bash">usage: go build [-o output] [-i] [build flags] [packages]
+
+        -mod mode
+            module download mode to use: readonly, release, or vendor.
+            See 'go help modules' for more.
+</code></pre>
+
+<pre><code class="language-bash">$ go build -mod=readonly
+</code></pre>
+
+<p>在这个模式下，任何会导致依赖关系变动的情况都将导致 build 失败，前面提到 build 能自动查找并更新依赖关系，使用这个选项可以测试 go.mod 中的依赖是否整洁，防止隐式修改 <code>go.mod</code>，但如果明确调用了 go mod、go get 命令则依然会导致 go.mod 文件被修改。</p>
+
+<h3 id="1-1-4-包管理">1.1.4. 包管理</h3>
+
+<h4 id="1-1-4-1-手动处理依赖">1.1.4.1. 手动处理依赖</h4>
+
+<p>我们可以使用 <code>go mod tidy</code> 手动处理依赖关系，用法如下：</p>
+
+<pre><code class="language-bash">usage: go mod tidy [-v]
+
+Tidy makes sure go.mod matches the source code in the module.
+It adds any missing modules necessary to build the current module's
+packages and dependencies, and it removes unused modules that
+don't provide any relevant packages. It also adds any missing entries
+to go.sum and removes any unnecessary ones.
+
+The -v flag causes tidy to print information about removed modules
+to standard error.
+</code></pre>
+
+<p>执行命令：</p>
+
+<pre><code class="language-bash">$ go mod tidy
+</code></pre>
+
+<p>这条命令会自动添加丢失的或移除不再使用的 modules</p>
+
+<h4 id="1-1-4-2-go-get-升级">1.1.4.2. go get 升级</h4>
+
+<ul>
+<li><p>运行 go get -u 将会升级到最新的次要版本或者修订版本(x.y.z, z是修订版本号， y是次要版本号)</p></li>
+
+<li><p>运行 go get -u=patch 将会升级到最新的修订版本</p></li>
+
+<li><p>运行 go get package@version 将会升级到指定的版本号version</p></li>
+</ul>
+
+<p>运行go get如果有版本的更改，那么go.mod文件也会更改</p>
+
+<h2 id="1-2-已存在项目">1.2. 已存在项目</h2>
+
+<p>假设你已经有了一个 go 项目， 比如在 <code>$GOPATH/github.com/smallnest/rpcx</code> 下， 你可以使用 go mod init github.com/smallnest/rpcx 在这个文件夹下创建一个空的 go.mod (只有第一行 module github.com/smallnest/rpcx)。</p>
+
+<p>然后你可以通过 go get -m ./&hellip;让它查找依赖，并记录在go.mod文件中(你还可以指定 -tags,这样可以把tags的依赖都查找到)。</p>
+
+<p>通过 go mod tidy 也可以用来为 go.mod 增加丢失的依赖，删除不需要的依赖，但是我不确定它怎么处理tags。</p>
+
+<p>执行上面的命令会把 go.mod 的 latest 版本换成实际的最新的版本，并且会生成一个 go.sum 记录每个依赖库的版本和哈希值。</p>
+
+<p><a href="https://colobu.com/2018/08/27/learn-go-module/#more">这部分内容参考链接</a></p>
+
+<blockquote>
+<p>Note: 在 Go1.11 版本下，GOPATH 目录中的项目默认是禁用 Go Module 的，需要手动开启</p>
+</blockquote>
+
+<h1 id="2-see-also">2. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/golang/go/wiki/Modules">Go 官网：Wiki Modules</a></li>
+<li><a href="https://tonybai.com/2018/07/15/hello-go-module/">初窥Go module: 包括了Go Module的由来，传统 Go 依赖管理的方式以及详细的实验过程</a></li>
+<li><a href="https://www.cnblogs.com/apocelipes/p/9534885.html">golang包管理解决之道——go modules初探</a></li>
+<li><a href="https://colobu.com/2018/08/27/learn-go-module/#more">跳出Go module的泥潭</a></li>
+<li><a href="https://my.oschina.net/u/553243/blog/1934149">Golang modules 初探</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-08-29</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/code/">code</a>
+          
+          <a href="/tags/golang/">golang</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/tech/code/golang/20180828-feature-go-modules-01/">
+            <span class="next-text nav-default">Golang: 依赖管理工具-01：Go Modules 初步了解和学习</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-08-29 00:00:00 \x2b0000 UTC',
+    title: 'Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

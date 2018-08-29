@@ -6,10 +6,46 @@
     <description>Recent content in Golang on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</link>
+      <pubDate>Wed, 29 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;Go1.11 新特性 — 依赖管理工具：Go Modules 使用过程学习笔记，内容包括:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如何在 &lt;code&gt;新&lt;/code&gt; 的项目上使用 go modules&lt;/li&gt;
+&lt;li&gt;如何在 &lt;code&gt;旧&lt;/code&gt; 的项目中引入 go modules&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang: 依赖管理工具-01：Go Modules 初步了解和学习</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</link>
+      <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;Go1.11 新特性 — 依赖管理工具：Go Modules 初步学习和使用笔记，内容包括:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;简单了解下 &lt;code&gt;Go Module&lt;/code&gt; 以及一些新概念&lt;/li&gt;
+&lt;li&gt;简单了解下 &lt;code&gt;go mod&lt;/code&gt; 命令&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Golang: 理解 Golang 的 nil (转)</title>
