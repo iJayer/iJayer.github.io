@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grpc on Zher&#39;s Blog</title>
+    <link>https://zhezh09.github.io/tags/grpc/</link>
+    <description>Recent content in Grpc on Zher&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 05 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhezh09.github.io/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Golang: gRPC学习笔记-01 | Hello World Demo</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</link>
+      <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang: gRPC学习笔记-02 | 概念理解</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-02-concept/</link>
+      <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-02-concept/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;#&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang: gRPC 学习笔记集</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</link>
+      <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;🙂 So, 开始学习 gRPC 啦！！！&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

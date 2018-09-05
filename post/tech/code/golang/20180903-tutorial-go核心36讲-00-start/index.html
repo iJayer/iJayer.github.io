@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>博客搭建-02 GitHub Pages托管和部署 - Zher&#39;s Blog</title>
+  <title>『Go核心36讲』- 学习笔记集 - Zher&#39;s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,8 +16,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="Building Blog with Hugo and GitHub Pages" />
-<meta name="keywords" content="blog, hugo, github, even" />
+<meta name="author" content="zher" /><meta name="description" content="《Go语言核心36讲》系列学习笔记" />
+<meta name="keywords" content="go, tutorial" />
 
 
 
@@ -28,7 +28,7 @@
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/" />
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go%E6%A0%B8%E5%BF%8336%E8%AE%B2-00-start/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -50,20 +50,16 @@
 
 
 
-<meta property="og:title" content="博客搭建-02 GitHub Pages托管和部署" />
-<meta property="og:description" content="Building Blog with Hugo and GitHub Pages" />
+<meta property="og:title" content="『Go核心36讲』- 学习笔记集" />
+<meta property="og:description" content="《Go语言核心36讲》系列学习笔记" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go%E6%A0%B8%E5%BF%8336%E8%AE%B2-00-start/" />
 
 
 
-<meta property="article:published_time" content="2018-08-13T22:04:38&#43;08:00"/>
+<meta property="article:published_time" content="2018-09-03T00:00:00&#43;00:00"/>
 
-<meta property="article:modified_time" content="2018-08-21T22:04:38&#43;08:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-09-03T00:00:00&#43;00:00"/>
 
 
 
@@ -71,20 +67,24 @@
 
 
 
-<meta itemprop="name" content="博客搭建-02 GitHub Pages托管和部署">
-<meta itemprop="description" content="Building Blog with Hugo and GitHub Pages">
-
-
-<meta itemprop="datePublished" content="2018-08-13T22:04:38&#43;08:00" />
-<meta itemprop="dateModified" content="2018-08-13T22:04:38&#43;08:00" />
-<meta itemprop="wordCount" content="1004">
 
 
 
-<meta itemprop="keywords" content="blog," />
+
+<meta itemprop="name" content="『Go核心36讲』- 学习笔记集">
+<meta itemprop="description" content="《Go语言核心36讲》系列学习笔记">
+
+
+<meta itemprop="datePublished" content="2018-09-03T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-03T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1052">
+
+
+
+<meta itemprop="keywords" content="code,golang," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="博客搭建-02 GitHub Pages托管和部署"/>
-<meta name="twitter:description" content="Building Blog with Hugo and GitHub Pages"/>
+<meta name="twitter:title" content="『Go核心36讲』- 学习笔记集"/>
+<meta name="twitter:description" content="《Go语言核心36讲》系列学习笔记"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -151,16 +151,16 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">博客搭建-02 GitHub Pages托管和部署</h1>
+      <h1 class="post-title">『Go核心36讲』- 学习笔记集</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2018-08-13 </span>
+        <span class="post-time"> 2018-09-03 </span>
         <div class="post-category">
             
-              <a href="/categories/others/"> others </a>
+              <a href="/categories/tech/"> tech </a>
             
           </div>
-        <span class="more-meta"> 1004 words </span>
+        <span class="more-meta"> 1052 words </span>
         <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -174,13 +174,15 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#github-上的托管和部署">GitHub 上的托管和部署</a>
+<li><a href="#专栏内容">专栏内容</a>
 <ul>
-<li><a href="#相关约定">相关约定</a></li>
-<li><a href="#分步说明">分步说明</a></li>
-<li><a href="#添加一键部署脚本-deploy-sh">添加一键部署脚本：deploy.sh</a></li>
+<li><a href="#模块一-go-语言基础知识">模块一：Go 语言基础知识</a></li>
+<li><a href="#模块二-go-语言进阶技术">模块二：Go 语言进阶技术</a></li>
+<li><a href="#模块三-go-语言实战与应用">模块三：Go 语言实战与应用</a></li>
 </ul></li>
-<li><a href="#links">Links</a></li>
+<li><a href="#我的关注点">我的关注点</a></li>
+<li><a href="#学习笔记">学习笔记</a></li>
+<li><a href="#see-also">See Also</a></li>
 </ul>
 </nav>
   </div>
@@ -191,142 +193,85 @@
 
     
     <div class="post-content">
-      <p>将 Hugo 生成的网站部署和托管到 GitHub Pages</p>
+      <!-- 摘要 -->
+
+<p><a href="https://time.geekbang.org/column/intro/112">《Go语言核心36讲》</a> 是郝林老师发布的一则专栏教程(付费)，以音频+文稿的方式系统的讲述了 Go 的知识。</p>
+
+<blockquote>
+<p>我自己使用 Go 已经有两年时间了(从毕业到现在)，在这个过程中阅读过一些书籍、博客、文档等，遇到问题也是随手查下资料解决掉了，现在回顾一下感觉有很多知识漏洞还没有补上或对某些知识点还是似懂非懂的样子，所以就借此机会跟随这个专栏巩固一下 Go 的知识吧！ 以下内容为我自己学习过程中整理的学习笔记。So, Let&rsquo;s Go!</p>
+</blockquote>
 
 <p></p>
 
-<h1 id="github-上的托管和部署">GitHub 上的托管和部署</h1>
-
-<p>Github Pages 是 Github 推出的一项功能，可以免费托管静态网站，将你的静态文件放在仓库里，然后在仓库的 Settings 里面，翻到下面的 GitHub Pages 部分，可以将此仓库设置为你的静态网站文件的存放仓库。</p>
-
-<p>Github pages分为两种：一种是项目主页，每个项目都可以有一个；另一种是用户主页，一个用户只能有一个。</p>
-
-<ul>
-<li><p>用户主页：存放的文件可以直接映射到你网站的根路径，而且只能有一个仓库名固定为：<github账号名>.github.io，这个仓库的名字其实也就是访问你网站的域名(e.g: kuroko.github.io)。</p></li>
-
-<li><p>项目主页：其它的仓库只能映射到网站的子路径，子路径名称和仓库名一致，比如我新建一个 static 仓库并设置为 Github Pages 仓库，那么我可以通过 kuroko.github.io/static/ 访问到里面的页面和文件</p></li>
-</ul>
-
-<h2 id="相关约定">相关约定</h2>
-
-<ul>
-<li>You must use a <code>&lt;USERNAME&gt;.github.io</code> to host your generated content (创建：username.github.io 仓库托管网站内容)</li>
-<li>Content from the master branch will be used to publish your GitHub Pages site(网站的内容只有在 master 分支上，才会被发布)</li>
-</ul>
-
-<h2 id="分步说明">分步说明</h2>
+<h1 id="专栏内容">专栏内容</h1>
 
 <blockquote>
-<p>基于 GitHub User Pages 托管我的 blog</p>
+<p>专栏的主要模块，一共分成 3 大模块，5 个章节：</p>
+</blockquote>
+
+<h2 id="模块一-go-语言基础知识">模块一：Go 语言基础知识</h2>
+
+<ul>
+<li>基础概念：我会讲述 Go 语言基础中的基础，包括一些基本概念和运作机制。它们都应该是你初识 Go 语言时必须知道的，同时也有助于你理解后面的知识。</li>
+</ul>
+
+<h2 id="模块二-go-语言进阶技术">模块二：Go 语言进阶技术</h2>
+
+<ul>
+<li>数据类型和语句：Go 语言中的数据类型大都是很有特色的，你只有理解了它们才能真正玩转 Go 语言。我将和你一起与探索它们的奥妙。另外，我也会一一揭示怎样使用各种语法和语句操纵它们。</li>
+</ul>
+
+<h2 id="模块三-go-语言实战与应用">模块三：Go 语言实战与应用</h2>
+
+<ul>
+<li><p>Go 程序的测试：很多程序员总以为测试是另一个团队的事情，其实不然。单元测试甚至接口测试其实都应该是程序员去做的，并且应该受到重视。在 Go 语言中怎样做好测试这件事？我会跟你说清楚、讲明白。</p></li>
+
+<li><p>标准库的用法：虽然 Go 语言提供了自己的高效并发编程方式，但是同步方法依然不容忽视。这些方法集中在 <code>sync</code> 代码包及其子包中。这部分还涉及了字节和字符问题、OS 操控方法和 Web 服务写法等，这些都是我们在日常工作中很可能会用到的。</p></li>
+
+<li><p>Go 语言拾遗：这部分将会讲述一些我们使用 Go 语言做软件项目的过程中很可能会遇到的问题，至少会包含两篇文章，是附赠给广大 Go 语言爱好者的。虽然我已经有一个计划了，但是具体会讲哪些内容我还是选择暂时保密。请你和我一起小期待一下吧。</p></li>
+</ul>
+
+<h1 id="我的关注点">我的关注点</h1>
+
+<blockquote>
+<p>开始学习前，先按照 <a href="https://res.cloudinary.com/zher-files/image/upload/v1535984330/blog/images/20180903-Go-Core-Tutorial-Contents.jpg">目录</a> 结合我的实际情况对将要学习的内容做个简单标记和梳理，以及明确学习要达到的目标，如果专栏中没有讲到的，则需要自己去查阅资料补充完整。</p>
 </blockquote>
 
 <ul>
-<li><p>创建 GitHub 仓库：<code>blog</code>, 用来存放 Hugo 的内容和其他源文件</p></li>
-
-<li><p>创建 GitHub 仓库：<code>zhezh09.github.io</code>，用来存放 Hugo 聚合生成的网站的静态内容, 即 <code>public</code> 目录下的内容</p></li>
-
-<li><p>克隆 blog 到本地 ( 如果前面通过 git remote add origin &hellip; 已经添加了 Github 源，则跳过该步骤)</p>
-
-<pre><code class="language-bash">$ git clone &lt;REPO-BLOG-URL&gt; &amp;&amp; cd &lt;YOUR-PROJECT&gt; 
-</code></pre></li>
-
-<li><p>Make your website work locally (hugo server or hugo server -t <YOURTHEME>) and open your browser to <a href="http://localhost:1313">http://localhost:1313</a>.</p></li>
-
-<li><p>Once you are happy with the results:</p>
-
-<ul>
-<li>Press Ctrl+C to kill the server</li>
-<li>rm -rf public to completely remove the public directory(这个目录每次运行 hugo 都会再次生成，不用担心)</li>
-</ul></li>
-
-<li><p>把 public/ 目录添加为 submodule 与 username.github.io 同步</p>
-
-<pre><code class="language-bash">$ git submodule add -f -b master https://github.com/username/username.github.io public
-</code></pre></li>
-
-<li><p>生成静态博客站</p>
-
-<pre><code class="language-bash">$ hugo
-    
-# 直接运行hugo命令，就会在public目录下生成静态博客页面文件。
-</code></pre></li>
-
-<li><p>提交</p>
-
-<pre><code class="language-bash">cd public
-git add .
-git commit -m &quot;YOUR COMMIT MESSAGE&quot;
-git push origin master
-</code></pre></li>
+<li>[模块一.第一章] [概念理解]：什么是命令、库源码文件，有啥区别？ 程序实体和我理解的有何不同？</li>
+<li>[模块二.第二章] [深入原理]：数组+切片底层数据结构？ 区别？ 实现方式？</li>
+<li>[模块二.第二章] [熟练掌握]：第一次接触这个包：那么先熟练掌握容器数据类型：heap、list、ring 的基本概念、使用方式</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
+<li>[] []：</li>
 </ul>
 
-<blockquote>
-<p>等一小会儿（10分钟左右），你就能在 <a href="https://username.github.io/">https://username.github.io/</a> 这个页面看到你的网站了！</p>
-</blockquote>
-
-<h2 id="添加一键部署脚本-deploy-sh">添加一键部署脚本：deploy.sh</h2>
-
-<p>为了方便，Hugo 提供了一个自动部署的脚本，这里 <a href="https://keysaim.github.io/post/blog/deploy-hugo-blog-in-github.io/#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC"> 参考博客:keysaim </a> 的脚本，用来同时提交这两个 repo：</p>
-
-<pre><code class="language-shell">#!/bin/bash
-
-################ Push Blog REPO ################
-
-if [ $# -lt  1 ]; then
-    echo &quot;$0 &lt;commit message&gt;&quot;
-    exit 1
-fi
-
-msg=&quot;$1&quot;
-
-git add -A
-git commit -m &quot;$msg&quot;
-if [ $? -ne 0 ]; then
-    echo &quot;commit to blog repo failed&quot;
-    exit 1
-fi
-
-git push origin master
-if [ $? -ne 0 ]; then
-    echo &quot;push to blog repo failed&quot;
-fi
-
-################ Push Site REPO ################
-
-echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
-
-# Build the project.
-hugo # if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`
-
-# Go To Public folder
-cd public
-
-# Add changes to git.
-git add .
-
-# Commit changes.
-git commit -m &quot;$msg&quot;
-
-# Push source and build repos.
-git push origin master
-
-# Come Back up to the Project Root
-cd ..
-</code></pre>
+<h1 id="学习笔记">学习笔记</h1>
 
 <blockquote>
-<p>每次更新网站或者写了新文章，只需要运行./deploy.sh 发布就搞定了</p>
+<p>教程内容很完善，但就我而言，只是一个查缺补漏的过程，笔记内容概览：</p>
 </blockquote>
 
-<h1 id="links">Links</h1>
+<p>##</p>
+
+<h1 id="see-also">See Also</h1>
 
 <blockquote>
 <p>Thanks to the authors 🙂</p>
 </blockquote>
 
 <ul>
-<li><a href="https://imroc.io/posts/hugo/building-website-for-free-using-hugo-and-github-pages/">利用Hugo和Github Pages免费创建并永久托管网站</a></li>
-<li><a href="https://keysaim.github.io/post/blog/deploy-hugo-blog-in-github.io/">如何在github.io搭建Hugo博客站</a></li>
+<li><a href="https://time.geekbang.org/column/article/12655">极客时间版权所有</a></li>
 </ul>
     </div>
 
@@ -338,7 +283,7 @@ cd ..
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-08-21</span>
+    <span class="item-content">2018-09-03</span>
   </p>
   
   <p class="copyright-item">
@@ -353,21 +298,23 @@ cd ..
     <footer class="post-footer">
       <div class="post-tags">
           
-          <a href="/tags/blog/">blog</a>
+          <a href="/tags/code/">code</a>
+          
+          <a href="/tags/golang/">golang</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/">
+          <a class="prev" href="/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">博客搭建-03 HugoServer注册为Win服务</span>
+            <span class="prev-text nav-default">Make &amp; Makefile 学习笔记</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         
-          <a class="next" href="/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-01-hugo%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
-            <span class="next-text nav-default">博客搭建-01 Hugo安装和使用</span>
+          <a class="next" href="/post/tech/code/golang/20180903-tutorial-go%E6%A0%B8%E5%BF%8336%E8%AE%B2-01/">
+            <span class="next-text nav-default">『Go核心36讲』- 笔记：</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -383,8 +330,8 @@ cd ..
     <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
   <script type="text/javascript">
   var gitalk = new Gitalk({
-    id: '2018-08-13 22:04:38 \x2b0800 CST',
-    title: '博客搭建-02 GitHub Pages托管和部署',
+    id: '2018-09-03 00:00:00 \x2b0000 UTC',
+    title: '『Go核心36讲』- 学习笔记集',
     clientID: '4357c1dbcf7ef0515c29',
     clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
     repo: 'blog-comments',

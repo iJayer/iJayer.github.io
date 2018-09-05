@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: gRPC学习笔记-01 | Hello World Demo - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Golang gRPC 学习笔记 | Hello World Demo" />
+<meta name="keywords" content="golang, grpc, protobuf" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Golang: gRPC学习笔记-01 | Hello World Demo" />
+<meta property="og:description" content="Golang gRPC 学习笔记 | Hello World Demo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/" />
+
+
+
+<meta property="article:published_time" content="2018-09-05T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-09-05T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Golang: gRPC学习笔记-01 | Hello World Demo">
+<meta itemprop="description" content="Golang gRPC 学习笔记 | Hello World Demo">
+
+
+<meta itemprop="datePublished" content="2018-09-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1027">
+
+
+
+<meta itemprop="keywords" content="golang,grpc," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang: gRPC学习笔记-01 | Hello World Demo"/>
+<meta name="twitter:description" content="Golang gRPC 学习笔记 | Hello World Demo"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: gRPC学习笔记-01 | Hello World Demo</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-05 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 1027 words </span>
+        <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-开发环境">1. 开发环境</a></li>
+<li><a href="#2-安装-grpc">2. 安装 gRPC</a></li>
+<li><a href="#3-hello-world-demo">3. Hello World Demo</a>
+<ul>
+<li><a href="#3-1-setup-a-repo">3.1. Setup a repo</a></li>
+<li><a href="#3-2-make-a-file-helloworld-helloworld-proto-for-protocol-buffers">3.2. Make a file <code>helloworld/helloworld.proto</code> for protocol buffers</a></li>
+<li><a href="#3-3-generate-a-go-file-from-protocol-buffers">3.3. Generate a go file from protocol buffers</a></li>
+<li><a href="#3-4-make-a-grpc-server-file-server-main-go">3.4. Make a gRPC server file <code>server/main.go</code></a></li>
+<li><a href="#3-5-make-a-grpc-client-file-client-main-go">3.5. Make a gRPC client file <code>client/main.go</code></a></li>
+<li><a href="#3-6-try-it-out">3.6. Try it out!</a></li>
+</ul></li>
+<li><a href="#4-update-a-grpc-service">4. Update a gRPC service</a>
+<ul>
+<li><a href="#4-1-update-proto">4.1. Update .proto</a></li>
+<li><a href="#4-2-generate-grpc-code">4.2. Generate gRPC code</a></li>
+<li><a href="#4-3-update-and-run-the-application">4.3. Update and run the application</a>
+<ul>
+<li><a href="#4-3-1-update-server">4.3.1. Update Server</a></li>
+<li><a href="#4-3-2-update-client">4.3.2. Update Client</a></li>
+</ul></li>
+<li><a href="#4-4-run">4.4. Run</a></li>
+</ul></li>
+<li><a href="#5-see-also">5. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p></p>
+
+<h1 id="1-开发环境">1. 开发环境</h1>
+
+<p>ENV: go version go1.11 windows/amd64<br />
+IDE: goland</p>
+
+<blockquote>
+<p>使用 gRPC 需要安装以下开发环境</p>
+
+<ul>
+<li>Install gRPC (RPC框架)</li>
+<li>Install Protocol Buffers v3 (Google推出的一种数据描述语言)</li>
+<li>Install the protoc plugin for Go (编译器插件)</li>
+</ul>
+</blockquote>
+
+<p>有关 gRPC、Protocol Buffers 的详细介绍会在后面章节补充, 这里先了解一下即可，主要目的先快速熟悉一下 gRPC.</p>
+
+<h1 id="2-安装-grpc">2. 安装 gRPC</h1>
+
+<blockquote>
+<p>具体过程参考官方的 <a href="https://grpc.io/docs/quickstart/go.html#before-you-begin">Quick Start</a> 即可，下面给出一些遇到的一些问题和解决方法</p>
+</blockquote>
+
+<p>如果通过官方推荐的方式，即(<code>go get -u google.golang.org/grpc</code>)需要满足以下两个条件：</p>
+
+<ul>
+<li>科学上网</li>
+<li><a href="https://www.proxifier.com/">Proxifier</a>: 用于配置全局代理，具体使用可参考 <a href="http://blackwolfsec.cc/2016/09/19/Proxifier_Shadowshocks/">Here</a>, 或自行 Google</li>
+</ul>
+
+<p>否则，是无法完成下载的, 错误可能为：</p>
+
+<pre><code>package google.golang.org/grpc: unrecognized import path &quot;google.golang.org/grpc&quot;(https fetch: Get https://google.golang.org/grpc?go-get=1: dial tcp 216.239.37.1:443: i/o timeout)
+</code></pre>
+
+<p>解决方法参考：<a href="https://www.36nu.com/post/299">Golang安装gRPC报错问题的解决方法</a></p>
+
+<h1 id="3-hello-world-demo">3. Hello World Demo</h1>
+
+<p>Reference from  <a href="https://medium.com/@at_ishikawa/first-grpc-server-for-go-5d64d6c9c914">Here</a> and <a href="https://github.com/grpc/grpc-go/blob/master/examples/helloworld">Here</a></p>
+
+<h2 id="3-1-setup-a-repo">3.1. Setup a repo</h2>
+
+<pre><code class="language-bash">$ mkdir -p go-grpc/helloworld
+$ cd go-grpc
+$ go mod init go-grpc
+</code></pre>
+
+<blockquote>
+<p>Note: goland 使用 Go Modules 时需要启用：Go Module(vgo) (<code>Ctrl+Alt+S -&gt; Go -&gt; Go Module(vgo) -&gt; Enable ✔</code>)</p>
+</blockquote>
+
+<h2 id="3-2-make-a-file-helloworld-helloworld-proto-for-protocol-buffers">3.2. Make a file <code>helloworld/helloworld.proto</code> for protocol buffers</h2>
+
+<pre><code class="language-proto">// gRPC: helloworld demo
+
+syntax = &quot;proto3&quot;;
+
+package helloworld;
+
+// The greeting service definition.
+service Greeter {
+    // Send a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// The resquest message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+    string message = 1;
+}
+</code></pre>
+
+<h2 id="3-3-generate-a-go-file-from-protocol-buffers">3.3. Generate a go file from protocol buffers</h2>
+
+<pre><code class="language-bash">$ protoc --go_out=plugins=grpc:. helloworld/helloworld.proto
+$ ls helloworld
+helloworld.pb.go  helloworld.proto
+</code></pre>
+
+<p>执行完成后会生成一个：helloworld.pb.go 文件</p>
+
+<h2 id="3-4-make-a-grpc-server-file-server-main-go">3.4. Make a gRPC server file <code>server/main.go</code></h2>
+
+<pre><code class="language-go">/*
+ * 说明：gRPC: helloworld demo
+ * 作者：zhe
+ * 时间：2018-09-05 1:40 PM
+ * 更新：
+ */
+
+package main
+
+import (
+	&quot;context&quot;
+	&quot;log&quot;
+	&quot;net&quot;
+
+	&quot;google.golang.org/grpc&quot;
+	&quot;google.golang.org/grpc/reflection&quot;
+
+	pb &quot;go-grpc/helloworld&quot;
+)
+
+const port = &quot;:50051&quot;
+
+type server struct{}
+
+func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &amp;pb.HelloReply{Message: &quot;Hello &quot; + in.Name}, nil
+}
+
+func main() {
+	lis, err := net.Listen(&quot;tcp&quot;, port)
+	if err != nil {
+		log.Fatalf(&quot;failed to listen: %v&quot;, err)
+	}
+
+	s := grpc.NewServer()
+	pb.RegisterGreeterServer(s, &amp;server{})
+	reflection.Register(s)
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf(&quot;failed to server: %v&quot;, err)
+	}
+}
+</code></pre>
+
+<h2 id="3-5-make-a-grpc-client-file-client-main-go">3.5. Make a gRPC client file <code>client/main.go</code></h2>
+
+<pre><code class="language-go">/*
+ * 说明：gRPC: helloworld demo
+ * 作者：zhe
+ * 时间：2018-09-05 1:46 PM
+ * 更新：
+ */
+
+package main
+
+import (
+	&quot;context&quot;
+	&quot;log&quot;
+	&quot;os&quot;
+	&quot;time&quot;
+
+	&quot;google.golang.org/grpc&quot;
+
+	pb &quot;go-grpc/helloworld&quot;
+)
+
+const (
+	address     = &quot;localhost:50051&quot;
+	defaultName = &quot;world&quot;
+)
+
+func main() {
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf(&quot;did not connect: %v&quot;, err)
+	}
+	defer conn.Close()
+	c := pb.NewGreeterClient(conn)
+
+	name := defaultName
+	if len(os.Args) &gt; 1 {
+		name = os.Args[1]
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	r, err := c.SayHello(ctx, &amp;pb.HelloRequest{Name: name})
+	if err != nil {
+		log.Fatalf(&quot;could not greet: %v&quot;, err)
+	}
+	log.Printf(&quot;Greeting: %v&quot;, r.Message)
+}
+</code></pre>
+
+<h2 id="3-6-try-it-out">3.6. Try it out!</h2>
+
+<pre><code class="language-bash">$ go run server/main.go
+</code></pre>
+
+<p>Open a new termial</p>
+
+<pre><code class="language-bash">$ go run client/main.go
+2018/09/05 16:16:15 Greeting: Hello world
+</code></pre>
+
+<p>Maybe, you can try more. Continue&hellip;</p>
+
+<h1 id="4-update-a-grpc-service">4. Update a gRPC service</h1>
+
+<h2 id="4-1-update-proto">4.1. Update .proto</h2>
+
+<p>给 <code>helloworld/helloworld.proto</code> 再添加一个方法：<code>SayHelloAgain</code>, request and response 类型同 SayHello 函数</p>
+
+<pre><code class="language-proto">// gRPC: helloworld demo
+
+syntax = &quot;proto3&quot;;
+
+package helloworld;
+
+// The greeting service definition.
+service Greeter {
+    // Send a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+    // Sends another greeting
+    rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+}
+
+// The resquest message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+    string message = 1;
+}
+</code></pre>
+
+<h2 id="4-2-generate-grpc-code">4.2. Generate gRPC code</h2>
+
+<pre><code class="language-bash">$ protoc -I helloworld/ helloworld/helloworld.proto --go_out=plugins=grpc:helloworld
+</code></pre>
+
+<h2 id="4-3-update-and-run-the-application">4.3. Update and run the application</h2>
+
+<h3 id="4-3-1-update-server">4.3.1. Update Server</h3>
+
+<p>给 <code>type server struct{}</code> 添加方法：SayHelloAgain, 即：</p>
+
+<pre><code class="language-go">func (s *server) SayHelloAgain(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &amp;pb.HelloReply{Message: &quot;Hello again &quot; + in.Name}, nil
+}
+</code></pre>
+
+<h3 id="4-3-2-update-client">4.3.2. Update Client</h3>
+
+<p>在客户端程序中调用 <code>SayHelloAgain</code>：</p>
+
+<pre><code class="language-go">r, err = c.SayHelloAgain(ctx, &amp;pb.HelloRequest{Name: name})
+if err != nil {
+        log.Fatalf(&quot;could not greet: %v&quot;, err)
+}
+log.Printf(&quot;Greeting: %s&quot;, r.Message)
+</code></pre>
+
+<h2 id="4-4-run">4.4. Run</h2>
+
+<p>run the server:</p>
+
+<pre><code class="language-bash">[zhe@zhe go-grpc]$ go run server/main.go
+</code></pre>
+
+<p>run the client:</p>
+
+<pre><code class="language-bash">[zhe@zhe go-grpc]$ go run client/main.go
+2018/09/05 16:35:03 Greeting: Hello world
+2018/09/05 16:35:03 Greeting: Hello again world
+</code></pre>
+
+<p>Now, the end.</p>
+
+<h1 id="5-see-also">5. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://grpc.io/docs/quickstart/go.html#install-protocol-buffers-v3">Go Quick Start</a></li>
+<li><a href="https://github.com/grpc/grpc-go/tree/master/examples">gRPC Examples</a></li>
+<li><a href="https://www.36nu.com/post/299">Golang安装gRPC报错问题的解决方法</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-05</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/golang/">golang</a>
+          
+          <a href="/tags/grpc/">grpc</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/tech/code/golang/20180904-grpc-02-concept/">
+            <span class="next-text nav-default">Golang: gRPC学习笔记-02 | 概念理解</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-09-05 00:00:00 \x2b0000 UTC',
+    title: 'Golang: gRPC学习笔记-01 | Hello World Demo',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

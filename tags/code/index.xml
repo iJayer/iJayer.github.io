@@ -6,10 +6,40 @@
     <description>Recent content in Code on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 29 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>『Go核心36讲』- 学习笔记集</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go%E6%A0%B8%E5%BF%8336%E8%AE%B2-00-start/</link>
+      <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go%E6%A0%B8%E5%BF%8336%E8%AE%B2-00-start/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/intro/112&#34;&gt;《Go语言核心36讲》&lt;/a&gt; 是郝林老师发布的一则专栏教程(付费)，以音频+文稿的方式系统的讲述了 Go 的知识。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我自己使用 Go 已经有两年时间了(从毕业到现在)，在这个过程中阅读过一些书籍、博客、文档等，遇到问题也是随手查下资料解决掉了，现在回顾一下感觉有很多知识漏洞还没有补上或对某些知识点还是似懂非懂的样子，所以就借此机会跟随这个专栏巩固一下 Go 的知识吧！ 以下内容为我自己学习过程中整理的学习笔记。So, Let&amp;rsquo;s Go!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>『Go核心36讲』- 笔记：</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go%E6%A0%B8%E5%BF%8336%E8%AE%B2-01/</link>
+      <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go%E6%A0%B8%E5%BF%8336%E8%AE%B2-01/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;#&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记</title>

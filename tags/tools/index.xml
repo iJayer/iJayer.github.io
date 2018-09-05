@@ -6,10 +6,26 @@
     <description>Recent content in Tools on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Aug 2018 22:05:21 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 04 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Make &amp; Makefile 学习笔记 （一）</title>
+      <link>https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Make 命令的简单用法&lt;/li&gt;
+&lt;li&gt;Makefile 的编写规则&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>博客搭建-03 HugoServer注册为Win服务</title>
