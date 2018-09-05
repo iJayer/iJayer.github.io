@@ -23,19 +23,6 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-02 | 概念理解</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-02-concept/</link>
-      <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-02-concept/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;#&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Golang: gRPC 学习笔记集</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>

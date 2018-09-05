@@ -10,13 +10,6 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-02-concept/</loc>
-    <lastmod>2018-09-05T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</loc>
     <lastmod>2018-09-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
