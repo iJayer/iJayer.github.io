@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: gRPC学习笔记-02 | 什么是 RPC？ - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Golang: gRPC学习笔记-02 | 什么是 RPC？" />
+<meta name="keywords" content="golang, grpc, rpc" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Golang: gRPC学习笔记-02 | 什么是 RPC？" />
+<meta property="og:description" content="Golang: gRPC学习笔记-02 | 什么是 RPC？" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/" />
+
+
+
+<meta property="article:published_time" content="2018-09-06T08:12:12&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-09-06T16:12:12&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Golang: gRPC学习笔记-02 | 什么是 RPC？">
+<meta itemprop="description" content="Golang: gRPC学习笔记-02 | 什么是 RPC？">
+
+
+<meta itemprop="datePublished" content="2018-09-06T08:12:12&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-06T08:12:12&#43;00:00" />
+<meta itemprop="wordCount" content="1674">
+
+
+
+<meta itemprop="keywords" content="golang,grpc," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang: gRPC学习笔记-02 | 什么是 RPC？"/>
+<meta name="twitter:description" content="Golang: gRPC学习笔记-02 | 什么是 RPC？"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: gRPC学习笔记-02 | 什么是 RPC？</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-06 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 1674 words </span>
+        <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-什么是-rpc">1. 什么是 RPC ?</a>
+<ul>
+<li><a href="#1-1-rpc-核心概念">1.1. RPC 核心概念</a>
+<ul>
+<li><a href="#1-1-1-user">1.1.1. User</a></li>
+<li><a href="#1-1-2-user-stub">1.1.2. User-Stub</a></li>
+<li><a href="#1-1-3-rpcruntime">1.1.3. RPCRuntime</a></li>
+<li><a href="#1-1-4-server-stub">1.1.4. Server-Stub</a></li>
+<li><a href="#1-1-5-server">1.1.5. Server</a></li>
+</ul></li>
+<li><a href="#1-2-rpc-的调用流程">1.2. RPC 的调用流程</a></li>
+</ul></li>
+<li><a href="#2-see-also">2. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p>上一小节，简单熟悉了一下基于 gRPC 的 Hello World Demo 程序，接下来学习 gRPC 的相关概念知识，先来看 <code>RPC</code>:</p>
+
+<ul>
+<li>什么是 RPC ?</li>
+<li>RPC 的核心概念有哪些？</li>
+<li>RPC 是调用流程是怎么样的？</li>
+</ul>
+
+<p></p>
+
+<blockquote>
+<p>Statement: 文中内容多参考自网络博客[地址在文中(末)], 感谢这些作者们！🙂</p>
+</blockquote>
+
+<h1 id="1-什么是-rpc">1. 什么是 RPC ?</h1>
+
+<p><a href="https://en.wikipedia.org/wiki/Remote_procedure_call">RPC</a> (Remote Procedure Call): 是一种<code>进程间通信</code>方式。它允许程序调用另一个地址空间(通常是共享网络的另一台机器上)的过程或函数，而向应用开发者屏蔽远程调用的相关技术细节。也就是说，程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。这是客服端-服务器(C/S)交互的一种方式(调用者caller 是客户端，执行者 executor 是服务器), 通常通过一个 request-response 的消息系统实现。</p>
+
+<p>在 Birrell 和 Nelson 在 1984 发表于 ACM Transactions on Computer Systems 的论文 <a href="http://birrell.org/andrew/papers/ImplementingRPC.pdf">《Implementing remote procedure calls》</a> 中， 对RPC 也做了经典的诠释：RPC 是指计算机 A 上的进程，调用另外一个计算机 B 上的进程，其中 A 上的调用进程被挂起，而 B 上的调用进程开始执行，当值返回给 A 时，A 进程继续执行。 调用方可以通过使用参数将信息传送给被调用方，而后可以通过传回的结果的到信息。而这一过程，对于开发人员来说是透明的。 —— <a href="https://www.cs.rutgers.edu/~pxk/417/notes/03-rpc.html">Ref Link</a></p>
+
+<h2 id="1-1-rpc-核心概念">1.1. RPC 核心概念</h2>
+
+<p>在上面提到的论文中，将 RPC 的过程抽象为 5 个概念模型，它们分别是：<code>User</code>、<code>User-Stub</code>、<code>RPC-Runtime</code>、<code>Server-Stub</code>、<code>Server</code></p>
+
+<h3 id="1-1-1-user">1.1.1. User</h3>
+
+<p><code>User</code>: 即应用的客户端，是 RPC 的发起者。它的职责是通过本地调用 <code>User-Stub</code> 发送调用，并负责接收 User-Stub 的返回值。本地调用还是远程调用对 User 本身来说是完全透明的</p>
+
+<h3 id="1-1-2-user-stub">1.1.2. User-Stub</h3>
+
+<p><code>User-Stub</code>: 即客户端的存根对象。存根对象的作用是通过使用本地模拟对象的方式，来屏蔽需要通过远程调用才可以获取的对象。User-Stub 负责三件事：</p>
+
+<ul>
+<li>第一件事情是将需要远程调用的接口、方法以及参数通过事先约定好的协议进行序列化</li>
+<li>第二件事情是通过本地的 RPCRuntime 对象将序列化的数据传输到服务端的 RPCRuntime 对象</li>
+<li>第三件事情是将服务端的返回值反序列化为 User 可是直接使用的对象</li>
+</ul>
+
+<h3 id="1-1-3-rpcruntime">1.1.3. RPCRuntime</h3>
+
+<p><code>RPCRuntime</code>: 即远程调用的运行时对象，它同时存在于客户端和服务端，负责网络间信息的发送接收</p>
+
+<h3 id="1-1-4-server-stub">1.1.4. Server-Stub</h3>
+
+<p><code>Server-Stub</code>: 即服务端的存根对象，它负责将，由服务端的 RPCRuntime 对象接收到的数据进行反序列化并调用服务端的本地方法，和将服务端的本地方法的返回值序列化后交于服务端的 RPCRuntime</p>
+
+<h3 id="1-1-5-server">1.1.5. Server</h3>
+
+<p><code>Server</code>: 即应用的服务端。用于真正的处理相关业务逻辑</p>
+
+<blockquote>
+<p>客户端和服务端需要互相知悉相同的业务方法接口。服务端需要将远程接口到处给客户端；同样，客户端需要将该接口导入。这样，客户端才能像调用本地方法一样去调用相同接口的远程方法。</p>
+</blockquote>
+
+<h2 id="1-2-rpc-的调用流程">1.2. RPC 的调用流程</h2>
+
+<p>远程调用的过程如下图所示(图片来自：<a href="https://www.cs.rutgers.edu/~pxk/417/notes/images/rpc-flow.png)：">https://www.cs.rutgers.edu/~pxk/417/notes/images/rpc-flow.png)：</a></p>
+
+<p><img src="https://www.cs.rutgers.edu/~pxk/417/notes/images/rpc-flow.png" alt="" /></p>
+
+<p>概况来说，远程过程调用包含如下步骤：(<a href="https://www.cs.rutgers.edu/~pxk/417/notes/03-rpc.html">摘录原文</a>)</p>
+
+<ol>
+<li>The client calls a local procedure(过程|程序), called the client stub(存根). The client stub packages(包装) the parameters to the remote procedure (this may involve converting them to a standard format) and builds one or more network messages. The packaging of arguments into a network message is called marshaling and requires serializing all the data elements into a flat array-of-bytes format.</li>
+<li>Network messages are sent by the client stub to the remote system (via a system call to the local kernel using sockets interfaces).</li>
+<li>Network messages are transferred by the kernel to the remote system via some protocol (either connectionless or connection-oriented).</li>
+<li>A server stub, sometimes called the skeleton, receives the messages on the server. It unmarshals the arguments from the messages and, if necessary, converts them from a standard network format into a machine-specific form.</li>
+<li>The server stub calls the server function (which, to the client, is the remote procedure), passing it the arguments that it received from the client.</li>
+<li>When the server function is finished, it returns to the server stub with its return values.</li>
+<li>The server stub converts the return values, if necessary, and marshals them into one or more network messages to send to the client stub.</li>
+<li>Messages get sent back across the network to the client stub.</li>
+<li>The client stub reads the messages from the local kernel.</li>
+<li>The client stub then returns the results to the client function, converting them from the network representation to a local one if necessary.</li>
+</ol>
+
+<p>The client code then continues its execution.</p>
+
+<p>总结：以上步骤就是将客户过程对客户存根发出的本地调用转换成对服务器过程的本地调用，而客户端和服务器都不会意识到中间步骤(2-8)的存在</p>
+
+<p>RPC 的主要好处有两方面：</p>
+
+<ul>
+<li>首先，程序员可以使用过程调用语义去调用远程函数并获取响应结果</li>
+<li>其次，简化了编写分布式应用的难度，因为将所有的网络代码隐藏到了存根函数中。应用程序不必再担心像套接字、端口号以及数据的转化和解析等细节问题。在 OSI 参考模型中，RPC 跨越了会话层和表示层。</li>
+</ul>
+
+<h1 id="2-see-also">2. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://www.cs.rutgers.edu/~pxk/417/notes/03-rpc.html">(英文-推荐阅读)Remote Procedure Calls</a></li>
+<li><a href="https://waylau.com/remote-procedure-calls/">Remote Procedure Calls的译文：远程过程调用(RPC)详解</a></li>
+<li><a href="https://cloud.tencent.com/developer/news/103979">RPC-核心概念参考</a></li>
+<li><a href="https://segmentfault.com/a/1190000005178084">RPC 的概念模型与实现解析</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-06</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/golang/">golang</a>
+          
+          <a href="/tags/grpc/">grpc</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/tech/code/golang/20180906-grpc-03-what-is-grpc/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang: gRPC学习笔记-03 | 什么是 gRPC？</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/tech/code/golang/20180904-grpc-01-helloworld/">
+            <span class="next-text nav-default">Golang: gRPC学习笔记-01 | Hello World Demo</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-09-06 08:12:12 \x2b0000 UTC',
+    title: 'Golang: gRPC学习笔记-02 | 什么是 RPC？',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

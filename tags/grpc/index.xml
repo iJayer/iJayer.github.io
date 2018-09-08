@@ -6,10 +6,69 @@
     <description>Recent content in Grpc on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 05 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 07 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</link>
+      <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;gRPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;Protocol Buffers&lt;/code&gt; 的相关知识：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;什么是 Protocol Buffers ?&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.proto&lt;/code&gt; 文件怎么写？ -&amp;gt; 语言规范&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.proto&lt;/code&gt; 文件写好了怎么用？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang: gRPC学习笔记-03 | 什么是 gRPC？</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</link>
+      <pubDate>Thu, 06 Sep 2018 09:12:12 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;RPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;gRPC&lt;/code&gt; 的基础概念：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;什么是 gRPC ?&lt;/li&gt;
+&lt;li&gt;gRPC 的关键概念有哪些 ?&lt;/li&gt;
+&lt;li&gt;在 gRPC 中，如何去定义一个服务 ？&lt;/li&gt;
+&lt;li&gt;gRPC 服务类型有哪几种？&lt;/li&gt;
+&lt;li&gt;一个 gRPC 客户端调用一个 gRPC 服务端方法时，会发生什么？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang: gRPC学习笔记-02 | 什么是 RPC？</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</link>
+      <pubDate>Thu, 06 Sep 2018 08:12:12 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;上一小节，简单熟悉了一下基于 gRPC 的 Hello World Demo 程序，接下来学习 gRPC 的相关概念知识，先来看 &lt;code&gt;RPC&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;什么是 RPC ?&lt;/li&gt;
+&lt;li&gt;RPC 的核心概念有哪些？&lt;/li&gt;
+&lt;li&gt;RPC 是调用流程是怎么样的？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Golang: gRPC学习笔记-01 | Hello World Demo</title>
@@ -18,6 +77,8 @@
       
       <guid>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</guid>
       <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;Ok, 先来安装 gRPC 的开发环境，并且实践一下 Hello World 程序吧！&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
@@ -30,7 +91,14 @@
       <guid>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
-&lt;p&gt;🙂 So, 开始学习 gRPC 啦！！！&lt;/p&gt;
+&lt;p&gt;🙂 So, 开始学习 gRPC 啦！！！ 学习笔记，内容包括：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/&#34;&gt;Note1: gRPC | Hello Wrold&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/&#34;&gt;Note2: gRPC基础概念 | 什么是 RPC?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/&#34;&gt;Note3: gRPC基础概念 | 什么是 gRPC?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/&#34;&gt;Note4: gRPC基础概念 | 什么是 Protocol Buffers?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

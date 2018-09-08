@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？ - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？" />
+<meta name="keywords" content="golang, grpc" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？" />
+<meta property="og:description" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/" />
+
+
+
+<meta property="article:published_time" content="2018-09-07T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-09-08T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？">
+<meta itemprop="description" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？">
+
+
+<meta itemprop="datePublished" content="2018-09-07T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-07T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="6344">
+
+
+
+<meta itemprop="keywords" content="golang,grpc," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？"/>
+<meta name="twitter:description" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-07 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 6344 words </span>
+        <span class="more-meta"> 13 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-protocol-buffers-简介">1. Protocol Buffers 简介</a></li>
+<li><a href="#2-语言指南-proto3">2. 语言指南(proto3)</a>
+<ul>
+<li><a href="#2-1-定义消息类型">2.1. 定义消息类型</a>
+<ul>
+<li><a href="#2-1-1-指定字段类型">2.1.1. 指定字段类型</a></li>
+<li><a href="#2-1-2-分配标识号">2.1.2. 分配标识号</a></li>
+<li><a href="#2-1-3-指定字段规则">2.1.3. 指定字段规则</a></li>
+<li><a href="#2-1-4-添加更多消息类型">2.1.4. 添加更多消息类型</a></li>
+<li><a href="#2-1-5-添加注释">2.1.5. 添加注释</a></li>
+<li><a href="#2-1-6-保留字段">2.1.6. 保留字段</a></li>
+<li><a href="#2-1-7-从-proto-文件中生成了什么">2.1.7. 从 .proto 文件中生成了什么？</a></li>
+</ul></li>
+<li><a href="#2-2-标量数值类型">2.2. 标量数值类型</a></li>
+<li><a href="#2-3-默认值">2.3. 默认值</a></li>
+<li><a href="#2-4-枚举">2.4. 枚举</a>
+<ul>
+<li><a href="#2-4-1-保留值">2.4.1. 保留值</a></li>
+</ul></li>
+<li><a href="#2-5-使用其他消息类型">2.5. 使用其他消息类型</a>
+<ul>
+<li><a href="#2-5-1-导入定义">2.5.1. 导入定义</a></li>
+<li><a href="#2-5-2-使用-proto2-消息类型">2.5.2. 使用 proto2 消息类型</a></li>
+</ul></li>
+<li><a href="#2-6-嵌套类型">2.6. 嵌套类型</a></li>
+<li><a href="#2-7-更新一个消息类型">2.7. 更新一个消息类型</a></li>
+<li><a href="#2-8-未知字段">2.8. 未知字段</a></li>
+<li><a href="#2-9-any">2.9. Any</a></li>
+<li><a href="#2-10-oneof">2.10. Oneof</a>
+<ul>
+<li><a href="#2-10-1-使用-oneof">2.10.1. 使用 Oneof</a></li>
+<li><a href="#2-10-2-oneof-特性">2.10.2. Oneof 特性 (??)</a></li>
+<li><a href="#2-10-3-向后兼容性问题">2.10.3. 向后兼容性问题</a></li>
+<li><a href="#2-10-4-标签重用">2.10.4. 标签重用</a></li>
+</ul></li>
+<li><a href="#2-11-maps">2.11. Maps</a>
+<ul>
+<li><a href="#2-11-1-向后兼容">2.11.1. 向后兼容</a></li>
+</ul></li>
+<li><a href="#2-12-包-package">2.12. 包 Package</a>
+<ul>
+<li><a href="#2-12-1-包及名称的解析">2.12.1. 包及名称的解析</a></li>
+</ul></li>
+<li><a href="#2-13-定义服务">2.13. 定义服务</a></li>
+<li><a href="#2-14-json-映射">2.14. JSON 映射</a>
+<ul>
+<li><a href="#2-14-1-json-选项">2.14.1. JSON 选项</a></li>
+</ul></li>
+<li><a href="#2-15-选项">2.15. 选项</a>
+<ul>
+<li><a href="#2-15-1-自定义选项">2.15.1. 自定义选项</a></li>
+</ul></li>
+<li><a href="#2-16-生成访问类">2.16. 生成访问类</a></li>
+</ul></li>
+<li><a href="#3-小小总结">3. 小小总结</a></li>
+<li><a href="#4-see-also">4. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p>上一小节，简单熟悉了一下 <code>gRPC</code>，接下来继续学习 <code>Protocol Buffers</code> 的相关知识：</p>
+
+<ul>
+<li>什么是 Protocol Buffers ?</li>
+<li><code>.proto</code> 文件怎么写？ -&gt; 语言规范</li>
+<li><code>.proto</code> 文件写好了怎么用？</li>
+</ul>
+
+<p></p>
+
+<blockquote>
+<p>本指南描述了怎样使用 protocol buffer 语言来构造你的 protocol buffer 数据，包括 <code>.proto</code> 文件语法以及怎样生成.proto 文件的数据访问类。</p>
+</blockquote>
+
+<ul>
+<li><a href="https://developers.google.com/protocol-buffers/docs/proto3">原文</a></li>
+</ul>
+
+<h1 id="1-protocol-buffers-简介">1. Protocol Buffers 简介</h1>
+
+<p>Protocol Buffers 官网介绍：</p>
+
+<blockquote>
+<p>Protocol Buffers 是一种与语言中立，平台中立，可扩展的序列化结构化数据的方法，可用于通信协议，数据存储等。使用Protocol Buffers 可以一次定义结构化的数据，然后可以使用特殊生成的源代码轻松地在各种数据流中使用各种语言编写和读取结构化数据。</p>
+</blockquote>
+
+<p>现在有许多框架等在使用Protocol Buffers。流行的RPC框架gRPC也是基于Protocol Buffers。 Protocol Buffers 目前有2和3两个版本号。</p>
+
+<p>优点</p>
+
+<ul>
+<li>性能较xml,json, thirft等好，效率高</li>
+<li>代码生成机制，数据解析类自动生成</li>
+<li>支持向后兼容和向前兼容</li>
+<li>支持多种编程语言（java，c++，python）</li>
+</ul>
+
+<p>缺点</p>
+
+<ul>
+<li>二进制格式导致可读性差</li>
+<li>缺乏自描述</li>
+</ul>
+
+<h1 id="2-语言指南-proto3">2. 语言指南(proto3)</h1>
+
+<blockquote>
+<p>该部分内容只针对 proto3 语法</p>
+</blockquote>
+
+<h2 id="2-1-定义消息类型">2.1. 定义消息类型</h2>
+
+<p>先来看一个非常简单的例子。假设你想定义一个 &ldquo;搜索请求&rdquo; 的消息格式，每一个请求含有一个查询字符串、你感兴趣的查询结果所在的页数，以及每一页有多少条查询结果。可以采用如下的方式来定义消息类型的 <code>.proto</code> 文件了：</p>
+
+<pre><code>syntax = &quot;proto3&quot;
+
+message SearchRequest {
+    string query = 1;
+    int32 page_number = 2;
+    int32 result_per_page = 3;
+}
+</code></pre>
+
+<ul>
+<li><p><code>.proto</code> 文件的第一个非空，非注释的行用来声明版本: 即 <code>syntax = &quot;proto3&quot;</code>，不填写的话默认为 <code>proto2</code></p></li>
+
+<li><p>所述SearchRequest消息定义指定了三个字段（名称/值对），一个查询字符串，结果页面数以及每页的结果个数。每个字段都有一个名称和一种类型。</p></li>
+</ul>
+
+<h3 id="2-1-1-指定字段类型">2.1.1. 指定字段类型</h3>
+
+<p>在上述例子中，所有的字段都是 <a href="https://developers.google.com/protocol-buffers/docs/proto3#scalar"> scalar types: 标量类型</a>：两个整型（page_number和result_per_page），一个string类型（query）。当然，你也可以为字段指定其他的合成类型，包括枚举 <a href="https://developers.google.com/protocol-buffers/docs/proto3#enum">enumerations：枚举</a> 或其他消息类型。</p>
+
+<h3 id="2-1-2-分配标识号">2.1.2. 分配标识号</h3>
+
+<p>正如上述文件格式，在消息定义中，每个字段都有唯一的一个数字标识符(<strong>unique number</strong>)。这些标识符是用来在消息的 <a href="https://developers.google.com/protocol-buffers/docs/encoding">二进制格式</a> 中识别各个字段的，一旦开始使用就不能够再改变。注：[1,15]之内的标识号在编码的时候会占用一个字节。[16,2047]之内的标识号则占用2个字节。所以应该为那些频繁出现的消息元素保留 [1,15]之内的标识号。切记：要为将来有可能添加的、频繁出现的标识号预留一些标识号。</p>
+
+<p>最小的标识号可以从1开始，最大到2^29 - 1, or 536,870,911。不可以使用其中的[19000－19999]的标识号， Protobuf协议实现中对这些进行了预留。如果非要在.proto文件中使用这些预留标识号，编译时就会报警。同样，您不能使用任何以前保留的字段编号。</p>
+
+<h3 id="2-1-3-指定字段规则">2.1.3. 指定字段规则</h3>
+
+<p>消息字段可以是以下之一：</p>
+
+<ul>
+<li><strong>singular</strong>：格式良好的消息可以包含该字段中的零个或一个（但不超过一个）</li>
+<li><strong>repeated</strong>: 此字段可以在格式良好的消息中重复任意次数（包括零）。将保留重复值的顺序。</li>
+</ul>
+
+<p>在proto3中，标量数字类型的重复字段默认使用压缩编码。</p>
+
+<p>您可以在 <a href="https://developers.google.com/protocol-buffers/docs/encoding.html#packed">Protocol Buffer Encoding</a> 中找到有关编码的更多信息。</p>
+
+<h3 id="2-1-4-添加更多消息类型">2.1.4. 添加更多消息类型</h3>
+
+<p>在一个.proto文件中可以定义多个消息类型。在定义多个相关的消息的时候，这一点特别有用——例如，如果想定义与SearchResponse消息类型对应的回复消息格式的话，你可以将它添加到相同的.proto文件中，如：</p>
+
+<pre><code class="language-proto">message SearchRequest {
+  string query = 1;
+  int32 page_number = 2;
+  int32 result_per_page = 3;
+}
+
+message SearchResponse {
+ ...
+}
+</code></pre>
+
+<h3 id="2-1-5-添加注释">2.1.5. 添加注释</h3>
+
+<p>向.proto文件添加注释，可以使用C/C++/java风格的双斜杠（//） 语法格式，如：</p>
+
+<pre><code class="language-proto">/* SearchRequest represents a search query, with pagination options to
+ * indicate which results to include in the response. */
+
+message SearchRequest {
+  string query = 1;
+  int32 page_number = 2;  // Which page number do we want?
+  int32 result_per_page = 3;  // Number of results to return per page.
+}
+</code></pre>
+
+<h3 id="2-1-6-保留字段">2.1.6. 保留字段</h3>
+
+<p>如果你通过移除一个字段或注释掉一个字段来更新一条消息, 将来的用户可以重用这个标签数字. 如果它们延迟加载旧版本的 .proto 的话, 这可能导致一些问题. 一种防止这不会出现的方式是, 为这些字段标识为 <code>reserved</code> . 如果将来任意有人试图使用这些标识的话，编译器会报错。</p>
+
+<pre><code>message Foo {
+  reserved 2, 15, 9 to 11;
+  reserved &quot;foo&quot;, &quot;bar&quot;;
+}
+</code></pre>
+
+<blockquote>
+<p>请注意：在 <code>reserved</code> 语句中, 不能混合数字和名字.</p>
+</blockquote>
+
+<h3 id="2-1-7-从-proto-文件中生成了什么">2.1.7. 从 .proto 文件中生成了什么？</h3>
+
+<p>当用protocolbuffer编译器来运行.proto文件时，编译器将生成所选择语言的代码，这些代码可以操作在.proto文件中定义的消息类型，包括获取、设置字段值，将消息序列化到一个输出流中，以及从一个输入流中解析消息。</p>
+
+<ul>
+<li>For Go: 编译器会生成一个 <code>.pb.go</code> 的文件，且在 .proto 文件中定义的每一个消息类型在 .pb.go 中也有一个类型与之对应。</li>
+</ul>
+
+<h2 id="2-2-标量数值类型">2.2. 标量数值类型</h2>
+
+<p>一个标量消息字段可以含有一个如下的类型——该表格展示了定义于.proto文件中的类型，以及与之对应的、在自动生成的访问类中定义的类型：</p>
+
+<p><a href="https://developers.google.com/protocol-buffers/docs/proto3#scalar">view on doc</a></p>
+
+<h2 id="2-3-默认值">2.3. 默认值</h2>
+
+<p>析消息时，如果编码消息不包含特定的单数元素，则解析对象中的相应字段将设置为该字段的默认值。这些默认值是特定于类型的：</p>
+
+<pre><code>string :    空字符串 “”
+bytes :     空字节
+bool :      false
+数值类型 :  0
+enum :      首个枚举值, 必须为 0
+message     字段 : 这是依赖于具体的语言的
+repeated    字段: 通常是一个空列表
+</code></pre>
+
+<blockquote>
+<p>注意：一旦消息被解析后，就没有任何方式获知这个字段是否被明确的设置为默认值了(例如：布尔值是否设置为false) 或者说根本就没有设置：在定义消息类型时，你应该牢记这一点。例如：如果你不希望默认情况下也发生这种行为的话，就不要使用 <code>boolean</code> 值，当其被设置为 false 时，会在一些行为中切换。另请注意，如果标量消息字段设置为其默认值，则该值不会在传输过程中序列化。</p>
+</blockquote>
+
+<h2 id="2-4-枚举">2.4. 枚举</h2>
+
+<p>当需要定义一个消息类型的时候，可能想为一个字段指定某“预定义值序列”中的一个值。例如，假设要为每一个SearchRequest消息添加一个 corpus字段，而corpus的值可能是UNIVERSAL，WEB，IMAGES，LOCAL，NEWS，PRODUCTS或VIDEO中的一个。 其实可以很容易地实现这一点：通过向消息定义中添加一个枚举（enum）就可以了。一个enum类型的字段只能用指定的常量集中的一个值作为其值（如果尝 试指定不同的值，解析器就会把它当作一个未知的字段来对待）。</p>
+
+<p>在下面的例子中，在消息格式中添加了一个叫做Corpus的枚举类型——它含有所有可能的值 ——以及一个类型为Corpus的字段：</p>
+
+<pre><code>message SearchRequest {
+  string query = 1;
+  int32 page_number = 2;
+  int32 result_per_page = 3;
+  enum Corpus {
+    UNIVERSAL = 0;
+    WEB = 1;
+    IMAGES = 2;
+    LOCAL = 3;
+    NEWS = 4;
+    PRODUCTS = 5;
+    VIDEO = 6;
+  }
+  Corpus corpus = 4;
+}
+</code></pre>
+
+<p>正如您所看到的，Corpus枚举的第一个常量映射为零：每个枚举定义必须包含一个映射到零的常量作为其第一个元素。这是因为：</p>
+
+<ul>
+<li>必须有一个零值，以便我们可以使用0作为数字的默认值。</li>
+<li>枚举的第一个必须是0. (也出于兼容 proto2 的考虑), 并且必须是 32 位的 integer 范围</li>
+</ul>
+
+<p>你可以为枚举常量定义别名。 需要设置allow_alias option 为 true, 否则 protocol编译器会产生错误信息。</p>
+
+<pre><code>enum EnumAllowingAlias {
+  option allow_alias = true;
+  UNKNOWN = 0;
+  STARTED = 1;
+  RUNNING = 1;
+}
+enum EnumNotAllowingAlias {
+  UNKNOWN = 0;
+  STARTED = 1;
+  // RUNNING = 1;  // Uncommenting this line will cause a compile error inside Google and a warning message outside.
+}
+</code></pre>
+
+<p>枚举常量必须在32位整型值的范围内。因为enum值是使用可变编码方式的，对负数不够高效，因此不推荐在enum中使用负数。如上例所示，可以在 一个消息定义的内部或外部定义枚举——这些枚举可以在.proto文件中的任何消息定义里重用。当然也可以在一个消息中声明一个枚举类型，而在另一个不同 的消息中使用它——采用MessageType.EnumType的语法格式。</p>
+
+<p>当对一个使用了枚举的.proto文件运行protocol buffer编译器的时候，生成的代码中将有一个对应的enum（对Java或C++来说），或者一个特殊的EnumDescriptor类（对 Python来说），它被用来在运行时生成的类中创建一系列的整型值符号常量（symbolic constants）。</p>
+
+<h3 id="2-4-1-保留值">2.4.1. 保留值</h3>
+
+<p><a href="http://localhost:1313/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/#2-1-6-%E4%BF%9D%E7%95%99%E5%AD%97%E6%AE%B5">Trun to: 2.1.6. 保留字段</a></p>
+
+<h2 id="2-5-使用其他消息类型">2.5. 使用其他消息类型</h2>
+
+<p>你可以将其他消息类型用作字段类型。例如，假设在每一个SearchResponse消息中包含Result消息，此时可以在相同的.proto文件中定义一个Result消息类型，然后在SearchResponse消息中指定一个Result类型的字段，如</p>
+
+<pre><code class="language-proto">message SearchResponse {
+  repeated Result results = 1;
+}
+
+message Result {
+  string url = 1;
+  string title = 2;
+  repeated string snippets = 3;
+}
+</code></pre>
+
+<h3 id="2-5-1-导入定义">2.5.1. 导入定义</h3>
+
+<p>在上面的例子中，Result消息类型与SearchResponse是定义在同一文件中的。如果想要使用的消息类型已经在其他.proto文件中已经定义过了呢？</p>
+
+<p>你可以通过导入其他.proto文件中的定义来使用它们。要导入其他.proto文件的定义，你需要在你的文件中添加一个导入声明，如：</p>
+
+<p><code>import &quot;myproject/other_protos.proto&quot;;</code></p>
+
+<p>默认情况下，您只能使用直接从 .proto 文件中导入的定义，然而，有时候你需要移动一个.proto文件到一个新的位置。现在，你可以放置一个dummy <code>.proto</code> 文件老位置，然后使用 <code>import public</code> 将所有导入转发到新位置。</p>
+
+<blockquote>
+<p>通过编译器参数 -I 或 &ndash;proto_path 来定义一系列的目录来搜索 .proto 文件</p>
+</blockquote>
+
+<h3 id="2-5-2-使用-proto2-消息类型">2.5.2. 使用 proto2 消息类型</h3>
+
+<p>可以导入proto2消息类型并在proto3消息中使用它们，反之亦然。但是，proto2枚举不能直接用于proto3语法（如果导入的proto2消息使用它们就可以了）</p>
+
+<h2 id="2-6-嵌套类型">2.6. 嵌套类型</h2>
+
+<p>你可以在其他消息类型中定义、使用消息类型，在下面的例子中，Result消息就定义在SearchResponse消息内，如：</p>
+
+<pre><code class="language-proto">message SearchResponse {
+  message Result {
+    string url = 1;
+    string title = 2;
+    repeated string snippets = 3;
+  }
+  repeated Result results = 1;
+}
+</code></pre>
+
+<p>如果你想在它的父消息类型的外部重用这个消息类型，你需要以Parent.Type的形式使用它，如：</p>
+
+<pre><code class="language-proto">message SomeOtherMessage {
+  SearchResponse.Result result = 1;
+}
+</code></pre>
+
+<p>当然，你也可以将消息嵌套任意多层，如：</p>
+
+<pre><code class="language-proto">message Outer {       // Level 0
+  message MiddleAA {  // Level 1
+    message Inner {   // Level 2
+      int64 ival = 1;
+      bool  booly = 2;
+    }
+  }
+  message MiddleBB {  // Level 1
+    message Inner {   // Level 2
+      int32 ival = 1;
+      bool  booly = 2;
+    }
+  }
+}
+</code></pre>
+
+<h2 id="2-7-更新一个消息类型">2.7. 更新一个消息类型</h2>
+
+<p>如果一个已有的消息格式已无法满足新的需求 —— 如，要在消息中添加一个额外的字段——但是同时旧版本写的代码仍然可用。不用担心！更新消息而不破坏已有代码是非常简单的。在更新时只要记住以下的规则即可。</p>
+
+<ul>
+<li>不要改变当前已存在的字段的 数字标签 (numeric tag)</li>
+<li>如果添加了新的字段, 任意的旧的 message 序列化格式都可以被新的代码解析.</li>
+<li>可以删除字段, 只要标签的数字不会被重用即可.</li>
+<li>int32, uint32, int64, uint64 以及 bool 是相互兼容的. 这意味着你可以从一个字段的类型修改为其他类型.</li>
+<li>sint32, sint64 是相互兼容的, 但与其他的 integer 类型是不兼容的.</li>
+<li>string 和 bytes 是相互兼容的, 只要 bytes 都是有效的 UTF-8</li>
+<li>内嵌的 message 是兼容 bytes 的, 如果 bytes 包含一个 message 的编码版本.</li>
+<li>fixed32 是兼容于 sfixed32, fixed64 是兼容于 sfixed64 的</li>
+<li>enum 是兼容于 int32, uint32, int64 以及 uint64 (注意, 如果值不匹配则会直接截断)</li>
+</ul>
+
+<h2 id="2-8-未知字段">2.8. 未知字段</h2>
+
+<p>本来，在 proto3 的消息中，未知字段在解析时总是会被丢弃掉，但在 3.5 版本中，重新启用了对未知字段的保全已匹配 proto2。在 3.5 及以后的版本中，位置字段在解析时被保留并且会包含在序列化输出中。</p>
+
+<h2 id="2-9-any">2.9. Any</h2>
+
+<p>Any message 类型允许你使用它来作为内嵌的类型而不必需要在 .proto 文件中定义它们. Any 用 bytes 保存一个任意序列化后的消息， 以及一个 URL，该 URL 充当该消息类型的全局唯一标识符并对其进行解析.</p>
+
+<p>使用 <code>Any</code> type 类型，需要导入 <code>google/protobuf/any.proto</code></p>
+
+<pre><code>import &quot;google/protobuf/any.proto&quot;
+
+message ErrorStatus {
+    string message = 1;
+    repeated google.protobuf.Any deatils = 2;
+}
+</code></pre>
+
+<h2 id="2-10-oneof">2.10. Oneof</h2>
+
+<p>如果你的消息中有很多可选字段， 但同一时间, 只允许设置一个字段值.， 你可以加强这个行为，使用oneof特性节省内存.</p>
+
+<p>Oneof 字段就像可选字段， 除了它们会共享内存， 至多一个字段会被设置。 设置其中一个字段会清除其它oneof 字段。 你可以使用 case( )或者 WhichOneof() 方法检查哪个oneof字段被设置， 检查方法依语言而定。</p>
+
+<h3 id="2-10-1-使用-oneof">2.10.1. 使用 Oneof</h3>
+
+<p>为了在.proto定义Oneof字段， 你需要在名字前面加上oneof关键字, 比如下面例子的test_oneof:</p>
+
+<pre><code>message SampleMessage {
+  oneof test_oneof {
+    string name = 4;
+    SubMessage sub_message = 9;
+  }
+}
+</code></pre>
+
+<p>然后你可以增加oneof字段到 oneof 定义中. 你可以增加任意类型的字段, 但是不能使用 repeated 关键字.</p>
+
+<p>在产生的代码中, oneof字段拥有同样的 getters 和setters， 就像正常的可选字段一样. 也有一个特殊的方法来检查到底那个字段被设置. 你可以在相应的语言API中找到oneof API介绍.</p>
+
+<h3 id="2-10-2-oneof-特性">2.10.2. Oneof 特性 (??)</h3>
+
+<ul>
+<li>设置oneof会自动清楚其它oneof字段的值. 所以设置多次后，只有最后一次设置的字段有值.</li>
+<li>如果解析时, 只有最后一次的解析是可见的. ??</li>
+<li>oneof 字段不能是 repeated 的</li>
+<li>反射 api 可以用于 oneof</li>
+<li>如果你正使用C++, 请确保你的代码不会导致内存崩溃.</li>
+</ul>
+
+<h3 id="2-10-3-向后兼容性问题">2.10.3. 向后兼容性问题</h3>
+
+<p>要注意添加或删除 oneof 字段. 如果检查 oneof 的值返回的是 None 或 NOT_SET , 它可能表示 oneof 还没有设置或它已经设置到了不同版本的 oneof 字段.</p>
+
+<h3 id="2-10-4-标签重用">2.10.4. 标签重用</h3>
+
+<ul>
+<li><strong>Move fields into or out of a oneof</strong>: You may lose some of your information (some fields will be cleared) after the message is serialized and parsed. However, you can safely move a single field into a new oneof and may be able to move multiple fields if it is known that only one is ever set.</li>
+<li><strong>Delete a oneof field and add it back</strong>: This may clear your currently set oneof field after the message is serialized and parsed.</li>
+<li><strong>Split or merge oneof</strong>: This has similar issues to moving regular fields.</li>
+</ul>
+
+<h2 id="2-11-maps">2.11. Maps</h2>
+
+<p>语法：</p>
+
+<pre><code>map&lt;key_type, value_type&gt; map_field = N;
+</code></pre>
+
+<p>&hellip;where the <code>key_type</code> can be any integral or string type (so, any <code>scalar type</code> except for floating point types and bytes). Note that enum is not a valid key_type. The <code>value_type</code> can be any type except another map.</p>
+
+<p>例子：</p>
+
+<pre><code>map&lt;string, Project&gt; projects = 3;
+</code></pre>
+
+<ul>
+<li>map 字段不能是 repeated 的</li>
+<li>不能依赖于 map 的值的顺序.</li>
+<li>当为 .proto 生成文本格式时, maps 是根据 key 来排序的. 所有 numeric 的 key 是根据数字来排序的.</li>
+<li>当合并 maps 时, 重复的 key 仅最后一个可见的 key 会被使用. 当解析为 text 格式时, 如果有重复的 keys 则会失败</li>
+</ul>
+
+<h3 id="2-11-1-向后兼容">2.11.1. 向后兼容</h3>
+
+<h2 id="2-12-包-package">2.12. 包 Package</h2>
+
+<p>You can add an optional package specifier to a .proto file to prevent name clashes(命名冲突) between protocol message types.</p>
+
+<pre><code>package foo.bar;
+message Open { ... }
+</code></pre>
+
+<p>You can then use the package specifier when defining fields of your message type</p>
+
+<pre><code>message Foo {
+  ...
+  foo.bar.Open open = 1;
+  ...
+}
+</code></pre>
+
+<h3 id="2-12-1-包及名称的解析">2.12.1. 包及名称的解析</h3>
+
+<p>工作原理类似 C++.</p>
+
+<p>首先, 它会在最内层范围搜索, 然后到下一范围再搜索, 以此类推.</p>
+
+<h2 id="2-13-定义服务">2.13. 定义服务</h2>
+
+<p>If you want to use your message types with an RPC (Remote Procedure Call) system, you can define an RPC service interface in a .proto file and the protocol buffer compiler will generate service interface code and stubs in your chosen language. So, for example, if you want to define an RPC service with a method that takes your SearchRequest and returns a SearchResponse, you can define it in your .proto file as follows:</p>
+
+<p>如果你想在 RPC 中使用你的 messages 类型. 你可以在 .proto 文件中定义一个 RPC 服务接口, 这样子编译器就会为你的语言生成服务接口了.例如</p>
+
+<pre><code>service SearchService {
+    rpc Search (SearcRequest) returns (SearchResponse)
+}
+</code></pre>
+
+<h2 id="2-14-json-映射">2.14. JSON 映射</h2>
+
+<p>If a value is missing in the JSON-encoded data or if its value is null, it will be interpreted(解读) as the appropriate(适当的) default value when parsed into a protocol buffer. If a field has the default value in the protocol buffer, it will be omitted(缺省) in the JSON-encoded data by default to save space. An implementation may provide options to emit fields(导出字段) with default values in the JSON-encoded output.</p>
+
+<p>更详细内容请查看 <a href="https://developers.google.com/protocol-buffers/docs/proto3#json">原文档</a></p>
+
+<h3 id="2-14-1-json-选项">2.14.1. JSON 选项</h3>
+
+<h2 id="2-15-选项">2.15. 选项</h2>
+
+<p>在定义.proto文件时能够标注一系列的options。Options并不改变整个文件声明的含义，但却能够影响特定环境下处理方式。完整的可用选项可以在google/protobuf/descriptor.proto找到。</p>
+
+<p>选项级别：</p>
+
+<ul>
+<li>文件级别：意味着它可以作用于最外范围，不包含在任何消息内部、enum或服务定义中。</li>
+<li>消息级别: 意味着它可以用在消息定 义的内部。</li>
+<li>字段级别：即有些选项可以作用在域、enum类型、enum值、服务类型及服务方法中。</li>
+</ul>
+
+<h3 id="2-15-1-自定义选项">2.15.1. 自定义选项</h3>
+
+<h2 id="2-16-生成访问类">2.16. 生成访问类</h2>
+
+<p>可以通过定义好的.proto文件来生成Java、Python、C++代码，需要基于.proto文件运行protocol buffer编译器protoc。运行的命令如下所示：</p>
+
+<pre><code>protoc --proto_path=IMPORT_PATH --cpp_out=DST_DIR --java_out=DST_DIR --python_out=DST_DIR --go_out=DST_DIR --ruby_out=DST_DIR --objc_out=DST_DIR --csharp_out=DST_DIR path/to/file.proto
+</code></pre>
+
+<ul>
+<li><p>IMPORT_PATH声明了一个.proto文件所在的具体目录。如果忽略该值，则使用当前目录。如果有多个目录则可以 对&ndash;proto_path 写多次，它们将会顺序的被访问并执行导入。-I=IMPORT_PATH是它的简化形式。</p></li>
+
+<li><p>当然也可以提供一个或多个输出路径：</p>
+
+<ul>
+<li>&ndash;go_out generates Go code in DST_DIR. See the Go generated code reference for more.</li>
+</ul></li>
+
+<li><p>你必须提供一个或多个.proto文件作为输入。多个.proto文件能够一次全部声明。虽然这些文件是相对于当前目录来命名的，每个文件必须在一个IMPORT_PATH中，只有如此编译器才可以决定它的标准名称。</p></li>
+</ul>
+
+<h1 id="3-小小总结">3. 小小总结</h1>
+
+<p>使用 gRPC, Protobol Buffers 时的开发流程：</p>
+
+<ol>
+<li>写好 <code>.proto</code> 文件：消息类型，服务接口等</li>
+<li>生成包含服务接口和存根的源代码文件</li>
+<li>编码调用服务接口完成通信</li>
+</ol>
+
+<p>至此，完。</p>
+
+<ul>
+<li><a href="https://emacsist.github.io/2017/12/11/google-protol-buffers--%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#%E8%AF%AD%E8%A8%80%E6%8C%87%E5%8D%97-proto3">译文参考-A</a></li>
+<li><a href="https://juejin.im/post/5b852d476fb9a019e4505873">译文参考-B</a></li>
+<li><a href="https://colobu.com/2015/01/07/Protobuf-language-guide/#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B">译文参考-C</a></li>
+</ul>
+
+<blockquote>
+<p>转载时加入了新增的内容并按自己学习过程中的理解略作修改</p>
+</blockquote>
+
+<h1 id="4-see-also">4. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://developers.google.com/protocol-buffers/docs/proto3#simple">Language Guide (proto3)</a></li>
+<li><a href="https://developers.google.com/protocol-buffers/docs/overview">Protocol Buffer Docs</a></li>
+<li><a href="https://developers.google.com/protocol-buffers/docs/gotutorial">Protocol Buffer Basics: Go</a></li>
+<li><a href="https://colobu.com/2015/01/07/Protobuf-language-guide/#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B">[译]Protobuf 语法指南(proto2)</a></li>
+<li><a href="https://emacsist.github.io/2017/12/11/google-protol-buffers--%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#%E8%AF%AD%E8%A8%80%E6%8C%87%E5%8D%97-proto3">Google Protol buffers 学习笔记</a></li>
+<li><a href="https://juejin.im/post/5b852d476fb9a019e4505873">Protocol Buffers 3 简明教程</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-08</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/golang/">golang</a>
+          
+          <a href="/tags/grpc/">grpc</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/tech/code/golang/20180906-grpc-03-what-is-grpc/">
+            <span class="next-text nav-default">Golang: gRPC学习笔记-03 | 什么是 gRPC？</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-09-07 00:00:00 \x2b0000 UTC',
+    title: 'Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

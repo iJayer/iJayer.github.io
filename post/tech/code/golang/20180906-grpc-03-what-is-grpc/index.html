@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: gRPC学习笔记-03 | 什么是 gRPC？ - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Golang: gRPC学习笔记-03 | 什么是 gRPC？" />
+<meta name="keywords" content="golang, grpc" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Golang: gRPC学习笔记-03 | 什么是 gRPC？" />
+<meta property="og:description" content="Golang: gRPC学习笔记-03 | 什么是 gRPC？" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/" />
+
+
+
+<meta property="article:published_time" content="2018-09-06T09:12:12&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-09-06T18:12:12&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Golang: gRPC学习笔记-03 | 什么是 gRPC？">
+<meta itemprop="description" content="Golang: gRPC学习笔记-03 | 什么是 gRPC？">
+
+
+<meta itemprop="datePublished" content="2018-09-06T09:12:12&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-06T09:12:12&#43;00:00" />
+<meta itemprop="wordCount" content="3371">
+
+
+
+<meta itemprop="keywords" content="golang,grpc," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang: gRPC学习笔记-03 | 什么是 gRPC？"/>
+<meta name="twitter:description" content="Golang: gRPC学习笔记-03 | 什么是 gRPC？"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: gRPC学习笔记-03 | 什么是 gRPC？</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-06 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 3371 words </span>
+        <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-什么是-grpc">1. 什么是 gRPC ?</a>
+<ul>
+<li><a href="#1-1-使用-protocol-buffers">1.1. 使用 protocol buffers</a></li>
+</ul></li>
+<li><a href="#2-grpc-的关键概念">2. gRPC 的关键概念</a>
+<ul>
+<li><a href="#2-1-grpc-架构相关概述">2.1. gRPC 架构相关概述</a>
+<ul>
+<li><a href="#2-1-1-服务定义">2.1.1. 服务定义</a>
+<ul>
+<li><a href="#2-1-1-1-unary-rpcs">2.1.1.1. Unary RPCs</a></li>
+<li><a href="#2-1-1-2-server-streaming-rpcs">2.1.1.2. Server streaming RPCs</a></li>
+<li><a href="#2-1-1-3-client-streaming-rpcs">2.1.1.3. Client streaming RPCs</a></li>
+<li><a href="#2-1-1-4-bidirectional-streaming-rpcs">2.1.1.4. Bidirectional streaming RPCs</a></li>
+</ul></li>
+<li><a href="#2-1-2-使用-api">2.1.2. 使用 API</a></li>
+<li><a href="#2-1-3-同步和异步">2.1.3. 同步和异步</a></li>
+</ul></li>
+<li><a href="#2-2-rpc-生命周期">2.2. RPC 生命周期</a>
+<ul>
+<li><a href="#2-2-1-unary-rpc">2.2.1. Unary RPC</a></li>
+<li><a href="#2-2-2-server-streaming-rpc">2.2.2. Server streaming RPC</a></li>
+<li><a href="#2-2-3-client-streaming-rpc">2.2.3. Client streaming RPC</a></li>
+<li><a href="#2-2-4-bidirectional-streaming-rpc">2.2.4. Bidirectional streaming RPC</a></li>
+<li><a href="#2-2-5-deadlines-timeouts">2.2.5. Deadlines/Timeouts</a></li>
+<li><a href="#2-2-6-rpc-termination">2.2.6. RPC termination</a></li>
+<li><a href="#2-2-7-cancelling-rpcs">2.2.7. Cancelling RPCs</a></li>
+<li><a href="#2-2-8-metadata">2.2.8. Metadata</a></li>
+<li><a href="#2-2-9-channels">2.2.9. Channels</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#3-see-also">3. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p>上一小节，简单熟悉了一下 <code>RPC</code>，接下来继续学习 <code>gRPC</code> 的基础概念：</p>
+
+<ul>
+<li>什么是 gRPC ?</li>
+<li>gRPC 的关键概念有哪些 ?</li>
+<li>在 gRPC 中，如何去定义一个服务 ？</li>
+<li>gRPC 服务类型有哪几种？</li>
+<li>一个 gRPC 客户端调用一个 gRPC 服务端方法时，会发生什么？</li>
+</ul>
+
+<p></p>
+
+<blockquote>
+<p>Statement: 文中内容多参考自网络博客[地址在文中(末)], 感谢这些作者们！🙂</p>
+</blockquote>
+
+<h1 id="1-什么是-grpc">1. 什么是 gRPC ?</h1>
+
+<p>Google 对 gRPC 的定义：</p>
+
+<blockquote>
+<p>A high performance, open-source universal RPC framework (高性能、开源、通用的 RPC 框架)</p>
+</blockquote>
+
+<p><a href="https://grpc.io/docs/guides/">官方：gRPC Guides</a></p>
+
+<p>gRPC 是Google开源的一款语言和平台均中立的高性能的RPC框架， 它使用 <a href="https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn">HTTP/2</a> 协议进行网络通信，并使用 <a href="https://developers.google.com/protocol-buffers/">Protocl Buffers</a> 作为它的 <a href="https://zh.wikipedia.org/wiki/%E6%8E%A5%E5%8F%A3%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80">IDL(Interface Description Language)</a>, 同时也可以将它作为底层消息交换格式。</p>
+
+<p>gRPC是面向服务端和移动端设计的RPC框架，它基于 HTTP/2 协议，带来双向流、请求压缩、单连接多路复用等功能，使得其在移动设备上表现更好，能够进一步节省移动端的耗电量和网络流量。</p>
+
+<p>在 gRPC 里，客户端应用可以像调用本地对象一样直接调用另一台不同的机器上服务端应用的方法，使得您能够更容易地创建分布式应用和服务。与许多 RPC 系统类似，gRPC 也是基于以下理念：</p>
+
+<ul>
+<li>定义一个服务，指定其能够被远程调用的方法以及它的参数和返回值</li>
+<li>在服务端实现这个接口，并运行一个 gRPC 服务器来处理客户端调用</li>
+<li>在客户端持有一个与服务端一样的方法存根，使客户端与服务端的调用就像本地方法的调用一样</li>
+</ul>
+
+<p>下图是gRPC官方主页的架构图，可以明确的看出它的特点是使用跨语言的ProtoBuf协议进行通信传输，且完全透明化远程调用的细节:</p>
+
+<p><img src="https://grpc.io/img/landing-2.svg" alt="" /></p>
+
+<p>使用 gRPC 可以在一个 <code>.proto</code> 文件中定义服务的契约，并使用任何支持它的语言去生成客户端和服务端的 RPC 代码。gRPC 解决了不同语言及环境间通信的复杂性和性能问题。</p>
+
+<h2 id="1-1-使用-protocol-buffers">1.1. 使用 protocol buffers</h2>
+
+<p>gRPC 默认使用 <a href="https://developers.google.com/protocol-buffers/">Protocl Buffers</a> ，这是 Google 开源的一套成熟的结构数据序列化机制（当然也可以使用其他数据格式如 JSON）。</p>
+
+<p>使用 protocol buffers 的第一步是在一个 <code>.proto</code> 文件中定义你想序列化的数据结构：它是一个普通的文本文件。protocol buffer 的数据被结构化为消息，每一个 message 都是一个小的逻辑记录，包含了一系列被称为 fields 的 name-value 对信息。下面是一个简单的样例：</p>
+
+<pre><code class="language-proto">message Person {
+    string name = 1;
+    int32 id =2;
+    bool has_ponycopter = 3;
+}
+</code></pre>
+
+<p>更详细的内容可以查看：</p>
+
+<ul>
+<li><a href="https://grpc.io/docs/guides/index.html#working-with-protocol-buffers">原文档</a></li>
+<li><a href="https://developers.google.com/protocol-buffers/docs/overview">Protocol Buffer: 开发文档</a></li>
+<li><a href="https://developers.google.com/protocol-buffers/docs/gotutorial">Protocol Buffer Basics: Go</a></li>
+</ul>
+
+<h1 id="2-grpc-的关键概念">2. gRPC 的关键概念</h1>
+
+<blockquote>
+<p>关键概念包括：gRPC 的架构描述和 RPC 的生命周期</p>
+</blockquote>
+
+<h2 id="2-1-grpc-架构相关概述">2.1. gRPC 架构相关概述</h2>
+
+<h3 id="2-1-1-服务定义">2.1.1. 服务定义</h3>
+
+<p>类似于其他 RPC 系统，gRPC 也是基于以下思想，即：定义一个服务，通过参数和返回类型指定可被远程调用的方法。默认情况下，gRPC 使用 <code>protocol buffers</code> 作为IDL，来描述服务接口，以及消息中有效数据（payload）的结构。如果需要，也可以使用其它选择。</p>
+
+<pre><code class="language-protoc">service HelloService {
+    rpc SayHello (HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+  string greeting = 1;
+}
+
+message HelloResponse {
+  string reply = 1;
+}
+</code></pre>
+
+<p>gRPC 支持 4 中服务类型，分别是:</p>
+
+<ul>
+<li><code>Unary RPCs</code></li>
+<li><code>Server streaming RPCs</code></li>
+<li><code>Client streaming RPCs</code></li>
+<li><code>Bidirectional streaming RPCs</code></li>
+</ul>
+
+<blockquote>
+<p>Note: gRPC 通过参数和返回类型是否有stream关键字来标识区分服务的类型</p>
+</blockquote>
+
+<p>下面就对着 4 中服务类型做简要说明</p>
+
+<h4 id="2-1-1-1-unary-rpcs">2.1.1.1. Unary RPCs</h4>
+
+<p>Unary RPCs: 最简单的 RPC 调用，即以此请求对应一次应答。客户端发送一次请求给服务端并从服务端获取一次应答，和一次普通的函数调用一样。</p>
+
+<pre><code class="language-proto">rpc SayHello(HelloRequest) returns (HelloResponse) {}
+</code></pre>
+
+<h4 id="2-1-1-2-server-streaming-rpcs">2.1.1.2. Server streaming RPCs</h4>
+
+<p>Server streaming RPCs: 服务端流式RPC，即一次请求可以对应多个响应结果。客户端发送一次请求给服务端，可获取一个数据流用来读取一系列消息，客户端从返回的数据流里一直读到没有更多的详细为止。在定义接口时，只需要将返回值增加 <code>stream</code> 关键字即可。</p>
+
+<pre><code class="language-proto">rpc SayHello(HelloRequest) returns (stream HelloResponse) {}
+</code></pre>
+
+<h4 id="2-1-1-3-client-streaming-rpcs">2.1.1.3. Client streaming RPCs</h4>
+
+<p>Client streaming RPCs: 客户端流式RPC，可以多次请求对应一个应答结果。客户端提供数据流写入，并批量发送消息给服务端，当客户端完成消息写入后，再等待服务端读取消息并应答。在定义接口时，只需要将<code>方法参数</code> 增加 <code>stream</code> 关键字即可。</p>
+
+<pre><code class="language-proto">rpc SayHello(stream HelloRequest) returns (HelloResponse) {}
+</code></pre>
+
+<h4 id="2-1-1-4-bidirectional-streaming-rpcs">2.1.1.4. Bidirectional streaming RPCs</h4>
+
+<p>Bidrectional streaming RPCs: 双向流式RPC，是服务端流式RPC和客户端流式RPC的结合，可以多次请求对应多个应答结果。服务端和客户端都可以分别通过读写数据流批量发送消息，两个数据流相互独立，客户端和服务端都能按照它的期望的顺序完成读写。举例说明：服务端可以在发送应答消息之前等待接受所有的客户端消息；也可以先接受一条消息之后，再应答一条消息，每个数据流里的消息的顺序会被保持。在定义接口时，需要将 <code>方法参数</code> 和 <code>返回值</code> 都增加 <code>stream</code> 关键字。</p>
+
+<pre><code class="language-proto">rpc SayHello(stream HelloRequest) returns (stream HelloResponse) {}
+</code></pre>
+
+<p>通过以上四种服务类型可以看出，基于 HTTP/2 的 gRPC, 在交互模型采用 <code>请求/响应</code> 模式的同时，充分利用了 HTTP/2 协议的流式处理特性。</p>
+
+<p>在接下来的 RPC 生命周期部分，会介绍这几种 RPC 更多的细节。</p>
+
+<h3 id="2-1-2-使用-api">2.1.2. 使用 API</h3>
+
+<p>从 <code>.proto</code> 文件中的服务定义开始，gRPC 提供了用来生客户端和服务端代码的 protocol buffer 编译插件。gRPC 用户通常在客户端调用这些 APIs，并且在服务端实现对应的 API。</p>
+
+<ul>
+<li>在服务端，服务器实现了服务中定义的方法，并且运行一个gRPC服务器处理客户端调用。gRPC 底层架构会解码传入的请求，执行服务方法，编码服务应答。</li>
+<li>在客户端，客户端有一个本地对象，叫做存根(stub)（在一些语言中，更常用的术语就叫做客户端），它实现了和服务同样的方法。客户端就只需要在本地对象上调用这些方法，将调用的参数包装进合适的protocol buffer消息类型 &ndash; 由gRPC负责将请求传送给服务器，并返回服务器的protocol buffer响应。</li>
+</ul>
+
+<h3 id="2-1-3-同步和异步">2.1.3. 同步和异步</h3>
+
+<p>同步RPC调用会阻塞住，直到服务端返回的响应到达，这是与RPC期望的调用过程最近似抽象。而另一方面，网络本质上就是异步的，并且在很多场景下，启动 RPC 而不阻塞当前的线程是非常有用的。</p>
+
+<p>在大多数语言的gRPC实现中，都包含了同步和异步2种版本。你可以在各个语言的教程和手册中找到更多详情（完整手册文档即将发布）</p>
+
+<h2 id="2-2-rpc-生命周期">2.2. RPC 生命周期</h2>
+
+<p><a href="https://grpc.io/docs/guides/concepts.html#rpc-life-cycle">官方原文(英文)</a>
+<a href="https://doc.oschina.net/grpc?t=58008">原文译文</a></p>
+
+<p>现在让我们细致看看，当一个gRPC客户端调用一个gRPC服务端方法时，会发生什么。我们不看实现细节，你可以在语言规范文档里面看到关于这些的更多细节。</p>
+
+<h3 id="2-2-1-unary-rpc">2.2.1. Unary RPC</h3>
+
+<p>First let’s look at the simplest type of RPC, where the client sends a single request and gets back a single response.</p>
+
+<ul>
+<li>Once the client calls the method on the stub/client object, the server is notified that the RPC has been invoked with the client’s <code>metadata(元数据)</code> for this call, the method name, and the specified <code>deadline</code> if applicable.</li>
+<li>The server can then either send back its own initial metadata (which must be sent before any response) straight away(直接), or wait for the client’s request message - which happens first is application-specific.</li>
+<li>Once the server has the client’s request message, it does whatever work is necessary to create and populate(填充) its response. The response is then returned (if successful) to the client together with status details (status code and optional status message) and optional trailing metadata.</li>
+<li>If the status is OK, the client then gets the response, which completes the call on the client side.</li>
+</ul>
+
+<h3 id="2-2-2-server-streaming-rpc">2.2.2. Server streaming RPC</h3>
+
+<p>A server-streaming RPC is similar to our simple example, except(除了) the server sends back a stream of responses after getting the client’s request message. After sending back all its responses, the server’s status details (status code and optional status message) and optional trailing metadata are sent back to complete on the server side. The client completes once it has all the server’s responses.</p>
+
+<h3 id="2-2-3-client-streaming-rpc">2.2.3. Client streaming RPC</h3>
+
+<p>客户端流式 RPC 也基本与我们的简单例子一样，区别在于客户端通过发送一个请求流给服务端，取代了原先发送的单个请求。服务端通常（但并不必须）会在接收到客户端所有的请求后发送回一个应答，其中附带有它的状态详情和可选的跟踪数据。</p>
+
+<h3 id="2-2-4-bidirectional-streaming-rpc">2.2.4. Bidirectional streaming RPC</h3>
+
+<p>In a bidirectional streaming RPC, again the call is initiated(开始|启动) by the client calling the method and the server receiving the client metadata, method name, and deadline. Again the server can choose to send back its initial(初始) metadata or wait for the client to start sending requests.</p>
+
+<p>What happens next depends on the application, as the client and server can read and write in any order - the streams operate completely independently(独立). So, for example, the server could wait until it has received all the client’s messages before writing its responses, or the server and client could “ping-pong”: the server gets a request, then sends back a response, then the client sends another request based on the response, and so on.</p>
+
+<h3 id="2-2-5-deadlines-timeouts">2.2.5. Deadlines/Timeouts</h3>
+
+<p>gRPC allows clients to specify how long they are willing to <code>wait</code> for an RPC to complete before the RPC is terminated with the error <strong>DEADLINE_EXCEEDED</strong>. On the server side, the server can query to see if a particular RPC has timed out, or how much time is left to complete the RPC.</p>
+
+<p>How the deadline or timeout is specified varies(变化的) from language to language - for example, not all languages have a default deadline, some language APIs work in terms of a deadline (a fixed point in time), and some language APIs work in terms of timeouts (durations of time).</p>
+
+<h3 id="2-2-6-rpc-termination">2.2.6. RPC termination</h3>
+
+<p>In gRPC, both the client and server make independent and local determinations of the success of the call, and their conclusions(结论) may not match. This means that, for example, you could have an RPC that finishes successfully on the server side (“I have sent all my responses!”) but fails on the client side (“The responses arrived after my deadline!”). It’s also possible for a server to decide to complete before a client has sent all its requests.</p>
+
+<h3 id="2-2-7-cancelling-rpcs">2.2.7. Cancelling RPCs</h3>
+
+<p>Either the client or the server can cancel an RPC at any time. A cancellation terminates the RPC immediately so that no further work is done. It is not an “undo”(撤销): changes made before the cancellation will not be rolled back(回滚).</p>
+
+<h3 id="2-2-8-metadata">2.2.8. Metadata</h3>
+
+<p>Metadata is information about a particular(特定的) RPC call (such as authentication details) in the form of a list of key-value pairs, where the keys are strings and the values are typically strings (but can be binary data). Metadata is opaque(不透明) to gRPC itself - it lets the client provide information associated with the call to the server and <code>vice versa</code>(反之亦然).</p>
+
+<p>Access to metadata is language-dependent</p>
+
+<h3 id="2-2-9-channels">2.2.9. Channels</h3>
+
+<p>A gRPC channel provides a connection to a gRPC server on a specified host and port and is used when creating a client stub (or just “client” in some languages). Clients can specify channel arguments to modify gRPC’s default behaviour, such as switching on and off message compression. A channel has state, including <code>connected</code> and <code>idle</code>.</p>
+
+<p>How gRPC deals with closing down channels is language-dependent. Some languages also permit querying channel state.</p>
+
+<h1 id="3-see-also">3. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://grpc.io/docs/guides/">官方：gRPC Guides</a></li>
+<li><a href="https://doc.oschina.net/grpc?t=58008">gRPC 官方文档中文版 V1.0</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-06</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/golang/">golang</a>
+          
+          <a href="/tags/grpc/">grpc</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/tech/code/golang/20180905-grpc-02-what-is-rpc/">
+            <span class="next-text nav-default">Golang: gRPC学习笔记-02 | 什么是 RPC？</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-09-06 09:12:12 \x2b0000 UTC',
+    title: 'Golang: gRPC学习笔记-03 | 什么是 gRPC？',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
