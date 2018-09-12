@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: Stdlib | Flag 学习笔记 - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Golang 标准库：flag 学习笔记" />
+<meta name="keywords" content="go, flag" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Golang: Stdlib | Flag 学习笔记" />
+<meta property="og:description" content="Golang 标准库：flag 学习笔记" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/" />
+
+
+
+<meta property="article:published_time" content="2017-07-25T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-07-25T22:21:58&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Golang: Stdlib | Flag 学习笔记">
+<meta itemprop="description" content="Golang 标准库：flag 学习笔记">
+
+
+<meta itemprop="datePublished" content="2017-07-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-07-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2064">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang: Stdlib | Flag 学习笔记"/>
+<meta name="twitter:description" content="Golang 标准库：flag 学习笔记"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: Stdlib | Flag 学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-07-25 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 2064 words </span>
+        <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-flag">1. Flag</a></li>
+<li><a href="#2-定义flags">2. 定义flags</a>
+<ul>
+<li><a href="#2-1-方式一">2.1. 方式一</a></li>
+<li><a href="#2-2-方式二">2.2. 方式二</a></li>
+<li><a href="#2-3-方式三">2.3. 方式三</a></li>
+</ul></li>
+<li><a href="#3-命令行参数解析及语法格式">3. 命令行参数解析及语法格式</a>
+<ul>
+<li><a href="#3-1-解析">3.1. 解析</a></li>
+<li><a href="#3-2-命令行语法">3.2. 命令行语法</a></li>
+</ul></li>
+<li><a href="#4-变量-类型和函数">4. 变量、类型和函数</a>
+<ul>
+<li><a href="#4-1-变量">4.1. 变量</a></li>
+<li><a href="#4-2-函数">4.2. 函数</a></li>
+<li><a href="#4-3-类型">4.3. 类型</a>
+<ul>
+<li><a href="#4-3-1-errorhandling">4.3.1. ErrorHandling</a></li>
+<li><a href="#4-3-2-flagset">4.3.2. FlagSet</a></li>
+<li><a href="#4-3-3-flag">4.3.3. Flag</a></li>
+<li><a href="#4-3-4-value">4.3.4. Value</a></li>
+</ul></li>
+<li><a href="#4-4-主要类型的方法">4.4. 主要类型的方法</a>
+<ul>
+<li><a href="#4-4-1-实例化方式-flag-newflagset">4.4.1. 实例化方式：flag.NewFlagSet()</a></li>
+<li><a href="#4-4-2-解析参数-flag-parse">4.4.2. 解析参数：flag.Parse()</a>
+<ul>
+<li><a href="#4-4-2-1-解析停止">4.4.2.1. 解析停止</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#5-将-flag-绑定用户自定义类型">5. 将 flag 绑定用户自定义类型</a>
+<ul>
+<li><a href="#5-1-重写-flag-value">5.1. 重写 flag.Value</a></li>
+<li><a href="#5-2-解析">5.2. 解析</a></li>
+</ul></li>
+<li><a href="#6-see-also">6. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p>flag 包学习笔记概要：</p>
+
+<ul>
+<li>如何定义命令行参数，即 flags ？</li>
+<li>flags 解析规则及语法格式 ？</li>
+<li>flag 包有哪些重要的变量、函数以及类型 ？</li>
+<li>如何绑定用户自定义的数据类型作为参数值的类型？</li>
+</ul>
+
+<p></p>
+
+<h1 id="1-flag">1. Flag</h1>
+
+<p><code>Flag</code>：解析命令行参数，其实现方法是将命令行标志与程序中的某一变量进行绑定，开发人员使用变量在程序中进行逻辑处理。</p>
+
+<h1 id="2-定义flags">2. 定义flags</h1>
+
+<p>有三种方式定义 flags</p>
+
+<h2 id="2-1-方式一">2.1. 方式一</h2>
+
+<p>通过 <code>flag.Type(name, defValue, usage) *Type {}</code> 方法，该方法返回一个对应数据类型的指针, 其中 Type 为：String、Int、Bool等。</p>
+
+<pre><code class="language-go"> var port = flag.String(&quot;port&quot;, &quot;80&quot;, &quot;http port.(default:80)&quot;)
+ var num = flag.Int()
+ // ...
+</code></pre>
+
+<h2 id="2-2-方式二">2.2. 方式二</h2>
+
+<p>通过 <code>flag.TypeVar(&amp;flagvar, name, defValue, usage) Type {}</code> 方法将flag绑定到一个变量, 该方法返回结果为值类型</p>
+
+<pre><code class="language-go">var num int
+func init() {
+    flag.IntVar(&amp;num, &quot;num&quot;, 1234, &quot;help message for flagname&quot;)
+    // ...
+}
+</code></pre>
+
+<h2 id="2-3-方式三">2.3. 方式三</h2>
+
+<p>通过 <code>flag.Var()</code> 方法绑定自定义类型，自定义类型需要实现Value接口(要求receiver是指针)</p>
+
+<pre><code class="language-go">flag.Var(&amp;flagVal, &quot;name&quot;, &quot;help message for flagname&quot;)
+</code></pre>
+
+<blockquote>
+<p>注：这种方式是没有提供默认值的，所以默认值就是类型的零值。(备注：具体如何实现自定义类型绑定会在后面介绍)</p>
+</blockquote>
+
+<h1 id="3-命令行参数解析及语法格式">3. 命令行参数解析及语法格式</h1>
+
+<p>命令行参数定义好了，该如何解析呢？</p>
+
+<h2 id="3-1-解析">3.1. 解析</h2>
+
+<p>在所有flag定义完成之后，调用 <code>flag.Parse()</code> 解析</p>
+
+<ul>
+<li>对该函数的调用必须在所有命令参数存储载体的声明(即:上面对 num 和 port的声明)和设置(即: 上面调用 <code>flag.IntVar()</code>) 之后,并且在读取任何命令参数值之前进行。正因为如此，我们最好把 flag.Parse() 放在 main 函数第一行.</li>
+<li>解析函数将会在碰到第一个 <code>非 flag 命令行参数</code> 时停止，非flag命令行参数是指不满足命令行语法的参数，如命令行参数为 cmd &ndash;flag=true abc 则第一个非flag 命令行参数为 “abc”</li>
+</ul>
+
+<blockquote>
+<p>注：调用 <code>Parse</code> 解析后，就可以直接使用 flag 本身(指针类型)或者绑定的变量了(值类型), 还可通过 flag.Args(), flag.Arg(i) 来获取非flag命令行参数</p>
+</blockquote>
+
+<h2 id="3-2-命令行语法">3.2. 命令行语法</h2>
+
+<p>命令行语法格式：</p>
+
+<pre><code class="language-go">-flag       // 只支持bool类型
+
+-flag xxx   // 使用空格，一个 - 符号
+--flag xxx  // 使用空格，两个 - 符号
+
+-flag=xxx   // 使用等号，一个 - 符号
+--flag=xxx  // 使用等号，两个 - 符号
+</code></pre>
+
+<blockquote>
+<p>注：布尔类型的参数防止解析时的二义性，应该使用等号的方式指定。</p>
+</blockquote>
+
+<h1 id="4-变量-类型和函数">4. 变量、类型和函数</h1>
+
+<h2 id="4-1-变量">4.1. 变量</h2>
+
+<ul>
+<li><p>flag.ErrHelp：该错误类型用于当命令行指定了 &ndash;help 参数但没有定义时。</p></li>
+
+<li><p>flag.Usage：这是一个函数，用于输出所有定义了的命令行参数和帮助信息(Usage Message)。 当命令行参数解析出错，该函数会被调用。我们可通过 <code>flag.Usage = func() {}</code> 指定自定义的Usage。</p>
+
+<ul>
+<li>flag.Usage 的类型是func()，即一种无参数声明且无结果声明的函数类型</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>注意，对flag.Usage的赋值必须在调用 flag.Parse() 函数之前</p>
+</blockquote>
+
+<ul>
+<li>flag.CommandLine: 类型 flag.FlagSet 的实例, 相当于默认情况下的命令参数容器.</li>
+</ul>
+
+<h2 id="4-2-函数">4.2. 函数</h2>
+
+<h2 id="4-3-类型">4.3. 类型</h2>
+
+<h3 id="4-3-1-errorhandling">4.3.1. ErrorHandling</h3>
+
+<pre><code class="language-go">type ErrorHandling int 
+</code></pre>
+
+<p>该类型定义了在参数解析出错时，处理错误定义的三个常量</p>
+
+<pre><code class="language-go">const (
+    ContinueOnError ErrorHandling = iota
+    ExitOnError
+    PanicOnError
+)
+</code></pre>
+
+<h3 id="4-3-2-flagset">4.3.2. FlagSet</h3>
+
+<p><code>FlagSet</code> 是该包的核心结构</p>
+
+<pre><code class="language-go">// A FlagSet represents a set of defined flags.
+type FlagSet struct {
+    // Usage is the function called when an error occurs while parsing flags.
+    // The field is a function (not a method) that may be changed to point to
+    // a custom error handler.
+    Usage func()
+    name          string            // FlagSet的名字。commandLine 给的是os.Args[0]
+    parsed        bool              // 是否执行过Parse()
+    actual        map[string]*Flag  // 存放实际传递了的参数（即命令行参数）
+    formal        map[string]*Flag  // 存放所有已定义命令行参数
+    args          []string          // arguments after flags 存放非标志的参数列表（即标志后面的参数）
+    exitOnError  bool               // does the program exit if there's an error?
+    errorHandling ErrorHandling     // 当解析出错时，处理错误的方式
+    output        io.Writer         // nil means stderr; use out() accessor
+}
+</code></pre>
+
+<blockquote>
+<p>该类型同时提供了一系列的方法集合 <code>&lt;MethodSet&gt;</code>, 通过这些方式来实现CLI的灵活处理</p>
+</blockquote>
+
+<h3 id="4-3-3-flag">4.3.3. Flag</h3>
+
+<p><code>Flag</code> 结构如下</p>
+
+<pre><code class="language-go">type Flag struct {
+	Name     string // name as it appears on command line
+	Usage    string // help message
+	Value    Value  // value as set
+	DefValue string // default value (as text); for usage message
+}
+</code></pre>
+
+<h3 id="4-3-4-value">4.3.4. Value</h3>
+
+<p>Value定义：</p>
+
+<pre><code class="language-go">type Value interface {
+  String() string
+  Set(string) error
+}
+</code></pre>
+
+<h2 id="4-4-主要类型的方法">4.4. 主要类型的方法</h2>
+
+<h3 id="4-4-1-实例化方式-flag-newflagset">4.4.1. 实例化方式：flag.NewFlagSet()</h3>
+
+<p><code>flag.NewFlagSet()</code> 用于实例化 FlagSet。例如：预定义的 FlagSet实例 <code>subCommand</code> 的定义方式：</p>
+
+<pre><code class="language-go">subCommand := flag.NewFlagSet(&quot;push&quot;, ExitOnError)
+subCommand.Parse(os.Args[1:])   // os.Args[1:] 指的就是我们给定的那些命令参数
+</code></pre>
+
+<blockquote>
+<p>注：可用于定义子命令</p>
+
+<ul>
+<li>由于FlagSet的字段没有 export，其他方式获得FlagSet的实例后，比如 FlagSet{}、new(FlagSet), 应该调用 Init() 方法初始化 name和errorHandling</li>
+<li>这样做的好处依然是更灵活地定制命令参数容器。但更重要的是，你的定制完全不会影响到那个全局变量flag.CommandLine</li>
+</ul>
+</blockquote>
+
+<h3 id="4-4-2-解析参数-flag-parse">4.4.2. 解析参数：flag.Parse()</h3>
+
+<p>该方法应该在flag参数定义后, 具体参数值被访问之前调用。</p>
+
+<h4 id="4-4-2-1-解析停止">4.4.2.1. 解析停止</h4>
+
+<ul>
+<li><p>第一个non-flag参数</p>
+
+<p>当遇到单独的一个”-”或不是”-”开始时，会停止解析</p></li>
+
+<li><p>两个连续的 &lsquo;-&rsquo;</p></li>
+</ul>
+
+<h1 id="5-将-flag-绑定用户自定义类型">5. 将 flag 绑定用户自定义类型</h1>
+
+<blockquote>
+<p>首先，用户自定义类型需要重新实现 flag.Value 接口</p>
+</blockquote>
+
+<p>flag.Value 接口定义如下：</p>
+
+<pre><code class="language-go">type Value interface{
+    String() string
+    Set(string) error
+}
+</code></pre>
+
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>String(): 方法输出结果为一个字符串值</li>
+<li>Set(string) error: 方法定义了如何解析flag参数指定的值</li>
+</ul>
+</blockquote>
+
+<p>例如：解析数据库集群服务器的地址到一个 slice 中 ？</p>
+
+<h2 id="5-1-重写-flag-value">5.1. 重写 flag.Value</h2>
+
+<ul>
+<li>自定义flag参数值接收类型</li>
+</ul>
+
+<pre><code class="language-go">type addrs []string
+</code></pre>
+
+<ul>
+<li>实现 String() string 方法</li>
+</ul>
+
+<pre><code class="language-go">func(i *addrs) String() string {
+    return fmt.Sprintf(&quot;%v&quot;, *i)
+}
+</code></pre>
+
+<ul>
+<li>实现 Set(string) error 方法</li>
+</ul>
+
+<pre><code class="language-go">func (i *addrs) Set(value string) error {
+    *i = append(*i, value)
+    return nil
+}
+</code></pre>
+
+<h2 id="5-2-解析">5.2. 解析</h2>
+
+<pre><code class="language-go">var DBAdds addrs
+
+func init() {
+    flag.Var(&amp;DBAdds, &quot;db_addr&quot;, &quot;database cluster server address&quot;)
+    flag.Parse()
+} 
+
+func main() {
+    fmt.Println(DBAdds)
+}
+</code></pre>
+
+<pre><code class="language-bash">$ ./app -db_addr 192.168.1.100 -db_addr 192.168.1.101 -db_addr 192.168.1.102
+
+# output: 
+</code></pre>
+
+<p>完整代码:</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;flag&quot;
+)
+
+// 自定义flag参数值接收类型
+type addrs []string
+
+// 实现 String() string 方法
+func(i *addrs) String() string {
+    return fmt.Sprintf(&quot;%v&quot;, *i)
+}
+
+// 实现 Set(string) error 方法
+func (i *addrs) Set(value string) error {
+    *i = append(*i, value)
+    return nil
+}
+
+// DBAdds 声明接收命令行参数的变量
+var DBAdds addrs
+
+// 定义 flag 并完成解析
+func init() {
+    flag.Var(&amp;DBAdds, &quot;db_addr&quot;, &quot;database cluster server address&quot;)
+    flag.Parse()
+} 
+
+func main() {
+    fmt.Println(DBAdds)
+}
+</code></pre>
+
+<h1 id="6-see-also">6. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/12.4.md">The-way-to-go·Flag</a></li>
+<li><a href="http://blog.studygolang.com/2013/02/%E6%A0%87%E5%87%86%E5%BA%93-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90flag/">标准库—命令行参数解析flag</a></li>
+<li><a href="http://studygolang.com/articles/3676">Golang学习笔记-flag包</a></li>
+<li><a href="https://faberliu.github.io/2014/11/12/Golang-flag%E5%8C%85%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3-%E4%B8%80/">Golang flag包使用详解(一)</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-07-25</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/golang/">golang</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/footprint/20171006-journey-%E9%BB%84%E5%B1%B1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">『心之所向，素履以往』— 黄山</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2017-07-25 00:00:00 \x2b0000 UTC',
+    title: 'Golang: Stdlib | Flag 学习笔记',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

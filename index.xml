@@ -303,5 +303,25 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>Golang: Stdlib | Flag 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/</link>
+      <pubDate>Tue, 25 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;flag 包学习笔记概要：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如何定义命令行参数，即 flags ？&lt;/li&gt;
+&lt;li&gt;flags 解析规则及语法格式 ？&lt;/li&gt;
+&lt;li&gt;flag 包有哪些重要的变量、函数以及类型 ？&lt;/li&gt;
+&lt;li&gt;如何绑定用户自定义的数据类型作为参数值的类型？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
   </channel>
 </rss>
