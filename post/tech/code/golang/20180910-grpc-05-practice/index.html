@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang: gRPC学习笔记-05 | 编码实践 - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Golang: gRPC学习笔记-05 | 编码实践" />
+<meta name="keywords" content="golang, grpc" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Golang: gRPC学习笔记-05 | 编码实践" />
+<meta property="og:description" content="Golang: gRPC学习笔记-05 | 编码实践" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/" />
+
+
+
+<meta property="article:published_time" content="2018-09-10T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-09-13T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Golang: gRPC学习笔记-05 | 编码实践">
+<meta itemprop="description" content="Golang: gRPC学习笔记-05 | 编码实践">
+
+
+<meta itemprop="datePublished" content="2018-09-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="611">
+
+
+
+<meta itemprop="keywords" content="golang,grpc," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang: gRPC学习笔记-05 | 编码实践"/>
+<meta name="twitter:description" content="Golang: gRPC学习笔记-05 | 编码实践"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang: gRPC学习笔记-05 | 编码实践</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-10 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 611 words </span>
+        <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#grpc-从学习到生产">gRPC 从学习到生产</a>
+<ul>
+<li><a href="#项目结构">项目结构</a></li>
+<li><a href="#generate-code">Generate Code</a></li>
+<li><a href="#server-实现">server 实现</a></li>
+<li><a href="#client-实现">client 实现</a></li>
+<li><a href="#interceptor">interceptor</a></li>
+<li><a href="#译文勘误">译文勘误：</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p>学习完了理论知识，开始写点 Demo 体验一番吧！ Sohoo！😋</p>
+
+<p></p>
+
+<blockquote>
+<p>Statement: 文章转载自 <a href="https://blog.lab99.org/post/golang-2017-09-27-video-grpc-from-tutorial-to-production.html?utm_campaign=studygolang.com&amp;utm_medium=studygolang.com&amp;utm_source=studygolang.com#shi-pin-xin-xi">大桥下的蜗牛 =&gt; 视频笔记：gRPC 从学习到生产 - Alan Shreve</a>。</p>
+
+<ul>
+<li><a href="https://about.sourcegraph.com/go/grpc-in-production-alan-shreve/">原文(英)：gRPC in Production at GopherCon 2017</a><br /></li>
+</ul>
+</blockquote>
+
+<h1 id="grpc-从学习到生产">gRPC 从学习到生产</h1>
+
+<blockquote>
+<p>按照文档内容，实现 Demo</p>
+</blockquote>
+
+<h2 id="项目结构">项目结构</h2>
+
+<pre><code class="language-bash">[zhe@zhe cache-service-demo](master)$ tree
+.
+|-- README.md
+|-- client                  // 完成 rpc 调用
+|   `-- client.go
+|-- error                   // 结构化错误处理
+|   `-- error.go
+|-- go.mod
+|-- go.sum
+|-- interceptor             // Client &amp; Server 端拦截器(中间件)
+|   `-- interceptor.go
+|-- main.go
+|-- proto                   // rpc 消息和服务定义
+|   |-- app.pb.go           // stub 存根文件
+|   `-- app.proto           // protocol buffers 协议
+`-- server                  // rpc 服务实现和访问控制
+    |-- server.go
+    `-- tap.go              
+
+5 directories, 11 files
+</code></pre>
+
+<ul>
+<li><a href="https://github.com/zhezh09/go-practice/tree/master/lib-third-demo/grpc/cache-service-demo">完整代码</a></li>
+</ul>
+
+<h2 id="generate-code">Generate Code</h2>
+
+<pre><code>$ protoc -I . --go_out=plugins=grpc:. proto/app.proto
+</code></pre>
+
+<h2 id="server-实现">server 实现</h2>
+
+<ul>
+<li><p>完成 k-v 的存放和管理</p>
+
+<p>实现 <code>CacheServer</code> 接口</p></li>
+
+<li><p>流量控制</p>
+
+<p>通过 <code>netutil.LimitListener(l, 1024)</code> &amp; <code>grpc.MaxConcurrentStreams(64)</code> 两个结合起来基本控制了并发的总数</p></li>
+
+<li><p>上下文传递和 Metadata 数据传递</p>
+
+<p>Context: 实现超时控制：</p>
+
+<pre><code class="language-go">ctx, _ = context.WithTimeout(context.Background(), 50*time.Millisecond)
+</code></pre>
+
+<p>GRPC metadata，也称为 GRPC 的 Header。就像 HTTP 头一样，可以有一些 Metadata 信息传递过来。</p>
+
+<pre><code class="language-go">// client.go 添加参数
+ctx = metadata.NewOutgoingContext(ctx, metadata.Pairs(&quot;dry-run&quot;, &quot;0&quot;)) // 设置 Metadata(即类似：HTTP HEADER)
+
+// server.og 解析参数
+md, ok := metadata.FromIncomingContext(ctx)
+</code></pre></li>
+
+<li><p>带有日志统计中间件</p>
+
+<p>中间件(拦截器): 只要在客户端和服务端分别注册了 Interceptor, 那么进行 RPC 调用的时候，这些中间件会先被调用，因此这个中间件可以对调用进行一层包装，然后再进行调用。</p></li>
+
+<li><p>服务端以流的方式发送数据</p></li>
+</ul>
+
+<h2 id="client-实现">client 实现</h2>
+
+<ul>
+<li>完成 gRPC 的相关业务调用</li>
+<li>带有日志统计中间件</li>
+</ul>
+
+<h2 id="interceptor">interceptor</h2>
+
+<ul>
+<li>中间件模块实现</li>
+</ul>
+
+<h2 id="译文勘误">译文勘误：</h2>
+
+<ul>
+<li><p>client.go: Server 服务运行在 <code>5051</code> 端口</p>
+
+<pre><code class="language-go">grpc.Dial(&quot;localhost:5053&quot;)
+
+// changed to:
+
+grpc.Dial(&quot;localhost:5051&quot;)`
+</code></pre></li>
+
+<li><p>server.go: CacheService.store：map 未初始化就分配值会导致 panic</p>
+
+<pre><code class="language-go">s.store[req.Key] = req.Val
+
+// changed to:
+
+if s.store == nil {
+    s.store = make(map[string][]byte)
+}
+s.store[req.Key] = req.Val
+</code></pre></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://about.sourcegraph.com/go/grpc-in-production-alan-shreve/">原文(英)：gRPC in Production at GopherCon 2017</a><br /></li>
+<li><a href="https://blog.lab99.org/post/golang-2017-09-27-video-grpc-from-tutorial-to-production.html?utm_campaign=studygolang.com&amp;utm_medium=studygolang.com&amp;utm_source=studygolang.com#shi-pin-xin-xi">大桥下的蜗牛 =&gt; 视频笔记：gRPC 从学习到生产 - Alan Shreve</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-13</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/golang/">golang</a>
+          
+          <a href="/tags/grpc/">grpc</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/">
+            <span class="next-text nav-default">Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-09-10 00:00:00 \x2b0000 UTC',
+    title: 'Golang: gRPC学习笔记-05 | 编码实践',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

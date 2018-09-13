@@ -6,10 +6,23 @@
     <description>Recent content in Tech on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 07 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Golang: gRPC学习笔记-05 | 编码实践</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/</link>
+      <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;学习完了理论知识，开始写点 Demo 体验一番吧！ Sohoo！😋&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
