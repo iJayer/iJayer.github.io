@@ -6,10 +6,23 @@
     <description>Recent content on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 10 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reading | Be worthy to read about career and work</title>
+      <link>https://zhezh09.github.io/post/career/be-worthy-to-read/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/career/be-worthy-to-read/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;Include some articles that are very inspiring in your career and work.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Golang: gRPC学习笔记-05 | 编码实践</title>
@@ -117,7 +130,7 @@
     </item>
     
     <item>
-      <title>Make &amp; Makefile 学习笔记 （一）</title>
+      <title>Tools | Make &amp; Makefile 学习笔记 （一）</title>
       <link>https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -133,7 +146,7 @@
     </item>
     
     <item>
-      <title>Golang: 依赖管理工具-02：Go Modules 使用过程学习笔记</title>
+      <title>Golang | 依赖管理工具-02：Go Modules 使用过程学习笔记</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</link>
       <pubDate>Wed, 29 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -277,6 +290,22 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
     </item>
     
     <item>
+      <title>Tools | Git Submodule 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</link>
+      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;什么是 Git 子模块&lt;/li&gt;
+&lt;li&gt;Git 子模块怎么用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>『心之所向，素履以往』— 千岛湖</title>
       <link>https://zhezh09.github.io/post/footprint/20180520-journey-%E5%8D%83%E5%B2%9B%E6%B9%96/</link>
       <pubDate>Sun, 20 May 2018 00:00:00 +0000</pubDate>
@@ -332,6 +361,17 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
 &lt;li&gt;flag 包有哪些重要的变量、函数以及类型 ？&lt;/li&gt;
 &lt;li&gt;如何绑定用户自定义的数据类型作为参数值的类型？&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tools | Git 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</link>
+      <pubDate>Fri, 21 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</guid>
+      <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

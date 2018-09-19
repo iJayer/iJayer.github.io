@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Make &amp; Makefile 学习笔记 （一）</title>
+      <title>Tools | Make &amp; Makefile 学习笔记 （一）</title>
       <link>https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -34,6 +34,33 @@
       
       <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
       <description>&lt;p&gt;WinSW: 把 win 下的命令行程序包装为 service 运行&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tools | Git Submodule 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</link>
+      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;什么是 Git 子模块&lt;/li&gt;
+&lt;li&gt;Git 子模块怎么用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tools | Git 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</link>
+      <pubDate>Fri, 21 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</guid>
+      <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
