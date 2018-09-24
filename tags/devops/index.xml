@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devops on Zher&#39;s Blog</title>
+    <link>https://zhezh09.github.io/tags/devops/</link>
+    <description>Recent content in Devops on Zher&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 05 Aug 2018 17:32:41 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhezh09.github.io/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Monitor | Grafana 使用</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-03-practice/</link>
+      <pubDate>Sun, 05 Aug 2018 17:32:41 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-03-practice/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | Grafana 配置</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-02-config/</link>
+      <pubDate>Sun, 22 Jul 2018 17:22:38 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-02-config/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;每个服务程序，基本上都会指定一个或多个配置文件，用来定制其所要启用的功能，Grafana 也不例外，那么 Grafana 的配置文件有哪些，以及提供了什么样的配置选项呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | Grafana 基础</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-01-basic-concepts/</link>
+      <pubDate>Sun, 22 Jul 2018 17:02:38 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-01-basic-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Grafana 能干什么？&lt;/li&gt;
+&lt;li&gt;Grafana 有什么特性？&lt;/li&gt;
+&lt;li&gt;用好 Grafana, 需要了解什么，即-基本概念&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | cAdvisor 采集的 Measurements</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-02-measurements/</link>
+      <pubDate>Sat, 21 Jul 2018 16:37:21 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-02-measurements/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;cAdvisor 作为监控系统的数据采集模块，那么可以采集到那些指标参数呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | cAdvisor 基础</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/</link>
+      <pubDate>Sat, 21 Jul 2018 16:36:59 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;有关 cAdvisor 的基础知识、安装和使用方法介绍&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | 关于监控系统的相关知识</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/about-monitor-system/</link>
+      <pubDate>Wed, 18 Jul 2018 18:57:08 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/about-monitor-system/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

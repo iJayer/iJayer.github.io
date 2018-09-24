@@ -6,10 +6,42 @@
     <description>Recent content in Win on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Aug 2018 22:05:21 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/win/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Win | 命令行集合</title>
+      <link>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Windows 下命令行精选&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;快速启动命令行：&lt;kbd&gt;Win + X&lt;/kbd&gt; + &lt;kbd&gt;A&lt;/kbd&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>让 Win 更好用的技巧</title>
+      <link>https://zhezh09.github.io/post/tech/os/win/used-better/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/win/used-better/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;收藏一些让 Win 更好用的方法&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>博客搭建-03 HugoServer注册为Win服务</title>

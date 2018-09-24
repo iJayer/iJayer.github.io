@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Monitor | cAdvisor 基础 - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" />
+  <meta name="description" content=" 有关 cAdvisor 的基础知识、安装和使用方法介绍
+ 
+" />
+<meta name="keywords" content="monitor, cadvisor" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Monitor | cAdvisor 基础" />
+<meta property="og:description" content="
+
+
+有关 cAdvisor 的基础知识、安装和使用方法介绍
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/" />
+
+
+
+<meta property="article:published_time" content="2018-07-21T16:36:59&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-07-21T16:36:59&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Monitor | cAdvisor 基础">
+<meta itemprop="description" content="
+
+
+有关 cAdvisor 的基础知识、安装和使用方法介绍
+
+
+">
+
+
+<meta itemprop="datePublished" content="2018-07-21T16:36:59&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-21T16:36:59&#43;00:00" />
+<meta itemprop="wordCount" content="927">
+
+
+
+<meta itemprop="keywords" content="devops," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monitor | cAdvisor 基础"/>
+<meta name="twitter:description" content="
+
+
+有关 cAdvisor 的基础知识、安装和使用方法介绍
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Monitor | cAdvisor 基础</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-21 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 927 words </span>
+        <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-cadvisor">1. cAdvisor</a></li>
+<li><a href="#2-cadvisor-安装和使用">2. cAdvisor 安装和使用</a>
+<ul>
+<li><a href="#2-1-通过-docker-容器运行-cadvisor">2.1. 通过 Docker 容器运行 cAdvisor</a>
+<ul>
+<li><a href="#2-1-1-启动过程中的问题">2.1.1. 启动过程中的问题</a></li>
+<li><a href="#2-1-2-使用">2.1.2. 使用</a></li>
+</ul></li>
+<li><a href="#2-2-二进制可执行文件使用-cadvisor">2.2. 二进制可执行文件使用 cAdvisor</a></li>
+<li><a href="#2-3-rest-api">2.3. REST API</a></li>
+</ul></li>
+<li><a href="#3-关于-cadvisor-数据采集">3. 关于 cAdvisor 数据采集</a></li>
+<li><a href="#4-see-also">4. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>有关 cAdvisor 的基础知识、安装和使用方法介绍</p>
+</blockquote>
+
+<p></p>
+
+<h1 id="1-cadvisor">1. cAdvisor</h1>
+
+<p><a href="https://github.com/google/cadvisor">cAdvisor</a> 是 Google 用来让容器用户了解其所运行容器的资源使用和性能特征的工具。cAdvisor 是一个用来收集、聚合、处理以及导出正在运行的容器信息的运行时守护进程。</p>
+
+<p>具体来说，对于每个容器 cAdvisor 都保留了其资源隔离参数、历史资源使用情况、以及完整的历史资源使用和网络统计直方图。这个数据，可以通过容器或主机范围内导出。它是除了 Kubernetes 外, Google 支持 Docker 的另一个重要应用.</p>
+
+<h1 id="2-cadvisor-安装和使用">2. cAdvisor 安装和使用</h1>
+
+<p>环境：centos 7.4 amd64</p>
+
+<h2 id="2-1-通过-docker-容器运行-cadvisor">2.1. 通过 Docker 容器运行 cAdvisor</h2>
+
+<pre><code>$ docker search cadvisor
+$ docker pull google/cadvisor
+$ docker run \
+--volume=/:/rootfs:ro \  
+--volume=/var/run:/var/run:rw \  
+--volume=/sys:/sys:ro \  
+--volume=/var/lib/docker/:/var/lib/docker:ro \  
+--volume=/cgroup:/cgroup:ro \
+--privileged=true \
+--userns=host \
+--publish=8080:8080 \
+--detach=true \
+--name=cadvisor \
+google/cadvisor:latest
+
+$ docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/cgroup:/cgroup:ro --privileged=true --userns=host --publish=8080:8080 --detach=true --name=cadvisor google/cadvisor:latest
+</code></pre>
+
+<blockquote>
+<p>Note: 在 Ret Hat, CentOS, Fedora 等发行版上需要传递如下参数，因为 SELinux 加强了安全策略，如不设置可能会导致采集信息失败。上面命令中，根据说明 <a href="https://github.com/google/cadvisor/blob/master/docs/running.md">Running cAdvisor</a> ，附加以下几个命令：</p>
+
+<ul>
+<li>&ndash;userns=host</li>
+<li>&ndash;privileged=true</li>
+<li>&ndash;volume=/cgroup:/cgroup:ro</li>
+</ul>
+</blockquote>
+
+<p>运行 cadvisor 容器的 docker run 部分命令选项介绍：</p>
+
+<ul>
+<li>&ndash;detach=true 指定容器在后台运行</li>
+<li>&ndash;privileged=true 设置为true之后，容器内的root才拥有真正的root权限，可以看到host上的设备，并且可以执行mount；否者容器内的root只是外部的一个普通用户权限</li>
+<li>&ndash;volume=/cgroup:/cgroup:ro 由于cadvisor需要通过socket访问docker守护进程，在CentOs和RHEL系统中需要这个这个选项。</li>
+</ul>
+
+<h3 id="2-1-1-启动过程中的问题">2.1.1. 启动过程中的问题</h3>
+
+<ul>
+<li><p>Issue-1</p>
+
+<p>Failed to start container manager: inotify_add_watch /sys/fs/cgroup/cpuacct,cpu: no such file or directory</p>
+
+<p>resolve： <a href="https://github.com/google/cadvisor/issues/1444">https://github.com/google/cadvisor/issues/1444</a></p></li>
+</ul>
+
+<h3 id="2-1-2-使用">2.1.2. 使用</h3>
+
+<p>打开浏览器，输入：<a href="http://Host_IP:8080">http://Host_IP:8080</a> ，查看Cadvisor主页。</p>
+
+<p>可以看到：CPU的使用率、内存使用率、网络吞吐量以及磁盘空间利用率，点击界面顶部 docker 可以进入查看某个docker容器的详细信息</p>
+
+<h2 id="2-2-二进制可执行文件使用-cadvisor">2.2. 二进制可执行文件使用 cAdvisor</h2>
+
+<p>cAdvisor 项目在他的 <a href="https://github.com/google/cadvisor/releases">release</a> 页面发布了可执行的二进制，这些文件可以直接下载并执行</p>
+
+<pre><code>$ wget https://github.com/google/cadvisor/releases/download/v0.26.1/cadvisor
+$ chmod 755 cadvisor 
+$ ./cadvisor
+</code></pre>
+
+<p>默认情况下 cAdvisor 的网页端口为 8080，直接访问本地 <a href="http://localhost:8080">http://localhost:8080</a> 即可</p>
+
+<h2 id="2-3-rest-api">2.3. REST API</h2>
+
+<p>cadvisor还提供远程调用的REST API，详情可以参考如下文档：<a href="https://github.com/google/cadvisor/blob/master/docs/api.md">https://github.com/google/cadvisor/blob/master/docs/api.md</a></p>
+
+<p>另外，github上还有提供了一个用Go语言实现的调用REST API的客户端：<a href="https://github.com/google/cadvisor/tree/master/client">https://github.com/google/cadvisor/tree/master/client</a></p>
+
+<h1 id="3-关于-cadvisor-数据采集">3. 关于 cAdvisor 数据采集</h1>
+
+<p>Ref: <a href="https://blog.opskumu.com/cadvisor.html">https://blog.opskumu.com/cadvisor.html</a></p>
+
+<h1 id="4-see-also">4. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/google/cadvisor">cAdvisor On GitHub</a></li>
+<li><a href="http://chrisrc.me/dcos/dcos-admin-monitoring-docker.html">cAdvisor</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-07-21</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/devops/">devops</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/tech/cloud/monitor/cadvisor-02-measurements/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Monitor | cAdvisor 采集的 Measurements</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/tech/cloud/monitor/about-monitor-system/">
+            <span class="next-text nav-default">Monitor | 关于监控系统的相关知识</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-07-21 16:36:59 \x2b0000 UTC',
+    title: 'Monitor | cAdvisor 基础',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

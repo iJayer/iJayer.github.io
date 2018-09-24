@@ -6,13 +6,45 @@
     <description>Recent content in Tech on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 10 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Golang: gRPC学习笔记-05 | 编码实践</title>
+      <title>Win | 命令行集合</title>
+      <link>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Windows 下命令行精选&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;快速启动命令行：&lt;kbd&gt;Win + X&lt;/kbd&gt; + &lt;kbd&gt;A&lt;/kbd&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>让 Win 更好用的技巧</title>
+      <link>https://zhezh09.github.io/post/tech/os/win/used-better/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/win/used-better/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;收藏一些让 Win 更好用的方法&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang | gRPC学习笔记-05 | 编码实践</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/</link>
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -25,7 +57,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
+      <title>Golang | gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</link>
       <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -44,7 +76,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-03 | 什么是 gRPC？</title>
+      <title>Golang | gRPC学习笔记-03 | 什么是 gRPC？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</link>
       <pubDate>Thu, 06 Sep 2018 09:12:12 +0000</pubDate>
       
@@ -65,7 +97,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-02 | 什么是 RPC？</title>
+      <title>Golang | gRPC学习笔记-02 | 什么是 RPC？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</link>
       <pubDate>Thu, 06 Sep 2018 08:12:12 +0000</pubDate>
       
@@ -84,7 +116,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-01 | Hello World Demo</title>
+      <title>Golang | gRPC学习笔记-01 | Hello World Demo</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -97,7 +129,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC 学习笔记集</title>
+      <title>Golang | gRPC 学习笔记集</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -133,7 +165,7 @@
     </item>
     
     <item>
-      <title>Golang | 依赖管理工具-02：Go Modules 使用过程学习笔记</title>
+      <title>Golang | 依赖管理-02：Go Modules 使用笔记</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</link>
       <pubDate>Wed, 29 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -151,7 +183,7 @@
     </item>
     
     <item>
-      <title>Golang: 依赖管理工具-01：Go Modules 初步了解和学习</title>
+      <title>Golang | 依赖管理-01：Go Modules 初步了解和学习</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</link>
       <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -169,7 +201,7 @@
     </item>
     
     <item>
-      <title>Web扩展知识-01-一些性能测试指标概念</title>
+      <title>Web | 扩展知识-01-一些性能测试指标概念</title>
       <link>https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</link>
       <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -182,7 +214,7 @@
     </item>
     
     <item>
-      <title>Golang: 理解 Golang 的 nil (转)</title>
+      <title>Golang | 理解 Golang 的 nil (转)</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</link>
       <pubDate>Wed, 22 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -202,7 +234,141 @@
     </item>
     
     <item>
-      <title>Golang: Stdlib | Flag 学习笔记</title>
+      <title>Tools | Git Submodule 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</link>
+      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;什么是 Git 子模块&lt;/li&gt;
+&lt;li&gt;Git 子模块怎么用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | Grafana 使用</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-03-practice/</link>
+      <pubDate>Sun, 05 Aug 2018 17:32:41 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-03-practice/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DB | InfluxDB 入门指南</title>
+      <link>https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/</link>
+      <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;通过命令行工具 influx 完成数据库的创建和读写练习&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DB | InfluxDB 基础知识</title>
+      <link>https://zhezh09.github.io/post/tech/db/influxdb/01-basic-concepts/</link>
+      <pubDate>Thu, 26 Jul 2018 17:46:58 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/influxdb/01-basic-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;InfluxDB 初步了解及安装使用&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | Grafana 配置</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-02-config/</link>
+      <pubDate>Sun, 22 Jul 2018 17:22:38 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-02-config/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;每个服务程序，基本上都会指定一个或多个配置文件，用来定制其所要启用的功能，Grafana 也不例外，那么 Grafana 的配置文件有哪些，以及提供了什么样的配置选项呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | Grafana 基础</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-01-basic-concepts/</link>
+      <pubDate>Sun, 22 Jul 2018 17:02:38 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-01-basic-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Grafana 能干什么？&lt;/li&gt;
+&lt;li&gt;Grafana 有什么特性？&lt;/li&gt;
+&lt;li&gt;用好 Grafana, 需要了解什么，即-基本概念&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | cAdvisor 采集的 Measurements</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-02-measurements/</link>
+      <pubDate>Sat, 21 Jul 2018 16:37:21 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-02-measurements/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;cAdvisor 作为监控系统的数据采集模块，那么可以采集到那些指标参数呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | cAdvisor 基础</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/</link>
+      <pubDate>Sat, 21 Jul 2018 16:36:59 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;有关 cAdvisor 的基础知识、安装和使用方法介绍&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | 关于监控系统的相关知识</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/about-monitor-system/</link>
+      <pubDate>Wed, 18 Jul 2018 18:57:08 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/about-monitor-system/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang | Stdlib: Flag 学习笔记</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/</link>
       <pubDate>Tue, 25 Jul 2017 00:00:00 +0000</pubDate>
       
@@ -217,6 +383,17 @@
 &lt;li&gt;flag 包有哪些重要的变量、函数以及类型 ？&lt;/li&gt;
 &lt;li&gt;如何绑定用户自定义的数据类型作为参数值的类型？&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Tools | Git 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</link>
+      <pubDate>Fri, 21 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</guid>
+      <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

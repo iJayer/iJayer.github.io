@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DB | InfluxDB 入门指南 - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" />
+  <meta name="description" content=" 通过命令行工具 influx 完成数据库的创建和读写练习
+ 
+" />
+<meta name="keywords" content="monitor, devops, influxdb" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="DB | InfluxDB 入门指南" />
+<meta property="og:description" content="
+
+
+通过命令行工具 influx 完成数据库的创建和读写练习
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/" />
+
+
+
+<meta property="article:published_time" content="2018-07-29T17:46:58&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-07-29T17:46:58&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="DB | InfluxDB 入门指南">
+<meta itemprop="description" content="
+
+
+通过命令行工具 influx 完成数据库的创建和读写练习
+
+
+">
+
+
+<meta itemprop="datePublished" content="2018-07-29T17:46:58&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-29T17:46:58&#43;00:00" />
+<meta itemprop="wordCount" content="1343">
+
+
+
+<meta itemprop="keywords" content="db," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DB | InfluxDB 入门指南"/>
+<meta name="twitter:description" content="
+
+
+通过命令行工具 influx 完成数据库的创建和读写练习
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DB | InfluxDB 入门指南</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-29 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 1343 words </span>
+        <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#入门指南">入门指南</a>
+<ul>
+<li><a href="#创建数据库">创建数据库</a></li>
+<li><a href="#读写数据">读写数据</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>通过命令行工具 influx 完成数据库的创建和读写练习</p>
+</blockquote>
+
+<p></p>
+
+<h1 id="入门指南">入门指南</h1>
+
+<p>这部分内容主要通过 <code>influx</code> (CLI) 工具操作 influxdb 数据库，即：创建数据库和读写数据。</p>
+
+<blockquote>
+<p>说明：也可以直接发送裸的HTTP请求来操作数据库，例如 curl</p>
+</blockquote>
+
+<p>通过这些操作，先简单熟悉一下 influxdb 相关内容，然后带着这些初步认识,再去学习其概念等知识</p>
+
+<h2 id="创建数据库">创建数据库</h2>
+
+<ul>
+<li><p>用 <code>influx</code> 命令连接到 <code>influxd</code> 服务，进入交互式 shell:</p>
+
+<pre><code>$ influx 
+Connected to http://localhost:8086 version 1.7.0~n201807280800
+InfluxDB shell version: 1.7.0~n201807280800
+&gt; 
+</code></pre>
+
+<blockquote>
+<p>Note: InfluxDB 的 HTTP 接口默认起在 8086 上，所以 inlux 默认也是连的本地的 8086 端口，你可以通过 influx &ndash;help 来看怎么修改默认值。</p>
+</blockquote></li>
+
+<li><p>查看 influx 交互式 shell 下的命令列表</p>
+
+<pre><code>&gt; help
+Usage:
+    connect &lt;host:port&gt;   connects to another node specified by host:port
+    auth                  prompts for username and password
+    pretty                toggles pretty print for the json format
+    chunked               turns on chunked responses from server
+    chunk size &lt;size&gt;     sets the size of the chunked responses.  Set to 0 to reset to the default chunked size
+    use &lt;db_name&gt;         sets current database
+    format &lt;format&gt;       specifies the format of the server responses: json, csv, or column
+    precision &lt;format&gt;    specifies the format of the timestamp: rfc3339, h, m, s, ms, u or ns
+    consistency &lt;level&gt;   sets write consistency level: any, one, quorum, or all
+    history               displays command history
+    settings              outputs the current settings for the shell
+    clear                 clears settings such as database or retention policy.  run 'clear' for help
+    exit/quit/ctrl+d      quits the influx shell
+
+    show databases        show database names
+    show series           show series information
+    show measurements     show measurement information
+    show tag keys         show tag key information
+    show field keys       show field key information
+
+    A full list of influxql commands can be found at:
+    https://docs.influxdata.com/influxdb/latest/query_language/spec/
+</code></pre></li>
+
+<li><p>创建数据库：mydb</p>
+
+<pre><code>&gt; CREATE DATABASE mydb
+&gt; show databases
+name: databases
+name
+----
+_internal
+mydb
+</code></pre>
+
+<blockquote>
+<p>Note: _internal 是由 influxdb 创建，用来存储其内部运行时指标数据的数据库。</p>
+</blockquote></li>
+
+<li><p>使用 <code>use</code> 命令切换到 mydb，切换成功后所有的命令将使用在 mydb 数据库上</p>
+
+<blockquote>
+<p>use mydb
+Using database mydb</p>
+</blockquote></li>
+</ul>
+
+<h2 id="读写数据">读写数据</h2>
+
+<p>首先对数据存储的格式做个入门介绍：</p>
+
+<blockquote>
+<p>InfluxDB 中的数据按时间序列进行组织，其中包含一个测量值，如 “cpu_load” 或 “temperature”。时序数据有零个或多个数据点(points), 每一个都是一个离散的度量样本。数据点(Points)包括：</p>
+</blockquote>
+
+<ul>
+<li><code>time</code>(时间戳)、</li>
+<li>a <code>measurement</code>(指标: cpu_load)、</li>
+<li>至少一个 k-v 格式的 <code>field</code>(即测量值本身, 例如：value=0.64, or temperature=21.2)、</li>
+<li>零个或多个 <code>tag</code>，其一般是对于这个指标值的元数据(例如“host=server01”, “region=EMEA”, “dc=Frankfurt)。</li>
+</ul>
+
+<blockquote>
+<p>在概念上来讲，你可以将一个 <code>measurement</code>(测量) 看作是 SQL 表, 其中 <code>primary index</code> 主索引始终是时间。<code>tags</code> 和 <code>fields</code> 实际上是表格中的列。 tags 是被索引起来的，而 fields 没有。不同之处在于，在 InfluxDB 里，你可以有几百万的 measurements，你不用事先定义数据的 scheme，并且 null 值不会被存储。</p>
+</blockquote>
+
+<ul>
+<li><p>将数据点写入 influxdb， 只需要遵守如下 <code>行协议</code>：</p>
+
+<pre><code>&lt;measurement&gt;[,&lt;tag-key&gt;=&lt;tag-value&gt;...] &lt;field-key&gt;=&lt;field-value&gt;[,&lt;field2-key&gt;=&lt;field2-value&gt;...] [unix-nano-timestamp]
+</code></pre></li>
+
+<li><p>下面是数据写入InfluxDB的格式示例：</p>
+
+<p>cpu,host=serverA,region=us_west value=0.64
+payment,device=mobile,product=Notepad,method=credit billed=33,licenses=3i 1434067467100293230
+stock,symbol=AAPL bid=127.46,ask=127.48
+temperature,machine=unit42,type=assembly external=25,internal=37 1434067467000000000</p>
+
+<blockquote>
+<p>说明：关于写入格式的更多语法，请参考<a href="https://jasper-zhang1.gitbooks.io/influxdb/content/Introduction/getting_start.html">写入语法</a>这一章</p>
+</blockquote></li>
+
+<li><p>使用CLI插入单条的时间序列数据到InfluxDB中, 输入 INSERT，后跟一个 Point</p>
+
+<pre><code>&gt; INSERT cpu,host=serverA,region=us_west value=0.64
+&gt; 
+</code></pre>
+
+<p>这样，一个 <code>measurement</code> 为 cpu, <code>tag</code> 为 <code>host</code> 和 <code>region</code>，测量值 <code>value</code> 为 <code>0.64</code> 的数据点 <code>point</code> 就被写入了 InfluxDB</p></li>
+
+<li><p>现在我们将查询刚才写的数据：</p>
+
+<pre><code>&gt; SELECT host,region,value FROM cpu
+name: cpu
+time                host    region  value
+----                ----    ------  -----
+1532889113525004206 serverA us_west 0.64
+1532889224748413400 serverB us_east 0.56
+&gt; 
+</code></pre>
+
+<blockquote>
+<p>说明：我们在写入的时候没有包含时间戳，当没有带时间戳的时候，InfluxDB会自动添加本地的当前时间作为它的时间戳。</p>
+</blockquote></li>
+
+<li><p>让我们尝试存储另一种类型的数据，在同一测量中有两个字段：</p>
+
+<pre><code>&gt; INSERT temperature,machine=unit42,type=assembly external=25,internal=37
+&gt; 
+</code></pre></li>
+
+<li><p>要使用查询返回所有字段和标记，可以使用*运算符：</p>
+
+<pre><code>&gt; SELECT * FROM temperature
+name: temperature
+time                external internal machine type
+----                -------- -------- ------- ----
+1532889736591859552 25       37       unit42  assemly
+</code></pre>
+
+<blockquote>
+<p>Warning: Using * without a LIMIT clause on a large database can cause performance issues. You can use Ctrl+C to cancel a query that is taking too long to respond.</p>
+</blockquote></li>
+
+<li><p>InfluxQL还有很多特性和用法没有被提及，包括支持golang样式的正则，例如：</p>
+
+<pre><code>&gt; SELECT * FROM /.*/ LIMIT 1
+--
+&gt; SELECT * FROM &quot;cpu_load_short&quot;
+--
+&gt; SELECT * FROM &quot;cpu_load_short&quot; WHERE &quot;value&quot; &gt; 0.9
+</code></pre></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<p><a href="https://docs.influxdata.com/influxdb/v1.6/introduction/getting-started/">InfluxDB Getting Started</a></p>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-07-29</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/db/">db</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/tech/cloud/monitor/grafana-03-practice/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Monitor | Grafana 使用</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/tech/db/influxdb/01-basic-concepts/">
+            <span class="next-text nav-default">DB | InfluxDB 基础知识</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-07-29 17:46:58 \x2b0000 UTC',
+    title: 'DB | InfluxDB 入门指南',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -6,10 +6,42 @@
     <description>Recent content on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Win | 命令行集合</title>
+      <link>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Windows 下命令行精选&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;快速启动命令行：&lt;kbd&gt;Win + X&lt;/kbd&gt; + &lt;kbd&gt;A&lt;/kbd&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>让 Win 更好用的技巧</title>
+      <link>https://zhezh09.github.io/post/tech/os/win/used-better/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/win/used-better/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;收藏一些让 Win 更好用的方法&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Reading | Be worthy to read about career and work</title>
@@ -25,7 +57,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-05 | 编码实践</title>
+      <title>Golang | gRPC学习笔记-05 | 编码实践</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/</link>
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -38,7 +70,18 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
+      <title>杭城 | 夕阳无限好</title>
+      <link>https://zhezh09.github.io/post/life/20180908-%E6%9D%AD%E5%9F%8E-%E5%A4%95%E9%98%B3%E6%97%A0%E9%99%90%E5%A5%BD/</link>
+      <pubDate>Sat, 08 Sep 2018 15:54:21 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/life/20180908-%E6%9D%AD%E5%9F%8E-%E5%A4%95%E9%98%B3%E6%97%A0%E9%99%90%E5%A5%BD/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang | gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</link>
       <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -57,7 +100,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-03 | 什么是 gRPC？</title>
+      <title>Golang | gRPC学习笔记-03 | 什么是 gRPC？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</link>
       <pubDate>Thu, 06 Sep 2018 09:12:12 +0000</pubDate>
       
@@ -78,7 +121,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-02 | 什么是 RPC？</title>
+      <title>Golang | gRPC学习笔记-02 | 什么是 RPC？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</link>
       <pubDate>Thu, 06 Sep 2018 08:12:12 +0000</pubDate>
       
@@ -97,7 +140,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-01 | Hello World Demo</title>
+      <title>Golang | gRPC学习笔记-01 | Hello World Demo</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -110,7 +153,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC 学习笔记集</title>
+      <title>Golang | gRPC 学习笔记集</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -146,7 +189,7 @@
     </item>
     
     <item>
-      <title>Golang | 依赖管理工具-02：Go Modules 使用过程学习笔记</title>
+      <title>Golang | 依赖管理-02：Go Modules 使用笔记</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</link>
       <pubDate>Wed, 29 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -164,7 +207,7 @@
     </item>
     
     <item>
-      <title>Golang: 依赖管理工具-01：Go Modules 初步了解和学习</title>
+      <title>Golang | 依赖管理-01：Go Modules 初步了解和学习</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</link>
       <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -182,7 +225,7 @@
     </item>
     
     <item>
-      <title>Web扩展知识-01-一些性能测试指标概念</title>
+      <title>Web | 扩展知识-01-一些性能测试指标概念</title>
       <link>https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</link>
       <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -195,7 +238,7 @@
     </item>
     
     <item>
-      <title>Golang: 理解 Golang 的 nil (转)</title>
+      <title>Golang | 理解 Golang 的 nil (转)</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</link>
       <pubDate>Wed, 22 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -215,11 +258,11 @@
     </item>
     
     <item>
-      <title>黄昏夜幕时</title>
-      <link>https://zhezh09.github.io/post/life/20180818-twilight-night/</link>
+      <title>杭城 | 黄昏夜幕时</title>
+      <link>https://zhezh09.github.io/post/life/20180818-%E6%9D%AD%E5%9F%8E-twilight-night/</link>
       <pubDate>Sun, 19 Aug 2018 16:41:56 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/life/20180818-twilight-night/</guid>
+      <guid>https://zhezh09.github.io/post/life/20180818-%E6%9D%AD%E5%9F%8E-twilight-night/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;生活就是一点一滴，记录过的才是美好&amp;hellip; 比如，&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -306,6 +349,135 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
     </item>
     
     <item>
+      <title>Monitor | Grafana 使用</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-03-practice/</link>
+      <pubDate>Sun, 05 Aug 2018 17:32:41 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-03-practice/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DB | InfluxDB 入门指南</title>
+      <link>https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/</link>
+      <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;通过命令行工具 influx 完成数据库的创建和读写练习&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DB | InfluxDB 基础知识</title>
+      <link>https://zhezh09.github.io/post/tech/db/influxdb/01-basic-concepts/</link>
+      <pubDate>Thu, 26 Jul 2018 17:46:58 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/influxdb/01-basic-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;InfluxDB 初步了解及安装使用&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | Grafana 配置</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-02-config/</link>
+      <pubDate>Sun, 22 Jul 2018 17:22:38 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-02-config/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;每个服务程序，基本上都会指定一个或多个配置文件，用来定制其所要启用的功能，Grafana 也不例外，那么 Grafana 的配置文件有哪些，以及提供了什么样的配置选项呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | Grafana 基础</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-01-basic-concepts/</link>
+      <pubDate>Sun, 22 Jul 2018 17:02:38 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-01-basic-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Grafana 能干什么？&lt;/li&gt;
+&lt;li&gt;Grafana 有什么特性？&lt;/li&gt;
+&lt;li&gt;用好 Grafana, 需要了解什么，即-基本概念&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | cAdvisor 采集的 Measurements</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-02-measurements/</link>
+      <pubDate>Sat, 21 Jul 2018 16:37:21 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-02-measurements/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;cAdvisor 作为监控系统的数据采集模块，那么可以采集到那些指标参数呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | cAdvisor 基础</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/</link>
+      <pubDate>Sat, 21 Jul 2018 16:36:59 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;有关 cAdvisor 的基础知识、安装和使用方法介绍&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | 关于监控系统的相关知识</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/about-monitor-system/</link>
+      <pubDate>Wed, 18 Jul 2018 18:57:08 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/about-monitor-system/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>杭城 | 篮球和我</title>
+      <link>https://zhezh09.github.io/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83%E5%92%8C%E6%88%91/</link>
+      <pubDate>Sat, 02 Jun 2018 15:55:24 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83%E5%92%8C%E6%88%91/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>『心之所向，素履以往』— 千岛湖</title>
       <link>https://zhezh09.github.io/post/footprint/20180520-journey-%E5%8D%83%E5%B2%9B%E6%B9%96/</link>
       <pubDate>Sun, 20 May 2018 00:00:00 +0000</pubDate>
@@ -315,12 +487,39 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
     </item>
     
     <item>
-      <title>『心之所向，素履以往』— 舟山</title>
-      <link>https://zhezh09.github.io/post/footprint/20170501-journey-%E8%88%9F%E5%B1%B1/</link>
-      <pubDate>Sun, 20 May 2018 00:00:00 +0000</pubDate>
+      <title>杭州 | 夜游京杭运河</title>
+      <link>https://zhezh09.github.io/post/life/20180421-%E6%9D%AD%E5%9F%8E-%E5%A4%9C%E6%B8%B8%E4%BA%AC%E6%9D%AD%E8%BF%90%E6%B2%B3/</link>
+      <pubDate>Sat, 21 Apr 2018 21:29:56 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20170501-journey-%E8%88%9F%E5%B1%B1/</guid>
-      <description>阳光温热，岁月静好&amp;hellip;</description>
+      <guid>https://zhezh09.github.io/post/life/20180421-%E6%9D%AD%E5%9F%8E-%E5%A4%9C%E6%B8%B8%E4%BA%AC%E6%9D%AD%E8%BF%90%E6%B2%B3/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;我拿起酒杯对自己说&lt;/p&gt;
+
+&lt;p&gt;一杯敬朝阳，一杯敬月光&lt;br /&gt;
+一杯敬明天，一杯敬过往&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>杭州 | 雨后的清晨</title>
+      <link>https://zhezh09.github.io/post/life/20180303-%E6%9D%AD%E5%9F%8E-%E9%9B%A8%E5%90%8E%E7%9A%84%E6%B8%85%E6%99%A8/</link>
+      <pubDate>Sat, 03 Mar 2018 16:46:59 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/life/20180303-%E6%9D%AD%E5%9F%8E-%E9%9B%A8%E5%90%8E%E7%9A%84%E6%B8%85%E6%99%A8/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>古城 | 我不是归人，是过客</title>
+      <link>https://zhezh09.github.io/post/life/20180224-%E5%8F%A4%E5%9F%8E-%E5%8C%86%E5%8C%86/</link>
+      <pubDate>Sat, 24 Feb 2018 16:59:10 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/life/20180224-%E5%8F%A4%E5%9F%8E-%E5%8C%86%E5%8C%86/</guid>
+      <description>归杭的旅途已是彼时的路 途中的风景散落记忆深处 犹如时光里划过的水墨画 匆匆脚尖 丝丝印记 你在追 我在跑 拍摄于 2018-02-24 日傍晚 17 时许，设备 S7Edge</description>
     </item>
     
     <item>
@@ -346,7 +545,7 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
     </item>
     
     <item>
-      <title>Golang: Stdlib | Flag 学习笔记</title>
+      <title>Golang | Stdlib: Flag 学习笔记</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/</link>
       <pubDate>Tue, 25 Jul 2017 00:00:00 +0000</pubDate>
       
@@ -374,6 +573,24 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>『心之所向，素履以往』— 舟山</title>
+      <link>https://zhezh09.github.io/post/footprint/20170501-journey-%E8%88%9F%E5%B1%B1/</link>
+      <pubDate>Mon, 01 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/footprint/20170501-journey-%E8%88%9F%E5%B1%B1/</guid>
+      <description>阳光温热，岁月静好&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>『心之所向，素履以往』— 乌镇</title>
+      <link>https://zhezh09.github.io/post/footprint/20160903-journey-%E4%B9%8C%E9%95%87/</link>
+      <pubDate>Fri, 23 Sep 2016 17:18:52 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/footprint/20160903-journey-%E4%B9%8C%E9%95%87/</guid>
+      <description>乌镇 一次未走心的旅行，一种说不出来的心情 就这样，走走停停，看那似曾相识的风景 青石板地，长街巷弄 小桥流水，灯火阑珊 似水年华，乌篷船，桥里桥，老</description>
     </item>
     
   </channel>

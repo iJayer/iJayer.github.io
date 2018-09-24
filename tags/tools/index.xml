@@ -28,17 +28,6 @@
     </item>
     
     <item>
-      <title>博客搭建-03 HugoServer注册为Win服务</title>
-      <link>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</link>
-      <pubDate>Mon, 13 Aug 2018 22:05:21 +0800</pubDate>
-      
-      <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
-      <description>&lt;p&gt;WinSW: 把 win 下的命令行程序包装为 service 运行&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Tools | Git Submodule 学习笔记</title>
       <link>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</link>
       <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>

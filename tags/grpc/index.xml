@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Golang: gRPC学习笔记-05 | 编码实践</title>
+      <title>Golang | gRPC学习笔记-05 | 编码实践</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/</link>
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -25,7 +25,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
+      <title>Golang | gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</link>
       <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -44,7 +44,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-03 | 什么是 gRPC？</title>
+      <title>Golang | gRPC学习笔记-03 | 什么是 gRPC？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</link>
       <pubDate>Thu, 06 Sep 2018 09:12:12 +0000</pubDate>
       
@@ -65,7 +65,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-02 | 什么是 RPC？</title>
+      <title>Golang | gRPC学习笔记-02 | 什么是 RPC？</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</link>
       <pubDate>Thu, 06 Sep 2018 08:12:12 +0000</pubDate>
       
@@ -84,7 +84,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC学习笔记-01 | Hello World Demo</title>
+      <title>Golang | gRPC学习笔记-01 | Hello World Demo</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -97,7 +97,7 @@
     </item>
     
     <item>
-      <title>Golang: gRPC 学习笔记集</title>
+      <title>Golang | gRPC 学习笔记集</title>
       <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
