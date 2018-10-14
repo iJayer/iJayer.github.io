@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Zher&#39;s Blog</title>
+    <link>https://zhezh09.github.io/tags/docker/</link>
+    <description>Recent content in Docker on Zher&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhezh09.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker | Docker Compose 基础</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/docker-compose-note/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/docker-compose-note/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;平时启动容器的时候，一般会使用 &lt;code&gt;docker run&lt;/code&gt; 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，&lt;code&gt;docker run&lt;/code&gt; 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 &lt;a href=&#34;https://docs.docker.com/compose/overview/&#34;&gt;Compose&lt;/a&gt;, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

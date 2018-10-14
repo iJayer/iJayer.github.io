@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DevOps | CI/CD 方案调研笔记 - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Devops | CI/CD 方案调研" />
+<meta name="keywords" content="devops, docker, cicd" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/devops/20180919-cicd-02-search/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="DevOps | CI/CD 方案调研笔记" />
+<meta property="og:description" content="Devops | CI/CD 方案调研" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180919-cicd-02-search/" />
+
+
+
+<meta property="article:published_time" content="2018-09-19T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-09-21T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="DevOps | CI/CD 方案调研笔记">
+<meta itemprop="description" content="Devops | CI/CD 方案调研">
+
+
+<meta itemprop="datePublished" content="2018-09-19T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-19T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1991">
+
+
+
+<meta itemprop="keywords" content="devops," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DevOps | CI/CD 方案调研笔记"/>
+<meta name="twitter:description" content="Devops | CI/CD 方案调研"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DevOps | CI/CD 方案调研笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-19 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 1991 words </span>
+        <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#开始之前">开始之前</a></li>
+<li><a href="#可选的工具链">可选的工具链</a></li>
+<li><a href="#ci-cd-平台分析">CI/CD 平台分析</a>
+<ul>
+<li><a href="#jenkins">Jenkins</a></li>
+<li><a href="#drone">Drone</a></li>
+<li><a href="#gitlab-cicd">GitLab CICD</a></li>
+<li><a href="#go-cd">Go CD</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>了解当下主流的 CI/CD 方案</p>
+</blockquote>
+
+<p></p>
+
+<h1 id="开始之前">开始之前</h1>
+
+<blockquote>
+<p>最近，项目节奏放缓，有了一定的空闲时间。所以呢，很早之前就想把 CI/CD 集成到现有项目中去的想法终于可以尝试一下了，同时，也算是为以后的系统完善先探探路。。。</p>
+</blockquote>
+
+<p>先明确一下，我的开发工作目前处于一种什么样的环境下，即工作环境说明：</p>
+
+<ul>
+<li>版本管理系统：Git</li>
+<li>版本管理模型：Git Flow</li>
+<li>代码托管服务：Bitbucket(内网服务器)</li>
+<li>日常办公环境：JIRA + Hipchat + Bitbucket</li>
+<li>应用服务部署：[ServerApp(Golang) + DB_Cluser(MongoDB) + Caddy &hellip;] -&gt; Docker + 前端代码和静态资源</li>
+<li>监控服务平台：cAdvisor + InfluxDB + Grafana</li>
+</ul>
+
+<p>了解了工作环境的分布情况后，对 CI/CD 方案的选型也将有了更加明确的目标：</p>
+
+<ul>
+<li>支持本地部署的方式(因为不会把代码放到公有云上托管呀)</li>
+<li>原生 Docker 支持(或支持 Docker 运行)</li>
+<li>有社区版，开源(因为现在只是做测试用，所以从最实际的需求出发：不收费)</li>
+<li>服务打包发布到 Private Docker Registry</li>
+<li>最后，这个 CI/CD 平台最好有权限管理功能，因为你做好交付给别人使用时并不能保证她们不会乱点、乱按呐！😂 &hellip;</li>
+</ul>
+
+<p>需求上整明白了，在来看看一个项目要引入 CI/CD，一般情况下要具备什么样的条件呢？</p>
+
+<h1 id="可选的工具链">可选的工具链</h1>
+
+<p>一个项目要引入CI/CD（持续集成与持续交付），一般情况下需要具备以下几个条件：<a href="http://cloudnoter.com/2018/07/13/CI-CD%E6%96%B9%E6%A1%88%E5%88%86%E6%9E%90/#3-%E5%8F%AF%E9%80%89%E7%9A%84%E5%B7%A5%E5%85%B7%E9%93%BE">内容摘自</a>(感谢作者🙂)</p>
+
+<ul>
+<li>源码管理仓库：可以是类似分布式的Git、集中式的SVN。</li>
+<li>搭建CI平台：使用业界流行的CI软件（如Jenkins，Gitlab CI）搭建的CI系统平台。</li>
+<li>源码质量管理平台：主要是指静态代码分析与测试覆盖统计，如业务比较流行的SonarQube，CheckStyle，FindBug等。</li>
+<li>单元测试：项目组的每个成员都需要编写单元测试代码，并严格遵守约定的单元测试相关规范。</li>
+<li>集成测试：包括可自动化执行的测试用例管理（编写、归档等），集成测试环境自动化搭建。</li>
+<li>测试环境搭建自动化：主要是指可以自动化的部署集成测试环境，为集成测试、验收测试准备可用的测试环境。</li>
+<li>软件发布平台：为可交付的软件提供对外发行及展示的平台，如基于Nexus的maven仓库、用于托管docker镜像的镜像仓库、NPM私有仓库等。</li>
+</ul>
+
+<blockquote>
+<p>目前，有一些条件还未满足，或者说完成的不彻底，后边继续完善，先来实践一下 CI/CD 吧!</p>
+</blockquote>
+
+<h1 id="ci-cd-平台分析">CI/CD 平台分析</h1>
+
+<p>先来看一张图 (<a href="http://cloudnoter.com/2018/07/13/CI-CD%E6%96%B9%E6%A1%88%E5%88%86%E6%9E%90/#3-%E5%8F%AF%E9%80%89%E7%9A%84%E5%B7%A5%E5%85%B7%E9%93%BE">图片来源</a>)</p>
+
+<p><img src="http://oaivivmzx.bkt.clouddn.com/ci-platform-compare.png" alt="" /></p>
+
+<p>满足上面条件的：Jenkins，Gitlab CICD, Go CD，Flow CI，其中 Flow CI 暂时不考虑使用。再者，还有一个作者图里没有提到，即 <a href="https://github.com/drone/drone">Drone</a>, 详细说明在后面给出</p>
+
+<p>接下来对各个平台做个简要介绍，更加详细的内容可在其官网或 Google 上查阅.</p>
+
+<h2 id="jenkins">Jenkins</h2>
+
+<p><a href="https://jenkins.io/">Jenkins</a> 是 CI 市场中最知名且最常见的名号之一, Java 编写。其特点有：</p>
+
+<ul>
+<li>功能：自动构建、测试及部署任务&hellip;</li>
+<li>价格：免费</li>
+<li>安装：Windows、Mac OSX 以及各类 Unix 系统，可以使用本机系统软件包以及Docker进行安装，也可在安装了Java Runtime Environment（JRE）的任何机器上独立安装。</li>
+<li>优势：插件丰富，提供了超过1000款插件选项，可以集成几乎所有市场上可用的工具和服务。</li>
+<li>挑战：作为一款开源工具，有提供了丰富的插件选项，因此可以选择性的定义适合自身的解决方案，这就需要投入一定的时间和精力去研究了。</li>
+<li>UI界面：较古老</li>
+<li>以及其他未了解到的特性&hellip;</li>
+</ul>
+
+<blockquote>
+<p>总结：开源、免费的 CI 解决方案，可按自身需求定制方案，但有学习成本。</p>
+</blockquote>
+
+<p>查阅到的相关资源链接：</p>
+
+<ul>
+<li><a href="https://abakonski.com/creating-a-continuous-deployment-pipeline-with-bitbucket-jenkins-and-azure-part-3-of-3/">Creating a Continuous Deployment Pipeline with BitBucket, Jenkins and Azure (part 3 of 3)</a></li>
+<li><a href="https://bjurr.com/continuous-integration-with-bitbucket-server-and-jenkins/">Continuous Integration with Bitbucket Server and Jenkins</a></li>
+<li><a href="https://www.slideshare.net/DanielGordilloMacias/three-amigos-bitbucket-jenkins-docker">Three amigos: Bitbucket + Jenkins + Docke</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzAwODg3MDk0OQ==&amp;mid=2247483930&amp;idx=1&amp;sn=cc11b44b73f3c3f217020c885da6f82d&amp;chksm=9b690f50ac1e8646e6aadc29f1b53803be79de8247970a61dcc1158cadf18f99f53cd48de303&amp;mpshare=1&amp;scene=1&amp;srcid=0702Zq96JjgzFuGuHlrvj1Pz&amp;pass_ticket=hItrI7d9xK0IJNcBaTNopt9pqKL3FJ%2BiLf%2BaMs9%2FEnE%3D#rd">全开源方案实现基于Docker的CI/CD流水线</a></li>
+<li><a href="https://blog.qikqiak.com/post/kubernetes-jenkins1/">基于 Jenkins 的 CI/CD(一)</a></li>
+</ul>
+
+<h2 id="drone">Drone</h2>
+
+<p><a href="https://drone.io/">Drone</a> Drone is a Continuous Delivery platform built on Docker, written in Go。</p>
+
+<ul>
+<li>特点：原生 Docker 支持</li>
+<li>价格：有社区版，免费</li>
+<li>安装：支持本地部署</li>
+<li>仓库：Github, Gitlab, Bitbucket 以及 Gogs 等</li>
+<li>优势：Drone 引入pipline 的概念，整个build过程由多个stage组成，每一个stage都是docker</li>
+<li>缺陷：当前版本：V0.9.0
+
+<ul>
+<li>作者是一个人开发的项目，API 暂时还不稳定，且文档不完善, 可能在使用过程中会踩到一些坑，这个时候就需要翻一下 drone 的 <a href="https://abakonski.com/creating-a-continuous-deployment-pipeline-with-bitbucket-jenkins-and-azure-part-3-of-3/">discuss forum</a> 以及 <a href="https://bjurr.com/continuous-integration-with-bitbucket-server-and-jenkins/">Github issue list</a></li>
+<li>Plugins 不太丰富，许多时候可能需要自己定义(shell，python&hellip;)</li>
+<li>Web UI 简单，还有许多需要完善的地方</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>总结：总体来说，Drone 还很年轻，但发展前景不错而且原生支持 Docker, 社区也很活跃，有吸引到我。So, 决定先体验下 Drone。 其他方案先 Delay！</p>
+</blockquote>
+
+<p>查阅到的相关资源链接：</p>
+
+<ul>
+<li><a href="http://docs.drone.io/zh/getting-started/">Drone 官方文档</a></li>
+<li><a href="https://www.slideshare.net/appleboy/drone-79506886">(Drone全面介绍)Slides:  用 Drone 打造輕量級容器持續交付平台</a></li>
+<li><a href="https://www.youtube.com/watch?v=LrQK-zUDyFA">(Drone全面介绍)YouTube：用 Go 語言所打造的 Drone 輕量級容器持續交付平台</a></li>
+<li><a href="https://imnerd.org/drone.html">基于DOCKER的CI工具—DRONE</a></li>
+<li><a href="https://aisensiy.github.io/2017/08/04/drone-best-ci/">Drone 一个原生支持 docker 的 CI</a></li>
+<li><a href="https://medium.com/asiayo-engineering/%E7%94%A8-drone-%E6%89%93%E9%80%A0-ci-cd-flow-36b9d14c7620">用 Drone 打造 CI/CD flow</a></li>
+<li><a href="http://memosa.cn/dev/2017/12/11/drone-docker.html">Drone+Docker部署示例</a></li>
+<li><a href="https://mritd.me/2018/03/30/set-up-drone-ci/">Drone CI 搭建</a></li>
+<li><a href="https://golangcaff.com/topics/111/drone-deployment-of-the-go-language-project-with-kubernetes">Drone 搭配 Kubernetes 部署 Go 語言項目</a></li>
+</ul>
+
+<h2 id="gitlab-cicd">GitLab CICD</h2>
+
+<blockquote>
+<p>该方案先 Delay.</p>
+</blockquote>
+
+<p>查阅到的相关资料链接：</p>
+
+<p>[Golang基于Gitlab CI/CD部署方案][#31]:<a href="http://www.chairis.cn/blog/article/96">http://www.chairis.cn/blog/article/96</a></p>
+
+<h2 id="go-cd">Go CD</h2>
+
+<blockquote>
+<p>该方案先 Delay.</p>
+</blockquote>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://cloudnoter.com/2018/07/13/CI-CD%E6%96%B9%E6%A1%88%E5%88%86%E6%9E%90/">CI/CD方案分析</a></li>
+<li><a href="http://dockone.io/article/8173">7款不错的 CI/CD工具</a>
+<br /></li>
+</ul>
+
+<!-- 本文资源链接 -->
+
+<!-- Jenkins 资源链接 -->
+
+<!-- Drone 资源链接 -->
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-21</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/devops/">devops</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/tech/os/win/used-better/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">让 Win 更好用的技巧</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/tech/cloud/devops/20180919-cicd-01-concepts/">
+            <span class="next-text nav-default">DevOps | CI/CD 概念学习笔记</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-09-19 00:00:00 \x2b0000 UTC',
+    title: 'DevOps | CI\/CD 方案调研笔记',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
