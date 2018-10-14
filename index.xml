@@ -6,10 +6,31 @@
     <description>Recent content on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DevOps | Drone 原生支持 Docker 的 CI 系统</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/devops/20180925-drone-01-basic/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/devops/20180925-drone-01-basic/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Drone&lt;/code&gt; 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。（未完成-实践结束后需补充）&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Drone 的运作原理(架构)&lt;/li&gt;
+&lt;li&gt;Drone 的核心概念&lt;/li&gt;
+&lt;li&gt;Drone 常见的坑&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Win | 命令行集合</title>
@@ -52,6 +73,19 @@
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;Include some articles that are very inspiring in your career and work.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DevOps | CI/CD 学习笔记集</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/devops/20180918-devops-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E9%9B%86/</link>
+      <pubDate>Tue, 18 Sep 2018 23:10:23 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/devops/20180918-devops-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E9%9B%86/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;写点摘要？&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

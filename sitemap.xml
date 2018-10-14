@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/devops/20180925-drone-01-basic/</loc>
+    <lastmod>2018-09-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</loc>
     <lastmod>2018-09-24T15:28:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -19,6 +26,13 @@
   <url>
     <loc>https://zhezh09.github.io/post/career/be-worthy-to-read/</loc>
     <lastmod>2018-09-19T14:21:07+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/devops/20180918-devops-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E9%9B%86/</loc>
+    <lastmod>2018-09-19T23:10:23+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -290,14 +304,14 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/career/</loc>
+    <loc>https://zhezh09.github.io/tags/career/</loc>
     <lastmod>2018-09-19T14:21:07+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/tags/career/</loc>
+    <loc>https://zhezh09.github.io/categories/career/</loc>
     <lastmod>2018-09-19T14:21:07+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -319,20 +333,20 @@
   
   <url>
     <loc>https://zhezh09.github.io/tags/devops/</loc>
-    <lastmod>2018-08-05T17:32:41+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhezh09.github.io/categories/essay/</loc>
-    <lastmod>2018-02-09T00:00:00+00:00</lastmod>
+    <lastmod>2018-09-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zhezh09.github.io/tags/essay/</loc>
+    <lastmod>2018-02-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/categories/essay/</loc>
     <lastmod>2018-02-09T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -360,13 +374,6 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/life/</loc>
-    <lastmod>2018-09-08T15:54:21+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://zhezh09.github.io/tags/life/</loc>
     <lastmod>2018-09-08T15:54:21+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -374,8 +381,8 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/others/</loc>
-    <lastmod>2018-08-21T13:38:03+08:00</lastmod>
+    <loc>https://zhezh09.github.io/categories/life/</loc>
+    <lastmod>2018-09-08T15:54:21+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -388,8 +395,15 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/categories/others/</loc>
+    <lastmod>2018-08-21T13:38:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/</loc>
-    <lastmod>2018-09-24T15:28:51+00:00</lastmod>
+    <lastmod>2018-09-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -403,7 +417,7 @@
   
   <url>
     <loc>https://zhezh09.github.io/categories/tech/</loc>
-    <lastmod>2018-09-24T15:28:51+00:00</lastmod>
+    <lastmod>2018-09-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -431,7 +445,7 @@
   
   <url>
     <loc>https://zhezh09.github.io/</loc>
-    <lastmod>2018-09-24T15:28:51+00:00</lastmod>
+    <lastmod>2018-09-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

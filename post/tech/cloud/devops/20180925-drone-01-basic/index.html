@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Win | 命令行集合 - Zher&#39;s Blog</title>
+  <title>DevOps | Drone 原生支持 Docker 的 CI 系统 - Zher&#39;s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,11 +17,11 @@
 
 
 <meta name="author" content="zher" />
-  <meta name="description" content=" Windows 下命令行精选
- 快速启动命令行：Win &#43; X &#43; A   
+  <meta name="description" content=" Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。（未完成-实践结束后需补充）
+ Drone 的运作原理(架构) Drone 的核心概念 Drone 常见的坑   
 " />
+<meta name="keywords" content="ci/cd, drone, docker" />
 
-  <meta name="keywords" content="zher, blog, tech, essay, life, footprint" />
 
 
 
@@ -31,7 +31,7 @@
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/" />
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/devops/20180925-drone-01-basic/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -53,30 +53,28 @@
 
 
 
-<meta property="og:title" content="Win | 命令行集合" />
+<meta property="og:title" content="DevOps | Drone 原生支持 Docker 的 CI 系统" />
 <meta property="og:description" content="
 
 
-Windows 下命令行精选
+Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。（未完成-实践结束后需补充）
 
 
-快速启动命令行：Win &#43; X &#43; A
+Drone 的运作原理(架构)
+Drone 的核心概念
+Drone 常见的坑
 
 
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180925-drone-01-basic/" />
 
 
 
-<meta property="article:published_time" content="2018-09-24T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2018-09-25T00:00:00&#43;00:00"/>
 
-<meta property="article:modified_time" content="2018-09-24T15:28:51&#43;00:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-09-25T00:00:00&#43;00:00"/>
 
 
 
@@ -84,36 +82,44 @@ Windows 下命令行精选
 
 
 
-<meta itemprop="name" content="Win | 命令行集合">
+
+
+
+
+<meta itemprop="name" content="DevOps | Drone 原生支持 Docker 的 CI 系统">
 <meta itemprop="description" content="
 
 
-Windows 下命令行精选
+Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。（未完成-实践结束后需补充）
 
 
-快速启动命令行：Win &#43; X &#43; A
+Drone 的运作原理(架构)
+Drone 的核心概念
+Drone 常见的坑
 
 
 
 ">
 
 
-<meta itemprop="datePublished" content="2018-09-24T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-09-24T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="152">
+<meta itemprop="datePublished" content="2018-09-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="280">
 
 
 
-<meta itemprop="keywords" content="win," />
+<meta itemprop="keywords" content="devops," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Win | 命令行集合"/>
+<meta name="twitter:title" content="DevOps | Drone 原生支持 Docker 的 CI 系统"/>
 <meta name="twitter:description" content="
 
 
-Windows 下命令行精选
+Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。（未完成-实践结束后需补充）
 
 
-快速启动命令行：Win &#43; X &#43; A
+Drone 的运作原理(架构)
+Drone 的核心概念
+Drone 常见的坑
 
 
 
@@ -184,16 +190,16 @@ Windows 下命令行精选
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Win | 命令行集合</h1>
+      <h1 class="post-title">DevOps | Drone 原生支持 Docker 的 CI 系统</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2018-09-24 </span>
+        <span class="post-time"> 2018-09-25 </span>
         <div class="post-category">
             
               <a href="/categories/tech/"> tech </a>
             
           </div>
-        <span class="more-meta"> 152 words </span>
+        <span class="more-meta"> 280 words </span>
         <span class="more-meta"> 1 min read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -207,9 +213,16 @@ Windows 下命令行精选
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#环境变量">环境变量</a></li>
-<li><a href="#端口管理">端口管理</a></li>
-<li><a href="#进程管理">进程管理</a></li>
+<li><a href="#drone">Drone</a></li>
+<li><a href="#实践">实践</a>
+<ul>
+<li><a href="#配置代码仓库的-oauth">配置代码仓库的 OAuth</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#通过-docker-安装">通过 Docker 安装</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#url-随后整理">URL 随后整理</a></li>
 </ul>
 </nav>
   </div>
@@ -223,61 +236,87 @@ Windows 下命令行精选
       <!-- 摘要 -->
 
 <blockquote>
-<p>Windows 下命令行精选</p>
+<p><code>Drone</code> 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。（未完成-实践结束后需补充）</p>
 
 <ul>
-<li>快速启动命令行：<kbd>Win + X</kbd> + <kbd>A</kbd></li>
+<li>Drone 的运作原理(架构)</li>
+<li>Drone 的核心概念</li>
+<li>Drone 常见的坑</li>
 </ul>
 </blockquote>
 
 <p></p>
 
-<h1 id="环境变量">环境变量</h1>
+<h1 id="drone">Drone</h1>
 
 <ul>
-<li><p>设置临时环境变量，cmd 窗口关闭，则失效</p>
-
-<pre><code>$ set PATH=%PATH%;D:\code\bin\  
-</code></pre></li>
-
-<li><p>设置永久环境变量：添加到当前用户</p>
-
-<pre><code>$ setx /M PATH &quot;C:\Program Files;%PATH%&quot;
-</code></pre></li>
+<li><a href="https://drone.io/">Drone 官网</a></li>
+<li><a href="http://plugins.drone.io/">Drone 插件</a></li>
 </ul>
 
-<h1 id="端口管理">端口管理</h1>
+<h1 id="实践">实践</h1>
+
+<ol>
+<li>配置代码仓库的 OAuth App, 得到相关配置信息</li>
+<li>安装 Drone-Server &amp; Drone-Agent</li>
+</ol>
+
+<h2 id="配置代码仓库的-oauth">配置代码仓库的 OAuth</h2>
+
+<p>需要配置的参数：</p>
 
 <ul>
-<li><p>查看所有进程占用的端口</p>
-
-<pre><code>$ netstat -ano    
-</code></pre></li>
-
-<li><p>查看占用指定端口的程序</p>
-
-<pre><code>$ netstat -ano|findstr &quot;8080&quot;
-</code></pre></li>
+<li>DRONE_STASH=true</li>
+<li>DRONE_STASH_GIT_USERNAME=OK</li>
+<li>DRONE_STASH_GIT_PASSWORD=OK</li>
+<li>DRONE_STASH_CONSUMER_KEY= ❌</li>
+<li>DRONE_STASH_CONSUMER_RSA= ❌</li>
+<li>DRONE_STASH_URL=<a href="http://stash.mycompany.com">http://stash.mycompany.com</a></li>
 </ul>
 
-<h1 id="进程管理">进程管理</h1>
+<h2 id="安装">安装</h2>
+
+<p><a href="http://docs.drone.io/zh/installation/">Install</a></p>
+
+<h2 id="通过-docker-安装">通过 Docker 安装</h2>
+
+<p><a href="https://hub.docker.com/r/drone/drone/">Drone in Docker Hub</a></p>
+
+<pre><code class="language-bash">$ docker pull drone/drone
+# 默认安装最新版
+</code></pre>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<p>[]()</p>
+
+<h1 id="faq">FAQ</h1>
+
+<ol>
+<li>Bitbucket Server 如何创建 OAuth (Application Link)？</li>
+</ol>
+
+<h1 id="url-随后整理">URL 随后整理</h1>
+
+<p>理论篇：</p>
 
 <ul>
-<li><p>找到进程号对应的进程名称</p>
-
-<pre><code>$ tasklist|findstr 3412
-</code></pre></li>
-
-<li><p>根据进程名杀死进程</p>
-
-<pre><code>$ taskkill /f /t /im caddy.exe
-</code></pre></li>
-
-<li><p>根据进程号杀死进程</p>
-
-<pre><code>$ taskkill /pid 3412 /F    
-</code></pre></li>
+<li><a href="https://developer.finogeeks.com/topic/11/geekpipe-%E5%9F%BA%E4%BA%8Edrone%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%AE%9E%E8%B7%B5%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E7%AF%87">GeekPipe-基于Drone的持续集成实践之基本概念篇</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/38223938">利用&rdquo;元编程&rdquo;实现基础镜像的集中管理和动态构建 (Drone CI 0.8)</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/38281927">快速理解持续集成工具 Drone CI 核心概念</a></li>
 </ul>
+
+<p>部署实践篇：</p>
+
+<ul>
+<li><a href="https://golangcaff.com/topics/111/drone-deployment-of-the-go-language-project-with-kubernetes">Drone 搭配 Kubernetes 部署 Go 語言項目</a></li>
+</ul>
+
+<p>FAQ: Bitbucket Server 无法发送 Webhook 请求到 Drone Server</p>
     </div>
 
     
@@ -288,7 +327,7 @@ Windows 下命令行精选
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-09-24</span>
+    <span class="item-content">2018-09-25</span>
   </p>
   
   <p class="copyright-item">
@@ -303,21 +342,16 @@ Windows 下命令行精选
     <footer class="post-footer">
       <div class="post-tags">
           
-          <a href="/tags/win/">win</a>
+          <a href="/tags/devops/">devops</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/tech/cloud/devops/20180925-drone-01-basic/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">DevOps | Drone 原生支持 Docker 的 CI 系统</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
         
-          <a class="next" href="/post/tech/os/win/used-better/">
-            <span class="next-text nav-default">让 Win 更好用的技巧</span>
+          <a class="next" href="/post/tech/os/win/cmd-usage-keep/">
+            <span class="next-text nav-default">Win | 命令行集合</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -333,8 +367,8 @@ Windows 下命令行精选
     <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
   <script type="text/javascript">
   var gitalk = new Gitalk({
-    id: '2018-09-24 00:00:00 \x2b0000 UTC',
-    title: 'Win | 命令行集合',
+    id: '2018-09-25 00:00:00 \x2b0000 UTC',
+    title: 'DevOps | Drone 原生支持 Docker 的 CI 系统',
     clientID: '4357c1dbcf7ef0515c29',
     clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
     repo: 'blog-comments',
