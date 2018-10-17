@@ -6,10 +6,39 @@
     <description>Recent content on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 29 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Oct 2018 21:42:56 +0800</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>『心之所向，素履以往』— 张掖</title>
+      <link>https://zhezh09.github.io/post/footprint/20181002-%E5%BC%A0%E6%8E%96/</link>
+      <pubDate>Tue, 02 Oct 2018 21:42:56 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/footprint/20181002-%E5%BC%A0%E6%8E%96/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;div class=&#39;align-center&#39;&gt;
+  &lt;p&gt;列车跨马加鞭 绿洲划过一片&lt;br /&gt;
+荒芜的戈壁滩 雪山绵延天边&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>《秋夜》</title>
+      <link>https://zhezh09.github.io/post/essay/20181001-poetry-%E7%A7%8B%E5%A4%9C/</link>
+      <pubDate>Tue, 02 Oct 2018 21:18:24 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/essay/20181001-poetry-%E7%A7%8B%E5%A4%9C/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;2018·10.1假期，再归兰州，故友，往事，恰逢在那个秋夜&amp;hellip; 🌙
+&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>DevOps | Add an OAuth consumer(Application Links) to Bitbucket Server</title>
@@ -56,6 +85,26 @@
 &lt;li&gt;怎么启动 Drone Service&lt;/li&gt;
 &lt;li&gt;实践过程中踩过那些坑&lt;/li&gt;
 &lt;li&gt;&amp;hellip;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DevOps | Drone 的基本概念</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/devops/20180925-drone-01-basic/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/devops/20180925-drone-01-basic/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Drone&lt;/code&gt; 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Drone 的核心概念&lt;/li&gt;
+&lt;li&gt;Drone 的运作原理(架构)&lt;/li&gt;
+&lt;li&gt;Drone 的基本术语&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -576,11 +625,18 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
     
     <item>
       <title>『心之所向，素履以往』— 千岛湖</title>
-      <link>https://zhezh09.github.io/post/footprint/20180520-journey-%E5%8D%83%E5%B2%9B%E6%B9%96/</link>
+      <link>https://zhezh09.github.io/post/footprint/20180520-%E5%8D%83%E5%B2%9B%E6%B9%96/</link>
       <pubDate>Sun, 20 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20180520-journey-%E5%8D%83%E5%B2%9B%E6%B9%96/</guid>
-      <description>逃离去往小岛 偷闲一段时光 &amp;hellip; ” 许个心愿：期待下次能和心爱的人儿一起再次驻足那片土地，邂逅在湖边的午后&amp;hellip; 微风拂面，秀发飘扬&amp;hel</description>
+      <guid>https://zhezh09.github.io/post/footprint/20180520-%E5%8D%83%E5%B2%9B%E6%B9%96/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;div class=&#39;align-center&#39;&gt;
+  &lt;p&gt;逃离去往小岛 偷闲一段时光 &amp;hellip;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -623,10 +679,10 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
     
     <item>
       <title>『心之所向，素履以往』— 黄山</title>
-      <link>https://zhezh09.github.io/post/footprint/20171006-journey-%E9%BB%84%E5%B1%B1/</link>
+      <link>https://zhezh09.github.io/post/footprint/20171006-%E9%BB%84%E5%B1%B1/</link>
       <pubDate>Fri, 06 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20171006-journey-%E9%BB%84%E5%B1%B1/</guid>
+      <guid>https://zhezh09.github.io/post/footprint/20171006-%E9%BB%84%E5%B1%B1/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;山，不役于物，不伤于物，任万灵滋长于上，不惧不动，万古恒长。故，仁者乐山。&lt;/p&gt;
@@ -667,20 +723,40 @@ Work  Golang Linux MongoDB Docker、K8s  Hobby  🏀 🏓  Life  Journey Anime P
     
     <item>
       <title>『心之所向，素履以往』— 舟山</title>
-      <link>https://zhezh09.github.io/post/footprint/20170501-journey-%E8%88%9F%E5%B1%B1/</link>
+      <link>https://zhezh09.github.io/post/footprint/20170501-%E8%88%9F%E5%B1%B1/</link>
       <pubDate>Mon, 01 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20170501-journey-%E8%88%9F%E5%B1%B1/</guid>
-      <description>阳光温热，岁月静好&amp;hellip;</description>
+      <guid>https://zhezh09.github.io/post/footprint/20170501-%E8%88%9F%E5%B1%B1/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;div class=&#39;align-center&#39;&gt;
+  &lt;p&gt;阳光温热，岁月静好&amp;hellip;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>『心之所向，素履以往』— 乌镇</title>
-      <link>https://zhezh09.github.io/post/footprint/20160903-journey-%E4%B9%8C%E9%95%87/</link>
+      <link>https://zhezh09.github.io/post/footprint/20160903-%E4%B9%8C%E9%95%87/</link>
       <pubDate>Fri, 23 Sep 2016 17:18:52 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20160903-journey-%E4%B9%8C%E9%95%87/</guid>
-      <description>乌镇 一次未走心的旅行，一种说不出来的心情 就这样，走走停停，看那似曾相识的风景 青石板地，长街巷弄 小桥流水，灯火阑珊 似水年华，乌篷船，桥里桥，老</description>
+      <guid>https://zhezh09.github.io/post/footprint/20160903-%E4%B9%8C%E9%95%87/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;div class=&#39;align-center&#39;&gt;
+  &lt;p&gt;乌镇
+一次未走心的旅行，一种说不出来的心情&lt;br /&gt;
+就这样，走走停停，看那似曾相识的风景&lt;br /&gt;
+青石板地，长街巷弄&lt;br /&gt;
+小桥流水，灯火阑珊&lt;br /&gt;
+似水年华，乌篷船，桥里桥，老树林等&lt;br /&gt;
+都散发着乌镇该有的静谧之美&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>
