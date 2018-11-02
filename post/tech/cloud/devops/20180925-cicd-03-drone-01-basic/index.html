@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DevOps | Drone 的基本概念 - Zher&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" />
+  <meta name="description" content=" Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。
+ Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语  
+" />
+<meta name="keywords" content="ci/cd, drone, docker" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/devops/20180925-cicd-03-drone-01-basic/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="DevOps | Drone 的基本概念" />
+<meta property="og:description" content="
+
+
+Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。
+
+
+Drone 的核心概念
+Drone 的运作原理(架构)
+Drone 的基本术语
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180925-cicd-03-drone-01-basic/" />
+
+
+
+<meta property="article:published_time" content="2018-09-25T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-11-02T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="DevOps | Drone 的基本概念">
+<meta itemprop="description" content="
+
+
+Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。
+
+
+Drone 的核心概念
+Drone 的运作原理(架构)
+Drone 的基本术语
+
+
+">
+
+
+<meta itemprop="datePublished" content="2018-09-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="4214">
+
+
+
+<meta itemprop="keywords" content="devops," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DevOps | Drone 的基本概念"/>
+<meta name="twitter:description" content="
+
+
+Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。
+
+
+Drone 的核心概念
+Drone 的运作原理(架构)
+Drone 的基本术语
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DevOps | Drone 的基本概念</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-25 </span>
+        <div class="post-category">
+            
+              <a href="/categories/tech/"> tech </a>
+            
+          </div>
+        <span class="more-meta"> 4214 words </span>
+        <span class="more-meta"> 9 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#drone">Drone</a>
+<ul>
+<li><a href="#安装">安装</a></li>
+</ul></li>
+<li><a href="#drone-的基本概念">Drone 的基本概念</a></li>
+<li><a href="#drone-的基本原理">Drone 的基本原理</a></li>
+<li><a href="#drone-的基本术语">Drone 的基本术语</a>
+<ul>
+<li><a href="#webhooks">Webhooks</a></li>
+<li><a href="#跳过提交">跳过提交</a></li>
+<li><a href="#包含-跳过分支-branches">包含/跳过分支 Branches</a></li>
+<li><a href="#workspace">Workspace</a>
+<ul>
+<li><a href="#base-属性">base 属性</a></li>
+<li><a href="#path-属性">path 属性</a></li>
+<li><a href="#cloning">cloning</a></li>
+</ul></li>
+<li><a href="#pipelines">Pipelines</a>
+<ul>
+<li><a href="#构建步骤">构建步骤</a></li>
+<li><a href="#并行执行-group">并行执行 group</a></li>
+<li><a href="#条件执行-when">条件执行 when</a></li>
+<li><a href="#故障执行-when-status">故障执行 when + status</a></li>
+</ul></li>
+<li><a href="#services">Services</a>
+<ul>
+<li><a href="#配置">配置</a></li>
+<li><a href="#初始化">初始化</a></li>
+</ul></li>
+<li><a href="#plugins">Plugins</a>
+<ul>
+<li><a href="#插件隔离">插件隔离</a></li>
+<li><a href="#插件市场">插件市场</a></li>
+</ul></li>
+<li><a href="#deployments">Deployments</a>
+<ul>
+<li><a href="#触发部署">触发部署</a></li>
+</ul></li>
+<li><a href="#matrix-builds-矩阵构建">Matrix Builds 矩阵构建</a>
+<ul>
+<li><a href="#变量插值">变量插值</a></li>
+</ul></li>
+<li><a href="#environment">Environment</a>
+<ul>
+<li><a href="#drone-yml-预设的变量-共有两处">.drone.yml 预设的变量，共有两处：</a></li>
+<li><a href="#ci-容器端的变量">CI 容器端的变量</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p><code>Drone</code> 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。</p>
+
+<ul>
+<li>Drone 的核心概念</li>
+<li>Drone 的运作原理(架构)</li>
+<li>Drone 的基本术语</li>
+</ul>
+
+<p></p>
+
+<ul>
+<li><a href="https://developer.finogeeks.com/topic/11/geekpipe-%E5%9F%BA%E4%BA%8Edrone%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%AE%9E%E8%B7%B5%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E7%AF%87">转自：GeekPipe-基于Drone的持续集成实践之基本概念篇</a></li>
+</ul>
+</blockquote>
+
+<h1 id="drone">Drone</h1>
+
+<ul>
+<li><a href="https://drone.io/">Drone 官网</a></li>
+<li><a href="http://plugins.drone.io/">Drone 插件</a></li>
+</ul>
+
+<h2 id="安装">安装</h2>
+
+<p><a href="http://docs.drone.io/zh/installation/">Install</a></p>
+
+<ul>
+<li><p>通过 Docker 安装</p>
+
+<p><a href="https://hub.docker.com/r/drone/drone/">Drone in Docker Hub</a></p>
+
+<pre><code class="language-bash">$ docker pull drone/drone
+# 默认安装最新版
+</code></pre></li>
+</ul>
+
+<h1 id="drone-的基本概念">Drone 的基本概念</h1>
+
+<p>Drone 是一个基于 Docker 容器技术的可扩展的持续集成引擎，用于自动化测试与构建，甚至发布。每个构建都在一个临时的Docker容器中执行，使开发人员能够完全控制其构建环境并保证隔离。开发者只需在项目中包含 .drone.yml 文件，将代码推送到 git 仓库，Drone 就能够自动化的进行编译、测试、发布。</p>
+
+<blockquote>
+<p>阅读要求</p>
+
+<ul>
+<li>熟悉 Docker 以及 Docker Compose</li>
+<li>熟悉 Git 基本命令</li>
+<li>对 CI/CD 有一定了解</li>
+</ul>
+</blockquote>
+
+<h1 id="drone-的基本原理">Drone 的基本原理</h1>
+
+<p>Drone 的部署分为 <code>Server(Drone-Server)</code> 和 <code>Agent(Drone-agent)</code>:</p>
+
+<ul>
+<li>Server端：负责后台管理界面以及调度</li>
+
+<li><p>Agent端：负责具体的任务执行</p>
+
+<p>比如配置文件 .drone.yml 里的 parsing 发生在 drone-server 端，而具体的步骤则在 drone-agent 端里执行。也就意味着 environment/build_args 关键字是不影响配置文件.drone.yml 本身环境变量的解析替换。</p></li>
+</ul>
+
+<p>目前Drone 支持多种代码托管服务，几乎涵盖市面上主流的代码仓库，如Github, GitLab, Gogs, Gitea、Bitbucket Server等，且在drone-server 里预设了对应托管服务的 API，Drone 的很多功能比如拉取 git repo list/add webhook to repo 都是通过这些 API 完成的。另外 Drone的账户体系依赖于托管服务的账户系统， 并不存在维护账户这个概念。例如我们使用Gogs作为代码托管服务，我们在登录 Drone 时，实际上是 Drone 把用户名密码传给了 Gogs. 因此，激活某个 Repository （仓库） 的构建(为Repository 添加webhook) 能否成功取决于该账号在 Gogs 里是不是该 Repository 的管理员。</p>
+
+<h1 id="drone-的基本术语">Drone 的基本术语</h1>
+
+<h2 id="webhooks">Webhooks</h2>
+
+<p>Drone 通过 OAuth 认证或账号密码登陆代码仓库后，获得完整的控制权。在 Drone 的 web 后台管理页面激活 Repo 后，Drone 调用代码仓库的 API 给 Repository 增加一个 webhook, 当 Repository 出发相应事件(push, tag, pull request) 时，代码仓库发起 http 请求回调 drone 触发构建。</p>
+
+<p>Webhooks 由代码仓库发送，用于触发 pipeline. 代码仓库会在下面 3 中情况下，自动发送 Webhook 请求到 Drone:</p>
+
+<ul>
+<li>代码被 push 到 Repo</li>
+<li>新建一个合并请求 (pull request)</li>
+<li>新建一个 tag</li>
+</ul>
+
+<h2 id="跳过提交">跳过提交</h2>
+
+<p>在本地用 git 提交代码的时候可以通过添加 <code>[CI SKIP]</code>(大小写不敏感) 到提交信息(commit message) 中来让 Drone 跳过某个提交。</p>
+
+<pre><code class="language-bash">$ git commit -m &quot;updated README [CI SKIP]&quot;
+</code></pre>
+
+<h2 id="包含-跳过分支-branches">包含/跳过分支 Branches</h2>
+
+<p>Drone 可以通过参数 <code>branches</code> 忽略某个分支上的提交。branches 支持单个变量，数组，通配符，还支持自选项 <code>exclude</code> (不包含分支)</p>
+
+<ul>
+<li><p>跳过不是 master 分支的提交：</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang
+    commands:
+    - go build 
+    - go test
+
+branches: master
+</code></pre></li>
+
+<li><p>跳过匹配外的目标分支提交-多个目标匹配：</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang
+    commands:
+      - go build 
+      - go test
+
+branches: [master, develop]
+</code></pre></li>
+
+<li><p>提交匹配包含的目标分支：</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang
+    commands:
+      - go build
+      - go test
+
+branches:
+  include: [ master, feature/* ]
+</code></pre></li>
+
+<li><p>忽略目标分支的提交：</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang
+    commands:
+      - go build
+      - go test
+
+branches:
+  exclude: [ develop, feature/* ]
+</code></pre></li>
+</ul>
+
+<h2 id="workspace">Workspace</h2>
+
+<p>Workspace 定义了所有工作流步骤共享的容器空间和目录。各个阶段通过各个阶段共享 volume 和工作路径，避免了复制。默认的工作区的目录和仓库的 URL 相匹配。</p>
+
+<pre><code>/drone/src/gogs/test/hello-world
+</code></pre>
+
+<ul>
+<li><p>可以使用 YAML 文件里的 <code>workspace</code> 来自定义工作区：</p>
+
+<pre><code class="language-yml">workspace:
+  base: /go
+  path: src/gogs/test/hello-world
+    
+pipeline:
+  build:
+    image: golang:latest
+    commands:
+      - go get
+      - go test
+</code></pre></li>
+</ul>
+
+<h3 id="base-属性">base 属性</h3>
+
+<p><code>base</code> 属性定义了所有工作流步骤共享的基础容器空间。基础容器空间保证了代码、依赖和编译的二进制文件能够在各个步骤间持久化和共享。</p>
+
+<pre><code class="language-yml">workspace:
+  base: /go
+  path: src/gogs/test/hello-world
+
+pipeline:
+  deps:
+    image: golang:latest
+    commands:
+      - go get
+      - go test
+  build:
+    image: node:latest
+    commands:
+      - go build
+</code></pre>
+
+<p>上面的步骤将和下面的 docker 命令类似：</p>
+
+<pre><code class="language-bash">$ docker volume create my-named-volume
+$ docker run --volume=my-named-volume:/go golang:latest
+$ docker run --volume=my-named-volume:/go node:latest
+</code></pre>
+
+<h3 id="path-属性">path 属性</h3>
+
+<p>path 属性定义了构建的工作目录。这是代码被克隆到的目录，也将是每一个构建步骤的默认工作目录。这个路径必须是基于 base 路径的相对路径。</p>
+
+<pre><code class="language-yml">workspace:
+  base: /go
+  path: src/gogs/test/hello-world
+</code></pre>
+
+<p>相当于：</p>
+
+<pre><code class="language-bash">$ git clone https://gogs/test/hello-world /go/src/gogs/test/hello-world
+</code></pre>
+
+<blockquote>
+<p>Note: hello-world 目录下即为源代码。</p>
+</blockquote>
+
+<h3 id="cloning">cloning</h3>
+
+<p>Drone 允许在工作流中手动配置克隆步骤。如果没有定义具体的克隆步骤，Drone 会自动配置。</p>
+
+<pre><code class="language-yml">clone:
+  git:
+    image: pugins/git
+
+pipeline:
+  build:
+    image:golang
+    commands:
+      - go build
+      - go test 
+</code></pre>
+
+<p>depth 可修改克隆深度，当 depth 为 1 时，只克隆当前版本，不克隆当前版本以外的提交记录，如果该参数未指定，默认所有版本提交都克隆：</p>
+
+<pre><code class="language-yml">clone:
+  git:
+    image: plugins/git
+    depth: 50
+</code></pre>
+
+<p>通过 image 指定克隆插件时，可以使用 <code>plugins/</code> 下的预定义插件，也可以使用自定义插件：</p>
+
+<pre><code class="language-yml">clone:
+  git:
+    image: test/custom-git-plugin
+</code></pre>
+
+<h2 id="pipelines">Pipelines</h2>
+
+<p>Drone 的核心概念，<code>pipelines</code> 定义了工作流(或叫流水线)，包含代码构建，代码测试和代码部署等一系列步骤。drone-agent 以自上而下的顺序依次执行 pipeline 关键字里声明的步骤。如果一个步骤返回了非 0 的退出代码，工作流将立即停止并返回一个错误状态。</p>
+
+<p>例如，定义了两个工作流，名字为 frontend 和 backend:</p>
+
+<pre><code class="language-yml">pipeline:
+  backend:
+    image: golang
+    commands:
+      - go build 
+      - go test
+  frontent:
+    image: node
+    commands:
+      - npm install
+      - npm run test
+      - npm run build
+</code></pre>
+
+<h3 id="构建步骤">构建步骤</h3>
+
+<p>构建步骤是工作流在 Docker 容器中执行的命令。这些命令将工作区(Workspace) 作为工作路径。</p>
+
+<pre><code class="language-yml">pipeline:
+  backend:
+    image: golang
+    commands:
++     - go build 
++     - go test
+</code></pre>
+
+<p>上面的 commands 将会被转换成简单的 Shell 脚本，大致如下：</p>
+
+<pre><code class="language-bash">#!/bin/sh
+
+set -e 
+
+go build 
+go test
+</code></pre>
+
+<p>上面的脚本在之后会被作为 Docker 的入口被执行，如下所示：</p>
+
+<pre><code class="language-bash">$ docker run --entrypoint=build.sh golang
+</code></pre>
+
+<blockquote>
+<p>Note: 只有构建步骤可以定义命令(commands), 不能使用插件(plugins) 或者服务(services) 来定义命令。</p>
+</blockquote>
+
+<h3 id="并行执行-group">并行执行 group</h3>
+
+<p>Drone 支持在同一个示例上并行执行多个步骤。使用 <code>group</code> 属性来配置并行步骤，这将让工作流执行者 (pipeline runner) 并行执行指定的命令。</p>
+
+<p>并行执行配置实例：</p>
+
+<pre><code class="language-yml">pipeline:
+  backend:
+    group: build
+      image: golang
+      commands:
+        - go build
+        - go test
+  frontend:
+    group: build
+      image: node
+      commands:
+       - npm install 
+       - npm run test
+       - npm run build 
+  publish:
+    image: plugins/docker
+    repo: test/hello-world
+</code></pre>
+
+<p>上面的例子中，frontend 和 backend 将并行执行。在这两组任务完成之前，publish 步骤将不会执行。</p>
+
+<h3 id="条件执行-when">条件执行 when</h3>
+
+<p>Drone 允许有条件地执行步骤。下面的例子限制了允许使用 Slack 插件的 Git 分支为 master:</p>
+
+<pre><code class="language-yml">pipeline:
+  slack:
+    image: plugins/slack
+    channel: dev
+    when:
+     branch: master
+</code></pre>
+
+<h3 id="故障执行-when-status">故障执行 when + status</h3>
+
+<p>Drone 使用容器退出代码来决定一个构建的成功或失败。非 0 退出代码(Non-zero exit codes) 使构建失败，同时立即退出当前工作流。</p>
+
+<p>如果需要在构建失败时，执行特定的工作流步骤。可以使用状态条件限制(status constraint) 来修改构建失败时的默认行为和执行步骤。</p>
+
+<pre><code class="language-yml">pipeline:
+  slack:
+    image: plugins/slack
+    channel: dev
+    when:
+     status: [success, failure]
+</code></pre>
+
+<h2 id="services">Services</h2>
+
+<p><code>services</code> 模块定义服务容器，用类似 docker-compose 的语法，提供服务作为 CI 过程中的支撑。下面的配置文件组建了数据库服务器和缓存服务容器：</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang:test
+    commands:
+      - go build 
+      - go test
+
+services:
+  db-server:
+    image: mysql
+
+  cache-server
+    image: redis
+</code></pre>
+
+<p>服务容器可以使用 YAML 配置文件中定义的名称来访问。在上面的例子中，mysql 服务被指定为 db-server, 可以使用 db-server:3306 来访问。</p>
+
+<h3 id="配置">配置</h3>
+
+<p>服务容器可以通过环境变量来自定义用户名，密码和端口。具体支持的环境变量需要参考各个服务的官方镜像文档，如 MySQL 数据库部分的配置如下：</p>
+
+<pre><code class="language-yml">services:
+  database:
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+</code></pre>
+
+<h3 id="初始化">初始化</h3>
+
+<p>服务容器需要一定时间来初始化，然后才能被访问。如果刚开始无法连接到一个服务，可以先等待几秒钟或者添加一个退让 (backoff) 机制。</p>
+
+<pre><code class="language-yml">pipeline: 
+  test:
+    image: golang
+    commands:
+      - sleep 15
+      - go get
+      - go test
+
+services:
+  database:
+    image:mysql
+</code></pre>
+
+<h2 id="plugins">Plugins</h2>
+
+<p><code>Plugins</code> 也是 Drone 的核心概念，Plugins 是执行预定义任务的容器，它们在工作流中被配置为步骤 (steps)。Drone 除了 build 命令之外的功能基本都通过插件完成，例如部署代码，发布构建结果，FTP(SSH)上传, 发送通知以及部署其他更多的功能。建议精读官方用于构建镜像的 docker plugin 的文档：<a href="http://plugins.drone.io/drone-plugins/drone-docker">http://plugins.drone.io/drone-plugins/drone-docker</a> , 另外，git 是 Drone 默认的插件，不需要配置。</p>
+
+<p>Docker 和 Slack 插件工作流示例：</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang
+    commands:
+      - go build
+      - go test
+  publish:
+    image: plugins/docker
+    repo: foo/bar
+    tags: latest
+  
+  notify:
+    image: plugins/slack
+    channel: dev
+</code></pre>
+
+<h3 id="插件隔离">插件隔离</h3>
+
+<p>插件在 Docker 容器中执行，它们与工作流中的其他步骤相互隔离。注意，插件挂载和共享当前工作区，因此它将可以访问对应的源代码。</p>
+
+<h3 id="插件市场">插件市场</h3>
+
+<p>插件被打包和发布为 Docker 容器，它们在概念上和软件库类似(比如 npm), 可以在社区中发布和共享。官方插件市场：<a href="http://plugins.drone.io/">http://plugins.drone.io/</a></p>
+
+<h2 id="deployments">Deployments</h2>
+
+<p><code>Deployments</code> 参数可以触发 Drone 来部署项目。部署项目在工作流中的事件类型 (event type) 是 deployment。可以使用事件类型 (event type) 或者目标环境变量 (target environment) 来限制执行的部署。</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang
+    commands:
+      - go build
+      - go test
+
+  publish:
+    image: plugins/docker
+    registry: registry.heroku.com
+    repo: registry.heroku.com/my-staging-app/web
+    when:
+      event: deployment
+      environment: staging
+
+  publish_to_prod:
+    image: plugins/docker
+    registry: registry.heroku.com
+    repo: registry.heroku.com/my-production-ap/web
+    when:
+      event: deployment
+      environment: production
+</code></pre>
+
+<p>上面的例子展示了如何配置工作流指定在特定的目标环境中部署项目，比如 production 生产环境。</p>
+
+<h3 id="触发部署">触发部署</h3>
+
+<p>Drone 也支持使用命令行从已有的构建结果中触发部署。这个行为与使用构建结果(promoting builds) 的概念类似。</p>
+
+<pre><code class="language-bash">$ drone deploy &lt;_repo_&gt; &lt;_build_&gt; &lt;_environment_&gt;
+</code></pre>
+
+<p>在准生产环境（staging environment）中使用某一序号的构建结果。</p>
+
+<pre><code class="language-bash">$ drone deploy test/hello-world 24 staging
+</code></pre>
+
+<p>在生产环境（production environment）中使用某一序号的构建结果。</p>
+
+<pre><code class="language-bash">$ drone deploy test/hello-world 24 production
+</code></pre>
+
+<h2 id="matrix-builds-矩阵构建">Matrix Builds 矩阵构建</h2>
+
+<p>Drone 支持整合矩阵构建。Drone 为配置文件矩阵中的每个组合各执行一个独立的构建任务。矩阵构建允许您使用多个配置来构建和测试一个提交(commit)。它更适用于开源项目和 libs 维护者。可以为同一个环境变量声明多组值，笛卡儿积后进行交叉构建。Matrix Builds 可以在 .drone.yml 文件里注入环境变量。</p>
+
+<p>矩阵定义示例：</p>
+
+<pre><code class="language-yml">matrix:
+  GO_VERSION:
+    - 1.4
+    - 1.3
+  REDIS_VERSION:
+    - 2.6
+    - 2.8 
+    - 3.0
+</code></pre>
+
+<p>只包含特定组合的矩阵示例：</p>
+
+<pre><code class="language-yml">matrix:
+  include:
+    - GO_VERSION: 1.4
+      REDIS_VERSION: 2.8
+    - GO_VERSION: 1.5
+      REDIS_VERSION: 2.8
+    - GO_VERSION: 1.6
+      REDIS_VERSION: 3.0
+</code></pre>
+
+<h3 id="变量插值">变量插值</h3>
+
+<p>矩阵变量可以使用 <code>${VARIABLE}</code> 的语法来进行插值。</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang:${GO_VERSION}
+    commands:
+      - go get
+      - go build
+      - go test
+
+services:
+  database:
+    image: ${DATABASE}
+
+matrix:
+  GO_VERSION:
+    - 1.4
+    - 1.3
+  DATABASE:
+    - mysql:5.5
+    - mysql:6.5
+    - mariadb:10.1
+</code></pre>
+
+<p>插入矩阵变量后的 Yaml 文件示例：</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+-   image: golang:${GO_VERSION}
+   image: golang:1.4
+    commands:
+      - go get
+      - go build
+      - go test
+   environment:
+     - GO_VERSION=1.4
+     - DATABASE=mysql:5.5
+
+services:
+  database:
+-   image: ${DATABASE}
+</code></pre>
+
+<p>基于 Docker 镜像标签（Docker image tag）的矩阵构建</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: golang:${TAG}
+    commands:
+      - go build
+      - go test
+
+matrix:
+  TAG:
+    - 1.7
+    - 1.8
+    - latest
+</code></pre>
+
+<p>基于 Docker 镜像的矩阵构建</p>
+
+<pre><code class="language-yml">pipeline:
+  build:
+    image: ${IMAGE}
+    commands:
+      - go build
+      - go test
+
+matrix:
+  IMAGE:
+    - golang:1.7
+    - golang:1.8
+    - golang:latest
+</code></pre>
+
+<p>示例文件：.drone.yml</p>
+
+<pre><code class="language-yml">workspace:
+  base: /go
+  path: src/gogs.finogeeks.com/baa-cicd
+
+pipeline:
+  
+  build:
+    image: golang:latest
+    commands:
+      - go build -o baa-cicd
+  
+  publish:
+    image: plugins/docker
+    registry: registry.finogeeks.com
+    repo: registry.finogeeks.com/test/baa-cicd
+    tags: latest
+    secrets: [ docker_username, docker_password ]
+    insecure: true
+  
+  notify:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/xxx/xxx/xxx
+    channel: dev
+    template: &gt;
+      {{#success build.status}}
+        build {{build.number}} succeeded. Good job.
+      {{else}}
+        build {{build.number}} failed. Fix me please.
+      {{/success}}
+</code></pre>
+
+<p>上面示例中，pipeline 中的 build 部分执行项目的构建，publish 部分将项目的 Docker 镜像发布到 registry, notify 部分发送 slack 消息</p>
+
+<h2 id="environment">Environment</h2>
+
+<p>环境变量可以按照生效位置 (drone-server/drone-agent) 分为两大类，具体到多个使用场景：</p>
+
+<h3 id="drone-yml-预设的变量-共有两处">.drone.yml 预设的变量，共有两处：</h3>
+
+<ul>
+<li><p>这些变量可以在 .drone.yml 文件中直接以 ${XX_XX_XX} 的格式使用，并在 parsing 阶段被替换为具体值。这个行为发生在 drone-server 里，属于构建周期的最早期阶段。
+它们分别是:
+drone 为使用者预设的环境变量，详细变量列表请参考: <a href="http://docs.drone.io/environment-reference/">http://docs.drone.io/environment-reference/</a></p></li>
+
+<li><p>matrix builds 声明的变量数组。
+这两类环境变量暴露出的信息很有限，matrix builds 只能是常量。drone的预设变量里只有 DRONE_COMMIT_MESSAGE 可控。drone 会对其前后插入双引号，末尾加换行符，内容里的特殊字符加转移等方式保证 .drone.yml 文件的安全性和防注入。</p></li>
+</ul>
+
+<h3 id="ci-容器端的变量">CI 容器端的变量</h3>
+
+<p>这些变量是作用在 drone-agent 端。包括:</p>
+
+<ul>
+<li><p>pipeline 部分的 environment 关键字，类似 docker-compose. 影响 CI 执行容器的运行时环境变量。等效于在容器里执行 export XX=XXX</p></li>
+
+<li><p>build_args 关键字，影响 Dockerfile 文件本身的环境变量。在 docker build 过程中生效。等效于 Dockerfile 里声明 ARG 关键字，也等效于构建命令 docker build &ndash;build-arg. 常用场景主要是 http_proxy 变量。 另外 build_args(ARG) 引申出的话题属于 docker 本身的范畴，需要对 Dockerfile 的 ARG 关键字和 ENV 关键字要有所区分。它们大致上无太大差别，唯一的区别是变量的生效周期，前者在 docker build 执行期间。而后者还会 persist 到产物 image 里。</p></li>
+</ul>
+
+<p>至此，完。</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<p>理论篇：</p>
+
+<ul>
+<li><a href="https://developer.finogeeks.com/topic/11/geekpipe-%E5%9F%BA%E4%BA%8Edrone%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%AE%9E%E8%B7%B5%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E7%AF%87">GeekPipe-基于Drone的持续集成实践之基本概念篇</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/38223938">利用&rdquo;元编程&rdquo;实现基础镜像的集中管理和动态构建 (Drone CI 0.8)</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/38281927">快速理解持续集成工具 Drone CI 核心概念</a></li>
+</ul>
+
+<p>部署实践篇：</p>
+
+<ul>
+<li><a href="https://golangcaff.com/topics/111/drone-deployment-of-the-go-language-project-with-kubernetes">Drone 搭配 Kubernetes 部署 Go 語言項目</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-11-02</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/devops/">devops</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/tech/cloud/devops/20180926-cicd-03-drone-02-practices/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/tech/cloud/docker/docker-compose-note/">
+            <span class="next-text nav-default">Docker | Docker Compose 基础</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2018-09-25 00:00:00 \x2b0000 UTC',
+    title: 'DevOps | Drone 的基本概念',
+    clientID: '4357c1dbcf7ef0515c29',
+    clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+    repo: 'blog-comments',
+    owner: 'zhezh09',
+    admin: ['zhezh09'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

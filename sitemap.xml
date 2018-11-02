@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/devops/20181029-cicd-03-drone-03-practices2/</loc>
+    <lastmod>2018-11-02T16:58:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/tech/cloud/docker/registry-and-webui/</loc>
     <lastmod>2018-10-26T09:48:45+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -38,14 +45,14 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/cloud/devops/20180926-cicd-03-practices/</loc>
+    <loc>https://zhezh09.github.io/post/tech/cloud/devops/20180926-cicd-03-drone-02-practices/</loc>
     <lastmod>2018-11-02T23:40:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/cloud/devops/20180925-drone-01-basic/</loc>
+    <loc>https://zhezh09.github.io/post/tech/cloud/devops/20180925-cicd-03-drone-01-basic/</loc>
     <lastmod>2018-11-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -360,14 +367,14 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/career/</loc>
+    <loc>https://zhezh09.github.io/tags/career/</loc>
     <lastmod>2018-09-19T14:21:07+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/tags/career/</loc>
+    <loc>https://zhezh09.github.io/categories/career/</loc>
     <lastmod>2018-09-19T14:21:07+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -389,7 +396,7 @@
   
   <url>
     <loc>https://zhezh09.github.io/tags/devops/</loc>
-    <lastmod>2018-11-02T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-02T16:58:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -402,14 +409,14 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/essay/</loc>
+    <loc>https://zhezh09.github.io/tags/essay/</loc>
     <lastmod>2018-10-15T21:18:24+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/tags/essay/</loc>
+    <loc>https://zhezh09.github.io/categories/essay/</loc>
     <lastmod>2018-10-15T21:18:24+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -437,13 +444,6 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/life/</loc>
-    <lastmod>2018-09-08T15:54:21+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://zhezh09.github.io/tags/life/</loc>
     <lastmod>2018-10-15T21:42:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -451,8 +451,8 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/others/</loc>
-    <lastmod>2018-08-21T13:38:03+08:00</lastmod>
+    <loc>https://zhezh09.github.io/categories/life/</loc>
+    <lastmod>2018-09-08T15:54:21+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -465,8 +465,15 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/categories/others/</loc>
+    <lastmod>2018-08-21T13:38:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/</loc>
-    <lastmod>2018-10-26T09:48:45+00:00</lastmod>
+    <lastmod>2018-11-02T16:58:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -480,7 +487,7 @@
   
   <url>
     <loc>https://zhezh09.github.io/categories/tech/</loc>
-    <lastmod>2018-10-26T09:48:45+00:00</lastmod>
+    <lastmod>2018-11-02T16:58:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -508,7 +515,7 @@
   
   <url>
     <loc>https://zhezh09.github.io/</loc>
-    <lastmod>2018-10-26T09:48:45+00:00</lastmod>
+    <lastmod>2018-11-02T16:58:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
