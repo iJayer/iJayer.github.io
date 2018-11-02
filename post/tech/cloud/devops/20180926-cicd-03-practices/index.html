@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server - Zher&#39;s Blog</title>
+  <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署 - Zher&#39;s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -50,7 +50,7 @@
 
 
 
-<meta property="og:title" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server" />
+<meta property="og:title" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署" />
 <meta property="og:description" content="Devops | CI/CD 实践" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180926-cicd-03-practices/" />
@@ -59,7 +59,7 @@
 
 <meta property="article:published_time" content="2018-09-26T23:40:06&#43;00:00"/>
 
-<meta property="article:modified_time" content="2018-09-27T23:40:06&#43;00:00"/>
+<meta property="article:modified_time" content="2018-11-02T23:40:06&#43;00:00"/>
 
 
 
@@ -71,19 +71,19 @@
 
 
 
-<meta itemprop="name" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server">
+<meta itemprop="name" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署">
 <meta itemprop="description" content="Devops | CI/CD 实践">
 
 
 <meta itemprop="datePublished" content="2018-09-26T23:40:06&#43;00:00" />
 <meta itemprop="dateModified" content="2018-09-26T23:40:06&#43;00:00" />
-<meta itemprop="wordCount" content="1960">
+<meta itemprop="wordCount" content="2120">
 
 
 
 <meta itemprop="keywords" content="devops," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server"/>
+<meta name="twitter:title" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署"/>
 <meta name="twitter:description" content="Devops | CI/CD 实践"/>
 
 <!--[if lte IE 9]>
@@ -151,7 +151,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server</h1>
+      <h1 class="post-title">DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2018-09-26 </span>
@@ -160,8 +160,8 @@
               <a href="/categories/tech/"> tech </a>
             
           </div>
-        <span class="more-meta"> 1960 words </span>
-        <span class="more-meta"> 4 mins read </span>
+        <span class="more-meta"> 2120 words </span>
+        <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -508,12 +508,12 @@ func main() {
 </ul>
 
 <pre><code class="language-yml">pipeline:
-backend:
+  backend:
     image: golang
     commands:
-    - go get
-    - go build .
-    - go test
+      - go get
+      - go build .
+      - go test
 </code></pre>
 
 <blockquote>
@@ -560,7 +560,21 @@ backend:
 
 <li><p>问题原因：Bitbucket Server 接收到 Push 等请求后，并没有发送 webhook 请求到 Drone Server，所以没有触发自动构建；需要安装 <a href="https://marketplace.atlassian.com/apps/1211539/web-post-hooks-for-bitbucket-server?hosting=server&amp;tab=overview">Web Post Hooks for Bitbucket Server</a> 插件解决。</p></li>
 
-<li><p>安装插件步骤：下载插件 =&gt; 转到 Bitbucket Server Settings =&gt; 找到 Manage add-ons =&gt; 选择 Upload add-ons</p></li>
+<li><p>安装插件步骤：下载插件 =&gt; 转到 Bitbucket Server Settings =&gt; 找到 Manage add-ons =&gt; 选择 Upload add-ons (Note: 安装成功后需要在：Repository settings =&gt; Hooks =&gt; Post receive 栏启用该插件)，启用步骤如下：</p>
+
+<ul>
+<li><p>插件安装成功后，需要从 Drone Server 的管理界面 <code>注销</code> 重新登陆。Drone 通过 OAuth 认证或账号密码登陆代码仓库后，获得完整的控制权。在 Drone 的 web 后台管理页面激活 Repo 后，Drone 调用代码仓库的 API 给 Repository 增加一个 webhook, 即设置 <code>Post-Receive WebHooks</code> 的 URL (<a href="http://your_domain:8000/hook?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZXh0IjoiU09GL2NpY2QtcHJvamVjdCIsInR5cGUiOiJob29rIn0.ijkTBJo8dmNvQTYUju2MmjBgQcJrHW6qy878shLtaM8)(Note:">http://your_domain:8000/hook?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZXh0IjoiU09GL2NpY2QtcHJvamVjdCIsInR5cGUiOiJob29rIn0.ijkTBJo8dmNvQTYUju2MmjBgQcJrHW6qy878shLtaM8)(Note:</a> 设置 webhooks 需要管理员权限)</p></li>
+
+<li><p>图示如下：</p>
+
+<ul>
+<li><img src="https://res.cloudinary.com/zher-files/image/upload/v1540086460/blog/images/bitbucket-hooks.png" alt="" /></li>
+<li><img src="https://res.cloudinary.com/zher-files/image/upload/v1540086460/blog/images/bitbucket-hooks-edit.png" alt="" />
+<br /></li>
+</ul></li>
+
+<li><p><a href="http://docs.drone.io/hooks/">Ref Links: docs.drone.io/hooks</a></p></li>
+</ul></li>
 
 <li><p>Push 代码测试，如果仍然失败，尝试重启 Bitbucket Server &amp; Drone Service, 重启 Drone Service 时记得清除下容器的数据卷数据(删除 drone.sqlite)</p></li>
 </ul></li>
@@ -588,7 +602,7 @@ backend:
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-09-27</span>
+    <span class="item-content">2018-11-02</span>
   </p>
   
   <p class="copyright-item">
@@ -634,7 +648,7 @@ backend:
   <script type="text/javascript">
   var gitalk = new Gitalk({
     id: '2018-09-26 23:40:06 \x2b0000 UTC',
-    title: 'DevOps | CI\/CD 实践: Drone \x2b Docker \x2b Bitbucket Server',
+    title: 'DevOps | CI\/CD 实践: Drone \x2b Docker \x2b Bitbucket Server 服务部署',
     clientID: '4357c1dbcf7ef0515c29',
     clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
     repo: 'blog-comments',

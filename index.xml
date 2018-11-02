@@ -6,10 +6,25 @@
     <description>Recent content on Zher&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Oct 2018 21:42:56 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Oct 2018 09:48:45 +0800</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker | Deploy Docker Registry and Web UI</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/registry-and-webui/</link>
+      <pubDate>Fri, 26 Oct 2018 09:48:45 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/registry-and-webui/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;背景：最近基于 Drone 搭建了用于公司内部使用的 CI/CD 平台，而 CI/CD 过程中生成的 Docker Image 需要能够进行集中式的存储和管理 (即：&lt;code&gt;push&lt;/code&gt;、&lt;code&gt;pull&lt;/code&gt;、&lt;code&gt;delete&lt;/code&gt; 等)，且不能将其上传到公网环境中去，因此，有必要自己动手搭建 &lt;code&gt;Docker Private Registry&lt;/code&gt; 完成镜像的存储与分发任务。当然，仓库搭建完成后，能够可视化的管理也就很有必要了，像浏览 Docker Hub 一样&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>『心之所向，素履以往』— 张掖</title>
@@ -71,7 +86,7 @@
     </item>
     
     <item>
-      <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server</title>
+      <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署</title>
       <link>https://zhezh09.github.io/post/tech/cloud/devops/20180926-cicd-03-practices/</link>
       <pubDate>Wed, 26 Sep 2018 23:40:06 +0000</pubDate>
       
