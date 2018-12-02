@@ -1,15 +1,68 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Golang on Zher&#39;s Blog</title>
+    <title>Golang on Zher</title>
     <link>https://zhezh09.github.io/tags/golang/</link>
-    <description>Recent content in Golang on Zher&#39;s Blog</description>
+    <description>Recent content in Golang on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 10 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Nov 2018 14:06:08 +0800</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[转] Golang | Slice 深入理解</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20181121-slice-src-reading/</link>
+      <pubDate>Wed, 21 Nov 2018 14:06:08 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20181121-slice-src-reading/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://halfrost.com/go_slice/#&#34;&gt;转自：深入解析 Go 中 Slice 底层实现&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang | Slice Deep Learning</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20181117-slice-deep-learning/</link>
+      <pubDate>Sat, 17 Nov 2018 14:00:24 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20181117-slice-deep-learning/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.golang.org/go-slices-usage-and-internals&#34;&gt;Go Blog: Go slice internals 学习笔记&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>『Go核心36讲』| 02-数组与切片</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180913-tutorial-go36-02/</link>
+      <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180913-tutorial-go36-02/</guid>
+      <description>&lt;!-- 摘要 --&gt;   
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;通过上 &lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/&#34;&gt;小结&lt;/a&gt; 学习主要加深了对：&lt;code&gt;常用源码文件(命令、库、测试)写法、程序实体(常量、变量、结构体、函数、接口, 尤其是变量)以及相关的各种概念和编程技巧(类型推断、变量重声明、可重名变量、类型断言、类型转换、别名类型和潜在类型等)&lt;/code&gt; 的理解。&lt;/li&gt;
+&lt;li&gt;接下来进入模块二：数组与切片，主要侧重于理解数组与切片底层的实现方式、存储结构、以及这两个集合类类型的区别是什么？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#39;align-right&#39;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/14106?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：07 | 数组和切片&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Golang | gRPC学习笔记-05 | 编码实践</title>
@@ -112,6 +165,53 @@
 &lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/&#34;&gt;Note3: gRPC基础概念 | 什么是 gRPC?&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/&#34;&gt;Note4: gRPC基础概念 | 什么是 Protocol Buffers?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>『Go核心36讲』| 01-基础概念补漏</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/</link>
+      <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;这一节，主要跟着专栏第一章补漏一些必备的基础概念，内容概览：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Go 中的源码文件分类&lt;/li&gt;
+&lt;li&gt;关于命令源码文件、库源码文件你漏掉了那些知识点？&lt;/li&gt;
+&lt;li&gt;程序实体那些事儿&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#39;align-right&#39;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/13159&#34;&gt;专栏：02 | 命令源码文件&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://time.geekbang.org/column/article/13176&#34;&gt;专栏：03 | 库源码文件&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://time.geekbang.org/column/article/13178&#34;&gt;专栏：04 | 程序实体的那些事儿（上）&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://time.geekbang.org/column/article/13562&#34;&gt;专栏：05 | 程序实体的那些事儿（中）&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://time.geekbang.org/column/article/13601&#34;&gt;专栏：06 | 程序实体的那些事儿（下）&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>『Go核心36讲』| 学习笔记集</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-00/</link>
+      <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-00/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/intro/112&#34;&gt;《Go语言核心36讲》&lt;/a&gt; 是郝林老师发布的一则专栏教程(付费)，以音频+文稿的方式系统的讲述了 Go 的知识。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我自己使用 Go 已经有两年时间了(从毕业到现在)，在这个过程中阅读过一些书籍、博客、文档等，遇到问题也是随手查下资料解决掉了，现在回顾一下感觉有很多知识漏洞还没有补上或对某些知识点还是似懂非懂的样子，所以就借此机会跟随这个专栏巩固一下 Go 的知识吧！ 以下内容为我自己学习过程中整理的学习笔记。So, Let&amp;rsquo;s Go!&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

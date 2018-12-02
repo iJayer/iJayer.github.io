@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tools on Zher&#39;s Blog</title>
+    <title>Tools on Zher</title>
     <link>https://zhezh09.github.io/tags/tools/</link>
-    <description>Recent content in Tools on Zher&#39;s Blog</description>
+    <description>Recent content in Tools on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 04 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Nov 2018 09:43:05 +0800</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tools | Useful Git Scripts</title>
+      <link>https://zhezh09.github.io/post/tech/tools/useful_git_scripts/</link>
+      <pubDate>Sun, 04 Nov 2018 09:43:05 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/tools/useful_git_scripts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Organize and collect useful git scripts&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Tools | Make &amp; Makefile 学习笔记 （一）</title>

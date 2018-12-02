@@ -1,0 +1,625 @@
+
+
+There are two possible situations that led to this error:
+  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
+  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
+
+有两种可能的情况会导致这个错误发生:
+  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
+  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | Slice Deep Learning - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" Go Blog: Go slice internals 学习笔记
+ 
+" /><meta name="keywords" content="zher, blog, tech, essay, life, footprint" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20181117-slice-deep-learning/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<meta property="og:title" content="Golang | Slice Deep Learning" />
+<meta property="og:description" content="
+
+
+Go Blog: Go slice internals 学习笔记
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20181117-slice-deep-learning/" />
+
+
+
+<meta property="article:published_time" content="2018-11-17T14:00:24&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-11-21T14:00:24&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Golang | Slice Deep Learning">
+<meta itemprop="description" content="
+
+
+Go Blog: Go slice internals 学习笔记
+
+
+">
+
+
+<meta itemprop="datePublished" content="2018-11-17T14:00:24&#43;08:00" />
+<meta itemprop="dateModified" content="2018-11-17T14:00:24&#43;08:00" />
+<meta itemprop="wordCount" content="3195">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | Slice Deep Learning"/>
+<meta name="twitter:description" content="
+
+
+Go Blog: Go slice internals 学习笔记
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | Slice Deep Learning</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-11-17 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3195 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#slice-internals">Slice internals</a></li>
+<li><a href="#growing-slices-the-copy-and-append-functions">Growing slices(the copy and append functions)</a></li>
+<li><a href="#a-possible-gotcha">A possible &ldquo;gotcha&rdquo;</a></li>
+<li><a href="#further-reading">Further Reading</a>
+<ul>
+<li><a href="#effective-go-slices">Effective Go | Slices</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p><a href="https://blog.golang.org/go-slices-usage-and-internals">Go Blog: Go slice internals 学习笔记</a></p>
+</blockquote>
+
+<p></p>
+
+<h1 id="slice-internals">Slice internals</h1>
+
+<p>A slice is a descriptor of an array segment. It consists of a pointer to the array, the length of the segment, and its capacity (the maximum length of the segment).</p>
+
+<p>一个切片就是一个数组片段的描述符。它(切片)包含了一个指向数组的指针，片段的长度和容量(指这个片段的最大长度)</p>
+
+<p><img src="https://blog.golang.org/go-slices-usage-and-internals_slice-struct.png" alt="" /></p>
+
+<p>Our variable s, created earlier by make([]byte, 5), is structured like this:</p>
+
+<p>变量 s, 先前通过 <code>make([]byte, 5)</code> 创建，结构如下：</p>
+
+<p><img src="https://blog.golang.org/go-slices-usage-and-internals_slice-1.png" alt="" /></p>
+
+<p>The length is the number of elements referred to by the slice. The capacity is the number of elements in the underlying array (beginning at the element referred to by the slice pointer). The distinction between length and capacity will be made clear as we walk through the next few examples.</p>
+
+<p>长度就是切片引用的元素数量。容量就是底层数组(从切片指针引用的元素开始，到整个数组末尾)的元素数量。举例说明：</p>
+
+<p>As we slice s, observe the changes in the slice data structure and their relation to the underlying array:</p>
+
+<p>当我们切割 s 时，观察切片 s 的数据结构以及它们和底层数组间关系的变化：</p>
+
+<pre><code class="language-go">s = s[2:4]
+</code></pre>
+
+<p><img src="https://blog.golang.org/go-slices-usage-and-internals_slice-2.png" alt="" /></p>
+
+<p>Slicing does not copy the slice&rsquo;s data. It creates a new slice value that points to the original array. This makes slice operations as efficient as manipulating array indices. Therefore, modifying the elements (not the slice itself) of a re-slice modifies the elements of the original slice:</p>
+
+<p>分割并没有拷贝切片的数据。它会创建一个新的 slice，新的 slice 还是指向了原来的数组。这使得 <code>切片操作</code> 就和操作数组索引一样高效。因此，修改一个重新分片后的切片的元素(不是切片本身)，也就是在修改原始切片的元素，看例子：</p>
+
+<pre><code class="language-go">d := []byte{'r', 'o', 'a', 'd'}
+e := d[2:] 
+// e == []byte{'a', 'd'}
+e[1] = 'm'
+// e == []byte{'a', 'm'}
+// d == []byte{'r', 'o', 'a', 'm'}
+</code></pre>
+
+<blockquote>
+<p>Note: e 是通过在切片 d 上执行 <code>切片操作[start:end]</code> 而得到的新切片，但修改 e 的某个元素也会修改原始切片的元素的</p>
+</blockquote>
+
+<p>Earlier we sliced s to a length shorter than its capacity. We can grow s to its capacity by slicing it again:</p>
+
+<p>早先的时候，我们把 s 切割到了一个比它的容量还小的长度. 我们可以重新切片把它的长度扩展到和容量一样。实例如下：</p>
+
+<pre><code class="language-go">// Earlier code is:
+s = s[2:4]
+
+// Now 
+s = s[:cap(s)]
+</code></pre>
+
+<p><img src="https://blog.golang.org/go-slices-usage-and-internals_slice-3.png" alt="" /></p>
+
+<p>A slice cannot be grown beyond its capacity. Attempting to do so will cause a runtime panic, just as when indexing outside the bounds of a slice or array. Similarly, slices cannot be re-sliced below zero to access earlier elements in the array.</p>
+
+<p>一个切片不能扩展的超过其容量。如果非要这么做的话，就会导致一个运行时 panic，因为索引越界了。类似地，切片不能在零以下重新切片以访问数组中的早期元素(即：slice 指向数组的指针只能向后移动, 不能向前移动)。</p>
+
+<h1 id="growing-slices-the-copy-and-append-functions">Growing slices(the copy and append functions)</h1>
+
+<p>To increase the capacity of a slice one must create a new, larger slice and copy the contents of the original slice into it. This technique is how dynamic array implementations from other languages work behind the scenes. The next example doubles the capacity of s by making a new slice, t, copying the contents of s into t, and then assigning the slice value t to s:</p>
+
+<p>要增加一个切片的容量，就必须创建一个新的，更大的切片并且把原始切片的内容拷贝到新建立的切片中去。这种技术就是其他语言的动态数组的背后实现。下面例子通过创建一个新的切片 t，并将 s 的内容复制到 t，然后将切片值 t 分配给 s 来使 s 的容量加倍：</p>
+
+<pre><code class="language-go">t := make([]byte, len(s), (cap(s)+1) * 2) // +1 in case cap(s) == 0
+
+for i := range s {
+    t[i] = s[i]
+}
+
+s = t
+</code></pre>
+
+<p>The looping piece of this common operation is made easier by the built-in copy function. As the name suggests, copy copies data from a source slice to a destination slice. It returns the number of elements copied.</p>
+
+<p>上面这种蝉蛹的循环操作可以使用内建的 <code>copy</code> 函数更加轻松的完成。顾名思义 &hellip;</p>
+
+<pre><code class="language-go">func copy(dst, src []T) int
+</code></pre>
+
+<p>The copy function supports copying between slices of different lengths (it will copy only up to the smaller number of elements). In addition, copy can handle source and destination slices that share the same underlying array, handling overlapping slices correctly.</p>
+
+<p><code>copy</code> 函数支持在不同长度的切片间进行拷贝(仅支持拷贝小于等于原slice长度的数据)。另外，拷贝函数可以处理共享了底层数组的原切片和目的切片，并且会很好的处理重叠的部分.</p>
+
+<p>Using copy, we can simplify the code snippet above:</p>
+
+<pre><code class="language-go">t := make([]byte, len(s), (cap(s)+1)*2)
+copy(t, s)
+s = t
+</code></pre>
+
+<p>A common operation is to append data to the end of a slice. This function appends byte elements to a slice of bytes, growing the slice if necessary, and returns the updated slice value:</p>
+
+<p>一个经常使用的操作是向slice末尾加数据.下面的函数向 byte slice 里添加字节数据, 如果有必要, 会自动增加容量, 返回更新后的 slice.</p>
+
+<pre><code class="language-go">func AppendByte(slice []byte, data ...byte) []byte {
+    m := len(slice)
+    n := m + len(data)
+
+    if n &gt; cap(slice) { // if necessary, reallocate
+        // allocate double what's needed, for future growth.
+        newSlice := make([]byte, (n+1)*2)
+        copy(newSlice, slice)
+        slice = newSlice
+    }
+    slice = slice[0:n]
+
+    copy(slice[m:n], data)
+    return slice
+}
+</code></pre>
+
+<p>One could use AppendByte like this:</p>
+
+<pre><code class="language-go">p := []byte{2, 3, 5}
+p = AppendByte(p, 7, 11, 13)
+
+// p == []byte{2, 3, 5, 7, 11, 13}
+</code></pre>
+
+<p>Functions like AppendByte are useful because they offer complete control over the way the slice is grown. Depending on the characteristics of the program, it may be desirable to allocate in smaller or larger chunks, or to put a ceiling on the size of a reallocation.</p>
+
+<p>像 AppendByte 这样的函数非常有用. 因为它更能对 slice 的扩容有着完整的控制。根据具体的项目, 可能需要分配更小或者更大的空间来获得最佳效果. 或者是对扩容的上限给出限制。</p>
+
+<p>But most programs don&rsquo;t need complete control, so Go provides a built-in append function that&rsquo;s good for most purposes; it has the signature</p>
+
+<p>但是多数的项目不需要完整的控制. 所以 Go 提供了 append 函数.它能满足大多数的需求. 签名如下:</p>
+
+<pre><code class="language-go">func append(s []T, x ...T) []T
+</code></pre>
+
+<p>The append function appends the elements x to the end of the slice s, and grows the slice if a greater capacity is needed.</p>
+
+<pre><code class="language-go">a := make([]int, 1)
+// a == []int{0}
+a = append(a, 1, 2, 3)
+// a == []int{0, 1, 2, 3}
+</code></pre>
+
+<p>To append one slice to another, use &hellip; to expand the second argument to a list of arguments.</p>
+
+<pre><code class="language-go">a := []string{&quot;John&quot;, &quot;Paul&quot;}
+b := []string{&quot;George&quot;, &quot;Ringo&quot;, &quot;Pete&quot;}
+a = append(a, b...) // equivalent to &quot;append(a, b[0], b[1], b[2])&quot;
+// a == []string{&quot;John&quot;, &quot;Paul&quot;, &quot;George&quot;, &quot;Ringo&quot;, &quot;Pete&quot;}
+</code></pre>
+
+<p>Since the zero value of a slice (nil) acts like a zero-length slice, you can declare a slice variable and then append to it in a loop:</p>
+
+<p>因为一个切片的零值(nil) 就好比是长度为 0 的切片，所以你可以声明一个空的 slice 变量,并向里面挨个添加数据.</p>
+
+<pre><code class="language-go">// Filter returns a new slice holding only
+// the elements of s that satisfy f()
+func Filter(s []int, fn func(int) bool) []int {
+    var p []int // == nil
+    for _, v := range s {
+        if fn(v) {
+            p = append(p, v)
+        }
+    }
+    return p
+}
+</code></pre>
+
+<h1 id="a-possible-gotcha">A possible &ldquo;gotcha&rdquo;</h1>
+
+<p>可能的 &ldquo;陷阱&rdquo;</p>
+
+<p>As mentioned earlier, re-slicing a slice doesn&rsquo;t make a copy of the underlying array. The full array will be kept in memory until it is no longer referenced. Occasionally this can cause the program to hold all the data in memory when only a small piece of it is needed.</p>
+
+<p>For example, this FindDigits function loads a file into memory and searches it for the first group of consecutive numeric digits, returning them as a new slice.</p>
+
+<p>就像先前提到的，<code>切片操作</code> 并不会创建底层数组的拷贝。整个数组都将被保存在内存中，直到它不再被引用。有时候可能会因为一个小的内存引用导致保存所有的数据。</p>
+
+<p>例如，<code>FindDigits</code> 函数加载整个文件到内存，然后搜索第一个连续的数字，最后结果以切片方式返回。</p>
+
+<pre><code class="language-go">var digitRegexp = regexp.MustCompile(&quot;[0-9]+&quot;)
+
+func FindDigits(filename string) []byte {
+    b, _ := ioutil.ReadFile(filename) 
+    return digitRegexp.Find(b)
+}
+</code></pre>
+
+<p>This code behaves as advertised, but the returned []byte points into an array containing the entire file. Since the slice references the original array, as long as the slice is kept around the garbage collector can&rsquo;t release the array; the few useful bytes of the file keep the entire contents in memory.</p>
+
+<p>这段代码的行为和描述类似，返回的 []byte 指向保存整个文件的数组。因为切片引用了原始的数组，导致 GC 不能释放数组的空间；只用到少数几个字节却导致整个文件的内容都一直保存在内存里。</p>
+
+<p>To fix this problem one can copy the interesting data to a new slice before returning it:</p>
+
+<p>要修复这个问题，在返回之前可以将感兴趣的数据复制到一个新的切片中：</p>
+
+<pre><code class="language-go">func CopyDigits(filename string) []byte {
+    b, _ := ioutil.ReadFile(filename) 
+    b = digitRegexp.Find(b)
+
+    c := make([]byte, len(b))
+    copy(c, b)
+    return c
+}
+</code></pre>
+
+<p>使用 append 函数改进：</p>
+
+<pre><code class="language-go">func CopyDigits(filename string) []byte {
+    b, _ := ioutil.ReadFile(filename)
+    b = digitRegexp.Find(b)
+
+    c := make([]byte, len(b))
+    return append(c, b...)
+}
+</code></pre>
+
+<h1 id="further-reading">Further Reading</h1>
+
+<p><a href="https://golang.org/doc/effective_go.html">Effective Go</a> contains an in-depth treatment(探讨) of <a href="https://golang.org/doc/effective_go.html#slices">slices</a> and <a href="https://golang.org/doc/effective_go.html#arrays">arrays</a>, and the Go <a href="https://golang.org/doc/go_spec.html">language specification</a> defines <a href="https://golang.org/doc/go_spec.html#Slice_types">slices</a> and their <a href="https://golang.org/doc/go_spec.html#Making_slices_maps_and_channels">associated helper functions</a>.</p>
+
+<h2 id="effective-go-slices">Effective Go | Slices</h2>
+
+<p>Slices wrap arrays to give a more general, powerful, and convenient interface to sequences of data. Except for items with explicit dimension such as transformation matrices, most array programming in Go is done with slices rather than simple arrays.</p>
+
+<p>切片通过对数组封装进行封装，提供了更加通用的，强大的和方便的接口来序列化数据。除了像矩阵变换这种有明确唯独需求的情况外，Go 中的大部分数组编程都是通过切片来完成的。</p>
+
+<p>Slices hold references to an underlying array, and if you assign one slice to another, both refer to the same array. If a function takes a slice argument, changes it makes to the elements of the slice will be visible to the caller, analogous to passing a pointer to the underlying array(类似于传递了一个指向底层数组的指针). A <code>Read</code> function can therefore accept a slice argument rather than a pointer and a count; the length within the slice sets an upper limit of how much data to read. Here is the signature of the <code>Read</code> method of the File type in package os:</p>
+
+<pre><code class="language-go">func (f *file) Read(buf []byte) (n int, err error)
+</code></pre>
+
+<p>The method returns the number of bytes read and an error value, if any(如果有的话). To read into the first 32 bytes of a larger buffer buf, slice (here used as a verb) the buffer.</p>
+
+<p>该方法返回读取的字节数和一个错误值(若有的话)。若要从更大的缓冲区 buf 中读取前 32 个字节，只需要对其进行 <code>切片</code> 即可。</p>
+
+<pre><code class="language-go">n, err := f.Read(buf[0:32])
+</code></pre>
+
+<p>Such slicing is common and efficient. In fact, leaving efficiency aside for the moment, the following snippet would also read the first 32 bytes of the buffer.</p>
+
+<p>这种切片的方法常用且高效。若不谈效率，以下片段同样能读取该缓冲区的前32个字节。</p>
+
+<pre><code class="language-go">var n int 
+var err error
+for i := 0; i &lt; 32; i++ {
+    nbytes, e := f.Read(buf[i:i+1]) // 读取一个字节
+    if nbytes == 0 || e != nil {
+        err = e
+        break
+    }
+    n += nbytes
+}
+</code></pre>
+
+<p>The length of a slice may be changed as long as it still fits within the limits of the underlying array; just assign it to a slice of itself. The capacity of a slice, accessible by the built-in function cap, reports the maximum length the slice may assume. Here is a function to append data to a slice. If the data exceeds the capacity, the slice is reallocated. The resulting slice is returned. The function uses the fact that len and cap are legal when applied to the nil slice, and return 0.</p>
+
+<p>在切片的长度没超过底层数组的限制，就可以改变它的长度，只需要将它赋予其自身的切片即可。切片的 <code>容量</code> 可以通过内建函数 cap 获得，它将返回这个切片能取到的最大长度。以下是将数据追加到切片的函数。若数据超出其容量，则该切片将会重新被分配。返回值即为所得的切片(新分配的)。该函数中所使用的 len 和 cpa 在 <code>nil</code> 切片上应用时是合法的，会返回 0.</p>
+
+<pre><code class="language-go">func Append(slice, data []byte) []byte {
+    l := len(slice)
+    if l + len(data) &gt; cap(slice) { // 重新分配
+        // 为了后面的增长，需分配两份。
+        newSlice := make([]byte, (l + len(data)*2))
+        copy(newSlice, slice)
+        slice = newSlice
+    }
+    slice = slice[0:l+len(data)]
+    for i, c := range data {
+        slice[l+i] = c
+    }
+    return slice
+}
+</code></pre>
+
+<p>We must return the slice afterwards because, although Append can modify the elements of slice, the slice itself (the run-time data structure holding the pointer, length, and capacity) is passed by value.</p>
+
+<p>The idea of appending to a slice is so useful it&rsquo;s captured by the append built-in function. To understand that function&rsquo;s design, though, we need a little more information, so we&rsquo;ll return to it later.</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://blog.golang.org/go-slices-usage-and-internals">The Go Blog：Go Slices: usage and internals</a></li>
+<li><a href="https://blog.golang.org/slices">The Go Blog：Arrays, slices (and strings): The mechanics of &lsquo;append&rsquo;</a></li>
+<li><a href="https://golang.org/doc/effective_go.html#slices">Effective Go | Slices</a></li>
+<li><a href="https://go-zh.org/doc/effective_go.html#%E5%88%87%E7%89%87">实效Go编程中文社区</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-11-21</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20181121-slice-src-reading/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">[转] Golang | Slice 深入理解</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180913-tutorial-go36-02/">
+            <span class="next-text nav-default">『Go核心36讲』| 02-数组与切片</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-11-17 14:00:24 \x2b0800 CST',
+        title: 'Golang | Slice Deep Learning',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

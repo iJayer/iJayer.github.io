@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Zher&#39;s Blog</title>
+    <title>Categories on Zher</title>
     <link>https://zhezh09.github.io/categories/</link>
-    <description>Recent content in Categories on Zher&#39;s Blog</description>
+    <description>Recent content in Categories on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 19 Sep 2018 00:00:00 +0000</lastBuildDate>
@@ -59,7 +59,7 @@
     <item>
       <title>Tech</title>
       <link>https://zhezh09.github.io/categories/tech/</link>
-      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
+      <pubDate>Wed, 21 Nov 2018 14:06:08 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/categories/tech/</guid>
       <description></description>
