@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,15 +16,14 @@ There are two possible situations that led to this error:
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content=" 基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence  
-" /><meta name="keywords" content="docker" />
+<meta name="author" content="zher" /><meta name="description" content=" 基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence " /><meta name="keywords" content="docker" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/devops/20180927-cicd-04-dockerizing-bitbucketserver/" />
@@ -43,10 +33,9 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence" />
@@ -56,27 +45,10 @@ There are two possible situations that led to this error:
 基于 Docker 部署 Bitbucket Server
 基于 Docker 部署 Jira
 基于 Docker 部署 Confluence
-
-
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180927-cicd-04-dockerizing-bitbucketserver/" />
-
-
-
-<meta property="article:published_time" content="2018-09-27T22:09:25&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180927-cicd-04-dockerizing-bitbucketserver/" /><meta property="article:published_time" content="2018-09-27T22:09:25&#43;00:00"/>
 <meta property="article:modified_time" content="2018-11-02T16:09:25&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence">
 <meta itemprop="description" content="
@@ -85,14 +57,12 @@ There are two possible situations that led to this error:
 基于 Docker 部署 Bitbucket Server
 基于 Docker 部署 Jira
 基于 Docker 部署 Confluence
-
-
 ">
 
 
 <meta itemprop="datePublished" content="2018-09-27T22:09:25&#43;00:00" />
-<meta itemprop="dateModified" content="2018-09-27T22:09:25&#43;00:00" />
-<meta itemprop="wordCount" content="757">
+<meta itemprop="dateModified" content="2018-11-02T16:09:25&#43;00:00" />
+<meta itemprop="wordCount" content="741">
 
 
 
@@ -105,8 +75,6 @@ There are two possible situations that led to this error:
 基于 Docker 部署 Bitbucket Server
 基于 Docker 部署 Jira
 基于 Docker 部署 Confluence
-
-
 "/>
 
 <!--[if lte IE 9]>
@@ -181,7 +149,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 757 words </span>
+          <span class="more-meta"> 741 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -210,66 +178,117 @@ There are two possible situations that led to this error:
 <li>基于 Docker 部署 Confluence</li>
 </ul>
 
-<p></p>
-
 <h1 id="dockerizing-bitbucket-server">Dockerizing Bitbucket Server</h1>
 
 <ul>
 <li><p>部署 Bitbucket Server 需要两个 Docker 镜像：<a href="https://hub.docker.com/r/atlassian/bitbucket-server/">Bitbucket-Server</a> &amp; <a href="https://hub.docker.com/r/_/postgres/">Postgre-DB</a></p>
-
-<pre><code class="language-bash">$ docker pull atlassian/bitbucket-server:5.10.2
-$ docker pull postgres:9.6
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker pull atlassian/bitbucket-server:5.10.2
+$ docker pull postgres:9.6</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>在宿主机创建 Bitbucket Server 的数据目录</p>
-
-<pre><code class="language-bash">$ mkdir -p /home/docker/atlassian &amp;&amp; cd /home/docker/atlassian
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p /home/docker/atlassian <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /home/docker/atlassian
     
-# 创建需要挂载的 Volumes 数据目录
-$ mkdir bitbucket-data postgresql-data
-</code></pre></li>
+<span class="c1"># 创建需要挂载的 Volumes 数据目录</span>
+$ mkdir bitbucket-data postgresql-data</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>创建 docker-compose.yml</p>
-
-<pre><code class="language-bash">$ touch docker-compose.yml
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ touch docker-compose.yml</code></pre></td></tr></table>
+</div>
+</div>
 <p>内容如下：</p>
-
-<pre><code class="language-yml">version: '3'
-
-services:
-  bitbucket:
-    image: &quot;atlassian/bitbucket-server:5.10.2&quot;
-    container_name: bitbucket
-    restart: always
-    ports:
-      - &quot;7990:7990&quot;
-      - &quot;7999:7999&quot;
-    environment:
-      - BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/
-    volumes:
-      - ./bitbucket-data:/var/atlassian/application-data/bitbucket
-    
-  db:
-    image: postgres:9.6
-    container_name: postgresql
-    restart: always
-    ports:
-      - &quot;5432:5432&quot;
-    environment:
-      POSTGRES_PASSWORD: &lt;your_pwd&gt;
-      POSTGRES_USER: &lt;your_user&gt;
-      POSTGRES_DB: postgres
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - ./postgresql-data:/var/lib/postgresql/data
-
-volumes:
-  bitbucket-data:
-  postgresql-data:
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;atlassian/bitbucket-server:5.10.2&#34;</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>bitbucket<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7990:7990&#34;</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7999:7999&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./bitbucket-data<span class="p">:</span>/var/atlassian/application-data/bitbucket<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>db<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>postgres<span class="p">:</span><span class="m">9.6</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>postgresql<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>POSTGRES_PASSWORD<span class="p">:</span><span class="w"> </span>&lt;your_pwd<span class="sd">&gt;
+</span><span class="sd">      POSTGRES_USER: &lt;your_user&gt;
+</span><span class="sd">      POSTGRES_DB: postgres
+</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
+</span><span class="w">
+</span><span class="w"></span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket-data<span class="p">:</span><span class="w">
+</span><span class="w">  </span>postgresql-data<span class="p">:</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note:</p>
 
@@ -284,50 +303,95 @@ volumes:
 <blockquote>
 <p>Note: 关于数据卷的更多信息可以查看官方文档：<a href="https://docs.docker.com/storage/volumes/">Use volumes</a></p>
 </blockquote>
-
-<pre><code class="language-bash">$ docker volume create --name bitbucket-data
-$ docker volume create --name postgresql-data
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker volume create --name bitbucket-data
+$ docker volume create --name postgresql-data</code></pre></td></tr></table>
+</div>
+</div>
 <p>修改 docker-compose.yml 配置，完整内容如下：</p>
-
-<pre><code class="language-yml">version: '3'
-
-services:
-  bitbucket:
-    image: &quot;atlassian/bitbucket-server:5.10.2&quot;
-    container_name: bitbucket
-    restart: always
-    ports:
-      - &quot;7990:7990&quot;
-      - &quot;7999:7999&quot;
-    environment:
-      - BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/
-    volumes:
-      - ./bitbucket-data:/var/atlassian/application-data/bitbucket
-    
-  db:
-    image: postgres:9.6
-    container_name: postgresql
-    restart: always
-    ports:
-      - &quot;5432:5432&quot;
-    environment:
-      POSTGRES_PASSWORD: &lt;your_pwd&gt;
-      POSTGRES_USER: &lt;your_user&gt;
-      POSTGRES_DB: postgres
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - ./postgresql-data:/var/lib/postgresql/data
-
-volumes:
-  bitbucket-data:
-    external:
-      name: bitbucket-data
-  postgresql-data:
-    external:
-      name: postgresql-data
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;atlassian/bitbucket-server:5.10.2&#34;</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>bitbucket<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7990:7990&#34;</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7999:7999&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./bitbucket-data<span class="p">:</span>/var/atlassian/application-data/bitbucket<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>db<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>postgres<span class="p">:</span><span class="m">9.6</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>postgresql<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>POSTGRES_PASSWORD<span class="p">:</span><span class="w"> </span>&lt;your_pwd<span class="sd">&gt;
+</span><span class="sd">      POSTGRES_USER: &lt;your_user&gt;
+</span><span class="sd">      POSTGRES_DB: postgres
+</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
+</span><span class="w">
+</span><span class="w"></span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket-data<span class="p">:</span><span class="w">
+</span><span class="w">    </span>external<span class="p">:</span><span class="w">
+</span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>bitbucket-data<span class="w">
+</span><span class="w">  </span>postgresql-data<span class="p">:</span><span class="w">
+</span><span class="w">    </span>external<span class="p">:</span><span class="w">
+</span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>postgresql-data</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>运行容器服务</p></li>
 </ul>
@@ -335,10 +399,14 @@ volumes:
 <blockquote>
 <p>Note: 让应用容器在前台运行，并加入 &ndash;verbose 参数启动，以便获取更详细的日志信息</p>
 </blockquote>
-
-<pre><code class="language-bash">  $ docker-compose --verbose up 
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ docker-compose --verbose up </code></pre></td></tr></table>
+</div>
+</div>
 <p>访问：<a href="http://localhost:7990">http://localhost:7990</a></p>
 
 <h1 id="config-bitbucket-server">Config Bitbucket Server</h1>
@@ -371,90 +439,165 @@ volumes:
 <ul>
 <li>创建 Jira &amp; Confluence 相关数据目录</li>
 </ul>
-
-<pre><code class="language-bash">  $ cd /home/docker/atlassian
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ <span class="nb">cd</span> /home/docker/atlassian
   $ mkdir jira-data confluence-data
-  $ cd confluence-data &amp;&amp; mkdir attachments backups &amp;&amp; cd .. # 创建这两个文件夹 (attachments &amp; backups) 是因为 Confluence 容器启动运行后，在配置数据库时无法通过容器内部生成(没权限)，所以在宿主机上先设置好，最后通过数据卷挂载
-</code></pre>
-
+  $ <span class="nb">cd</span> confluence-data <span class="o">&amp;&amp;</span> mkdir attachments backups <span class="o">&amp;&amp;</span> <span class="nb">cd</span> .. <span class="c1"># 创建这两个文件夹 (attachments &amp; backups) 是因为 Confluence 容器启动运行后，在配置数据库时无法通过容器内部生成(没权限)，所以在宿主机上先设置好，最后通过数据卷挂载</span></code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>拉去相关镜像</li>
 </ul>
-
-<pre><code class="language-bash">  $ docker pull cptactionhank/atlassian-jira:7.12.2
-  $ docker pull cptactionhank/atlassian-confluence:6.12.0
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ docker pull cptactionhank/atlassian-jira:7.12.2
+  $ docker pull cptactionhank/atlassian-confluence:6.12.0</code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>配置 docker-compose.yml, 完整内容如下：</li>
 </ul>
-
-<pre><code class="language-yml">version: '3'
-
-services:
-    
-  bitbucket:
-    image: &quot;atlassian/bitbucket-server:5.10.2&quot;
-    container_name: bitbucket
-    restart: always
-    ports:
-      - &quot;7990:7990&quot;
-      - &quot;7999:7999&quot;
-    environment:
-      - BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/
-    volumes:
-      - ./bitbucket-data:/var/atlassian/application-data/bitbucket
-
-  jira:
-    image: cptactionhank/atlassian-jira:7.12.2
-    container_name: jira
-    restart: always
-    ports:
-      - &quot;6080:8080&quot;
-    links:
-      - database
-    volumes:
-      - ./jira-data:/var/atlassian/application-data/jira
-
-  confluence:
-    image: cptactionhank/atlassian-confluence:6.12.0
-    container_name: confluence
-    restart: always
-    ports:
-      - &quot;8090:8090&quot;    
-    links:
-      - database
-    volumes:
-      - ./confluence-data:/var/atlassian/application-data/confluence
-
-  database:
-    image: postgres:9.6
-    container_name: postgresql
-    restart: always
-    ports:
-      - &quot;5432:5432&quot;
-    environment:
-      POSTGRES_USER: &lt;input_user&gt;
-      POSTGRES_PASSWORD: &lt;input_pwd&gt;
-      POSTGRES_DB: postgres
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - ./postgresql-data:/var/lib/postgresql/data
-
-volumes:
-  bitbucket-data:
-  jira-data:
-  confluence-data:  
-  postgresql-data:
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>bitbucket<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;atlassian/bitbucket-server:5.10.2&#34;</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>bitbucket<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7990:7990&#34;</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7999:7999&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./bitbucket-data<span class="p">:</span>/var/atlassian/application-data/bitbucket<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>jira<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>cptactionhank/atlassian-jira<span class="p">:</span><span class="m">7.12</span>.<span class="m">2</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>jira<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;6080:8080&#34;</span><span class="w">
+</span><span class="w">    </span>links<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>database<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./jira-data<span class="p">:</span>/var/atlassian/application-data/jira<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>confluence<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>cptactionhank/atlassian-confluence<span class="p">:</span><span class="m">6.12</span>.<span class="m">0</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>confluence<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;8090:8090&#34;</span><span class="w">    
+</span><span class="w">    </span>links<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>database<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./confluence-data<span class="p">:</span>/var/atlassian/application-data/confluence<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>database<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>postgres<span class="p">:</span><span class="m">9.6</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>postgresql<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>POSTGRES_USER<span class="p">:</span><span class="w"> </span>&lt;input_user<span class="sd">&gt;
+</span><span class="sd">      POSTGRES_PASSWORD: &lt;input_pwd&gt;
+</span><span class="sd">      POSTGRES_DB: postgres
+</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
+</span><span class="w">
+</span><span class="w"></span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket-data<span class="p">:</span><span class="w">
+</span><span class="w">  </span>jira-data<span class="p">:</span><span class="w">
+</span><span class="w">  </span>confluence-data<span class="p">:</span><span class="w">  
+</span><span class="w">  </span>postgresql-data<span class="p">:</span></code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>运行容器服务</li>
 </ul>
-
-<pre><code class="language-bash">$ docker-compose up -d
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker-compose up -d</code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li><p>访问并完成配置</p>
 
@@ -584,18 +727,19 @@ volumes:
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

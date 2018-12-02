@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +23,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/" />
@@ -42,32 +33,16 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Tools | Make &amp; Makefile 学习笔记 （一）" />
 <meta property="og:description" content="make and makefile 学习笔记" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/" />
-
-
-
-<meta property="article:published_time" content="2018-09-04T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/" /><meta property="article:published_time" content="2018-09-04T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-09-04T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="Tools | Make &amp; Makefile 学习笔记 （一）">
 <meta itemprop="description" content="make and makefile 学习笔记">
@@ -75,7 +50,7 @@ There are two possible situations that led to this error:
 
 <meta itemprop="datePublished" content="2018-09-04T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-09-04T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3923">
+<meta itemprop="wordCount" content="4102">
 
 
 
@@ -156,8 +131,8 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 3923 words </span>
-          <span class="more-meta"> 8 mins read </span>
+          <span class="more-meta"> 4102 words </span>
+          <span class="more-meta"> 9 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -206,8 +181,6 @@ There are two possible situations that led to this error:
 <li>Makefile 的编写规则</li>
 </ul>
 
-<p></p>
-
 <blockquote>
 <p>Statements: 笔记的内容转自 <a href="http://www.ruanyifeng.com/blog/2015/02/make.html">阮一峰老师的 Make 命令教程</a></p>
 </blockquote>
@@ -221,19 +194,29 @@ There are two possible situations that led to this error:
 <h1 id="2-make-的概念">2. Make 的概念</h1>
 
 <p>Make 这个词，英语的意思是 &ldquo;制作&rdquo;。Make 命令直接用了这个意思，就是要做出某个文件。比如，要做出文件 a.txt, 就可以执行下面的命令。</p>
-
-<pre><code class="language-bash">$ make a.txt
-make: *** No targets specified and no makefile found.  Stop.
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ make a.txt
+make: *** No targets specified and no makefile found.  Stop.</code></pre></td></tr></table>
+</div>
+</div>
 <p>如上所示，如果你真的输入了这条命令，它并不会起作用。因为 Make 命令本身并不知道如何做出 a.txt, 需要有人告诉它，如何调用其它命令完成这个目标。</p>
 
 <p>比如，假设文件 a.txt 依赖于 b.txt 和 c.txt，是后面两个文件连接(cat命令)的产物。那么，make 需要知道下面的规则。</p>
-
-<pre><code class="language-bash">a.txt: b.txt c.txt
-    cat b.txt c.txt &gt; a.txt
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">a.txt: b.txt c.txt
+    cat b.txt c.txt &gt; a.txt</code></pre></td></tr></table>
+</div>
+</div>
 <p>也就是说，<code>make a.txt</code> 这条命令的背后，实际上分为两步：</p>
 
 <ul>
@@ -242,12 +225,18 @@ make: *** No targets specified and no makefile found.  Stop.
 </ul>
 
 <p>像这样的规则，都卸载一个叫做 Makefile 的文件中，Make 命令依赖这个文件进行构建。Makefile 也可以写作 makefile，或者用命令行参数指定为其他文件名：</p>
-
-<pre><code class="language-bash">$ make -f rules.txt
-# or
-$ make --file=rules.txt
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ make -f rules.txt
+<span class="c1"># or</span>
+$ make --file<span class="o">=</span>rules.txt</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码指定 make 命令依据 rules。txt 文件中的规则，进行构建。</p>
 
 <p>总之，<code>make</code> 只是一个根据指定的 Shell 命令进行构建的工具。它的规则很简单，你规定要构建那个文件、它依赖哪些源文件，当那些文件有变动时，如何重新构建它。</p>
@@ -259,11 +248,16 @@ $ make --file=rules.txt
 <h2 id="3-1-概述">3.1. 概述</h2>
 
 <p>Makefile 文件由一系列规则(rules)构成。每条规则的形式如下：</p>
-
-<pre><code class="language-bash">&lt;target&gt;: &lt;prerequisites&gt;
-[tab] &lt;commands&gt;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&lt;target&gt;: &lt;prerequisites&gt;
+<span class="o">[</span>tab<span class="o">]</span> &lt;commands&gt;</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面第一行冒号前面的部分，叫做 <code>目标</code>(target), 冒号后面的部分叫做 <code>前置条件</code> (prerequisites); 第二行必须由一个 tab 健起首，后面跟着 <code>命令</code> (commands)</p>
 
 <p><code>目标</code> 是必须的，不可省略；<code>前置条件</code> 和 <code>命令</code> 都是可选的，但是两者之中必须至少存在一个。</p>
@@ -275,55 +269,98 @@ $ make --file=rules.txt
 <p>一个目标 (target) 就构成一条规则。目标通常是文件名，指明 Make 命令所要构建的对象，比如上文的 a.txt。目标可以是一个文件名，也可以是多个文件名，之间用空格分隔。</p>
 
 <p>除了文件名，目标还可以是某个操作的名字，这称为 <code>伪目标</code> (phony target)</p>
-
-<pre><code class="language-Makefile">clean:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">clean</span><span class="o">:</span>
     rm *.o
-</code></pre>
-
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码的目标是 clean, 它不是文件名，而是一个操作的名字，属于 <code>伪目标</code>，作用是删除对象文件。</p>
-
-<pre><code class="language-bash">$ make clean
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ make clean</code></pre></td></tr></table>
+</div>
+</div>
 <p>但是，如果当前目录中，正好有一个文件叫做 clean, 那么这个命令不会去执行。因为 Make 发现 clean 已经文件已经存在，就认为没有必要重新构建了，就不会执行指定的 rm 命令。</p>
 
 <p>为了避免这种情况，可以明确声明 clean 是伪目标，写法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
 
-<pre><code class="language-Makefile">.PHONY: clean
-
-clean:
+<span class="nf">clean</span><span class="o">:</span>
     rm *.o temp
-</code></pre>
-
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>声明 clean 是伪目标之后，make 就不回去检查是否存在一个叫做 clean 的文件，而是每次运行都执行对应的命令。像 .PHONY 这样的内置目标名还有不少，可以查看 <a href="http://www.gnu.org/software/make/manual/html_node/Special-Targets.html#Special-Targets">手册</a></p>
 
 <p>如果 make 命令运行时没有指定目标，默认会执行 Makefile 文件的第一个目标。</p>
-
-<pre><code class="language-bash">$ make
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ make</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面命令执行 Makefile 文件的第一个目标</p>
 
 <h2 id="3-3-前置条件-prerequisites">3.3. 前置条件 (prerequisites)</h2>
 
 <p>前置条件通常是一组文件名，之间用空格分隔。它指定了 <code>目标</code> 是否重新构建的判断标准：只要有一个前置文件不存在，或者有过更新（前置文件的last-modification时间戳比目标的时间戳新）, <code>目标</code> 就需要重新构建。</p>
-
-<pre><code class="language-Makefile">result.txt: source.txt
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">result.txt</span><span class="o">:</span> <span class="n">source</span>.<span class="n">txt</span>
     cp source.txt result.txt
-</code></pre>
-
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码中，构建 result.txt 的前置条件是 source.txt 。如果当前目录中，source.txt 已经存在，那么make result.txt可以正常运行，否则必须再写一条规则，来生成 source.txt 。</p>
-
-<pre><code class="language-Makefile">source.txt:
-    echo &quot;this is the source&quot; &gt; source.txt
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">source.txt</span><span class="o">:</span>
+    <span class="nb">echo</span> <span class="s2">&#34;this is the source&#34;</span> &gt; source.txt
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码中，source.txt后面没有前置条件，就意味着它跟其他文件都无关，只要这个文件还不存在，每次调用make source.txt，它都会生成。</p>
-
-<pre><code class="language-bash">$ make result.txt
-$ make result.txt
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ make result.txt
+$ make result.txt</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面命令连续执行两次make result.txt。第一次执行会先新建 source.txt，然后再新建 result.txt。第二次执行，Make发现 source.txt 没有变动（时间戳晚于 result.txt），就不会执行任何操作，result.txt 也不会重新生成。</p>
 
 <h2 id="3-4-命令-commands">3.4. 命令 (commands)</h2>
@@ -331,157 +368,295 @@ $ make result.txt
 <p>命令 (commands) 表示如何更新目标文件，由一行或多行的 shell 命令组成。它是构建 <code>目标</code> 的具体指令，它的运行结果通常就是生成目标文件。</p>
 
 <p>每行命令之前必须有一个 tab 键。如果想用其他键，可以用内置变量 .RECIPEPREFIX 声明。</p>
-
-<pre><code class="language-Makefile">.RECIPEPREFIX = &gt;
-all:
-&gt; echo Hello, wrold
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">.RECIPEPREFIX</span> <span class="o">=</span> &gt;
+<span class="nf">all</span><span class="o">:</span>
+<span class="err">&gt;</span> <span class="nb">echo</span> Hello, wrold
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码用 .RECIPEPREFIX 指定，大于号 (&gt;) 替代 tab 键。所以，每一行命令的起首变成了大于号，而不是 tab 键。</p>
 
 <blockquote>
 <p>需要注意的是，<code>每行命令</code> 在一个单独的 Shell 中执行。这些 Shell 之间没有继承关系</p>
 </blockquote>
-
-<pre><code class="language-Makefile">var-lost:
-    export foo=bar
-    echo &quot;foo=[$$foo]&quot;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">var-lost</span><span class="o">:</span>
+    <span class="nb">export</span> <span class="nv">foo</span><span class="o">=</span>bar
+    <span class="nb">echo</span> <span class="s2">&#34;foo=[</span><span class="nv">$$</span><span class="s2">foo]&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码执行后（make var-lost），取不到foo的值。因为两行命令在两个不同的进程执行。一个解决办法是将两行命令写在一行，中间用分号分隔。</p>
-
-<pre><code class="language-Makefile">var-kept:
-    export foo=bar; echo &quot;foo=[$$foo]&quot;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">var-kept</span><span class="o">:</span>
+    <span class="nb">export</span> <span class="nv">foo</span><span class="o">=</span>bar<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&#34;foo=[</span><span class="nv">$$</span><span class="s2">foo]&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>另一个解决办法是在换行符前加反斜杠转义。</p>
-
-<pre><code class="language-Makefile">var-kept:
-    export foo=bar; \
-    echo &quot;foo=[$$foo]&quot;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">var-kept</span><span class="o">:</span>
+    <span class="nb">export</span> <span class="nv">foo</span><span class="o">=</span>bar<span class="p">;</span> <span class="se">\
+</span><span class="se"></span>    <span class="nb">echo</span> <span class="s2">&#34;foo=[</span><span class="nv">$$</span><span class="s2">foo]&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>最后一个方法是加上 <code>.ONESHELL:</code> 命令。</p>
-
-<pre><code>.ONESHELL:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">.ONESHELL:
 var-kept:
     export foo=bar; 
-    echo &quot;foo=[$$foo]&quot;
-</code></pre>
-
+    echo &#34;foo=[$$foo]&#34;</pre></td></tr></table>
+</div>
+</div>
 <h1 id="4-makefile-文件的语法">4. Makefile 文件的语法</h1>
 
 <h2 id="4-1-注释">4.1. 注释</h2>
 
 <p>井号 (#) 在 Makefile 中表示注释。</p>
-
-<pre><code class="language-Makefile"># 这里是注释
-result.txt: source.txt
-    # 这是注释
-    cp source.txt result.txt # 这也是注释
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="c"># 这里是注释
+</span><span class="c"></span><span class="nf">result.txt</span><span class="o">:</span> <span class="n">source</span>.<span class="n">txt</span>
+    <span class="c1"># 这是注释</span>
+    cp source.txt result.txt <span class="c1"># 这也是注释</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="4-2-回声">4.2. 回声</h2>
 
 <p>正常情况下，make 会打印每条命令，然后再执行，这就叫做回声 (echoing)</p>
-
-<pre><code class="language-Makefile">test:
-    # 这是测试
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">test</span><span class="o">:</span>
+    <span class="c1"># 这是测试</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>执行上面的规则，会得到下面的结果。</p>
-
-<pre><code class="language-bash">$ make test
-# 这是测试
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ make <span class="nb">test</span>
+<span class="c1"># 这是测试</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>在命令前面加上 <code>@</code>，就可以关闭回声：</p>
-
-<pre><code class="language-Makefile">test: 
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">test</span><span class="o">:</span> 
     @# 这是测试
-</code></pre>
-
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>现在再执行 <code>make test</code>，就不会有任何输出</p>
 
 <blockquote>
 <p>由于在构建过程中，需要了解当前在执行哪条命令，所以通常只在注释和纯显示的echo命令前面加上@。即：</p>
 </blockquote>
-
-<pre><code class="language-Makefile">test: 
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">test</span><span class="o">:</span> 
     @# 这是测试
     @echo TODO
-</code></pre>
-
+</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="4-3-通配符">4.3. 通配符</h2>
 
 <p>通配符（wildcard）用来指定一组符合条件的文件名。Makefile 的通配符与 Bash 一致，主要有星号（*）、问号（？）和 [&hellip;] 。比如， *.o 表示所有后缀名为o的文件。</p>
-
-<pre><code class="language-Makefile">clean:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">clean</span><span class="o">:</span>
     rm -f *.o
-</code></pre>
-
+</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="4-4-模式匹配">4.4. 模式匹配</h2>
 
 <p>Make 命令允许对文件名，进行类似正则运算的匹配，主要用到的匹配符是 <code>%</code>。比如，假定当前目录下有 f1.c 和 f2.c 两个源码文件，需要将它们编译为对应的对象文件：</p>
-
-<pre><code class="language-Makefile">%.o: %.c
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">c</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>等同于下面的写法：</p>
-
-<pre><code class="language-Makefile">f1.o: f1.c
-f2.o: f2.c
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">f1.o</span><span class="o">:</span> <span class="n">f</span>1.<span class="n">c</span>
+<span class="nf">f2.o</span><span class="o">:</span> <span class="n">f</span>2.<span class="n">c</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>使用匹配符 %，可以将大量同类型的文件，只用一条规则就完成构建</p>
 
 <h2 id="4-5-变量和赋值符">4.5. 变量和赋值符</h2>
 
 <p>Makefile 允许使用 <code>=</code> 号自定义变量：</p>
-
-<pre><code class="language-Makefile">txt = Hello world
-test: 
-    @echo $(txt)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">txt</span> <span class="o">=</span> Hello world
+<span class="nf">test</span><span class="o">:</span> 
+    @echo <span class="k">$(</span>txt<span class="k">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码中，变量 txt 等于 Hello World。调用时，变量需要放在 $( ) 之中。</p>
 
 <p>调用 Shell 变量时，需要在美元符号前，再加一个美元符号，这是因为 Make 命令会对美元符号转义：</p>
-
-<pre><code class="language-Makefile">test:
-    @echo $$HOME
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">test</span><span class="o">:</span>
+    @echo <span class="nv">$$</span>HOME
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>有时，变量的值可能指向另一个变量：</p>
-
-<pre><code class="language-Makefile">v1 = $(v2)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">v1</span> <span class="o">=</span> <span class="k">$(</span>v2<span class="k">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码中，变量 v1 的值是另一个变量 v2。这时会产生一个问题，v1 的值到底在定义时扩展（静态扩展），还是在运行时扩展（动态扩展）？如果 v2 的值是动态的，这两种扩展方式的结果可能会差异很大。</p>
 
 <p>为了解决类似问题，Makefile一共提供了四个赋值运算符 （=、:=、？=、+=），它们的区别请看<a href="http://stackoverflow.com/questions/448910/makefile-variable-assignment">StackOverflow</a>。</p>
-
-<pre><code class="language-Makefile">VARIABLE = value
-# 在执行时扩展，允许递归扩展
-
-VARIABLE := value
-# 在定义时扩展
-
-VARIABLE ?= value
-# 只有在该变量为空时才设置值
-
-VARIABLE += value
-# 将值追加到变量的尾端
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">VARIABLE</span> <span class="o">=</span> value
+<span class="c"># 在执行时扩展，允许递归扩展
+</span><span class="c"></span>
+<span class="nv">VARIABLE</span> <span class="o">:=</span> value
+<span class="c"># 在定义时扩展
+</span><span class="c"></span>
+<span class="nv">VARIABLE</span> <span class="o">?=</span> value
+<span class="c"># 只有在该变量为空时才设置值
+</span><span class="c"></span>
+<span class="nv">VARIABLE</span> <span class="o">+=</span> value
+<span class="c"># 将值追加到变量的尾端
+</span><span class="c"></span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="4-6-内置变量">4.6. 内置变量</h2>
 
 <p>Make命令提供一系列内置变量，比如，$(CC) 指向当前使用的编译器，$(MAKE) 指向当前使用的Make工具。这主要是为了跨平台的兼容性，详细的内置变量清单见 <a href="https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html">手册</a>。</p>
-
-<pre><code class="language-Makefile">output:
-    $(CC) -o output input.c
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">output</span><span class="o">:</span>
+    <span class="k">$(</span>CC<span class="k">)</span> -o output input.c
+</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="4-7-自动变量">4.7. 自动变量</h2>
 
 <p>Make 命令还提供一些自动变量，它们的值与当前规划有关。主要有以下几个：</p>
@@ -490,32 +665,64 @@ VARIABLE += value
 <li><p>$@</p>
 
 <p>$@ 指代当前目标，就是 Make 命令当前构建的那个目标。比如，<code>make foo</code> 的 $@ 就指代 foo.</p>
-
-<pre><code class="language-Makefile">a.txt b.txt:
-    touch $@
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">a.txt b.txt</span><span class="o">:</span>
+    touch <span class="nv">$@</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>等同于下面的写法：</p>
-
-<pre><code class="language-Makefile">a.txt: 
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">a.txt</span><span class="o">:</span> 
     touch a.txt
-b.txt:
+<span class="nf">b.txt</span><span class="o">:</span>
     touch b.txt
-</code></pre></li>
+</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>$&lt;</p>
 
 <p>$&lt; 指代第一个前置条件。比如，规则为 t: p1 p2, 那么 $&lt; 就指代 p1.</p>
-
-<pre><code class="language-Makefile">a.txt: b.txt c.txt
-    cp $&lt; $@
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">a.txt</span><span class="o">:</span> <span class="n">b</span>.<span class="n">txt</span> <span class="n">c</span>.<span class="n">txt</span>
+    cp $&lt; <span class="nv">$@</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>等同于下面写法：</p>
-
-<pre><code class="language-Makefile">a.txt: b.txt c.txt
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">a.txt</span><span class="o">:</span> <span class="n">b</span>.<span class="n">txt</span> <span class="n">c</span>.<span class="n">txt</span>
     cp b.txt a.txt
-</code></pre></li>
+</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>$?</p>
 
@@ -538,12 +745,20 @@ b.txt:
 <p>$(&lt;D) 和 $(&lt;F) 分别指向 $&lt; 的目录名和文件名</p>
 
 <p>所有的自动变量清单，请看 <a href="https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html">手册</a>。下面是自动变量的一个例子。</p>
-
-<pre><code class="language-Makefile">dest/%.txt: src/%.txt
-    @[-d dest] || mkdir dest
-    cp $&lt; $@
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">dest/%.txt</span><span class="o">:</span> <span class="n">src</span>/%.<span class="n">txt</span>
+    @<span class="o">[</span>-d dest<span class="o">]</span> <span class="o">||</span> mkdir dest
+    cp $&lt; <span class="nv">$@</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>上面代码将 src 目录下的 txt 文件，拷贝到 dest 目录下。首先判断 dest 目录是否存在，如果不存在就新建，然后，$&lt; 指带前置文件 (src/%.txt),  $@ 指代目标文件（dest/%.txt）。</p>
 </blockquote></li>
@@ -552,50 +767,91 @@ b.txt:
 <h2 id="4-8-判断和循环">4.8. 判断和循环</h2>
 
 <p>Makefile 使用 Bash 语法，完成判断和循环。</p>
-
-<pre><code class="language-Makefile">ifeq ($(CC),gcc)
-  libs=$(libs_for_gcc)
-else
-  libs=$(normal_libs)
-endif
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="err">ifeq</span> <span class="o">(</span><span class="k">$(</span>CC<span class="k">)</span>,gcc<span class="o">)</span>
+  <span class="nv">libs</span><span class="o">=</span><span class="k">$(</span>libs_for_gcc<span class="k">)</span>
+<span class="err">else</span>
+  <span class="nv">libs</span><span class="o">=</span><span class="k">$(</span>normal_libs<span class="k">)</span>
+<span class="err">endif</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码判断当前编译器是否 gcc ，然后指定不同的库文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">LIST</span> <span class="o">=</span> one two three
+<span class="nf">all</span><span class="o">:</span>
+    <span class="k">for</span> i in <span class="k">$(</span>LIST<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\
+</span><span class="se"></span>        <span class="nb">echo</span> <span class="nv">$$</span>i<span class="p">;</span> <span class="se">\
+</span><span class="se"></span>    <span class="k">done</span>
 
-<pre><code class="language-Makefile">
-LIST = one two three
-all:
-    for i in $(LIST); do \
-        echo $$i; \
-    done
-
-# 等同于
-
-all:
-    for i in one two three; do \
-        echo $i; \
-    done
-
-</code></pre>
-
+<span class="c"># 等同于
+</span><span class="c"></span>
+<span class="nf">all</span><span class="o">:</span>
+    <span class="k">for</span> i in one two three<span class="p">;</span> <span class="k">do</span> <span class="se">\
+</span><span class="se"></span>        <span class="nb">echo</span> <span class="nv">$i</span><span class="p">;</span> <span class="se">\
+</span><span class="se"></span>    <span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码的运行结果。</p>
-
-<pre><code>one
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">one
 two
-three
-</code></pre>
-
+three</pre></td></tr></table>
+</div>
+</div>
 <h2 id="4-9-函数">4.9. 函数</h2>
 
 <p>Makefile 还可以使用函数，格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="k">$(</span><span class="nv">function</span> <span class="nv">arguments</span><span class="k">)</span>
 
-<pre><code class="language-Makefile">$(function arguments)
-
-# 或者
-
-${function arguments}
-</code></pre>
-
+<span class="c"># 或者
+</span><span class="c"></span>
+<span class="err">${function</span> arguments<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>Makefile提供了许多<a href="http://www.gnu.org/software/make/manual/html_node/Functions.html">内置函数</a>，可供调用。下面是几个常用的内置函数。</p>
 
 <ul>
@@ -622,15 +878,26 @@ ${function arguments}
 <p><code>$(subst ee,EE,feet on the street)</code></p>
 
 <p>下面是一个稍微复杂的例子。</p>
-
-<pre><code>comma:= ,
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">comma:= ,
 empty:=
 # space变量用两个空变量作为标识符，当中是一个空格
 space:= $(empty) $(empty)
 foo:= a b c
 bar:= $(subst $(space),$(comma),$(foo))
-# bar is now `a,b,c'.
-</code></pre></li>
+# bar is now `a,b,c&#39;.</pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>patsubst 函数</p>
 
@@ -654,46 +921,85 @@ bar:= $(subst $(space),$(comma),$(foo))
 <h1 id="5-makefile-的实例">5. Makefile 的实例</h1>
 
 <h2 id="5-1-执行多个目标">5.1. 执行多个目标</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">cleanall</span> <span class="n">cleanobj</span> <span class="n">cleandiff</span>
 
-<pre><code class="language-Makefile">.PHONY: cleanall cleanobj cleandiff
-
-cleanall: cleanobj cleandiff
+<span class="nf">cleanall</span><span class="o">:</span> <span class="n">cleanobj</span> <span class="n">cleandiff</span>
     rm program
 
-cleanobj::
+<span class="nf">cleanobj</span><span class="o">::</span>
     rm *.o
 
-cleandiff:
+<span class="nf">cleandiff</span><span class="o">:</span>
     rm *.diff
-</code></pre>
-
+</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>上面代码可以调用不同目标，删除不同后缀名的文件，也可以调用一个目标：cleanall 删除所有指定类型的文件</p>
 </blockquote>
 
 <h2 id="5-2-编译-c-语言项目">5.2. 编译 C 语言项目</h2>
-
-<pre><code class="language-Makefile">edit: main.o kbd.o command.o display.o
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">edit</span><span class="o">:</span> <span class="n">main</span>.<span class="n">o</span> <span class="n">kbd</span>.<span class="n">o</span> <span class="n">command</span>.<span class="n">o</span> <span class="n">display</span>.<span class="n">o</span>
     cc -o edit main.o kbd.o command.o display.o
 
-main.o: main.c defs.h
+<span class="nf">main.o</span><span class="o">:</span> <span class="n">main</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span>
     cc -c main.c
 
-kbd.o: kbd.c defs.h command.h
+<span class="nf">kbd.o</span><span class="o">:</span> <span class="n">kbd</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
     cc -c kbd.c
 
-command.o: command.c defs.h command.h
+<span class="nf">command.o</span><span class="o">:</span> <span class="n">command</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
     cc -c command.c
 
-display.o: display.c defs.h
+<span class="nf">display.o</span><span class="o">:</span> <span class="n">display</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span>
     cc -c display.c
 
-clean:
+<span class="nf">clean</span><span class="o">:</span>
     rm edit main.o kbd.o command.o display.o
 
-.PHONY: edit clean
-</code></pre>
-
+<span class="nf">.PHONY</span><span class="o">:</span> <span class="n">edit</span> <span class="n">clean</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>至此，完。</p>
 
 <h1 id="6-see-also">6. See Also</h1>
@@ -807,18 +1113,19 @@ clean:
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

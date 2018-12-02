@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +23,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/devops/20180929-cicd-05-create-oauth-app-on-bitbucket-server/" />
@@ -42,40 +33,24 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="DevOps | Add an OAuth consumer(Application Links) to Bitbucket Server" />
 <meta property="og:description" content="Add an OAuth consumer(Application Links) to Bitbucket Server" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180929-cicd-05-create-oauth-app-on-bitbucket-server/" />
-
-
-
-<meta property="article:published_time" content="2018-09-29T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180929-cicd-05-create-oauth-app-on-bitbucket-server/" /><meta property="article:published_time" content="2018-09-29T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-11-02T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="DevOps | Add an OAuth consumer(Application Links) to Bitbucket Server">
 <meta itemprop="description" content="Add an OAuth consumer(Application Links) to Bitbucket Server">
 
 
 <meta itemprop="datePublished" content="2018-09-29T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-09-29T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="524">
+<meta itemprop="dateModified" content="2018-11-02T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="537">
 
 
 
@@ -156,7 +131,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 524 words </span>
+          <span class="more-meta"> 537 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -186,8 +161,6 @@ There are two possible situations that led to this error:
 
 <p>How to add an OAuth consumer(Application Links) to Bitbucket Server ?</p>
 
-<p></p>
-
 <h1 id="create-application-links">Create Application Links</h1>
 
 <h2 id="step1-打开-create-application-links-页面">Step1: 打开 Create Application Links 页面</h2>
@@ -203,17 +176,28 @@ There are two possible situations that led to this error:
 <p>=&gt; Continue</p>
 
 <h2 id="step3-填写表单">Step3: 填写表单</h2>
-
-<pre><code class="language-bash">Application Name:   Drone
-Application Type:   默认(Generic Application)
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Application Name:   Drone
+Application Type:   默认<span class="o">(</span>Generic Application<span class="o">)</span>
 Consumer Key:       &lt;_your_key_&gt;
 Shared Secret:      &lt;_your_secret_&gt;
 Request Token URL:  http://&lt;_domain_&gt;:8000/plugins/servlet/oauth/request-token
 Access Token URL:   http://&lt;_domain_&gt;:8000/plugins/servlet/oauth/access-token
 Authorize URL:      http://&lt;_domain_&gt;:8000/plugins/servlet/oauth/authorize
-Callback URL：      http://&lt;_domain_&gt;:8000/authorize
-</code></pre>
-
+Callback URL：      http://&lt;_domain_&gt;:8000/authorize</code></pre></td></tr></table>
+</div>
+</div>
 <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538189192/blog/images/bitbucket-oauth-3.png" alt="" /></p>
 
 <blockquote>
@@ -236,13 +220,22 @@ Callback URL：      http://&lt;_domain_&gt;:8000/authorize
 <li><p><code>Consumer Key</code> 和上一步保持一致</p></li>
 
 <li><p>创建 Public Key File：</p>
-
-<pre><code class="language-bash"># create private key file
-$ openssl genrsa -out key.pem 1024
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># create private key file</span>
+$ openssl genrsa -out key.pem <span class="m">1024</span>
    
-# create public key file
-$ openssl rsa -in key.pem -pubout -out key.pub
-</code></pre></li>
+<span class="c1"># create public key file</span>
+$ openssl rsa -in key.pem -pubout -out key.pub</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>打开 <code>key.pub</code> 将内容完整的复制到上述表单的 <code>public key</code> 栏内。</p></li>
 </ul>
@@ -409,18 +402,19 @@ $ openssl rsa -in key.pem -pubout -out key.pub
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

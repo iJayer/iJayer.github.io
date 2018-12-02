@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +17,6 @@ There are two possible situations that led to this error:
 
 
 <meta name="author" content="zher" /><meta name="description" content=" 有关 cAdvisor 的基础知识、安装和使用方法介绍
- 
 " /><meta name="keywords" content="monitor, cadvisor" />
 
 
@@ -34,7 +24,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/" />
@@ -44,10 +34,9 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Monitor | cAdvisor 基础" />
@@ -55,41 +44,22 @@ There are two possible situations that led to this error:
 
 
 有关 cAdvisor 的基础知识、安装和使用方法介绍
-
-
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/" />
-
-
-
-<meta property="article:published_time" content="2018-07-21T16:36:59&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/monitor/cadvisor-01-basic-concepts/" /><meta property="article:published_time" content="2018-07-21T16:36:59&#43;00:00"/>
 <meta property="article:modified_time" content="2018-07-21T16:36:59&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="Monitor | cAdvisor 基础">
 <meta itemprop="description" content="
 
 
 有关 cAdvisor 的基础知识、安装和使用方法介绍
-
-
 ">
 
 
 <meta itemprop="datePublished" content="2018-07-21T16:36:59&#43;00:00" />
 <meta itemprop="dateModified" content="2018-07-21T16:36:59&#43;00:00" />
-<meta itemprop="wordCount" content="927">
+<meta itemprop="wordCount" content="946">
 
 
 
@@ -100,8 +70,6 @@ There are two possible situations that led to this error:
 
 
 有关 cAdvisor 的基础知识、安装和使用方法介绍
-
-
 "/>
 
 <!--[if lte IE 9]>
@@ -176,7 +144,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 927 words </span>
+          <span class="more-meta"> 946 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -211,8 +179,6 @@ There are two possible situations that led to this error:
 <p>有关 cAdvisor 的基础知识、安装和使用方法介绍</p>
 </blockquote>
 
-<p></p>
-
 <h1 id="1-cadvisor">1. cAdvisor</h1>
 
 <p><a href="https://github.com/google/cadvisor">cAdvisor</a> 是 Google 用来让容器用户了解其所运行容器的资源使用和性能特征的工具。cAdvisor 是一个用来收集、聚合、处理以及导出正在运行的容器信息的运行时守护进程。</p>
@@ -224,8 +190,27 @@ There are two possible situations that led to this error:
 <p>环境：centos 7.4 amd64</p>
 
 <h2 id="2-1-通过-docker-容器运行-cadvisor">2.1. 通过 Docker 容器运行 cAdvisor</h2>
-
-<pre><code>$ docker search cadvisor
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker search cadvisor
 $ docker pull google/cadvisor
 $ docker run \
 --volume=/:/rootfs:ro \  
@@ -240,9 +225,9 @@ $ docker run \
 --name=cadvisor \
 google/cadvisor:latest
 
-$ docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/cgroup:/cgroup:ro --privileged=true --userns=host --publish=8080:8080 --detach=true --name=cadvisor google/cadvisor:latest
-</code></pre>
-
+$ docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/cgroup:/cgroup:ro --privileged=true --userns=host --publish=8080:8080 --detach=true --name=cadvisor google/cadvisor:latest</pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note: 在 Ret Hat, CentOS, Fedora 等发行版上需要传递如下参数，因为 SELinux 加强了安全策略，如不设置可能会导致采集信息失败。上面命令中，根据说明 <a href="https://github.com/google/cadvisor/blob/master/docs/running.md">Running cAdvisor</a> ，附加以下几个命令：</p>
 
@@ -280,12 +265,18 @@ $ docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/
 <h2 id="2-2-二进制可执行文件使用-cadvisor">2.2. 二进制可执行文件使用 cAdvisor</h2>
 
 <p>cAdvisor 项目在他的 <a href="https://github.com/google/cadvisor/releases">release</a> 页面发布了可执行的二进制，这些文件可以直接下载并执行</p>
-
-<pre><code>$ wget https://github.com/google/cadvisor/releases/download/v0.26.1/cadvisor
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ wget https://github.com/google/cadvisor/releases/download/v0.26.1/cadvisor
 $ chmod 755 cadvisor 
-$ ./cadvisor
-</code></pre>
-
+$ ./cadvisor</pre></td></tr></table>
+</div>
+</div>
 <p>默认情况下 cAdvisor 的网页端口为 8080，直接访问本地 <a href="http://localhost:8080">http://localhost:8080</a> 即可</p>
 
 <h2 id="2-3-rest-api">2.3. REST API</h2>
@@ -408,18 +399,19 @@ $ ./cadvisor
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

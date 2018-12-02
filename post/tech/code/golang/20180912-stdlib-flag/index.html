@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +23,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/" />
@@ -42,40 +33,24 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Golang | Stdlib: Flag 学习笔记" />
 <meta property="og:description" content="Golang 标准库：flag 学习笔记" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/" />
-
-
-
-<meta property="article:published_time" content="2017-07-25T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/" /><meta property="article:published_time" content="2017-07-25T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2017-07-25T22:21:58&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="Golang | Stdlib: Flag 学习笔记">
 <meta itemprop="description" content="Golang 标准库：flag 学习笔记">
 
 
 <meta itemprop="datePublished" content="2017-07-25T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2017-07-25T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2064">
+<meta itemprop="dateModified" content="2017-07-25T22:21:58&#43;00:00" />
+<meta itemprop="wordCount" content="2171">
 
 
 
@@ -156,7 +131,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 2064 words </span>
+          <span class="more-meta"> 2171 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -221,8 +196,6 @@ There are two possible situations that led to this error:
 <li>如何绑定用户自定义的数据类型作为参数值的类型？</li>
 </ul>
 
-<p></p>
-
 <h1 id="1-flag">1. Flag</h1>
 
 <p><code>Flag</code>：解析命令行参数，其实现方法是将命令行标志与程序中的某一变量进行绑定，开发人员使用变量在程序中进行逻辑处理。</p>
@@ -234,30 +207,48 @@ There are two possible situations that led to this error:
 <h2 id="2-1-方式一">2.1. 方式一</h2>
 
 <p>通过 <code>flag.Type(name, defValue, usage) *Type {}</code> 方法，该方法返回一个对应数据类型的指针, 其中 Type 为：String、Int、Bool等。</p>
-
-<pre><code class="language-go"> var port = flag.String(&quot;port&quot;, &quot;80&quot;, &quot;http port.(default:80)&quot;)
- var num = flag.Int()
- // ...
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"> <span class="kd">var</span> <span class="nx">port</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;port&#34;</span><span class="p">,</span> <span class="s">&#34;80&#34;</span><span class="p">,</span> <span class="s">&#34;http port.(default:80)&#34;</span><span class="p">)</span>
+ <span class="kd">var</span> <span class="nx">num</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">Int</span><span class="p">()</span>
+ <span class="o">//</span> <span class="o">...</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="2-2-方式二">2.2. 方式二</h2>
 
 <p>通过 <code>flag.TypeVar(&amp;flagvar, name, defValue, usage) Type {}</code> 方法将flag绑定到一个变量, 该方法返回结果为值类型</p>
-
-<pre><code class="language-go">var num int
-func init() {
-    flag.IntVar(&amp;num, &quot;num&quot;, 1234, &quot;help message for flagname&quot;)
-    // ...
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">num</span> <span class="kt">int</span>
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">flag</span><span class="p">.</span><span class="nf">IntVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">num</span><span class="p">,</span> <span class="s">&#34;num&#34;</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="s">&#34;help message for flagname&#34;</span><span class="p">)</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="2-3-方式三">2.3. 方式三</h2>
 
 <p>通过 <code>flag.Var()</code> 方法绑定自定义类型，自定义类型需要实现Value接口(要求receiver是指针)</p>
-
-<pre><code class="language-go">flag.Var(&amp;flagVal, &quot;name&quot;, &quot;help message for flagname&quot;)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">flag</span><span class="p">.</span><span class="nf">Var</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">flagVal</span><span class="p">,</span> <span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="s">&#34;help message for flagname&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>注：这种方式是没有提供默认值的，所以默认值就是类型的零值。(备注：具体如何实现自定义类型绑定会在后面介绍)</p>
 </blockquote>
@@ -282,16 +273,26 @@ func init() {
 <h2 id="3-2-命令行语法">3.2. 命令行语法</h2>
 
 <p>命令行语法格式：</p>
-
-<pre><code class="language-go">-flag       // 只支持bool类型
-
--flag xxx   // 使用空格，一个 - 符号
---flag xxx  // 使用空格，两个 - 符号
-
--flag=xxx   // 使用等号，一个 - 符号
---flag=xxx  // 使用等号，两个 - 符号
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="o">-</span><span class="nx">flag</span>       <span class="c1">// 只支持bool类型
+</span><span class="c1"></span>
+<span class="o">-</span><span class="nx">flag</span> <span class="nx">xxx</span>   <span class="c1">// 使用空格，一个 - 符号
+</span><span class="c1"></span><span class="o">--</span><span class="nx">flag</span> <span class="nx">xxx</span>  <span class="c1">// 使用空格，两个 - 符号
+</span><span class="c1"></span>
+<span class="o">-</span><span class="nx">flag</span><span class="p">=</span><span class="nx">xxx</span>   <span class="c1">// 使用等号，一个 - 符号
+</span><span class="c1"></span><span class="o">--</span><span class="nx">flag</span><span class="p">=</span><span class="nx">xxx</span>  <span class="o">//</span> <span class="nx">使用等号</span><span class="err">，</span><span class="nx">两个</span> <span class="o">-</span> <span class="nx">符号</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>注：布尔类型的参数防止解析时的二义性，应该使用等号的方式指定。</p>
 </blockquote>
@@ -323,40 +324,70 @@ func init() {
 <h2 id="4-3-类型">4.3. 类型</h2>
 
 <h3 id="4-3-1-errorhandling">4.3.1. ErrorHandling</h3>
-
-<pre><code class="language-go">type ErrorHandling int 
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">ErrorHandling</span> <span class="kt">int</span> </code></pre></td></tr></table>
+</div>
+</div>
 <p>该类型定义了在参数解析出错时，处理错误定义的三个常量</p>
-
-<pre><code class="language-go">const (
-    ContinueOnError ErrorHandling = iota
-    ExitOnError
-    PanicOnError
-)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="p">(</span>
+    <span class="nx">ContinueOnError</span> <span class="nx">ErrorHandling</span> <span class="p">=</span> <span class="kc">iota</span>
+    <span class="nx">ExitOnError</span>
+    <span class="nx">PanicOnError</span>
+<span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="4-3-2-flagset">4.3.2. FlagSet</h3>
 
 <p><code>FlagSet</code> 是该包的核心结构</p>
-
-<pre><code class="language-go">// A FlagSet represents a set of defined flags.
-type FlagSet struct {
-    // Usage is the function called when an error occurs while parsing flags.
-    // The field is a function (not a method) that may be changed to point to
-    // a custom error handler.
-    Usage func()
-    name          string            // FlagSet的名字。commandLine 给的是os.Args[0]
-    parsed        bool              // 是否执行过Parse()
-    actual        map[string]*Flag  // 存放实际传递了的参数（即命令行参数）
-    formal        map[string]*Flag  // 存放所有已定义命令行参数
-    args          []string          // arguments after flags 存放非标志的参数列表（即标志后面的参数）
-    exitOnError  bool               // does the program exit if there's an error?
-    errorHandling ErrorHandling     // 当解析出错时，处理错误的方式
-    output        io.Writer         // nil means stderr; use out() accessor
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// A FlagSet represents a set of defined flags.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">FlagSet</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// Usage is the function called when an error occurs while parsing flags.
+</span><span class="c1"></span>    <span class="c1">// The field is a function (not a method) that may be changed to point to
+</span><span class="c1"></span>    <span class="c1">// a custom error handler.
+</span><span class="c1"></span>    <span class="nx">Usage</span> <span class="kd">func</span><span class="p">()</span>
+    <span class="nx">name</span>          <span class="kt">string</span>            <span class="c1">// FlagSet的名字。commandLine 给的是os.Args[0]
+</span><span class="c1"></span>    <span class="nx">parsed</span>        <span class="kt">bool</span>              <span class="c1">// 是否执行过Parse()
+</span><span class="c1"></span>    <span class="nx">actual</span>        <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Flag</span>  <span class="c1">// 存放实际传递了的参数（即命令行参数）
+</span><span class="c1"></span>    <span class="nx">formal</span>        <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">Flag</span>  <span class="c1">// 存放所有已定义命令行参数
+</span><span class="c1"></span>    <span class="nx">args</span>          <span class="p">[]</span><span class="kt">string</span>          <span class="c1">// arguments after flags 存放非标志的参数列表（即标志后面的参数）
+</span><span class="c1"></span>    <span class="nx">exitOnError</span>  <span class="kt">bool</span>               <span class="c1">// does the program exit if there&#39;s an error?
+</span><span class="c1"></span>    <span class="nx">errorHandling</span> <span class="nx">ErrorHandling</span>     <span class="c1">// 当解析出错时，处理错误的方式
+</span><span class="c1"></span>    <span class="nx">output</span>        <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span>         <span class="c1">// nil means stderr; use out() accessor
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>该类型同时提供了一系列的方法集合 <code>&lt;MethodSet&gt;</code>, 通过这些方式来实现CLI的灵活处理</p>
 </blockquote>
@@ -364,35 +395,56 @@ type FlagSet struct {
 <h3 id="4-3-3-flag">4.3.3. Flag</h3>
 
 <p><code>Flag</code> 结构如下</p>
-
-<pre><code class="language-go">type Flag struct {
-	Name     string // name as it appears on command line
-	Usage    string // help message
-	Value    Value  // value as set
-	DefValue string // default value (as text); for usage message
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Flag</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Name</span>     <span class="kt">string</span> <span class="c1">// name as it appears on command line
+</span><span class="c1"></span>	<span class="nx">Usage</span>    <span class="kt">string</span> <span class="c1">// help message
+</span><span class="c1"></span>	<span class="nx">Value</span>    <span class="nx">Value</span>  <span class="c1">// value as set
+</span><span class="c1"></span>	<span class="nx">DefValue</span> <span class="kt">string</span> <span class="c1">// default value (as text); for usage message
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="4-3-4-value">4.3.4. Value</h3>
 
 <p>Value定义：</p>
-
-<pre><code class="language-go">type Value interface {
-  String() string
-  Set(string) error
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Value</span> <span class="kd">interface</span> <span class="p">{</span>
+  <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span>
+  <span class="nf">Set</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="4-4-主要类型的方法">4.4. 主要类型的方法</h2>
 
 <h3 id="4-4-1-实例化方式-flag-newflagset">4.4.1. 实例化方式：flag.NewFlagSet()</h3>
 
 <p><code>flag.NewFlagSet()</code> 用于实例化 FlagSet。例如：预定义的 FlagSet实例 <code>subCommand</code> 的定义方式：</p>
-
-<pre><code class="language-go">subCommand := flag.NewFlagSet(&quot;push&quot;, ExitOnError)
-subCommand.Parse(os.Args[1:])   // os.Args[1:] 指的就是我们给定的那些命令参数
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">subCommand</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">NewFlagSet</span><span class="p">(</span><span class="s">&#34;push&#34;</span><span class="p">,</span> <span class="nx">ExitOnError</span><span class="p">)</span>
+<span class="nx">subCommand</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>   <span class="o">//</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="nx">指的就是我们给定的那些命令参数</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>注：可用于定义子命令</p>
 
@@ -423,13 +475,20 @@ subCommand.Parse(os.Args[1:])   // os.Args[1:] 指的就是我们给定的那些
 </blockquote>
 
 <p>flag.Value 接口定义如下：</p>
-
-<pre><code class="language-go">type Value interface{
-    String() string
-    Set(string) error
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Value</span> <span class="kd">interface</span><span class="p">{</span>
+    <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span>
+    <span class="nf">Set</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note:</p>
 
@@ -446,85 +505,157 @@ subCommand.Parse(os.Args[1:])   // os.Args[1:] 指的就是我们给定的那些
 <ul>
 <li>自定义flag参数值接收类型</li>
 </ul>
-
-<pre><code class="language-go">type addrs []string
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">addrs</span> <span class="p">[]</span><span class="kt">string</span></code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>实现 String() string 方法</li>
 </ul>
-
-<pre><code class="language-go">func(i *addrs) String() string {
-    return fmt.Sprintf(&quot;%v&quot;, *i)
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">addrs</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%v&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>实现 Set(string) error 方法</li>
 </ul>
-
-<pre><code class="language-go">func (i *addrs) Set(value string) error {
-    *i = append(*i, value)
-    return nil
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">addrs</span><span class="p">)</span> <span class="nf">Set</span><span class="p">(</span><span class="nx">value</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="o">*</span><span class="nx">i</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">i</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="5-2-解析">5.2. 解析</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">DBAdds</span> <span class="nx">addrs</span>
 
-<pre><code class="language-go">var DBAdds addrs
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">flag</span><span class="p">.</span><span class="nf">Var</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">DBAdds</span><span class="p">,</span> <span class="s">&#34;db_addr&#34;</span><span class="p">,</span> <span class="s">&#34;database cluster server address&#34;</span><span class="p">)</span>
+    <span class="nx">flag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
+<span class="p">}</span> 
 
-func init() {
-    flag.Var(&amp;DBAdds, &quot;db_addr&quot;, &quot;database cluster server address&quot;)
-    flag.Parse()
-} 
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">DBAdds</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ ./app -db_addr <span class="m">192</span>.168.1.100 -db_addr <span class="m">192</span>.168.1.101 -db_addr <span class="m">192</span>.168.1.102
 
-func main() {
-    fmt.Println(DBAdds)
-}
-</code></pre>
-
-<pre><code class="language-bash">$ ./app -db_addr 192.168.1.100 -db_addr 192.168.1.101 -db_addr 192.168.1.102
-
-# output: 
-</code></pre>
-
+<span class="c1"># output:</span> </code></pre></td></tr></table>
+</div>
+</div>
 <p>完整代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
-<pre><code class="language-go">package main
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+    <span class="s">&#34;flag&#34;</span>
+<span class="p">)</span>
 
-import (
-    &quot;fmt&quot;
-    &quot;flag&quot;
-)
+<span class="c1">// 自定义flag参数值接收类型
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">addrs</span> <span class="p">[]</span><span class="kt">string</span>
 
-// 自定义flag参数值接收类型
-type addrs []string
+<span class="c1">// 实现 String() string 方法
+</span><span class="c1"></span><span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">addrs</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%v&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span>
 
-// 实现 String() string 方法
-func(i *addrs) String() string {
-    return fmt.Sprintf(&quot;%v&quot;, *i)
-}
+<span class="c1">// 实现 Set(string) error 方法
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">addrs</span><span class="p">)</span> <span class="nf">Set</span><span class="p">(</span><span class="nx">value</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="o">*</span><span class="nx">i</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="o">*</span><span class="nx">i</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
 
-// 实现 Set(string) error 方法
-func (i *addrs) Set(value string) error {
-    *i = append(*i, value)
-    return nil
-}
+<span class="c1">// DBAdds 声明接收命令行参数的变量
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">DBAdds</span> <span class="nx">addrs</span>
 
-// DBAdds 声明接收命令行参数的变量
-var DBAdds addrs
+<span class="c1">// 定义 flag 并完成解析
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">flag</span><span class="p">.</span><span class="nf">Var</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">DBAdds</span><span class="p">,</span> <span class="s">&#34;db_addr&#34;</span><span class="p">,</span> <span class="s">&#34;database cluster server address&#34;</span><span class="p">)</span>
+    <span class="nx">flag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
+<span class="p">}</span> 
 
-// 定义 flag 并完成解析
-func init() {
-    flag.Var(&amp;DBAdds, &quot;db_addr&quot;, &quot;database cluster server address&quot;)
-    flag.Parse()
-} 
-
-func main() {
-    fmt.Println(DBAdds)
-}
-</code></pre>
-
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">DBAdds</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h1 id="6-see-also">6. See Also</h1>
 
 <blockquote>
@@ -637,18 +768,19 @@ func main() {
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

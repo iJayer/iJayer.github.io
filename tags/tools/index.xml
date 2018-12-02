@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tools on Zher</title>
+    <title>tools on Zher</title>
     <link>https://zhezh09.github.io/tags/tools/</link>
-    <description>Recent content in Tools on Zher</description>
+    <description>Recent content in tools on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 04 Nov 2018 09:43:05 +0800</lastBuildDate>
@@ -21,9 +21,7 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;Organize and collect useful git scripts&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -37,9 +35,7 @@
 &lt;ul&gt;
 &lt;li&gt;Make 命令的简单用法&lt;/li&gt;
 &lt;li&gt;Makefile 的编写规则&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -53,9 +49,7 @@
 &lt;ul&gt;
 &lt;li&gt;什么是 Git 子模块&lt;/li&gt;
 &lt;li&gt;Git 子模块怎么用&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -64,9 +58,7 @@
       <pubDate>Fri, 21 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
   </channel>

@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +23,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/" />
@@ -42,40 +33,24 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Golang | 理解 Golang 的 nil (转)" />
 <meta property="og:description" content="学习笔记：理解 Golang 的 nil" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/" />
-
-
-
-<meta property="article:published_time" content="2018-08-22T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/" /><meta property="article:published_time" content="2018-08-22T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-08-24T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="Golang | 理解 Golang 的 nil (转)">
 <meta itemprop="description" content="学习笔记：理解 Golang 的 nil">
 
 
 <meta itemprop="datePublished" content="2018-08-22T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-08-22T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2885">
+<meta itemprop="dateModified" content="2018-08-24T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3108">
 
 
 
@@ -156,8 +131,8 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 2885 words </span>
-          <span class="more-meta"> 6 mins read </span>
+          <span class="more-meta"> 3108 words </span>
+          <span class="more-meta"> 7 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -212,11 +187,8 @@ There are two possible situations that led to this error:
 
 <p>我们常常会把 nil 拼写成 null, 学过 C 的同学肯定听过这个 null 符号，甚至某些让人痛恨的同学还故意取一个这样的名字&hellip;</p>
 
-<p></p>
-
-
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="//www.youtube.com/embed/ynoY2xz-F8s" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+  <iframe src="//www.youtube-nocookie.com/embed/ynoY2xz-F8s" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
 
 
@@ -242,28 +214,45 @@ There are two possible situations that led to this error:
 <p>Old English ne + ān meaning <strong><em>not one</em></strong> (一个也没有)</p>
 
 <h2 id="在英语中数字-0-的表示">在英语中数字 0 的表示</h2>
-
-<pre><code>- zero      - cipher
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">- zero      - cipher
 - null      - love
 - duck      - nil
 - nada      - zilch
 - zip       - the letter ‘o’
 - naught    - nought
-- aught     - ought
-</code></pre>
-
+- aught     - ought</pre></td></tr></table>
+</div>
+</div>
 <h1 id="nil-在-go-中又是什么"><code>nil</code> 在 Go 中又是什么?</h1>
 
 <h2 id="nil-is-a-zero">nil is (a) <code>zero</code></h2>
 
 <p>先看看 nil 的具体表现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 相信这个错误大家在 Go 中经常碰到
+</span><span class="c1"></span><span class="nx">panic</span><span class="p">:</span> <span class="nx">runtime</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">invalid</span> <span class="nx">memory</span> <span class="nx">address</span> <span class="nx">or</span> <span class="kc">nil</span> <span class="nx">pointer</span> <span class="nx">dereference</span>
 
-<pre><code class="language-go">// 相信这个错误大家在 Go 中经常碰到
-panic: runtime error: invalid memory address or nil pointer dereference
-
-// 恐慌：运行时错误：无效的内存地址或空指针解引用
-</code></pre>
-
+<span class="o">//</span> <span class="nx">恐慌</span><span class="err">：</span><span class="nx">运行时错误</span><span class="err">：</span><span class="nx">无效的内存地址或空指针解引用</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note: nil leads to panic  &ndash;&gt;  panic leads to fear  &ndash;&gt;  fear leads to &hellip; 不敢想象&hellip;</p>
 </blockquote>
@@ -275,26 +264,45 @@ panic: runtime error: invalid memory address or nil pointer dereference
 <blockquote>
 <p>在 Go 中，如果你声明了一个变量，但是没有对它进行赋值操作，那么这个变量就会有一个类型的默认零值。 So, 来看看 Go 中每种类型对应的零值吧！</p>
 </blockquote>
-
-<pre><code class="language-go">bool    -&gt;  false       pointers    -&gt;  nil
-numbers -&gt;  0           slices      -&gt;  nil
-string  -&gt;  &quot;&quot;          maps        -&gt;  nil
-                        channels    -&gt;  nil
-                        functions   -&gt;  nil
-                        interfaces  -&gt;  nil
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kt">bool</span>    <span class="o">-</span><span class="p">&gt;</span>  <span class="kc">false</span>       <span class="nx">pointers</span>    <span class="o">-</span><span class="p">&gt;</span>  <span class="kc">nil</span>
+<span class="nx">numbers</span> <span class="o">-</span><span class="p">&gt;</span>  <span class="mi">0</span>           <span class="nx">slices</span>      <span class="o">-</span><span class="p">&gt;</span>  <span class="kc">nil</span>
+<span class="kt">string</span>  <span class="o">-</span><span class="p">&gt;</span>  <span class="s">&#34;&#34;</span>          <span class="nx">maps</span>        <span class="o">-</span><span class="p">&gt;</span>  <span class="kc">nil</span>
+                        <span class="nx">channels</span>    <span class="o">-</span><span class="p">&gt;</span>  <span class="kc">nil</span>
+                        <span class="nx">functions</span>   <span class="o">-</span><span class="p">&gt;</span>  <span class="kc">nil</span>
+                        <span class="nx">interfaces</span>  <span class="o">-</span><span class="p">&gt;</span>  <span class="kc">nil</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="结构体中的零值">结构体中的零值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">AgeYears</span>    <span class="kt">int</span>
+    <span class="nx">Name</span>        <span class="kt">string</span>
+    <span class="nx">Friend</span>      <span class="p">[]</span><span class="nx">Person</span>
+<span class="p">}</span>
 
-<pre><code class="language-go">type Person struct {
-    AgeYears    int
-    Name        string
-    Friend      []Person
-}
-
-var p Person    // Person{0, &quot;&quot;, nil}
-</code></pre>
-
+<span class="kd">var</span> <span class="nx">p</span> <span class="nx">Person</span>    <span class="o">//</span> <span class="nx">Person</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>上面，变量 p 只声明但没赋值，所以 p 的所有字段都有对应的零值。</p>
 </blockquote>
@@ -302,40 +310,67 @@ var p Person    // Person{0, &quot;&quot;, nil}
 <h2 id="nil-的类型"><code>nil</code> 的类型</h2>
 
 <h3 id="untyped-zero-无类型的零值">untyped zero 无类型的零值</h3>
-
-<pre><code class="language-go">a := false
-a := &quot;&quot;
-a := 0      // a := int(0)
-a := 0.0    // a := float64(0)
-a := nil    // use of untyped nil
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">a</span> <span class="o">:=</span> <span class="kc">false</span>
+<span class="nx">a</span> <span class="o">:=</span> <span class="s">&#34;&#34;</span>
+<span class="nx">a</span> <span class="o">:=</span> <span class="mi">0</span>      <span class="c1">// a := int(0)
+</span><span class="c1"></span><span class="nx">a</span> <span class="o">:=</span> <span class="mf">0.0</span>    <span class="c1">// a := float64(0)
+</span><span class="c1"></span><span class="nx">a</span> <span class="o">:=</span> <span class="kc">nil</span>    <span class="o">//</span> <span class="nx">use</span> <span class="nx">of</span> <span class="nx">untyped</span> <span class="kc">nil</span></code></pre></td></tr></table>
+</div>
+</div>
 <p><code>” Go 文档中说：nil 是一个预定义的标识符，代表指针、通道，函数，接口，字典或切片类型的零值，也就是预定好的一个变量</code>：</p>
-
-<pre><code class="language-go">type Type int
-var nil Type
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Type</span> <span class="kt">int</span>
+<span class="kd">var</span> <span class="kc">nil</span> <span class="nx">Type</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>是不是有点惊讶？ <code>nil</code> 并不是 Go 的关键字之一，你甚至可以自己去改变 nil 的值：</p>
-
-<pre><code class="language-go">// YOLO
-var nil = errors.New(`¯\_(ツ)_/¯`)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// YOLO
+</span><span class="c1"></span><span class="kd">var</span> <span class="kc">nil</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">`¯\_(ツ)_/¯`</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>这样是完全可以编译通过的，但是最好不要这样子去做</p>
 
 <h3 id="zero-values-零值们">zero values 零值们</h3>
 
 <p>首先来看看：Kinds of nil， 即 nil 的类型：</p>
-
-<pre><code class="language-go">pointers        point to nothing
-slices          have no backing array
-maps            are not initialized
-channels        are not initialized
-functions       are not initialized
-interfaces      have no value assigned, not even a nil pointer
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">pointers</span>        <span class="nx">point</span> <span class="nx">to</span> <span class="nx">nothing</span>
+<span class="nx">slices</span>          <span class="nx">have</span> <span class="nx">no</span> <span class="nx">backing</span> <span class="nx">array</span>
+<span class="nx">maps</span>            <span class="nx">are</span> <span class="nx">not</span> <span class="nx">initialized</span>
+<span class="nx">channels</span>        <span class="nx">are</span> <span class="nx">not</span> <span class="nx">initialized</span>
+<span class="nx">functions</span>       <span class="nx">are</span> <span class="nx">not</span> <span class="nx">initialized</span>
+<span class="nx">interfaces</span>      <span class="nx">have</span> <span class="nx">no</span> <span class="nx">value</span> <span class="nx">assigned</span><span class="p">,</span> <span class="nx">not</span> <span class="nx">even</span> <span class="nx">a</span> <span class="kc">nil</span> <span class="nx">pointer</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>接下来，就对这些 nil 的类型分别做说明: 即 <code>nil 的用处</code></p>
 
 <h1 id="nil-有什么用"><code>nil</code> 有什么用？</h1>
@@ -362,132 +397,240 @@ interfaces      have no value assigned, not even a nil pointer
 <li>指向 nil, 又名 nothing</li>
 <li>pointer 的零值</li>
 </ul>
-
-<pre><code class="language-go">var p *int  // 声明一个 int 类型的指针
-println(p)  // &lt;nil&gt;
-p == nil    // true
-*p          // panic: runtime error: invalid memory address or nil pointer dereference
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">p</span> <span class="o">*</span><span class="kt">int</span>  <span class="c1">// 声明一个 int 类型的指针
+</span><span class="c1"></span><span class="nb">println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>  <span class="c1">// &lt;nil&gt;
+</span><span class="c1"></span><span class="nx">p</span> <span class="o">==</span> <span class="kc">nil</span>    <span class="c1">// true
+</span><span class="c1"></span><span class="o">*</span><span class="nx">p</span>          <span class="o">//</span> <span class="nx">panic</span><span class="p">:</span> <span class="nx">runtime</span> <span class="kt">error</span><span class="p">:</span> <span class="nx">invalid</span> <span class="nx">memory</span> <span class="nx">address</span> <span class="nx">or</span> <span class="kc">nil</span> <span class="nx">pointer</span> <span class="nx">dereference</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>指针表示指向内存的地址，如果对 nil 的指针进行解引用的话就会导致 panic。那么为 nil 的指针有什么用呢？ 先来看看一个计算二叉树和的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">tree</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">v</span> <span class="kt">int</span>
+    <span class="nx">l</span> <span class="o">*</span><span class="nx">tree</span>
+    <span class="nx">r</span> <span class="o">*</span><span class="nx">tree</span>
+<span class="p">}</span>
 
-<pre><code class="language-go">type tree struct {
-    v int
-    l *tree
-    r *tree
-}
-
-// first solution
-func (t *tree) Sum() int {
-    sum := t.v
-    if t.l != nil {
-        sum += t.l.Sum()
-    }
-    if t.r != nil {
-        sum += t.r.Sum()
-    }
-    return sum
-}
-</code></pre>
-
+<span class="c1">// first solution
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">tree</span><span class="p">)</span> <span class="nf">Sum</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">sum</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">v</span>
+    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">l</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">l</span><span class="p">.</span><span class="nf">Sum</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">r</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">r</span><span class="p">.</span><span class="nf">Sum</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">sum</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>上面代码有两个问题:</p>
 
 <ul>
 <li><p>一个是代码重复</p>
-
-<pre><code class="language-go">if v != nil {
-    v.m()
-}
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">v</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">v</span><span class="p">.</span><span class="nf">m</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>另一个是当 t 是 nil 的时候会 panic:</p>
-
-<pre><code class="language-go">var t *tree
-sum := t.Sum()  // panic: invalid memory address or nil pointer dereference
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">t</span> <span class="o">*</span><span class="nx">tree</span>
+<span class="nx">sum</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Sum</span><span class="p">()</span>  <span class="o">//</span> <span class="nx">panic</span><span class="p">:</span> <span class="nx">invalid</span> <span class="nx">memory</span> <span class="nx">address</span> <span class="nx">or</span> <span class="kc">nil</span> <span class="nx">pointer</span> <span class="nx">dereference</span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 
 <p>那，怎么解决上面的问题呢? 我们先来看看一个指针接收器的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span><span class="p">{}</span>
 
-<pre><code class="language-go">type Person struct{}
+<span class="kd">func</span> <span class="nf">sayHi</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Person</span><span class="p">)</span> <span class="p">{</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hi&#34;</span><span class="p">)}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Person</span><span class="p">)</span> <span class="nf">sayHi</span><span class="p">()</span> <span class="p">{</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hi&#34;</span><span class="p">)}</span>
 
-func sayHi(p *Person) {fmt.Println(&quot;hi&quot;)}
-func (p *Person) sayHi() {fmt.Println(&quot;hi&quot;)}
-
-var p *Person
-p.sayHi()           // hi
-</code></pre>
-
+<span class="kd">var</span> <span class="nx">p</span> <span class="o">*</span><span class="nx">Person</span>
+<span class="nx">p</span><span class="p">.</span><span class="nf">sayHi</span><span class="p">()</span>           <span class="o">//</span> <span class="nx">hi</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>对于指针对象的方法来说，就算指针的值为 nil, 也是可以调用的，基于此，我们可以对刚刚计算的二叉树的例子进行一下改造：</p>
 
 <p><strong>nil receivers are useful: Sum</strong></p>
-
-<pre><code class="language-go">func (t *tree) Sum() int {
-    if t == nil {
-        return 0
-    }
-    return t.v + t.l.Sum() + t.r.Sum()
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">tree</span><span class="p">)</span> <span class="nf">Sum</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nx">v</span> <span class="o">+</span> <span class="nx">t</span><span class="p">.</span><span class="nx">l</span><span class="p">.</span><span class="nf">Sum</span><span class="p">()</span> <span class="o">+</span> <span class="nx">t</span><span class="p">.</span><span class="nx">r</span><span class="p">.</span><span class="nf">Sum</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>跟刚才的代码一对比是不是简洁了很多？ 对于 <code>nil</code> 指针，只需要在方法前面判断一下就 OK 了，无需重复判断。换成打印二叉树的值或者查找二叉树的某个值都是一样的：Coding Time</p>
 
 <p><strong>nil receivers are useful: String</strong></p>
-
-<pre><code class="language-go">func (t *tree) String() string {
-    if t == nil {
-        return &quot;&quot;
-    }
-    return fmt.Sprintf(t.l, t.v, t.r)
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">tree</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&#34;&#34;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">l</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">v</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">r</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>nil receivers are useful: Find</strong></p>
-
-<pre><code class="language-go">func (t *tree) Find(v int) bool {
-    if t == nil {
-        return false
-    }
-    return t.v == v || t.l.Find(v) || t.r.Find(v)
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">tree</span><span class="p">)</span> <span class="nf">Find</span><span class="p">(</span><span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nx">v</span> <span class="o">==</span> <span class="nx">v</span> <span class="o">||</span> <span class="nx">t</span><span class="p">.</span><span class="nx">l</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">||</span> <span class="nx">t</span><span class="p">.</span><span class="nx">r</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>所以，如果不是很需要的话，不要用 NewX() 去初始化值，而是使用它们的默认值。</p>
 
 <h2 id="slices">slices</h2>
-
-<pre><code class="language-go">// nil slices
-var s []slice
-len(s)          // 0
-cap(s)          // 0
-for range s     // iterates zero times
-s[i]            // panic: index out of range
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// nil slices
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">s</span> <span class="p">[]</span><span class="nx">slice</span>
+<span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>          <span class="c1">// 0
+</span><span class="c1"></span><span class="nb">cap</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>          <span class="c1">// 0
+</span><span class="c1"></span><span class="k">for</span> <span class="k">range</span> <span class="nx">s</span>     <span class="c1">// iterates zero times
+</span><span class="c1"></span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>            <span class="o">//</span> <span class="nx">panic</span><span class="p">:</span> <span class="nx">index</span> <span class="nx">out</span> <span class="nx">of</span> <span class="k">range</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>一个为 <code>nil</code> 的 slice, 处了不能索引外，其他的操作都是可以的，当你需要填充值得时候可以使用 <code>append</code> 函数, slices 会自动扩充。</p>
 
 <p><strong>append on nil slices</strong></p>
-
-<pre><code class="language-go">var s []int
-for i := 0; i &lt; 10; i++ {
-    fmt.Printf(&quot;len: %2d cap: %2d\n&quot;, len(s), cap(s))
-    s = append(s, i)
-}
-</code></pre>
-
-<pre><code class="language-bash">$ go run main.go
-len: 0 cap: 0 []  → s is nil!
-len: 1 cap: 1 [0]   → allocation
-len: 2 cap: 2 [0 1]   → reallocation
-len: 3 cap: 4 [0 1 2]   → reallocation
-len: 4 cap: 4 [0 1 2 3]
-len: 5 cap: 8 [0 1 2 3 4]  → reallocation
-len: 6 cap: 8 [0 1 2 3 4 5]        
-len: 7 cap: 8 [0 1 2 3 4 5 6]               
-len: 8 cap: 8 [0 1 2 3 4 5 6 7]
-len: 9 cap: 16 [0 1 2 3 4 5 6 7 8]  → reallocation
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">s</span> <span class="p">[]</span><span class="kt">int</span>
+<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;len: %2d cap: %2d\n&#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span>
+    <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go run main.go
+len: <span class="m">0</span> cap: <span class="m">0</span> <span class="o">[]</span>  → s is nil!
+len: <span class="m">1</span> cap: <span class="m">1</span> <span class="o">[</span><span class="m">0</span><span class="o">]</span>   → allocation
+len: <span class="m">2</span> cap: <span class="m">2</span> <span class="o">[</span><span class="m">0</span> <span class="m">1</span><span class="o">]</span>   → reallocation
+len: <span class="m">3</span> cap: <span class="m">4</span> <span class="o">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span><span class="o">]</span>   → reallocation
+len: <span class="m">4</span> cap: <span class="m">4</span> <span class="o">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span><span class="o">]</span>
+len: <span class="m">5</span> cap: <span class="m">8</span> <span class="o">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span><span class="o">]</span>  → reallocation
+len: <span class="m">6</span> cap: <span class="m">8</span> <span class="o">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span><span class="o">]</span>        
+len: <span class="m">7</span> cap: <span class="m">8</span> <span class="o">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span><span class="o">]</span>               
+len: <span class="m">8</span> cap: <span class="m">8</span> <span class="o">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span><span class="o">]</span>
+len: <span class="m">9</span> cap: <span class="m">16</span> <span class="o">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span> <span class="m">8</span><span class="o">]</span>  → reallocation</code></pre></td></tr></table>
+</div>
+</div>
 <p>那么为 nil 的 slice 的底层结果是怎么样的呢？ 根据官方文档，slice 有三个元素，分别是：长度、容量、指向数据的指针：</p>
 
 <p>slice 内部：</p>
@@ -513,105 +656,194 @@ len: 9 cap: 16 [0 1 2 3 4 5 6 7 8]  → reallocation
 <h2 id="maps">maps</h2>
 
 <p>对于 Go 来说，map，function, channel 都是特殊的指针，指向各自特定的实现，这个我们暂时可以不用管。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// nil maps
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="nx">t</span><span class="p">]</span><span class="nx">u</span>
 
-<pre><code class="language-go">// nil maps
-var m map[t]u
-
-len(m)          // 0
-for range m     // interates zero times
-v, ok := m[i]   // zero(u), false
-m[i] = x        // panic: assignment to entry in nil map
-</code></pre>
-
+<span class="nb">len</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>          <span class="c1">// 0
+</span><span class="c1"></span><span class="k">for</span> <span class="k">range</span> <span class="nx">m</span>     <span class="c1">// interates zero times
+</span><span class="c1"></span><span class="nx">v</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>   <span class="c1">// zero(u), false
+</span><span class="c1"></span><span class="nx">m</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">x</span>        <span class="o">//</span> <span class="nx">panic</span><span class="p">:</span> <span class="nx">assignment</span> <span class="nx">to</span> <span class="nx">entry</span> <span class="nx">in</span> <span class="kc">nil</span> <span class="kd">map</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>对于 <code>nil</code> 的 <code>map</code>， 我们可以简单把它看成是一个只读的 map，不能进行写操作，否则就会 panic。那么，<code>nil</code> 的 map 有什么用呢？ 看下这个例子：</p>
 
 <p><strong>using maps</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewGet</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">headers</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">req</span><span class="p">,</span> <span class="nx">er</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewRequest</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">MethodGet</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+    <span class="p">}</span>
 
-<pre><code class="language-go">func NewGet(url string, headers map[string]string) (*http.Request, error) {
-    req, er := http.NewRequest(http.MethodGet, url, nil)
-    if err != nil {
-        return nil, err
-    }
-
-    for k, v := range headers {
-        req.Header.Set(k, v)
-    }
-    return req, nil
-}
-</code></pre>
-
+    <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">headers</span> <span class="p">{</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">req</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>对于 NewGet 来说，我们需要传入一个类型为 map 的参数，并且这个函数只是对这个参数进行读取，我们可以传入一个非空的值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nf">NewGet</span><span class="p">(</span><span class="s">&#34;http://google.com&#34;</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s">&#34;USER_AGENT&#34;</span><span class="p">:</span><span class="s">&#34;golang/gopher&#34;</span><span class="p">,</span>
+<span class="p">}</span>
 
-<pre><code class="language-go">NewGet(&quot;http://google.com&quot;, map[string]string) {
-    &quot;USER_AGENT&quot;:&quot;golang/gopher&quot;,
-}
+<span class="c1">// 或者，这样传
+</span><span class="c1"></span><span class="nf">NewGet</span><span class="p">(</span><span class="s">&#34;http://google.com&#34;</span><span class="p">,</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{})</span>
 
-// 或者，这样传
-NewGet(&quot;http://google.com&quot;, map[string]string{})
-
-// 但是，前面也说了，map 的零值是 nil, 所以当 header 为空的时候，我们也可以直接传入一个 nil
-NewGet(&quot;http://google.com&quot;, nil)
-</code></pre>
-
+<span class="c1">// 但是，前面也说了，map 的零值是 nil, 所以当 header 为空的时候，我们也可以直接传入一个 nil
+</span><span class="c1"></span><span class="nf">NewGet</span><span class="p">(</span><span class="s">&#34;http://google.com&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>是不是，简洁很多？ so, 把 <code>nil</code> map 作为一个只读的空的 map 进行读取吧</p>
 
 <h2 id="channels">channels</h2>
-
-<pre><code class="language-go">// nil channels
-var c chan t
-&lt;- c        // blocks forever
-c &lt;- x      // blocks forever
-close(c)    // panic: close of nil channel
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// nil channels
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="nx">t</span>
+<span class="o">&lt;-</span> <span class="nx">c</span>        <span class="c1">// blocks forever
+</span><span class="c1"></span><span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">x</span>      <span class="c1">// blocks forever
+</span><span class="c1"></span><span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>    <span class="o">//</span> <span class="nx">panic</span><span class="p">:</span> <span class="nx">close</span> <span class="nx">of</span> <span class="kc">nil</span> <span class="nx">channel</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>关闭一个 <code>nil</code> 的 channel 会导致程序 panic (如何关闭 channel 可以看看这篇文章：<a href="https://www.jianshu.com/p/d24dfbb33781">如何优雅的关闭Go Channel</a>). 举个例子，假如现在有两个 channel 负责输入，一个 channel 负责汇总，简单的代码实现：</p>
-
-<pre><code class="language-go">func merge(out chan&lt;- int, a, b &lt;-chan int) {
-    for {
-        select {
-            case v := &lt;- a:
-                out &lt;- v
-            case v := &lt;- b:
-                out &lt;- v
-        }
-    }
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">merge</span><span class="p">(</span><span class="nx">out</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">{</span>
+        <span class="k">select</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="nx">v</span> <span class="o">:=</span> <span class="o">&lt;-</span> <span class="nx">a</span><span class="p">:</span>
+                <span class="nx">out</span> <span class="o">&lt;-</span> <span class="nx">v</span>
+            <span class="k">case</span> <span class="nx">v</span> <span class="o">:=</span> <span class="o">&lt;-</span> <span class="nx">b</span><span class="p">:</span>
+                <span class="nx">out</span> <span class="o">&lt;-</span> <span class="nx">v</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>closed channels</strong></p>
-
-<pre><code class="language-go">var c chan t
-v, ok &lt;- c      // zero(t), false
-c &lt;- x          // panic: send on closed channel
-close(c)        // panic: close of nil channel
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="nx">t</span>
+<span class="nx">v</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">&lt;-</span> <span class="nx">c</span>      <span class="c1">// zero(t), false
+</span><span class="c1"></span><span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">x</span>          <span class="c1">// panic: send on closed channel
+</span><span class="c1"></span><span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>        <span class="o">//</span> <span class="nx">panic</span><span class="p">:</span> <span class="nx">close</span> <span class="nx">of</span> <span class="kc">nil</span> <span class="nx">channel</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>如果在外部调用中关闭了 a 或者 b, 那么就会不断地从 a 或者 b 中读出 0，这和我们想要的不一样，我们想关闭 a 或 b 后就停止汇总，修改一下代码：</p>
-
-<pre><code class="language-go">func merge (out chan&lt;- int, a, b &lt;-chan int) {
-    for a != nil || b !=  nil {
-        select {
-        case v, ok := &lt;-a:
-            if !ok {
-                a = nil
-                fmt.Println(&quot;a is nil&quot;)
-                continue
-            }
-            out &lt;- v
-        case v, ok := &lt;-b:
-            if !ok {
-                a = nil
-                fmt.Println(&quot;b is nil&quot;)
-                continue
-            }
-            out &lt;- v
-        }
-    }
-    fmt.Println(&quot;close out&quot;)
-    close(out)
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">merge</span> <span class="p">(</span><span class="nx">out</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="nx">a</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">b</span> <span class="o">!=</span>  <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">select</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">a</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+                <span class="nx">a</span> <span class="p">=</span> <span class="kc">nil</span>
+                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a is nil&#34;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="p">}</span>
+            <span class="nx">out</span> <span class="o">&lt;-</span> <span class="nx">v</span>
+        <span class="k">case</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">b</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+                <span class="nx">a</span> <span class="p">=</span> <span class="kc">nil</span>
+                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;b is nil&#34;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="p">}</span>
+            <span class="nx">out</span> <span class="o">&lt;-</span> <span class="nx">v</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;close out&#34;</span><span class="p">)</span>
+    <span class="nb">close</span><span class="p">(</span><span class="nx">out</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>在知道 channel 关闭之后，将 channel 的值设为 nil, 这样子就相当于将这个 select case 子句给停用了，因为 <code>nil</code> 的 channel 是永远阻塞的。</p>
 
 <h2 id="functions">functions</h2>
@@ -621,76 +853,134 @@ close(c)        // panic: close of nil channel
 <p>Go 语言中：<a href="https://blog.golang.org/first-class-functions-in-go-and-new-go">函数是头等公民</a></p>
 
 <p>函数可以被用作结构体字段, 逻辑上，默认的零值为 <code>nil</code></p>
-
-<pre><code class="language-go">type Foo struct {
-    f func() error
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Foo</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">f</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p><strong>nil funcs for default values</strong></p>
 
 <p>lazy initialization of variables, nil can also imply default behavior</p>
-
-<pre><code class="language-go">func NewServer(logger func(string, ...interface{})) {
-    if logger == nil {
-        logger = logger.Printf
-    }
-    logger(&quot;initializing %s&quot;, os.Getenv(&quot;hostname&quot;))
-    // ...
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewServer</span><span class="p">(</span><span class="nx">logger</span> <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{}))</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">logger</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">logger</span> <span class="p">=</span> <span class="nx">logger</span><span class="p">.</span><span class="nx">Printf</span>
+    <span class="p">}</span>
+    <span class="nf">logger</span><span class="p">(</span><span class="s">&#34;initializing %s&#34;</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;hostname&#34;</span><span class="p">))</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="interfaces">interfaces</h2>
 
 <p>interface 并不是一个指针，它的底层实现由两部分组成，一个是类型，一个是值，也就类似于：(Type, Value). 只有当类型和值都是 nil 的时候，才等于 nil. 看看下面的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">do</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span> <span class="c1">// error: (*doError, nil)
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">err</span> <span class="o">*</span><span class="nx">doError</span>
+    <span class="k">return</span> <span class="nx">err</span>  <span class="c1">// nil of type *doError
+</span><span class="c1"></span><span class="p">}</span>
 
-<pre><code class="language-go">func do() error { // error: (*doError, nil)
-    var err *doError
-    return err  // nil of type *doError
-}
-
-func main() {
-    err := do()
-    fmt.Println(err == nil) // false
-}
-</code></pre>
-
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">err</span> <span class="o">:=</span> <span class="nf">do</span><span class="p">()</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// false
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>输出结果：false. do 函数声明了一个 *doError 的变量 err, 然后返回，返回值是 error 接口，但是这个时候的 Type 已经变成了：(*doError, nil), 所以和 nil 肯定是不会相等的。所以我们在写函数的时候，不要声明具体的 error 变量，而是应该直接返回 nil:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">do</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
 
-<pre><code class="language-go">func do() error {
-    return nil
-}
+<span class="c1">// 再来看看这个例子
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">do</span><span class="p">()</span> <span class="o">*</span><span class="nx">doError</span> <span class="p">{</span> <span class="c1">// nil of type *doError
+</span><span class="c1"></span>    <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
 
-// 再来看看这个例子
+<span class="kd">func</span> <span class="nf">wrapDo</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span> <span class="c1">// error (*doError, nil)
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nf">do</span><span class="p">()</span> <span class="c1">// nil of type *doError
+</span><span class="c1"></span><span class="p">}</span>
 
-func do() *doError { // nil of type *doError
-    return nil
-}
-
-func wrapDo() error { // error (*doError, nil)
-    return do() // nil of type *doError
-}
-
-func main() {
-    err := wrapDo()   // error  (*doError, nil)
-    fmt.Println(err == nil) // false
-}
-</code></pre>
-
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">err</span> <span class="o">:=</span> <span class="nf">wrapDo</span><span class="p">()</span>   <span class="c1">// error  (*doError, nil)
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// false
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>这里最终的输出结果也是 false。 为什么呢？ 尽管 wrapDo 函数返回的是 error 类型， 但是 do 返回的却是 *doError 类型，也就是变成了 (*doError, nil)， 自然也就和 nil 不相等了。因此，不要返回具体的错误类型。遵从这两条建议，才可以放心的使用 <code>if x != nil</code>.</p>
 
 <h1 id="nil-is-useful">nil is useful</h1>
 
 <p>最后，做个总结吧！😋 <code>nil is useful</code></p>
-
-<pre><code class="language-bash">pointers    methods can be called on nil receivers
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">pointers    methods can be called on nil receivers
 slices      perfectly valid zero values
 maps        perfect as read-only values
-channels    essential(必要) for some concurrency patterns
-functions   needed for completeness
-interfaces  the most userd signal in Go (err != nil)
-</code></pre>
-
+channels    essential<span class="o">(</span>必要<span class="o">)</span> <span class="k">for</span> some concurrency patterns
+functions   needed <span class="k">for</span> completeness
+interfaces  the most userd signal in Go <span class="o">(</span>err !<span class="o">=</span> nil<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <h1 id="see-also">See Also</h1>
 
 <blockquote>
@@ -802,18 +1092,19 @@ interfaces  the most userd signal in Go (err != nil)
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

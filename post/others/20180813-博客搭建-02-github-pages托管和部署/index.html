@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +23,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/" />
@@ -42,40 +33,24 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="博客搭建-02 GitHub Pages托管和部署" />
 <meta property="og:description" content="Building Blog with Hugo and GitHub Pages" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/" />
-
-
-
-<meta property="article:published_time" content="2018-08-13T22:04:38&#43;08:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/" /><meta property="article:published_time" content="2018-08-13T22:04:38&#43;08:00"/>
 <meta property="article:modified_time" content="2018-08-21T22:04:38&#43;08:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="博客搭建-02 GitHub Pages托管和部署">
 <meta itemprop="description" content="Building Blog with Hugo and GitHub Pages">
 
 
 <meta itemprop="datePublished" content="2018-08-13T22:04:38&#43;08:00" />
-<meta itemprop="dateModified" content="2018-08-13T22:04:38&#43;08:00" />
-<meta itemprop="wordCount" content="1004">
+<meta itemprop="dateModified" content="2018-08-21T22:04:38&#43;08:00" />
+<meta itemprop="wordCount" content="1056">
 
 
 
@@ -156,7 +131,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/others/"> others </a>
             </div>
-          <span class="more-meta"> 1004 words </span>
+          <span class="more-meta"> 1056 words </span>
           <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -180,8 +155,6 @@ There are two possible situations that led to this error:
 </div>
     <div class="post-content">
       <p>将 Hugo 生成的网站部署和托管到 GitHub Pages</p>
-
-<p></p>
 
 <h1 id="github-上的托管和部署">GitHub 上的托管和部署</h1>
 
@@ -214,9 +187,14 @@ There are two possible situations that led to this error:
 <li><p>创建 GitHub 仓库：<code>zhezh09.github.io</code>，用来存放 Hugo 聚合生成的网站的静态内容, 即 <code>public</code> 目录下的内容</p></li>
 
 <li><p>克隆 blog 到本地 ( 如果前面通过 git remote add origin &hellip; 已经添加了 Github 源，则跳过该步骤)</p>
-
-<pre><code class="language-bash">$ git clone &lt;REPO-BLOG-URL&gt; &amp;&amp; cd &lt;YOUR-PROJECT&gt; 
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone &lt;REPO-BLOG-URL&gt; <span class="o">&amp;&amp;</span> <span class="nb">cd</span> &lt;YOUR-PROJECT&gt; </code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>Make your website work locally (hugo server or hugo server -t <YOURTHEME>) and open your browser to <a href="http://localhost:1313">http://localhost:1313</a>.</p></li>
 
@@ -228,24 +206,44 @@ There are two possible situations that led to this error:
 </ul></li>
 
 <li><p>把 public/ 目录添加为 submodule 与 username.github.io 同步</p>
-
-<pre><code class="language-bash">$ git submodule add -f -b master https://github.com/username/username.github.io public
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git submodule add -f -b master https://github.com/username/username.github.io public</code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>生成静态博客站</p>
-
-<pre><code class="language-bash">$ hugo
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ hugo
     
-# 直接运行hugo命令，就会在public目录下生成静态博客页面文件。
-</code></pre></li>
+<span class="c1"># 直接运行hugo命令，就会在public目录下生成静态博客页面文件。</span></code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>提交</p>
-
-<pre><code class="language-bash">cd public
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> public
 git add .
-git commit -m &quot;YOUR COMMIT MESSAGE&quot;
-git push origin master
-</code></pre></li>
+git commit -m <span class="s2">&#34;YOUR COMMIT MESSAGE&#34;</span>
+git push origin master</code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 
 <blockquote>
@@ -255,53 +253,100 @@ git push origin master
 <h2 id="添加一键部署脚本-deploy-sh">添加一键部署脚本：deploy.sh</h2>
 
 <p>为了方便，Hugo 提供了一个自动部署的脚本，这里 <a href="https://keysaim.github.io/post/blog/deploy-hugo-blog-in-github.io/#%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC"> 参考博客:keysaim </a> 的脚本，用来同时提交这两个 repo：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+<span class="c1">################ Push Blog REPO ################</span>
 
-<pre><code class="language-shell">#!/bin/bash
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -lt  <span class="m">1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2"> &lt;commit message&gt;&#34;</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
 
-################ Push Blog REPO ################
-
-if [ $# -lt  1 ]; then
-    echo &quot;$0 &lt;commit message&gt;&quot;
-    exit 1
-fi
-
-msg=&quot;$1&quot;
+<span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
 
 git add -A
-git commit -m &quot;$msg&quot;
-if [ $? -ne 0 ]; then
-    echo &quot;commit to blog repo failed&quot;
-    exit 1
-fi
+git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&#34;commit to blog repo failed&#34;</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
 
 git push origin master
-if [ $? -ne 0 ]; then
-    echo &quot;push to blog repo failed&quot;
-fi
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&#34;push to blog repo failed&#34;</span>
+<span class="k">fi</span>
 
-################ Push Site REPO ################
+<span class="c1">################ Push Site REPO ################</span>
 
-echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+<span class="nb">echo</span> -e <span class="s2">&#34;\033[0;32mDeploying updates to GitHub...\033[0m&#34;</span>
 
-# Build the project.
-hugo # if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`
+<span class="c1"># Build the project.</span>
+hugo <span class="c1"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
 
-# Go To Public folder
-cd public
+<span class="c1"># Go To Public folder</span>
+<span class="nb">cd</span> public
 
-# Add changes to git.
+<span class="c1"># Add changes to git.</span>
 git add .
 
-# Commit changes.
-git commit -m &quot;$msg&quot;
+<span class="c1"># Commit changes.</span>
+git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
 
-# Push source and build repos.
+<span class="c1"># Push source and build repos.</span>
 git push origin master
 
-# Come Back up to the Project Root
-cd ..
-</code></pre>
-
+<span class="c1"># Come Back up to the Project Root</span>
+<span class="nb">cd</span> ..</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>每次更新网站或者写了新文章，只需要运行./deploy.sh 发布就搞定了</p>
 </blockquote>
@@ -416,18 +461,19 @@ cd ..
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

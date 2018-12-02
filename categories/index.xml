@@ -6,13 +6,12 @@
     <description>Recent content in Categories on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Career</title>
+      <title>career</title>
       <link>https://zhezh09.github.io/categories/career/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -21,7 +20,7 @@
     </item>
     
     <item>
-      <title>Essay</title>
+      <title>essay</title>
       <link>https://zhezh09.github.io/categories/essay/</link>
       <pubDate>Tue, 02 Oct 2018 21:18:24 +0800</pubDate>
       
@@ -30,7 +29,7 @@
     </item>
     
     <item>
-      <title>Footprint</title>
+      <title>footprint</title>
       <link>https://zhezh09.github.io/categories/footprint/</link>
       <pubDate>Tue, 02 Oct 2018 21:42:56 +0800</pubDate>
       
@@ -39,7 +38,7 @@
     </item>
     
     <item>
-      <title>Life</title>
+      <title>life</title>
       <link>https://zhezh09.github.io/categories/life/</link>
       <pubDate>Sat, 08 Sep 2018 15:54:21 +0000</pubDate>
       
@@ -48,7 +47,7 @@
     </item>
     
     <item>
-      <title>Others</title>
+      <title>others</title>
       <link>https://zhezh09.github.io/categories/others/</link>
       <pubDate>Tue, 14 Aug 2018 13:38:03 +0800</pubDate>
       
@@ -57,7 +56,7 @@
     </item>
     
     <item>
-      <title>Tech</title>
+      <title>tech</title>
       <link>https://zhezh09.github.io/categories/tech/</link>
       <pubDate>Wed, 21 Nov 2018 14:06:08 +0800</pubDate>
       

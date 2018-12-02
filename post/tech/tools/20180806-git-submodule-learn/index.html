@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +23,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/" />
@@ -42,40 +33,24 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Tools | Git Submodule 学习笔记" />
 <meta property="og:description" content="git submodule learn" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/" />
-
-
-
-<meta property="article:published_time" content="2018-08-06T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/" /><meta property="article:published_time" content="2018-08-06T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-08-06T22:47:27&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="Tools | Git Submodule 学习笔记">
 <meta itemprop="description" content="git submodule learn">
 
 
 <meta itemprop="datePublished" content="2018-08-06T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-08-06T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3608">
+<meta itemprop="dateModified" content="2018-08-06T22:47:27&#43;00:00" />
+<meta itemprop="wordCount" content="3690">
 
 
 
@@ -156,7 +131,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 3608 words </span>
+          <span class="more-meta"> 3690 words </span>
           <span class="more-meta"> 8 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -192,22 +167,31 @@ There are two possible situations that led to this error:
 <li>Git 子模块怎么用</li>
 </ul>
 
-<p></p>
-
 <h1 id="1-git-submodule-命令用法">1. Git submodule 命令用法</h1>
 
 <p><code>git submodule</code> 命令用于初始化，更新或检查子模块。</p>
-
-<pre><code class="language-shell">usage: git submodule [--quiet] add [-b &lt;branch&gt;] [-f|--force] [--name &lt;name&gt;] [--reference &lt;repository&gt;] [--] &lt;repository&gt; [&lt;path&gt;]
-   or: git submodule [--quiet] status [--cached] [--recursive] [--] [&lt;path&gt;...]
-   or: git submodule [--quiet] init [--] [&lt;path&gt;...]
-   or: git submodule [--quiet] deinit [-f|--force] [--] &lt;path&gt;...
-   or: git submodule [--quiet] update [--init] [--remote] [-N|--no-fetch] [-f|--force] [--checkout|--merge|--rebase] [--reference &lt;repository&gt;] [--recursive] [--] [&lt;path&gt;...]
-   or: git submodule [--quiet] summary [--cached|--files] [--summary-limit &lt;n&gt;] [commit] [--] [&lt;path&gt;...]
-   or: git submodule [--quiet] foreach [--recursive] &lt;command&gt;
-   or: git submodule [--quiet] sync [--recursive] [--] [&lt;path&gt;...]
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">usage: git submodule <span class="o">[</span>--quiet<span class="o">]</span> add <span class="o">[</span>-b &lt;branch&gt;<span class="o">]</span> <span class="o">[</span>-f<span class="p">|</span>--force<span class="o">]</span> <span class="o">[</span>--name &lt;name&gt;<span class="o">]</span> <span class="o">[</span>--reference &lt;repository&gt;<span class="o">]</span> <span class="o">[</span>--<span class="o">]</span> &lt;repository&gt; <span class="o">[</span>&lt;path&gt;<span class="o">]</span>
+   or: git submodule <span class="o">[</span>--quiet<span class="o">]</span> status <span class="o">[</span>--cached<span class="o">]</span> <span class="o">[</span>--recursive<span class="o">]</span> <span class="o">[</span>--<span class="o">]</span> <span class="o">[</span>&lt;path&gt;...<span class="o">]</span>
+   or: git submodule <span class="o">[</span>--quiet<span class="o">]</span> init <span class="o">[</span>--<span class="o">]</span> <span class="o">[</span>&lt;path&gt;...<span class="o">]</span>
+   or: git submodule <span class="o">[</span>--quiet<span class="o">]</span> deinit <span class="o">[</span>-f<span class="p">|</span>--force<span class="o">]</span> <span class="o">[</span>--<span class="o">]</span> &lt;path&gt;...
+   or: git submodule <span class="o">[</span>--quiet<span class="o">]</span> update <span class="o">[</span>--init<span class="o">]</span> <span class="o">[</span>--remote<span class="o">]</span> <span class="o">[</span>-N<span class="p">|</span>--no-fetch<span class="o">]</span> <span class="o">[</span>-f<span class="p">|</span>--force<span class="o">]</span> <span class="o">[</span>--checkout<span class="p">|</span>--merge<span class="p">|</span>--rebase<span class="o">]</span> <span class="o">[</span>--reference &lt;repository&gt;<span class="o">]</span> <span class="o">[</span>--recursive<span class="o">]</span> <span class="o">[</span>--<span class="o">]</span> <span class="o">[</span>&lt;path&gt;...<span class="o">]</span>
+   or: git submodule <span class="o">[</span>--quiet<span class="o">]</span> summary <span class="o">[</span>--cached<span class="p">|</span>--files<span class="o">]</span> <span class="o">[</span>--summary-limit &lt;n&gt;<span class="o">]</span> <span class="o">[</span>commit<span class="o">]</span> <span class="o">[</span>--<span class="o">]</span> <span class="o">[</span>&lt;path&gt;...<span class="o">]</span>
+   or: git submodule <span class="o">[</span>--quiet<span class="o">]</span> foreach <span class="o">[</span>--recursive<span class="o">]</span> &lt;command&gt;
+   or: git submodule <span class="o">[</span>--quiet<span class="o">]</span> sync <span class="o">[</span>--recursive<span class="o">]</span> <span class="o">[</span>--<span class="o">]</span> <span class="o">[</span>&lt;path&gt;...<span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div>
 <h1 id="2-子模块">2. 子模块</h1>
 
 <p><code>git submodule</code>，子模块：解决了多个独立项目之间有引用(包含)关系，同时又期望能够独立维护这些项目的需求。</p>
@@ -224,17 +208,28 @@ There are two possible situations that led to this error:
 
 <p>主项目仓库：<a href="https://github.com/kuroko/x-change.git">https://github.com/kuroko/x-change.git</a><br />
 子模块仓库：<a href="https://github.com/kuroko/serivce.git">https://github.com/kuroko/serivce.git</a></p>
-
-<pre><code class="language-bash"># 克隆主项目
-$ mkdir -p ~/workspace/code &amp;&amp; cd ~/workspace/code
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 克隆主项目</span>
+$ mkdir -p ~/workspace/code <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/workspace/code
 $ git clone https://github.com/kuroko/x-change.git
-$ cd x-change
+$ <span class="nb">cd</span> x-change
 
-# 使用 'git submodule add' 命令添加子模块
+<span class="c1"># 使用 &#39;git submodule add&#39; 命令添加子模块</span>
 $ git submodule add https://github.com/kuroko/service.git lib/service
-# Note: lib/service：指定本地的路径
-</code></pre>
-
+<span class="c1"># Note: lib/service：指定本地的路径</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>执行完 git submodule add 命令后，将会发生：</p>
 
 <ul>
@@ -245,33 +240,58 @@ $ git submodule add https://github.com/kuroko/service.git lib/service
 </blockquote></li>
 
 <li><p>创建一个新的 <code>.gitmodules</code> 文件，用来跟踪子模块并保存其配置信息</p>
-
-<pre><code class="language-bash">[submodule &quot;lib/service&quot;]
-    path = lib/service
-    url  = https://github.com/kuroko/serivce.git
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>submodule <span class="s2">&#34;lib/service&#34;</span><span class="o">]</span>
+    <span class="nv">path</span> <span class="o">=</span> lib/service
+    <span class="nv">url</span>  <span class="o">=</span> https://github.com/kuroko/serivce.git</code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 
 <p>现在让我们来看看当前的项目状态：</p>
-
-<pre><code class="language-bash"># 使用 git status 查看添加子模块后的一些改变
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 使用 git status 查看添加子模块后的一些改变</span>
 $ git status
 On branch master
-Your branch is up-to-date with 'origin/master'.
+Your branch is up-to-date with <span class="s1">&#39;origin/master&#39;</span>.
 
 Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+  <span class="o">(</span>use <span class="s2">&#34;git reset HEAD &lt;file&gt;...&#34;</span> to unstage<span class="o">)</span>
 
 	new file:   .gitmodules
-	new file:   lib/service
-</code></pre>
-
+	new file:   lib/service</code></pre></td></tr></table>
+</div>
+</div>
 <p>像任何其他修改一样，Git 添加了一个子模块，并且要求你提交这个改动到仓库中：</p>
-
-<pre><code class="language-bash">$ git add .
-$ git commit -m &quot;Add `lib/service` as Submodule&quot;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add .
+$ git commit -m <span class="s2">&#34;Add `lib/service` as Submodule&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>添加子模块，OK ！！！</p>
 
 <h2 id="2-3-克隆一个项目和其子模块">2.3. 克隆一个项目和其子模块</h2>
@@ -299,79 +319,134 @@ $ git commit -m &quot;Add `lib/service` as Submodule&quot;
 </blockquote>
 
 <p>比方说，我们希望在我们项目中使用一个旧版本的 “service” 库。首先，我需要看一下这个库的提交历史记录。我们需要切换到这个子模块的根目录下，然后执行 “log” 命令：</p>
-
-<pre><code class="language-bash">$ cd lib/service/
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> lib/service/
 $ git log --oneline --decorate
 
-# Note: Git 命令是对上下文环境很敏感的！也就是说，通过命令行来切换到子模块的目录后，我们执行的所有 Git 命令仅仅只会对子模块有效，而不是对它的父仓库。
-</code></pre>
-
+<span class="c1"># Note: Git 命令是对上下文环境很敏感的！也就是说，通过命令行来切换到子模块的目录后，我们执行的所有 Git 命令仅仅只会对子模块有效，而不是对它的父仓库。</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>现在历史记录被打印出来了，我们会发现这个提交被标记成了 “0.1.1”：</p>
-
-<pre><code class="language-bash">83298f7 (HEAD, master) update .gitignore
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">83298f7 <span class="o">(</span>HEAD, master<span class="o">)</span> update .gitignore
 a3b6186 remove page
 ed693b7 update doc
-3557a0e (tag: 0.1.1) change version code
-2421796 update readme
-</code></pre>
-
+3557a0e <span class="o">(</span>tag: <span class="m">0</span>.1.1<span class="o">)</span> change version code
+<span class="m">2421796</span> update readme</code></pre></td></tr></table>
+</div>
+</div>
 <p>这就是我们希望在我们的项目使用的版本。首先我们可以来简单地看看这个提交：</p>
-
-<pre><code class="language-bash">$ git checkout 0.1.1
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git checkout <span class="m">0</span>.1.1</code></pre></td></tr></table>
+</div>
+</div>
 <p>再让我们来看看父仓库。在主项目的目录中执行下面的命令：</p>
-
-<pre><code class="language-bash">$ git submodule status
-+3557a0e0f7280fb3aba18fb9035d204c7de6344f   lib/service (0.1.1)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git submodule status
++3557a0e0f7280fb3aba18fb9035d204c7de6344f   lib/service <span class="o">(</span><span class="m">0</span>.1.1<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note: 通过 <code>git submodule status</code> 命令, 我们可以查看子模块的哪一个版本在当前被签出了。在 hash 之前的 “+” 符号是非常重要的，它表明该子模块在它父仓库的官方记录中存在一个不同的版本。这是合理的，因为我们的确修改并签出了版本标记为 “0.1.1” 的提交。</p>
 </blockquote>
 
 <p>如果在父仓库上执行 <code>git status</code> 命令，我们会发现像任何其他的变化一样，Git 移动了指向这个子模块的指针。</p>
-
-<pre><code class="language-bash">$ git status
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git status
 On branch master
-Changes not staged for commit:
-    (use &quot;git add ...&quot; to update what will be committed)
-    (use &quot;git checkout -- ...&quot; to discard changes in working directory)
+Changes not staged <span class="k">for</span> commit:
+    <span class="o">(</span>use <span class="s2">&#34;git add ...&#34;</span> to update what will be committed<span class="o">)</span>
+    <span class="o">(</span>use <span class="s2">&#34;git checkout -- ...&#34;</span> to discard changes in working directory<span class="o">)</span>
 
-    modified:   lib/service (new commits)
-</code></pre>
-
+    modified:   lib/service <span class="o">(</span>new commits<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>为了使这个改动生效，我们现在需要提交它到仓库中：</p>
-
-<pre><code class="language-bash">$ git commit -a -m &quot;Moved Submodule pointer to version 1.1.0&quot;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git commit -a -m <span class="s2">&#34;Moved Submodule pointer to version 1.1.0&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="2-5-更新一个子模块-当指向它的指针发生了变化之后">2.5. 更新一个子模块，当指向它的指针发生了变化之后</h2>
 
 <p>当开发团队的其他成员，在项目中改变了子模块的指针，指到另外一个版本之后，我们就要合并他的改动：例如，抓取、合并 或是 rebase。</p>
 
 <p>在主项目目录执行：</p>
-
-<pre><code class="language-bash">$ git pull
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git pull
 Updating 43d0c47..3919c52
 Fast-forward
- lib/service | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-</code></pre>
-
+ lib/service <span class="p">|</span> <span class="m">2</span> +-
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>, <span class="m">1</span> deletion<span class="o">(</span>-<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>此时，Git 会以一种相当含蓄的方式告诉我们, <code>lib/service</code> 发生了变化。再次使用 <code>git submodule status</code> 来获取更多、更详细的信息：</p>
-
-<pre><code class="language-bash">$ git submodule status
-+83298f72c975c29f727c846579c297938492b245 lib/ToProgress (0.1.1-8-g83298f7)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git submodule status
++83298f72c975c29f727c846579c297938492b245 lib/ToProgress <span class="o">(</span><span class="m">0</span>.1.1-8-g83298f7<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>还记得那个小的 “+” 符号吗？ 这表明子模块发生了变化，我们当前签出的子模块版本不是主项目使用的中的 “官方” 版本。</p>
 
 <p>使用 “update” 命令可以帮助我们修正它：</p>
-
-<pre><code class="language-bash">$ git submodule update lib/service
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git submodule update lib/service</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note: 在大多数情况下，使用 “git submodule” 家族的命令是不需要指定一个特定子模块的。但是正如上面的例子一样，如果我们给出一个子模块的路径，这个操作就只会针对那个给定的子模块。</p>
 </blockquote>
@@ -383,29 +458,46 @@ Fast-forward
 <h2 id="2-6-检查子模块的最新变化">2.6. 检查子模块的最新变化</h2>
 
 <p>让我们来看看子模块是否提供了新的代码版本：</p>
-
-<pre><code class="language-bash">$ cd lib/service
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> lib/service
 $ git fetch
-remote: Counting objects: 3, done.
-remote: Compressing objects: 100% (3/3), done.
-remote: Total 3 (delta 0), reused 0 (delta 0),pack-reused 0
-Unpacking objects: 100% (3/3), done.
+remote: Counting objects: <span class="m">3</span>, <span class="k">done</span>.
+remote: Compressing objects: <span class="m">100</span>% <span class="o">(</span><span class="m">3</span>/3<span class="o">)</span>, <span class="k">done</span>.
+remote: Total <span class="m">3</span> <span class="o">(</span>delta <span class="m">0</span><span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta <span class="m">0</span><span class="o">)</span>,pack-reused <span class="m">0</span>
+Unpacking objects: <span class="m">100</span>% <span class="o">(</span><span class="m">3</span>/3<span class="o">)</span>, <span class="k">done</span>.
 From https://github.com/kuroko/service
-    83298f7..3e20bc2  master     -&gt; origin/master
-</code></pre>
-
+    83298f7..3e20bc2  master     -&gt; origin/master</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note: 现在我们切换到了子模块的文件夹，之后的操作就像对待任何一个普通的项目仓库一样（因为它就是一个普通的 Git 仓库）。
 现在 “git fetch” 命令显示，当前的确存在一些新的改动在子模块的远程上。</p>
 
 <p>在我们准备整合这些改动之前，我想再次重申一下：当检查这个子模块的状态时，我们会发现我们正处在一个 <code>detached HEAD</code> 上：</p>
 </blockquote>
-
-<pre><code class="language-bash">$ git status
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git status
 HEAD detached at 3557a0e
-nothing to commit, working directory clean
-</code></pre>
-
+nothing to commit, working directory clean</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>一般情况下，在 Git 中，你总是会签出某个分支，然而你也可以签出一个特定的 <code>提交(而不是分支)</code>。这是一种比较罕见的情况，在 Git 中通常应该避免。
 但是，在子模块上工作时，签出某个提交的情况是非常正确的。你要确保在你的项目中，签出一个确切的静态的提交(不是一个分支)， 并转移到一个较新的提交上</p>
@@ -414,22 +506,36 @@ nothing to commit, working directory clean
 <p>现在让我们通过拉取操作来整合那些新的改动到你的本地子模块仓库中吧。请注意！你不能使用那个简写的 “git pull” 命令语法，而是需要指定特定的远程和分支。</p>
 
 <p>这是因为我们正处于 “detached HEAD” 状态。因为在这个时刻你不是在本地分支上，你需要告诉 Git，你想要把拉取出来的改动整合到哪一个分支上去。</p>
-
-<pre><code class="language-bash">$ git pull origin master
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git pull origin master</code></pre></td></tr></table>
+</div>
+</div>
 <p>如果你现在已经执行过一遍 “git status” 命令了，你会发现我们的状态仍然处于 detached HEAD，并且在同一个提交上，当前被签出的内容并没有发生改变。如果我们在项目中想要使用这个升级后的子模块的代码，我们必须明确地将 HEAD 指针移动到分支上：</p>
-
-<pre><code class="language-bash">$ git checkout master
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git checkout master</code></pre></td></tr></table>
+</div>
+</div>
 <p>我们已经完成了在子模块上的工作，现在让我们切换回我们主项目吧：</p>
-
-<pre><code class="language-bash">$ cd ../..
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> ../..
 $ git submodule status
-+3e20bc25457aa56bdb243c0e5c77549ea0a6a927 lib/service (0.1.1-9-g3e20bc2)
-</code></pre>
-
++3e20bc25457aa56bdb243c0e5c77549ea0a6a927 lib/service <span class="o">(</span><span class="m">0</span>.1.1-9-g3e20bc2<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>由于我们刚刚移动了子模块的指针到了一个不同的版本，我们需要将这个改动提交到父仓库中去，从而让它成为主项目当前正式引用的 “官方” 版本。</p>
 
 <h2 id="2-7-在子模块上工作">2.7. 在子模块上工作</h2>
@@ -443,11 +549,16 @@ $ git submodule status
 <p>除此之外，你已经学到的其它一切 Git 操作都仍然适用。在主项目中 “git submodule status” 会告诉你指向该子模块的指针被移动了，你必须提交这个改动。</p>
 
 <p>顺便提一下，如果你的子模块中还有_未提交_的改动，Git 也会在主项目中提醒你：</p>
-
-<pre><code class="language-git">$ git status
-modified:   lib/service (modified content)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-git" data-lang="git"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-git" data-lang="git">$ git status
+modified:   lib/service (modified content)</code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note: 请务必始终保持子模块有一个干净的状态。</p>
 </blockquote>
@@ -455,14 +566,22 @@ modified:   lib/service (modified content)
 <h2 id="2-8-删除一个子模块">2.8. 删除一个子模块</h2>
 
 <p>尽管很少会从项目中删除一个子模块，但是如果你确定想要这么做，也请不要手动地删除它，一旦所的有配置文件被打乱，将会不可避免地导致出现一系列问题。</p>
-
-<pre><code class="language-bash">$ git submodule deinit lib/service
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git submodule deinit lib/service
 $ git rm lib/service
 $ git status
 modified:   .gitmodules
-deleted:    lib/service
-</code></pre>
-
+deleted:    lib/service</code></pre></td></tr></table>
+</div>
+</div>
 <p>使用 <code>git submodule deinit</code>, 我们可以确保从配置文件中完全的删除一个子模块，使用 <code>git rm</code>， 我们可以最终删除这个子模块的文件，包括一些其他废弃的部分。</p>
 
 <p>最后，提交这些改动，这个子模块就会从你的项目中被彻底的删除掉。</p>
@@ -578,18 +697,19 @@ deleted:    lib/service
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

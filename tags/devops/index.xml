@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Devops on Zher</title>
+    <title>devops on Zher</title>
     <link>https://zhezh09.github.io/tags/devops/</link>
-    <description>Recent content in Devops on Zher</description>
+    <description>Recent content in devops on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 29 Oct 2018 16:58:16 +0800</lastBuildDate>
@@ -28,9 +28,7 @@
 &lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/cloud/docker/docker-compose-note/&#34;&gt;Docker-Compose 基础&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/cloud/docker/registry-and-webui/&#34;&gt;Docker Registry 服务部署&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -41,9 +39,7 @@
       <guid>https://zhezh09.github.io/post/tech/cloud/devops/20180929-cicd-05-create-oauth-app-on-bitbucket-server/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
-&lt;p&gt;How to add an OAuth consumer(Application Links) to Bitbucket Server ?&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;How to add an OAuth consumer(Application Links) to Bitbucket Server ?&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -58,9 +54,7 @@
 &lt;li&gt;基于 Docker 部署 Bitbucket Server&lt;/li&gt;
 &lt;li&gt;基于 Docker 部署 Jira&lt;/li&gt;
 &lt;li&gt;基于 Docker 部署 Confluence&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -78,9 +72,7 @@
 &lt;li&gt;怎么启动 Drone Service&lt;/li&gt;
 &lt;li&gt;实践过程中踩过那些坑&lt;/li&gt;
 &lt;li&gt;&amp;hellip;&amp;hellip;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -99,8 +91,7 @@
 &lt;li&gt;Drone 的运作原理(架构)&lt;/li&gt;
 &lt;li&gt;Drone 的基本术语&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -113,9 +104,7 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;了解当下主流的 CI/CD 方案&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -130,9 +119,7 @@
 &lt;li&gt;持续集成&lt;/li&gt;
 &lt;li&gt;持续交付&lt;/li&gt;
 &lt;li&gt;持续部署&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -145,9 +132,7 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -160,9 +145,7 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;每个服务程序，基本上都会指定一个或多个配置文件，用来定制其所要启用的功能，Grafana 也不例外，那么 Grafana 的配置文件有哪些，以及提供了什么样的配置选项呢？&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -177,9 +160,7 @@
 &lt;li&gt;Grafana 能干什么？&lt;/li&gt;
 &lt;li&gt;Grafana 有什么特性？&lt;/li&gt;
 &lt;li&gt;用好 Grafana, 需要了解什么，即-基本概念&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -192,9 +173,7 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;cAdvisor 作为监控系统的数据采集模块，那么可以采集到那些指标参数呢？&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -207,9 +186,7 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;有关 cAdvisor 的基础知识、安装和使用方法介绍&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -218,9 +195,7 @@
       <pubDate>Wed, 18 Jul 2018 18:57:08 +0000</pubDate>
       
       <guid>https://zhezh09.github.io/post/tech/cloud/monitor/about-monitor-system/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
   </channel>

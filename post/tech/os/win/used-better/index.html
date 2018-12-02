@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +17,6 @@ There are two possible situations that led to this error:
 
 
 <meta name="author" content="zher" /><meta name="description" content="收藏一些让 Win 更好用的方法
-
 " /><meta name="keywords" content="zher, blog, tech, essay, life, footprint" />
 
 
@@ -34,7 +24,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/os/win/used-better/" />
@@ -44,48 +34,28 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="让 Win 更好用的技巧" />
 <meta property="og:description" content="
 
-收藏一些让 Win 更好用的方法
-
-" />
+收藏一些让 Win 更好用的方法" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/os/win/used-better/" />
-
-
-
-<meta property="article:published_time" content="2018-09-24T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/os/win/used-better/" /><meta property="article:published_time" content="2018-09-24T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-09-24T16:01:23&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="让 Win 更好用的技巧">
 <meta itemprop="description" content="
 
-收藏一些让 Win 更好用的方法
-
-">
+收藏一些让 Win 更好用的方法">
 
 
 <meta itemprop="datePublished" content="2018-09-24T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-09-24T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="167">
+<meta itemprop="dateModified" content="2018-09-24T16:01:23&#43;00:00" />
+<meta itemprop="wordCount" content="175">
 
 
 
@@ -94,9 +64,7 @@ There are two possible situations that led to this error:
 <meta name="twitter:title" content="让 Win 更好用的技巧"/>
 <meta name="twitter:description" content="
 
-收藏一些让 Win 更好用的方法
-
-"/>
+收藏一些让 Win 更好用的方法"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -170,7 +138,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 167 words </span>
+          <span class="more-meta"> 175 words </span>
           <span class="more-meta"> 1 min read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -194,8 +162,6 @@ There are two possible situations that led to this error:
 
 <p>收藏一些让 Win 更好用的方法</p>
 
-<p></p>
-
 <h1 id="lenovo-屏蔽-fn-键">Lenovo 屏蔽 Fn 键</h1>
 
 <ol>
@@ -215,24 +181,40 @@ There are two possible situations that led to this error:
 
 <ul>
 <li><p>创建 clean.bat 文件，并以管理员权限执行, 文件内容如下：</p>
-
-<pre><code class="language-bat">reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&quot; /v 29 /d &quot;%systemroot%\system32\imageres.dll,197&quot; /t reg_sz /f
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bat" data-lang="bat"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bat" data-lang="bat">reg add <span class="s2">&#34;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&#34;</span> /v 29 /d <span class="s2">&#34;</span><span class="nv">%systemroot%</span><span class="s2">\system32\imageres.dll,197&#34;</span> /t reg_sz /f
 taskkill /f /im explorer.exe
-start explorer
-pause
-</code></pre></li>
+<span class="k">start</span> explorer
+pause</code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 
 <h1 id="恢复桌面文件夹角标">恢复桌面文件夹角标</h1>
 
 <ul>
 <li><p>创建 recover.bat 文件，并以管理员权限执行，文件内容如下：</p>
-
-<pre><code class="language-bat">reg delete &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&quot; /v 29 /f
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bat" data-lang="bat"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bat" data-lang="bat">reg delete <span class="s2">&#34;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons&#34;</span> /v 29 /f
 taskkill /f /im explorer.exe
-start explorer
-pause
-</code></pre></li>
+<span class="k">start</span> explorer
+pause</code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
     </div>
 
@@ -334,18 +316,19 @@ pause
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docker on Zher</title>
+    <title>docker on Zher</title>
     <link>https://zhezh09.github.io/tags/docker/</link>
-    <description>Recent content in Docker on Zher</description>
+    <description>Recent content in docker on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 26 Oct 2018 09:48:45 +0800</lastBuildDate>
@@ -21,9 +21,7 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;背景：最近基于 Drone 搭建了用于公司内部使用的 CI/CD 平台，而 CI/CD 过程中生成的 Docker Image 需要能够进行集中式的存储和管理 (即：&lt;code&gt;push&lt;/code&gt;、&lt;code&gt;pull&lt;/code&gt;、&lt;code&gt;delete&lt;/code&gt; 等)，且不能将其上传到公网环境中去，因此，有必要自己动手搭建 &lt;code&gt;Docker Private Registry&lt;/code&gt; 完成镜像的存储与分发任务。当然，仓库搭建完成后，能够可视化的管理也就很有必要了，像浏览 Docker Hub 一样&amp;hellip;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
     <item>
@@ -36,9 +34,7 @@
 
 &lt;blockquote&gt;
 &lt;p&gt;平时启动容器的时候，一般会使用 &lt;code&gt;docker run&lt;/code&gt; 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，&lt;code&gt;docker run&lt;/code&gt; 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 &lt;a href=&#34;https://docs.docker.com/compose/overview/&#34;&gt;Compose&lt;/a&gt;, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/blockquote&gt;</description>
     </item>
     
   </channel>

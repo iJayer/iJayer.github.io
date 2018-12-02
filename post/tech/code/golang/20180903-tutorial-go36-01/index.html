@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +23,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/" />
@@ -42,40 +33,24 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="『Go核心36讲』| 01-基础概念补漏" />
 <meta property="og:description" content="『Go核心36讲』| 01-基础概念补漏" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/" />
-
-
-
-<meta property="article:published_time" content="2018-09-03T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/" /><meta property="article:published_time" content="2018-09-03T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-11-16T11:12:12&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="『Go核心36讲』| 01-基础概念补漏">
 <meta itemprop="description" content="『Go核心36讲』| 01-基础概念补漏">
 
 
 <meta itemprop="datePublished" content="2018-09-03T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-09-03T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="4870">
+<meta itemprop="dateModified" content="2018-11-16T11:12:12&#43;00:00" />
+<meta itemprop="wordCount" content="4951">
 
 
 
@@ -156,7 +131,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 4870 words </span>
+          <span class="more-meta"> 4951 words </span>
           <span class="more-meta"> 10 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -215,8 +190,6 @@ There are two possible situations that led to this error:
 </div>
 </blockquote>
 
-<p></p>
-
 <h1 id="源码文件">源码文件</h1>
 
 <p>Go 中源码文件分为三种：命令源码文件、库源码文件和测试源码文件，它们都有着不同的用途和编写规则。</p>
@@ -229,15 +202,26 @@ There are two possible situations that led to this error:
 <p>命令源码文件是程序的运行入口，是每个可独立运行的程序必须拥有的。</p>
 
 <p>如果一个源码文件声明属于 <code>main</code> 包，并且包含一个无参数声明、无返回值声明的 <code>main</code> 函数，那么就是 <code>命令源码文件</code>，就像这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
-<pre><code class="language-go">package main
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
 
-import &quot;fmt&quot;
-
-func main() {
-    fmt.Println(&quot;hello world&quot;)
-}
-</code></pre></li>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello world&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>命令源码文件运行：</p>
 
@@ -317,12 +301,20 @@ func main() {
 
 <ul>
 <li><p>给包设置别名,调用的时候来区分开不同的 package, 比如:</p>
-
-<pre><code class="language-go">import (
-    &quot;flag&quot;
-    lflag &quot;lib/flag&quot;
-)
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;flag&#34;</span>
+    <span class="nx">lflag</span> <span class="s">&#34;lib/flag&#34;</span>
+<span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>导入的点操作，import(. &ldquo;lib/flag&rdquo;)。这样就可以直接调用 &ldquo;lib/flag&rdquo; 下面的函数而不用再 flag.funcname 的方式调用。</p></li>
 
@@ -411,23 +403,40 @@ func main() {
 <blockquote>
 <p>如果一个变量与其外层代码块中的变量重名会出现什么状况？ Demo 如下：</p>
 </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
-<pre><code class="language-go">package main
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
 
-import &quot;fmt&quot;
-
-var block = &quot;package&quot;       // 作用域：main 包
-
-func main() {
-    block := &quot;function&quot;     // 作用域：main 函数
-    {
-        block := &quot;inner&quot;    // 作用域：{} 内
-        fmt.Printf(&quot;The block is %s.\n&quot;, block)
-    }
-    fmt.Printf(&quot;The block is %s.\n&quot;, block)
-}
-</code></pre>
-
+<span class="kd">var</span> <span class="nx">block</span> <span class="p">=</span> <span class="s">&#34;package&#34;</span>       <span class="c1">// 作用域：main 包
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">block</span> <span class="o">:=</span> <span class="s">&#34;function&#34;</span>     <span class="c1">// 作用域：main 函数
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="nx">block</span> <span class="o">:=</span> <span class="s">&#34;inner&#34;</span>    <span class="c1">// 作用域：{} 内
+</span><span class="c1"></span>        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The block is %s.\n&#34;</span><span class="p">,</span> <span class="nx">block</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The block is %s.\n&#34;</span><span class="p">,</span> <span class="nx">block</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li><p>问题一：该源码文件中的代码能通过编译吗？如果不能，原因是什么？如果能，运行它后会打印出什么内容？</p>
 
@@ -507,22 +516,40 @@ func main() {
 <li><p>数据分为有符号数和无符号数：无符号数都是正数，由十进制直接转换到二进制直接存储(其实也是该十进制的补码)即可。 有符号数用在计算机内部是以补码的形式储存的。( 正数的最高位是符号位0, 负数的最高位是符号位1。 对于正数: 反码==补码==原码。 对于负数: 反码==除符号位以外的各位取反。补码=反码+1)</p></li>
 
 <li><p>原码：原码就是符号位加上真值的绝对值, 即用最左边第一位表示符号, 其余位表示值</p>
-
-<pre><code>原码: [+1]0000 0001 
-原码：[-1]1000 0001
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">原码: [+1]0000 0001 
+原码：[-1]1000 0001</pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>反码：正数的反码就是其本身；负数的反码就是在原码的基础上保持符号位不变，其余各位取反</p>
-
-<pre><code>原码:[+1]0000 0001 反码:0000 0001
-原码:[-1]1000 0001 反码:1111 1110
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">原码:[+1]0000 0001 反码:0000 0001
+原码:[-1]1000 0001 反码:1111 1110</pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>补码：正数的补码就是其本身；负数的补码就是在原码的基础上保持符号为不变，其余各位取反再加 1 ——即 <code>反码 +1</code></p>
-
-<pre><code>原码:[+1]0000 0001 反码:0000 0001 补码:0000 0001
-原码:[-1]1000 0001 反码:1111 1110 补码:1111 1111
-</code></pre></li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">原码:[+1]0000 0001 反码:0000 0001 补码:0000 0001
+原码:[-1]1000 0001 反码:1111 1110 补码:1111 1111</pre></td></tr></table>
+</div>
+</div></li>
 </ul></li>
 </ul></li>
 
@@ -530,15 +557,24 @@ func main() {
 
 <ul>
 <li><p>字符 <code>&quot;�&quot;</code> 的 Unicode 代码点是 U+FFFD。它是 Unicode 标准中定义的 Replacement Character，专用于替换那些未知的、不被认可的以及无法展示的字符。</p>
-
-<pre><code class="language-go">func main() {
-    i := -1
-    println(string(i))
-    // output:
-    // �
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="nb">println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
+    <span class="c1">// output:
+</span><span class="c1"></span>    <span class="c1">// �
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li><p>关于 Unicode 的扩展阅读</p>
 
@@ -567,61 +603,115 @@ func main() {
 
 <ul>
 <li><p>别名类型</p>
-
-<pre><code class="language-go">type MyString = string
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">MyString</span> <span class="p">=</span> <span class="kt">string</span>
     
-// Note：
-// 
-//  - MyString 是 string 类型的别名类型。顾名思义，别名类型与其源类型的区别恐怕只在名称上，它们是完全相同的
-//  - 源类型与别名类型是一对概念，是两个对立的称呼。别名类型主要是为了代码重构而存在的。
-//  - Go 语言内建的基本类型就存在两个别名类型。byte 是 unit8 的别名类型；rune 是 int32 的别名类型
-</code></pre></li>
+<span class="c1">// Note：
+</span><span class="c1">// 
+</span><span class="c1">//  - MyString 是 string 类型的别名类型。顾名思义，别名类型与其源类型的区别恐怕只在名称上，它们是完全相同的
+</span><span class="c1">//  - 源类型与别名类型是一对概念，是两个对立的称呼。别名类型主要是为了代码重构而存在的。
+</span><span class="c1"></span><span class="o">//</span>  <span class="o">-</span> <span class="nx">Go</span> <span class="nx">语言内建的基本类型就存在两个别名类型</span><span class="err">。</span><span class="kt">byte</span> <span class="nx">是</span> <span class="nx">unit8</span> <span class="nx">的别名类型</span><span class="err">；</span><span class="kt">rune</span> <span class="nx">是</span> <span class="kt">int32</span> <span class="nx">的别名类型</span></code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>类型再定义</p>
-
-<pre><code class="language-go">type MyString string // 注意：这里没有等号
-
-// Note:
-//  - MyString2 和 string 这里属于两个不同的类型，MyString2 是一个新的类型，不同于其他任何类型，属于类型再定义，而 string 类型就被称为 MyString2 类型的潜在类型(潜在类型的含义是某个类型在本质上是哪个类型或者那个类型的集合)
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">MyString</span> <span class="kt">string</span> <span class="c1">// 注意：这里没有等号
+</span><span class="c1"></span>
+<span class="c1">// Note:
+</span><span class="c1"></span><span class="o">//</span>  <span class="o">-</span> <span class="nx">MyString2</span> <span class="nx">和</span> <span class="kt">string</span> <span class="nx">这里属于两个不同的类型</span><span class="err">，</span><span class="nx">MyString2</span> <span class="nx">是一个新的类型</span><span class="err">，</span><span class="nx">不同于其他任何类型</span><span class="err">，</span><span class="nx">属于类型再定义</span><span class="err">，</span><span class="nx">而</span> <span class="kt">string</span> <span class="nx">类型就被称为</span> <span class="nx">MyString2</span> <span class="nx">类型的潜在类型</span><span class="p">(</span><span class="nx">潜在类型的含义是某个类型在本质上是哪个类型或者那个类型的集合</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>Demo 说明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
-<pre><code class="language-go">package main
+<span class="kn">import</span> <span class="s">&#34;reflect&#34;</span>
 
-import &quot;reflect&quot;
+<span class="c1">// MyString 定义为 string 类型的别名
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">MyString</span> <span class="p">=</span> <span class="kt">string</span>
 
-// MyString 定义为 string 类型的别名
-type MyString = string
+<span class="c1">// MyString2 属于类型再定义，其潜在类型为 string 类型
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">MyString2</span> <span class="kt">string</span>
 
-// MyString2 属于类型再定义，其潜在类型为 string 类型
-type MyString2 string
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">printInvalidUnicode</span><span class="p">()</span>
+    <span class="nf">testTypeAlias</span><span class="p">()</span>
+<span class="p">}</span>
 
-func main() {
-    printInvalidUnicode()
-    testTypeAlias()
-}
+<span class="kd">func</span> <span class="nf">printInvalidUnicode</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="nb">println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
+    <span class="c1">// output:
+</span><span class="c1"></span>    <span class="c1">// �
+</span><span class="c1"></span><span class="p">}</span>
 
-func printInvalidUnicode() {
-    i := -1
-    println(string(i))
-    // output:
-    // �
-}
+<span class="kd">func</span> <span class="nf">testTypeAlias</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="nx">MyString</span>
+    <span class="kd">var</span> <span class="nx">ss</span> <span class="nx">MyString2</span>
 
-func testTypeAlias() {
-    var s MyString
-    var ss MyString2
+    <span class="nb">println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">s</span><span class="p">).</span><span class="nf">String</span><span class="p">())</span>
+    <span class="nb">println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">ss</span><span class="p">).</span><span class="nf">String</span><span class="p">())</span>
 
-    println(reflect.TypeOf(s).String())
-    println(reflect.TypeOf(ss).String())
-
-    // output:
-    // string
-    // main.MyString2
-}
-</code></pre>
-
+    <span class="c1">// output:
+</span><span class="c1"></span>    <span class="c1">// string
+</span><span class="c1"></span>    <span class="c1">// main.MyString2
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>Note: 即使两个类型的潜在类型相同，它们的值之间也不能进行判等或比较，它们的变量之间也不能赋值。</p>
 </blockquote></li>
@@ -746,18 +836,19 @@ func testTypeAlias() {
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

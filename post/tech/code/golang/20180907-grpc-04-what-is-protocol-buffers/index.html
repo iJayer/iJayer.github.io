@@ -1,12 +1,3 @@
-
-
-There are two possible situations that led to this error:
-  1. You haven&#39;t copied the config.toml yet. See https://github.com/olOwOlo/hugo-theme-even#installation 
-  2. You have an incompatible update. See https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
-
-有两种可能的情况会导致这个错误发生:
-  1. 你还没有复制 config.toml 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/README-zh.md#installation 
-  2. 你进行了一次不兼容的更新 参考 https://github.com/olOwOlo/hugo-theme-even/blob/master/CHANGELOG.md#400-2018-11-06 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +23,7 @@ There are two possible situations that led to this error:
 
 
 
-<meta name="generator" content="Hugo 0.46 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/" />
@@ -42,40 +33,24 @@ There are two possible situations that led to this error:
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
-<script>eruda.init();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <link href="/dist/even.93844dae.min.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Golang | gRPC学习笔记-04 | 什么是 Protocol Buffers？" />
 <meta property="og:description" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/" />
-
-
-
-<meta property="article:published_time" content="2018-09-07T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/" /><meta property="article:published_time" content="2018-09-07T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-09-08T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="Golang | gRPC学习笔记-04 | 什么是 Protocol Buffers？">
 <meta itemprop="description" content="Golang: gRPC学习笔记-04 | 什么是 Protocol Buffers？">
 
 
 <meta itemprop="datePublished" content="2018-09-07T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-09-07T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="6344">
+<meta itemprop="dateModified" content="2018-09-08T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="6454">
 
 
 
@@ -156,7 +131,7 @@ There are two possible situations that led to this error:
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 6344 words </span>
+          <span class="more-meta"> 6454 words </span>
           <span class="more-meta"> 13 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -238,8 +213,6 @@ There are two possible situations that led to this error:
 <li><code>.proto</code> 文件写好了怎么用？</li>
 </ul>
 
-<p></p>
-
 <blockquote>
 <p>本指南描述了怎样使用 protocol buffer 语言来构造你的 protocol buffer 数据，包括 <code>.proto</code> 文件语法以及怎样生成.proto 文件的数据访问类。</p>
 </blockquote>
@@ -283,16 +256,26 @@ There are two possible situations that led to this error:
 <h2 id="2-1-定义消息类型">2.1. 定义消息类型</h2>
 
 <p>先来看一个非常简单的例子。假设你想定义一个 &ldquo;搜索请求&rdquo; 的消息格式，每一个请求含有一个查询字符串、你感兴趣的查询结果所在的页数，以及每一页有多少条查询结果。可以采用如下的方式来定义消息类型的 <code>.proto</code> 文件了：</p>
-
-<pre><code>syntax = &quot;proto3&quot;
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">syntax = &#34;proto3&#34;
 
 message SearchRequest {
     string query = 1;
     int32 page_number = 2;
     int32 result_per_page = 3;
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li><p><code>.proto</code> 文件的第一个非空，非注释的行用来声明版本: 即 <code>syntax = &quot;proto3&quot;</code>，不填写的话默认为 <code>proto2</code></p></li>
 
@@ -325,42 +308,72 @@ message SearchRequest {
 <h3 id="2-1-4-添加更多消息类型">2.1.4. 添加更多消息类型</h3>
 
 <p>在一个.proto文件中可以定义多个消息类型。在定义多个相关的消息的时候，这一点特别有用——例如，如果想定义与SearchResponse消息类型对应的回复消息格式的话，你可以将它添加到相同的.proto文件中，如：</p>
-
-<pre><code class="language-proto">message SearchRequest {
-  string query = 1;
-  int32 page_number = 2;
-  int32 result_per_page = 3;
-}
-
-message SearchResponse {
- ...
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="kd">message</span> <span class="nc">SearchRequest</span> <span class="p">{</span><span class="err">
+</span><span class="err"></span>  <span class="kt">string</span> <span class="n">query</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>  <span class="kt">int32</span> <span class="n">page_number</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>  <span class="kt">int32</span> <span class="n">result_per_page</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span><span class="err">
+</span><span class="err"></span><span class="p">}</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="kd">message</span> <span class="nc">SearchResponse</span> <span class="p">{</span><span class="err">
+</span><span class="err"></span> <span class="o">...</span><span class="err">
+</span><span class="err"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="2-1-5-添加注释">2.1.5. 添加注释</h3>
 
 <p>向.proto文件添加注释，可以使用C/C++/java风格的双斜杠（//） 语法格式，如：</p>
-
-<pre><code class="language-proto">/* SearchRequest represents a search query, with pagination options to
- * indicate which results to include in the response. */
-
-message SearchRequest {
-  string query = 1;
-  int32 page_number = 2;  // Which page number do we want?
-  int32 result_per_page = 3;  // Number of results to return per page.
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="cm">/* SearchRequest represents a search query, with pagination options to
+</span><span class="cm"> * indicate which results to include in the response. */</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="kd">message</span> <span class="nc">SearchRequest</span> <span class="p">{</span><span class="err">
+</span><span class="err"></span>  <span class="kt">string</span> <span class="n">query</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>  <span class="kt">int32</span> <span class="n">page_number</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>  <span class="c1">// Which page number do we want?
+</span><span class="c1"></span>  <span class="kt">int32</span> <span class="n">result_per_page</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>  <span class="c1">// Number of results to return per page.
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="2-1-6-保留字段">2.1.6. 保留字段</h3>
 
 <p>如果你通过移除一个字段或注释掉一个字段来更新一条消息, 将来的用户可以重用这个标签数字. 如果它们延迟加载旧版本的 .proto 的话, 这可能导致一些问题. 一种防止这不会出现的方式是, 为这些字段标识为 <code>reserved</code> . 如果将来任意有人试图使用这些标识的话，编译器会报错。</p>
-
-<pre><code>message Foo {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">message Foo {
   reserved 2, 15, 9 to 11;
-  reserved &quot;foo&quot;, &quot;bar&quot;;
-}
-</code></pre>
-
+  reserved &#34;foo&#34;, &#34;bar&#34;;
+}</pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>请注意：在 <code>reserved</code> 语句中, 不能混合数字和名字.</p>
 </blockquote>
@@ -382,16 +395,26 @@ message SearchRequest {
 <h2 id="2-3-默认值">2.3. 默认值</h2>
 
 <p>析消息时，如果编码消息不包含特定的单数元素，则解析对象中的相应字段将设置为该字段的默认值。这些默认值是特定于类型的：</p>
-
-<pre><code>string :    空字符串 “”
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">string :    空字符串 “”
 bytes :     空字节
 bool :      false
 数值类型 :  0
 enum :      首个枚举值, 必须为 0
 message     字段 : 这是依赖于具体的语言的
-repeated    字段: 通常是一个空列表
-</code></pre>
-
+repeated    字段: 通常是一个空列表</pre></td></tr></table>
+</div>
+</div>
 <blockquote>
 <p>注意：一旦消息被解析后，就没有任何方式获知这个字段是否被明确的设置为默认值了(例如：布尔值是否设置为false) 或者说根本就没有设置：在定义消息类型时，你应该牢记这一点。例如：如果你不希望默认情况下也发生这种行为的话，就不要使用 <code>boolean</code> 值，当其被设置为 false 时，会在一些行为中切换。另请注意，如果标量消息字段设置为其默认值，则该值不会在传输过程中序列化。</p>
 </blockquote>
@@ -401,8 +424,26 @@ repeated    字段: 通常是一个空列表
 <p>当需要定义一个消息类型的时候，可能想为一个字段指定某“预定义值序列”中的一个值。例如，假设要为每一个SearchRequest消息添加一个 corpus字段，而corpus的值可能是UNIVERSAL，WEB，IMAGES，LOCAL，NEWS，PRODUCTS或VIDEO中的一个。 其实可以很容易地实现这一点：通过向消息定义中添加一个枚举（enum）就可以了。一个enum类型的字段只能用指定的常量集中的一个值作为其值（如果尝 试指定不同的值，解析器就会把它当作一个未知的字段来对待）。</p>
 
 <p>在下面的例子中，在消息格式中添加了一个叫做Corpus的枚举类型——它含有所有可能的值 ——以及一个类型为Corpus的字段：</p>
-
-<pre><code>message SearchRequest {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">message SearchRequest {
   string query = 1;
   int32 page_number = 2;
   int32 result_per_page = 3;
@@ -416,9 +457,9 @@ repeated    字段: 通常是一个空列表
     VIDEO = 6;
   }
   Corpus corpus = 4;
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>正如您所看到的，Corpus枚举的第一个常量映射为零：每个枚举定义必须包含一个映射到零的常量作为其第一个元素。这是因为：</p>
 
 <ul>
@@ -427,8 +468,22 @@ repeated    字段: 通常是一个空列表
 </ul>
 
 <p>你可以为枚举常量定义别名。 需要设置allow_alias option 为 true, 否则 protocol编译器会产生错误信息。</p>
-
-<pre><code>enum EnumAllowingAlias {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">enum EnumAllowingAlias {
   option allow_alias = true;
   UNKNOWN = 0;
   STARTED = 1;
@@ -438,9 +493,9 @@ enum EnumNotAllowingAlias {
   UNKNOWN = 0;
   STARTED = 1;
   // RUNNING = 1;  // Uncommenting this line will cause a compile error inside Google and a warning message outside.
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>枚举常量必须在32位整型值的范围内。因为enum值是使用可变编码方式的，对负数不够高效，因此不推荐在enum中使用负数。如上例所示，可以在 一个消息定义的内部或外部定义枚举——这些枚举可以在.proto文件中的任何消息定义里重用。当然也可以在一个消息中声明一个枚举类型，而在另一个不同 的消息中使用它——采用MessageType.EnumType的语法格式。</p>
 
 <p>当对一个使用了枚举的.proto文件运行protocol buffer编译器的时候，生成的代码中将有一个对应的enum（对Java或C++来说），或者一个特殊的EnumDescriptor类（对 Python来说），它被用来在运行时生成的类中创建一系列的整型值符号常量（symbolic constants）。</p>
@@ -452,18 +507,30 @@ enum EnumNotAllowingAlias {
 <h2 id="2-5-使用其他消息类型">2.5. 使用其他消息类型</h2>
 
 <p>你可以将其他消息类型用作字段类型。例如，假设在每一个SearchResponse消息中包含Result消息，此时可以在相同的.proto文件中定义一个Result消息类型，然后在SearchResponse消息中指定一个Result类型的字段，如</p>
-
-<pre><code class="language-proto">message SearchResponse {
-  repeated Result results = 1;
-}
-
-message Result {
-  string url = 1;
-  string title = 2;
-  repeated string snippets = 3;
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="kd">message</span> <span class="nc">SearchResponse</span> <span class="p">{</span><span class="err">
+</span><span class="err"></span>  <span class="k">repeated</span> <span class="n">Result</span> <span class="n">results</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span><span class="p">}</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="kd">message</span> <span class="nc">Result</span> <span class="p">{</span><span class="err">
+</span><span class="err"></span>  <span class="kt">string</span> <span class="n">url</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>  <span class="kt">string</span> <span class="n">title</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>  <span class="k">repeated</span> <span class="kt">string</span> <span class="n">snippets</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span><span class="err">
+</span><span class="err"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="2-5-1-导入定义">2.5.1. 导入定义</h3>
 
 <p>在上面的例子中，Result消息类型与SearchResponse是定义在同一文件中的。如果想要使用的消息类型已经在其他.proto文件中已经定义过了呢？</p>
@@ -485,42 +552,76 @@ message Result {
 <h2 id="2-6-嵌套类型">2.6. 嵌套类型</h2>
 
 <p>你可以在其他消息类型中定义、使用消息类型，在下面的例子中，Result消息就定义在SearchResponse消息内，如：</p>
-
-<pre><code class="language-proto">message SearchResponse {
-  message Result {
-    string url = 1;
-    string title = 2;
-    repeated string snippets = 3;
-  }
-  repeated Result results = 1;
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="kd">message</span> <span class="nc">SearchResponse</span> <span class="p">{</span><span class="err">
+</span><span class="err"></span>  <span class="kd">message</span> <span class="nc">Result</span> <span class="p">{</span><span class="err">
+</span><span class="err"></span>    <span class="kt">string</span> <span class="n">url</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>    <span class="kt">string</span> <span class="n">title</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>    <span class="k">repeated</span> <span class="kt">string</span> <span class="n">snippets</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>  <span class="p">}</span><span class="err">
+</span><span class="err"></span>  <span class="k">repeated</span> <span class="n">Result</span> <span class="n">results</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>如果你想在它的父消息类型的外部重用这个消息类型，你需要以Parent.Type的形式使用它，如：</p>
-
-<pre><code class="language-proto">message SomeOtherMessage {
-  SearchResponse.Result result = 1;
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="kd">message</span> <span class="nc">SomeOtherMessage</span> <span class="p">{</span><span class="err">
+</span><span class="err"></span>  <span class="n">SearchResponse.Result</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>当然，你也可以将消息嵌套任意多层，如：</p>
-
-<pre><code class="language-proto">message Outer {       // Level 0
-  message MiddleAA {  // Level 1
-    message Inner {   // Level 2
-      int64 ival = 1;
-      bool  booly = 2;
-    }
-  }
-  message MiddleBB {  // Level 1
-    message Inner {   // Level 2
-      int32 ival = 1;
-      bool  booly = 2;
-    }
-  }
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-proto" data-lang="proto"><span class="kd">message</span> <span class="nc">Outer</span> <span class="p">{</span>       <span class="c1">// Level 0
+</span><span class="c1"></span>  <span class="kd">message</span> <span class="nc">MiddleAA</span> <span class="p">{</span>  <span class="c1">// Level 1
+</span><span class="c1"></span>    <span class="kd">message</span> <span class="nc">Inner</span> <span class="p">{</span>   <span class="c1">// Level 2
+</span><span class="c1"></span>      <span class="kt">int64</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>      <span class="kt">bool</span>  <span class="n">booly</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>    <span class="p">}</span><span class="err">
+</span><span class="err"></span>  <span class="p">}</span><span class="err">
+</span><span class="err"></span>  <span class="kd">message</span> <span class="nc">MiddleBB</span> <span class="p">{</span>  <span class="c1">// Level 1
+</span><span class="c1"></span>    <span class="kd">message</span> <span class="nc">Inner</span> <span class="p">{</span>   <span class="c1">// Level 2
+</span><span class="c1"></span>      <span class="kt">int32</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>      <span class="kt">bool</span>  <span class="n">booly</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="err">
+</span><span class="err"></span>    <span class="p">}</span><span class="err">
+</span><span class="err"></span>  <span class="p">}</span><span class="err">
+</span><span class="err"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="2-7-更新一个消息类型">2.7. 更新一个消息类型</h2>
 
 <p>如果一个已有的消息格式已无法满足新的需求 —— 如，要在消息中添加一个额外的字段——但是同时旧版本写的代码仍然可用。不用担心！更新消息而不破坏已有代码是非常简单的。在更新时只要记住以下的规则即可。</p>
@@ -546,15 +647,24 @@ message Result {
 <p>Any message 类型允许你使用它来作为内嵌的类型而不必需要在 .proto 文件中定义它们. Any 用 bytes 保存一个任意序列化后的消息， 以及一个 URL，该 URL 充当该消息类型的全局唯一标识符并对其进行解析.</p>
 
 <p>使用 <code>Any</code> type 类型，需要导入 <code>google/protobuf/any.proto</code></p>
-
-<pre><code>import &quot;google/protobuf/any.proto&quot;
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">import &#34;google/protobuf/any.proto&#34;
 
 message ErrorStatus {
     string message = 1;
     repeated google.protobuf.Any deatils = 2;
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <h2 id="2-10-oneof">2.10. Oneof</h2>
 
 <p>如果你的消息中有很多可选字段， 但同一时间, 只允许设置一个字段值.， 你可以加强这个行为，使用oneof特性节省内存.</p>
@@ -564,15 +674,24 @@ message ErrorStatus {
 <h3 id="2-10-1-使用-oneof">2.10.1. 使用 Oneof</h3>
 
 <p>为了在.proto定义Oneof字段， 你需要在名字前面加上oneof关键字, 比如下面例子的test_oneof:</p>
-
-<pre><code>message SampleMessage {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">message SampleMessage {
   oneof test_oneof {
     string name = 4;
     SubMessage sub_message = 9;
   }
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>然后你可以增加oneof字段到 oneof 定义中. 你可以增加任意类型的字段, 但是不能使用 repeated 关键字.</p>
 
 <p>在产生的代码中, oneof字段拥有同样的 getters 和setters， 就像正常的可选字段一样. 也有一个特殊的方法来检查到底那个字段被设置. 你可以在相应的语言API中找到oneof API介绍.</p>
@@ -602,17 +721,25 @@ message ErrorStatus {
 <h2 id="2-11-maps">2.11. Maps</h2>
 
 <p>语法：</p>
-
-<pre><code>map&lt;key_type, value_type&gt; map_field = N;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">map&lt;key_type, value_type&gt; map_field = N;</pre></td></tr></table>
+</div>
+</div>
 <p>&hellip;where the <code>key_type</code> can be any integral or string type (so, any <code>scalar type</code> except for floating point types and bytes). Note that enum is not a valid key_type. The <code>value_type</code> can be any type except another map.</p>
 
 <p>例子：</p>
-
-<pre><code>map&lt;string, Project&gt; projects = 3;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">map&lt;string, Project&gt; projects = 3;</pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>map 字段不能是 repeated 的</li>
 <li>不能依赖于 map 的值的顺序.</li>
@@ -625,20 +752,33 @@ message ErrorStatus {
 <h2 id="2-12-包-package">2.12. 包 Package</h2>
 
 <p>You can add an optional package specifier to a .proto file to prevent name clashes(命名冲突) between protocol message types.</p>
-
-<pre><code>package foo.bar;
-message Open { ... }
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"><span class="kn">package</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">;</span>
+<span class="nx">message</span> <span class="nx">Open</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span></pre></td></tr></table>
+</div>
+</div>
 <p>You can then use the package specifier when defining fields of your message type</p>
-
-<pre><code>message Foo {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">message Foo {
   ...
   foo.bar.Open open = 1;
   ...
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <h3 id="2-12-1-包及名称的解析">2.12.1. 包及名称的解析</h3>
 
 <p>工作原理类似 C++.</p>
@@ -650,12 +790,18 @@ message Open { ... }
 <p>If you want to use your message types with an RPC (Remote Procedure Call) system, you can define an RPC service interface in a .proto file and the protocol buffer compiler will generate service interface code and stubs in your chosen language. So, for example, if you want to define an RPC service with a method that takes your SearchRequest and returns a SearchResponse, you can define it in your .proto file as follows:</p>
 
 <p>如果你想在 RPC 中使用你的 messages 类型. 你可以在 .proto 文件中定义一个 RPC 服务接口, 这样子编译器就会为你的语言生成服务接口了.例如</p>
-
-<pre><code>service SearchService {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">service SearchService {
     rpc Search (SearcRequest) returns (SearchResponse)
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <h2 id="2-14-json-映射">2.14. JSON 映射</h2>
 
 <p>If a value is missing in the JSON-encoded data or if its value is null, it will be interpreted(解读) as the appropriate(适当的) default value when parsed into a protocol buffer. If a field has the default value in the protocol buffer, it will be omitted(缺省) in the JSON-encoded data by default to save space. An implementation may provide options to emit fields(导出字段) with default values in the JSON-encoded output.</p>
@@ -681,10 +827,14 @@ message Open { ... }
 <h2 id="2-16-生成访问类">2.16. 生成访问类</h2>
 
 <p>可以通过定义好的.proto文件来生成Java、Python、C++代码，需要基于.proto文件运行protocol buffer编译器protoc。运行的命令如下所示：</p>
-
-<pre><code>protoc --proto_path=IMPORT_PATH --cpp_out=DST_DIR --java_out=DST_DIR --python_out=DST_DIR --go_out=DST_DIR --ruby_out=DST_DIR --objc_out=DST_DIR --csharp_out=DST_DIR path/to/file.proto
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">protoc --proto_path=IMPORT_PATH --cpp_out=DST_DIR --java_out=DST_DIR --python_out=DST_DIR --go_out=DST_DIR --ruby_out=DST_DIR --objc_out=DST_DIR --csharp_out=DST_DIR path/to/file.proto</pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li><p>IMPORT_PATH声明了一个.proto文件所在的具体目录。如果忽略该值，则使用当前目录。如果有多个目录则可以 对&ndash;proto_path 写多次，它们将会顺序的被访问并执行导入。-I=IMPORT_PATH是它的简化形式。</p></li>
 
@@ -834,18 +984,19 @@ message Open { ... }
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-123995495-1', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>

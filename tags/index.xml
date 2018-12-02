@@ -6,13 +6,12 @@
     <description>Recent content in Tags on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Career</title>
+      <title>career</title>
       <link>https://zhezh09.github.io/tags/career/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -21,7 +20,7 @@
     </item>
     
     <item>
-      <title>Db</title>
+      <title>db</title>
       <link>https://zhezh09.github.io/tags/db/</link>
       <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
       
@@ -30,7 +29,7 @@
     </item>
     
     <item>
-      <title>Devops</title>
+      <title>devops</title>
       <link>https://zhezh09.github.io/tags/devops/</link>
       <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
       
@@ -39,7 +38,7 @@
     </item>
     
     <item>
-      <title>Docker</title>
+      <title>docker</title>
       <link>https://zhezh09.github.io/tags/docker/</link>
       <pubDate>Fri, 26 Oct 2018 09:48:45 +0800</pubDate>
       
@@ -48,7 +47,7 @@
     </item>
     
     <item>
-      <title>Essay</title>
+      <title>essay</title>
       <link>https://zhezh09.github.io/tags/essay/</link>
       <pubDate>Tue, 02 Oct 2018 21:18:24 +0800</pubDate>
       
@@ -57,7 +56,7 @@
     </item>
     
     <item>
-      <title>Golang</title>
+      <title>golang</title>
       <link>https://zhezh09.github.io/tags/golang/</link>
       <pubDate>Wed, 21 Nov 2018 14:06:08 +0800</pubDate>
       
@@ -66,7 +65,7 @@
     </item>
     
     <item>
-      <title>Grpc</title>
+      <title>grpc</title>
       <link>https://zhezh09.github.io/tags/grpc/</link>
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -75,7 +74,7 @@
     </item>
     
     <item>
-      <title>Life</title>
+      <title>life</title>
       <link>https://zhezh09.github.io/tags/life/</link>
       <pubDate>Tue, 02 Oct 2018 21:42:56 +0800</pubDate>
       
@@ -84,7 +83,7 @@
     </item>
     
     <item>
-      <title>Others</title>
+      <title>others</title>
       <link>https://zhezh09.github.io/tags/others/</link>
       <pubDate>Tue, 14 Aug 2018 13:38:03 +0800</pubDate>
       
@@ -93,7 +92,7 @@
     </item>
     
     <item>
-      <title>Tools</title>
+      <title>tools</title>
       <link>https://zhezh09.github.io/tags/tools/</link>
       <pubDate>Sun, 04 Nov 2018 09:43:05 +0800</pubDate>
       
@@ -102,7 +101,7 @@
     </item>
     
     <item>
-      <title>Web</title>
+      <title>web</title>
       <link>https://zhezh09.github.io/tags/web/</link>
       <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
       
@@ -111,7 +110,7 @@
     </item>
     
     <item>
-      <title>Win</title>
+      <title>win</title>
       <link>https://zhezh09.github.io/tags/win/</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
