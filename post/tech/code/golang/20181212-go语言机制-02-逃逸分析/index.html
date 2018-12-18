@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | 语言机制之逃逸分析 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" 本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。
+以下是本系列文章的索引：
+ Go 语言机制之栈与指针
+ 👉 Go 语言机制之逃逸分析
+ Go 语言机制之内存剖析
+ Go 语言机制之数据和语法的设计哲学
+  " /><meta name="keywords" content="go, golang" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | 语言机制之逃逸分析" />
+<meta property="og:description" content="
+
+
+本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。
+
+以下是本系列文章的索引：
+
+
+Go 语言机制之栈与指针
+👉 Go 语言机制之逃逸分析
+Go 语言机制之内存剖析
+Go 语言机制之数据和语法的设计哲学
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/" /><meta property="article:published_time" content="2018-12-12T15:24:52&#43;08:00"/>
+<meta property="article:modified_time" content="2018-12-14T14:24:52&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | 语言机制之逃逸分析">
+<meta itemprop="description" content="
+
+
+本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。
+
+以下是本系列文章的索引：
+
+
+Go 语言机制之栈与指针
+👉 Go 语言机制之逃逸分析
+Go 语言机制之内存剖析
+Go 语言机制之数据和语法的设计哲学
+
+">
+
+
+<meta itemprop="datePublished" content="2018-12-12T15:24:52&#43;08:00" />
+<meta itemprop="dateModified" content="2018-12-14T14:24:52&#43;00:00" />
+<meta itemprop="wordCount" content="3633">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | 语言机制之逃逸分析"/>
+<meta name="twitter:description" content="
+
+
+本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。
+
+以下是本系列文章的索引：
+
+
+Go 语言机制之栈与指针
+👉 Go 语言机制之逃逸分析
+Go 语言机制之内存剖析
+Go 语言机制之数据和语法的设计哲学
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | 语言机制之逃逸分析</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-12-12 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3633 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#介绍-introduction">介绍 (Introduction)</a></li>
+<li><a href="#堆-heaps">堆 (Heaps)</a></li>
+<li><a href="#共享栈-sharing-stacks">共享栈 (Sharing Stacks)</a></li>
+<li><a href="#逃逸机制-escape-mechains">逃逸机制 (Escape Mechains)</a></li>
+<li><a href="#可读性-readability">可读性 (Readability)</a></li>
+<li><a href="#编译器报告-compile-reporting">编译器报告 (Compile Reporting)</a></li>
+<li><a href="#结论">结论</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。</p>
+
+<p>以下是本系列文章的索引：</p>
+
+<ul>
+<li><a href="https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/">Go 语言机制之栈与指针</a><br /></li>
+<li>👉 <a href="https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/">Go 语言机制之逃逸分析</a><br /></li>
+<li><a href="https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/">Go 语言机制之内存剖析</a><br /></li>
+<li><a href="https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/">Go 语言机制之数据和语法的设计哲学</a><br /></li>
+</ul>
+</blockquote>
+
+<blockquote>
+<ul>
+<li><a href="https://studygolang.com/articles/12444">转自: Go 语言机制之逃逸分析</a></li>
+<li><a href="https://www.ardanlabs.com/blog/2017/05/language-mechanics-on-escape-analysis.html">英文：Language Mechanics On Stacks And Pointers</a></li>
+</ul>
+</blockquote>
+
+<h1 id="介绍-introduction">介绍 (Introduction)</h1>
+
+<p>在四部分系列的第一部分，我用一个将值共享给 goroutine 栈的例子介绍了指针结构的基础。而我没有说的是值存在栈之上的情况。为了理解这个，你需要学习值存储的另外一个位置：堆。有这个基础，就可以开始学习逃逸分析。</p>
+
+<p>逃逸分析是编译器用来决定你的程序中值得位置的过程。特别的，编译器执行静态代码分析，以确定一个构造体的实例化值是否会逃逸到堆。在 Go 语言中，你们有可用的关键字或者函数，能够直接让编译器做这个决定。只能够通过你写代码的方式来作出这个决定。</p>
+
+<h1 id="堆-heaps">堆 (Heaps)</h1>
+
+<p>堆是内存的第二区域，除了栈之外，用来存储值得地方。堆无法像栈一样能自清理，所以使用这部分内存会造成很大的开销(相比于使用栈)。重要的是，开销跟 GC（垃圾收集），即被牵扯进来保证这部分区域干净的程序，有很大的关系。当垃圾收集程序运行时，它会占用你的可用 CPU 容量的 25%。更有甚者，它会造成微秒级的 “stop the world” 的延时。拥有 GC 的好处是你可以不再关注堆内存的管理，这部分很复杂，是历史上容易出错的地方。</p>
+
+<p>在 Go 中，会将一部分值分配到堆上。这些分配给 GC 带来了压力，因为堆上没有被指针索引的值都需要被删除。越多需要被检查和删除的值会给每次运行 GC 时带来越多的工作。所以，分配算法不断地工作，以平衡堆的大小和它运行的速度。</p>
+
+<h1 id="共享栈-sharing-stacks">共享栈 (Sharing Stacks)</h1>
+
+<p>在 Go 语言中，不允许 goroutine 中的指针指向另外一个 goroutine 的栈。这是因为当栈增长或者收缩时，goroutine 中的栈内存会被一块新的内存替换。如果运行时需要追踪指针指向其他的 goroutine 的栈，就会造成非常多需要管理的内存，以至于更新指向那些栈的指针将使 <code>stop the world</code> 问题更严重。</p>
+
+<p>这里有一个栈被替换好几次的例子。看输出的第 2 和第 6 行。你会看到 main 函数中的栈的字符串地址值改变了两次：<a href="https://play.golang.org/p/pxn5u4EBSI">https://play.golang.org/p/pxn5u4EBSI</a></p>
+
+<h1 id="逃逸机制-escape-mechains">逃逸机制 (Escape Mechains)</h1>
+
+<p>任何时候，一个值被分享到函数栈帧范围之外，它都会在堆上被重新分配。这是逃逸分析算法发现这些情况和管控这一层的工作。（内存的）完整性在于确保对任何值的访问始终是准确、一致和高效的。</p>
+
+<p>通过查看这个语言机制了解逃逸分析。<a href="https://play.golang.org/p/Y_VZxYteKO">https://play.golang.org/p/Y_VZxYteKO</a></p>
+
+<p>清单 1：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kd">type</span> <span class="nx">user</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">name</span>  <span class="kt">string</span>
+    <span class="nx">email</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">u1</span> <span class="o">:=</span> <span class="nf">createUserV1</span><span class="p">()</span>
+    <span class="nx">u2</span> <span class="o">:=</span> <span class="nf">createUserV2</span><span class="p">()</span>
+
+    <span class="nb">println</span><span class="p">(</span><span class="s">&#34;u1&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u1</span><span class="p">,</span> <span class="s">&#34;u2&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u2</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">//go:noinline
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">createUserV1</span><span class="p">()</span> <span class="nx">user</span> <span class="p">{</span>
+    <span class="nx">u</span> <span class="o">:=</span> <span class="nx">user</span><span class="p">{</span>
+        <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+        <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V1&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">u</span>
+<span class="p">}</span>
+
+<span class="c1">//go:noinline
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">createUserV2</span><span class="p">()</span> <span class="o">*</span><span class="nx">user</span> <span class="p">{</span>
+    <span class="nx">u</span> <span class="o">:=</span> <span class="nx">user</span><span class="p">{</span>
+        <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+        <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V2&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="nx">u</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>我是用 <code>go:noinline</code> 指令，阻止在 main 函数中，编译器使用内联代码替代函数调用。内联(优化)会使函数调用消失，并使例子复杂化。我将在下一篇博文介绍内联造成的副作用。</p>
+
+<p>在表 1 中，你可以看到创建 <code>user</code> 值，并返回给调用者的两个不同的函数。在函数版本 1 中，返回 <code>值</code>。</p>
+
+<p>清单 2:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">createUserV1</span><span class="p">()</span> <span class="nx">user</span> <span class="p">{</span>
+    <span class="nx">u</span> <span class="o">:=</span> <span class="nx">user</span><span class="p">{</span>
+        <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+        <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V1&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">u</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>我说这个函数返回的是 <code>值</code> 是因为这个被函数创建的 user 值被 <code>拷贝</code> 并传递到调用栈上。这意味着调用函数接收到的是这个值的拷贝。</p>
+
+<p>你可以看下第 17 行到 20 行 user 值被构造的过程。然后在第 23 行，user 值的副本被传递到调用栈并返回给调用者。函数返回后，栈看起来如下所示。</p>
+
+<p>图 1: <img src="https://res.cloudinary.com/zher-files/image/upload/v1544603764/blog/images/81_figure1.png" alt="" /></p>
+
+<p>你可以看到图 1 中，当调用完 createUserV1 ，一个 user 值同时存在（两个函数的）栈帧中。在函数版本 2 中，返回 <code>指针</code>。</p>
+
+<p>清单 3:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">createUserV2</span><span class="p">()</span> <span class="o">*</span><span class="nx">user</span> <span class="p">{</span>
+    <span class="nx">u</span> <span class="o">:=</span> <span class="nx">user</span><span class="p">{</span>
+        <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+        <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V2&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="nx">u</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>我说这个函数返回的是指针 是因为这个被函数创建的 <code>user</code> 值通过调用栈被共享了。这意味着调用函数接收到一个 <code>值的地址拷贝</code>。</p>
+
+<p>图 2: <img src="https://res.cloudinary.com/zher-files/image/upload/v1544604527/blog/images/81_figure2.png" alt="" /></p>
+
+<p>如果看到的图 2 真的发生的话，你将遇到一个问题。指针指向了栈下的无效地址空间。当 <code>main</code> 函数调用下一个函数调用下一个函数，指向的内存将重新映射并将被重新初始化。</p>
+
+<p>这就是逃逸分析将开始保持完整性的地方。在这种情况下，编译器将检查到，在 createUserV2 的(函数) 栈中构造 <code>user</code> 值是不安全的，因此，替代地，会在堆中构造(相应的) 值。这(个分析并处理的过程) 将在第 28 行构造时立即发生。</p>
+
+<h1 id="可读性-readability">可读性 (Readability)</h1>
+
+<p>在上一篇博文中，我们知道一个函数只能直接访问它的(函数栈空间)，或者通过(函数栈空间内的)指针，通过跳转访问(函数栈空间外的)外部内存。这意味着访问逃逸到堆上的值也是需要通过指针跳转。</p>
+
+<p>记住 <code>createUserV2</code> 的代码的样子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mi">27</span> <span class="kd">func</span> <span class="nf">createUserV2</span><span class="p">()</span> <span class="o">*</span><span class="nx">user</span> <span class="p">{</span>
+<span class="mi">28</span>     <span class="nx">u</span> <span class="o">:=</span> <span class="nx">user</span><span class="p">{</span>
+<span class="mi">29</span>         <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+<span class="mi">30</span>         <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+<span class="mi">31</span>     <span class="p">}</span>
+<span class="mi">32</span>
+<span class="mi">33</span>     <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V2&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+<span class="mi">34</span>     <span class="k">return</span> <span class="o">&amp;</span><span class="nx">u</span>
+<span class="mi">35</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>语法隐藏了代码中真正发生的事情。第 28 行声明的变量 <code>u</code> 代表了一个 <code>user</code> 类型的指。Go 代码中的类型构造不会告诉你值在内存中的位置。所以直到第 34 行返回类型时，你才知道值需要逃逸(处理)。这意味着，虽然 <code>u</code> 代表类型 <code>user</code> 的一个值，但对该值的访问必须通过指针进行。</p>
+
+<p>你可以在函数调用之后，看到堆栈就像(图三) 这样：</p>
+
+<p>图3：<img src="https://res.cloudinary.com/zher-files/image/upload/v1544756144/blog/images/81_figure3.png" alt="" /></p>
+
+<p>在 <code>createUserV2</code> 函数栈中，变量 <code>u</code> 代表的值存在于堆中，而不是栈。这意味着用 <code>u</code> 访问值时，使用指针访问而不是直接访问。你可能想，为什么不让 u 成为指针，毕竟访问它代表的值需要使用指针？</p>
+
+<p>清单5：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mi">27</span> <span class="kd">func</span> <span class="nf">createUserV2</span><span class="p">()</span> <span class="o">*</span><span class="nx">user</span> <span class="p">{</span>
+<span class="mi">28</span>     <span class="nx">u</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">user</span><span class="p">{</span>
+<span class="mi">29</span>         <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+<span class="mi">30</span>         <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+<span class="mi">31</span>     <span class="p">}</span>
+<span class="mi">32</span>
+<span class="mi">33</span>     <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V2&#34;</span><span class="p">,</span> <span class="nx">u</span><span class="p">)</span>
+<span class="mi">34</span>     <span class="k">return</span> <span class="nx">u</span>
+<span class="mi">35</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果你这样做，将使你的代码缺乏重要的可读性。(让我们) 离开整个函数一秒，只关注 <code>return</code></p>
+
+<p>清单6：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mi">34</span>     <span class="k">return</span> <span class="nx">u</span>
+<span class="mi">35</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这个 <code>return</code> 告诉你什么了呢？ 它说明了返回 <code>u</code> 值得副本给调用栈。然而，当你使用 <code>&amp;</code> 操作符，<code>return</code> 又告诉你什么了呢？</p>
+
+<p>清单6：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mi">34</span>     <span class="k">return</span> <span class="o">&amp;</span><span class="nx">u</span>
+<span class="mi">35</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>多亏了 <code>&amp;</code> 操作符，<code>return</code> 告诉你 <code>u</code> 被分享给调用者，因此，已经逃逸到堆中。记住，当你读代码的时候，指针是为了共享，<code>&amp;</code> 操作符对应的单词是 <code>sharing</code>。这在提高可读性的时候非常有用，这(也)是你不想失去的部分。</p>
+
+<p>清单8：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mo">01</span>  <span class="kd">var</span> <span class="nx">u</span> <span class="o">*</span><span class="nx">user</span>
+<span class="mo">02</span>  <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+<span class="mo">03</span>  <span class="k">return</span> <span class="nx">u</span><span class="p">,</span> <span class="nx">err</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>为了让其可以工作，你一定要通过共享指针变量(的方式)给(函数) <code>json.Unmarshal</code>。<code>json.Unmarshal</code> 调用时会创建 <code>user</code> 值并将其地址赋值给指针变量。 <a href="https://play.golang.org/p/koI8EjpeIx">https://play.golang.org/p/koI8EjpeIx</a></p>
+
+<p>代码解释：</p>
+
+<ul>
+<li>01：创建一个类型为 <code>user</code>，值为空的指针</li>
+<li>02：跟函数 <code>json.Unmarshal</code> 函数共享指针</li>
+<li>03：返回 u 的副本给调用者</li>
+</ul>
+
+<p>这里并不是很好理解，<code>user</code> 值被 <code>json.Unmarshal</code> 函数创建，并被共享给调用者。</p>
+
+<p>如何在构造过程中使用语法语义来改变可读性？</p>
+
+<p>清单9：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mo">01</span>  <span class="kd">var</span> <span class="nx">u</span> <span class="nx">user</span>
+<span class="mo">02</span>  <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+<span class="mo">03</span>  <span class="k">return</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">,</span> <span class="nx">err</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>代码解释：</p>
+
+<ul>
+<li>01：创建一个类型为 <code>user</code>，值为空的变量</li>
+<li>02：跟函数 <code>json.Unmarshal</code> 函数共享 <code>u</code>.</li>
+<li>03：跟调用者共享 <code>u</code></li>
+</ul>
+
+<p>这里非常好理解。第 02 行共享 <code>user</code> 值到调用栈中的 <code>json.Unmarshal</code>，在第 03 行 <code>user</code> 值共享给调用者。这个共享过程将会导致 <code>user</code> 值逃逸。</p>
+
+<p>在构建一个值时，使用值语义，并利用 <code>&amp;</code> 操作符的可读性来明确值是如何被共享的。</p>
+
+<h1 id="编译器报告-compile-reporting">编译器报告 (Compile Reporting)</h1>
+
+<p>想查看编译器(关于逃逸分析)的决定，你可以让编译器提供一份报告。你只需要在调用 <code>go build</code> 的时候，打开 <code>-gcflags</code> 开关，并带上 <code>-m</code> 选项。</p>
+
+<blockquote>
+<p>实际上总共可以使用 4 个 <code>-m</code>，(但)超过 2 个级别的信息就已经太多了。我将使用 2 个 <code>-m</code> 的级别</p>
+</blockquote>
+
+<p>清单10:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go build -gcflags <span class="s2">&#34;-m -m&#34;</span>
+./main.go:16: cannot inline createUserV1: marked go:noinline
+./main.go:27: cannot inline createUserV2: marked go:noinline
+./main.go:8: cannot inline main: non-leaf <span class="k">function</span>
+./main.go:22: createUserV1 <span class="p">&amp;</span>u does not escape
+./main.go:34: <span class="p">&amp;</span>u escapes to heap
+./main.go:34: from ~r0 <span class="o">(</span><span class="k">return</span><span class="o">)</span> at ./main.go:34
+./main.go:31: moved to heap: u
+./main.go:33: createUserV2 <span class="p">&amp;</span>u does not escape
+./main.go:12: main <span class="p">&amp;</span>u1 does not escape
+./main.go:12: main <span class="p">&amp;</span>u2 does not escape</code></pre></td></tr></table>
+</div>
+</div>
+<p>你可以看到编译器报告是否需要逃逸处理的决定。编译器都说了什么呢？ 请再看一下引用的 <code>createUserV1</code> 和 <code>createUserV2</code> 函数。</p>
+
+<p>清单11：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mi">16</span> <span class="kd">func</span> <span class="nf">createUserV1</span><span class="p">()</span> <span class="nx">user</span> <span class="p">{</span>
+<span class="mi">17</span>     <span class="nx">u</span> <span class="o">:=</span> <span class="nx">user</span><span class="p">{</span>
+<span class="mi">18</span>         <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+<span class="mi">19</span>         <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+<span class="mi">20</span>     <span class="p">}</span>
+<span class="mi">21</span>
+<span class="mi">22</span>     <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V1&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+<span class="mi">23</span>     <span class="k">return</span> <span class="nx">u</span>
+<span class="mi">24</span> <span class="p">}</span>
+
+<span class="mi">27</span> <span class="kd">func</span> <span class="nf">createUserV2</span><span class="p">()</span> <span class="o">*</span><span class="nx">user</span> <span class="p">{</span>
+<span class="mi">28</span>     <span class="nx">u</span> <span class="o">:=</span> <span class="nx">user</span><span class="p">{</span>
+<span class="mi">29</span>         <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+<span class="mi">30</span>         <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+<span class="mi">31</span>     <span class="p">}</span>
+<span class="mi">32</span>
+<span class="mi">33</span>     <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V2&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+<span class="mi">34</span>     <span class="k">return</span> <span class="o">&amp;</span><span class="nx">u</span>
+<span class="mi">35</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>清单14：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">.</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">22</span> <span class="nx">createUserV1</span> <span class="o">&amp;</span><span class="nx">u</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">escape</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这是说在函数 <code>createUserV1</code> 调用 <code>println</code> 不会造成 <code>user</code> 值逃逸到堆。这是必须检查的，因为它将会跟函数 <code>println</code> 共享 (<code>u</code>)</p>
+
+<p>接下来看报告中的这几行。</p>
+
+<p>清单 12:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">.</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">u</span> <span class="nx">escapes</span> <span class="nx">to</span> <span class="nx">heap</span>
+<span class="p">.</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span> <span class="nx">from</span> <span class="err">~</span><span class="nf">r0</span> <span class="p">(</span><span class="k">return</span><span class="p">)</span> <span class="nx">at</span> <span class="p">.</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">34</span>
+<span class="p">.</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span> <span class="nx">moved</span> <span class="nx">to</span> <span class="nx">heap</span><span class="p">:</span> <span class="nx">u</span>
+<span class="p">.</span><span class="o">/</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span> <span class="nx">createUserV2</span> <span class="o">&amp;</span><span class="nx">u</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">escape</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这几行是说，类型为 <code>user</code>, 并在第 31 行被赋值的 <code>u</code> 的值，因为第 34 行的 <code>return</code> 逃逸。最后一行是说，跟之前一样，在 33 行调用 <code>println</code> 不会造成 <code>user</code> 值逃逸。</p>
+
+<p>阅读这些报告可能让人感到困惑，(编译器)会根据所讨论的变量的类型是基于值类型还是指针类型而略有变化。</p>
+
+<p>将 <code>u</code> 改为指针类型的 <code>*user</code>, 而不是之前的命名类型 <code>user</code>。</p>
+
+<p>清单 16</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="mi">27</span> <span class="kd">func</span> <span class="nf">createUserV2</span><span class="p">()</span> <span class="o">*</span><span class="nx">user</span> <span class="p">{</span>
+<span class="mi">28</span>     <span class="nx">u</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">user</span><span class="p">{</span>
+<span class="mi">29</span>         <span class="nx">name</span><span class="p">:</span>  <span class="s">&#34;Bill&#34;</span><span class="p">,</span>
+<span class="mi">30</span>         <span class="nx">email</span><span class="p">:</span> <span class="s">&#34;bill@ardanlabs.com&#34;</span><span class="p">,</span>
+<span class="mi">31</span>     <span class="p">}</span>
+<span class="mi">32</span>
+<span class="mi">33</span>     <span class="nb">println</span><span class="p">(</span><span class="s">&#34;V2&#34;</span><span class="p">,</span> <span class="nx">u</span><span class="p">)</span>
+<span class="mi">34</span>     <span class="k">return</span> <span class="nx">u</span>
+<span class="mi">35</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>再次生成报告。</p>
+
+<p>清单 17</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">./main.go:30: <span class="p">&amp;</span>user literal escapes to heap
+./main.go:30: from u <span class="o">(</span>assigned<span class="o">)</span> at ./main.go:28
+./main.go:30: from ~r0 <span class="o">(</span><span class="k">return</span><span class="o">)</span> at ./main.go:34</code></pre></td></tr></table>
+</div>
+</div>
+<p>现在报告说在 28 行赋值的指针类型 <code>*user</code>，<code>u</code> 引用的 <code>user</code> 值，因为 34 行的 <code>return</code> 逃逸。</p>
+
+<h1 id="结论">结论</h1>
+
+<p>值在构建时并不能决定它将存在于哪里。只有当一个值被共享，编译器才能决定如何处理这个值。当你在调用时，共享了栈上的一个值时，它就会逃逸。在下一篇中你将探索一个值逃逸的其他原因。</p>
+
+<p>这些文章试图引导你选择给定类型的值或指针的指导原则。每种方式都有（对应的）好处和（额外的）开销。保持在栈上的值，减少了 GC 的压力。但是需要存储，跟踪和维护不同的副本。将值放在堆上的指针，会增加 GC 的压力。然而，也有它的好处，只有一个值需要存储，跟踪和维护。（其实，）最关键的是如何保持正确地、一致地以及均衡（开销）地使用。</p>
+
+<h1 id="see-also">See Also</h1>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-12-14</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | 语言机制之内存剖析</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/">
+            <span class="next-text nav-default">Golang | 语言机制之栈和指针</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-12-12 15:24:52 \x2b0800 CST',
+        title: 'Golang | 语言机制之逃逸分析',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

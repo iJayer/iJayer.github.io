@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | 语言机制之数据和语法的设计哲学 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" 本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。
+以下是本系列文章的索引：
+ Go 语言机制之栈与指针
+ Go 语言机制之逃逸分析
+ Go 语言机制之内存剖析
+ 👉 Go 语言机制之数据和语法的设计哲学
+  " /><meta name="keywords" content="go, golang" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | 语言机制之数据和语法的设计哲学" />
+<meta property="og:description" content="
+
+
+本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。
+
+以下是本系列文章的索引：
+
+
+Go 语言机制之栈与指针
+Go 语言机制之逃逸分析
+Go 语言机制之内存剖析
+👉 Go 语言机制之数据和语法的设计哲学
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/" /><meta property="article:published_time" content="2018-12-16T17:25:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-12-17T12:25:00&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | 语言机制之数据和语法的设计哲学">
+<meta itemprop="description" content="
+
+
+本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。
+
+以下是本系列文章的索引：
+
+
+Go 语言机制之栈与指针
+Go 语言机制之逃逸分析
+Go 语言机制之内存剖析
+👉 Go 语言机制之数据和语法的设计哲学
+
+">
+
+
+<meta itemprop="datePublished" content="2018-12-16T17:25:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-12-17T12:25:00&#43;00:00" />
+<meta itemprop="wordCount" content="4965">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | 语言机制之数据和语法的设计哲学"/>
+<meta name="twitter:description" content="
+
+
+本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。
+
+以下是本系列文章的索引：
+
+
+Go 语言机制之栈与指针
+Go 语言机制之逃逸分析
+Go 语言机制之内存剖析
+👉 Go 语言机制之数据和语法的设计哲学
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | 语言机制之数据和语法的设计哲学</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-12-16 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 4965 words </span>
+          <span class="more-meta"> 10 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#设计哲学-design-philosophies">设计哲学 (Design Philosophies)</a></li>
+<li><a href="#心智模型-metal-models">心智模型 (Metal Models)</a></li>
+<li><a href="#调试-debugging">调试（Debugging）</a></li>
+<li><a href="#可读性-readability">可读性（Readability）</a></li>
+<li><a href="#面向数据设计-data-oriented-design">面向数据设计（Data Oriented Design）</a></li>
+<li><a href="#类型-就是生命-type-is-life">类型（就是生命）（Type (Is Life)）</a></li>
+<li><a href="#数据-的能力">数据（的能力）</a></li>
+<li><a href="#多态-polymorphism">多态（Polymorphism）</a></li>
+<li><a href="#原型的第一种方法-prototype-first-approach">原型的第一种方法（Prototype First Approach）</a></li>
+<li><a href="#语义原则-semantic-guidelines">语义原则（Semantic Guidelines）</a></li>
+<li><a href="#内置类型">内置类型</a>
+<ul>
+<li><a href="#代码清单-1">代码清单 1</a></li>
+</ul></li>
+<li><a href="#引用类型">引用类型</a>
+<ul>
+<li><a href="#代码清单-2">代码清单 2</a></li>
+<li><a href="#代码清单-3">代码清单 3</a></li>
+<li><a href="#代码清单-4">代码清单 4</a></li>
+<li><a href="#代码清单-5">代码清单 5</a></li>
+</ul></li>
+<li><a href="#用户定义类型-user-defined-types">用户定义类型（User Defined Types）</a>
+<ul>
+<li><a href="#代码清单-6">代码清单 6</a></li>
+<li><a href="#代码清单-7">代码清单 7</a></li>
+<li><a href="#代码清单-8">代码清单 8</a></li>
+<li><a href="#代码清单-9">代码清单 9</a></li>
+<li><a href="#代码清单-10">代码清单 10</a></li>
+<li><a href="#代码清单-11">代码清单 11</a></li>
+<li><a href="#代码清单-12">代码清单 12</a></li>
+<li><a href="#代码清单-13">代码清单 13</a></li>
+</ul></li>
+<li><a href="#结论">结论</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。</p>
+
+<p>以下是本系列文章的索引：</p>
+
+<ul>
+<li><a href="https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/">Go 语言机制之栈与指针</a><br /></li>
+<li><a href="https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/">Go 语言机制之逃逸分析</a><br /></li>
+<li><a href="https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/">Go 语言机制之内存剖析</a><br /></li>
+<li>👉 <a href="https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/">Go 语言机制之数据和语法的设计哲学</a><br /></li>
+</ul>
+</blockquote>
+
+<blockquote>
+<ul>
+<li><a href="https://studygolang.com/articles/12487">转自: Go 语言机制之数据和语法的设计哲学</a></li>
+<li><a href="https://www.ardanlabs.com/blog/2017/06/design-philosophy-on-data-and-semantics.html">英文：Design Philosophy On Data And Semantics</a></li>
+</ul>
+</blockquote>
+
+<h1 id="设计哲学-design-philosophies">设计哲学 (Design Philosophies)</h1>
+
+<p>&ldquo;在栈上保存值，这减少了垃圾收集器(GC) 的压力。然而，却要求 存储、跟踪和维护给定值的多个副本。将值放在堆上，这会给 GC 增加压力。但是它也是有用的，因为只需要针对一个值进行存储、跟踪和维护。&rdquo; —— Bill Kennedy</p>
+
+<p>对于给定类型的数据，想在整个软件中保持完整性和可读性，使用值或者指针要保持一致。为什么？因为，如果你在函数间传递数据时修改数据语义，将很难维护一个清晰一致的心智模型。代码库和团队越大，越多的 bug、对数据的竞争和其他副作用就会悄悄地潜入到代码库中。</p>
+
+<p>我想从一组设计哲学开始讨论，它将指导（我们如何）选择一种语义而不是另外一种语义的方法。</p>
+
+<h1 id="心智模型-metal-models">心智模型 (Metal Models)</h1>
+
+<blockquote>
+<p>译者注：心智模型，是经由经验及学习, 脑海中对某些事物发展的过程，所写下的剧本。可以当成对代码整体的把控。</p>
+</blockquote>
+
+<p>&ldquo;让我们想象有这样一个项目，它包含一百万行以上的代码量。这些项目当前在美国能成功的可能性很低，远低于 50%。或许有人不同意这个说法。&rdquo; - Tom Love (inventor of Objective C)</p>
+
+<p>Tom 还说一盒复印纸可以容纳 10 万行代码。稍微想一下。你能掌控这个盒子中的代码的百分之多少呢？</p>
+
+<p>我相信要一个开发人员维护一张纸上的代码的心智模型（大约 1 万行代码）已经是个问题。但是，我们还是假设每个开发人员开发 1 万行代码，那么需要由 100 位开发人员组成的团队来维护一个包含 100 万行代码的代码库。也就是说 100 人需要协调，分组，跟踪和不断沟通。现在，再看看你们 1 到 10 名开发人员组成的团队。你们在这个小得多的规模做得如何？假设每人 1 万行代码，（你们）团队规模与代码库的大小是否相符？</p>
+
+<h1 id="调试-debugging">调试（Debugging）</h1>
+
+<p>&ldquo;最大的问题是你的心智模型是错误的，所以你根本找不到问题所在。&rdquo; - Brian Kernighan</p>
+
+<p>我不相信，你能在没有心智模型的基础上，使用调试器解决问题，你只不过是在浪费时间精力尝试理解问题。</p>
+
+<p>如果你在生产环境中遇到问题，你能问谁？没错，日志。如果日志在你开发过程中对你没有用，那么当生产环境上出问题，它也一定对你没有用。日志应该基于代码的心智模型，这样才能通过阅读代码找到问题所在。</p>
+
+<h1 id="可读性-readability">可读性（Readability）</h1>
+
+<p>C 语言是我见过的在性能和表达性上平衡得最好的。你可以通过简单的编程实现任何你想要做的事情，并且你会对机器即将要发生的事情拥有一个非常好的心智模型。你可以非常合理地预测它的速度，你知道即将要发生什么&hellip;&rdquo; - Brian Kernighan</p>
+
+<p>我相信 Brian 这句话也适用于 Go。保持这种 &ldquo;心智模型&rdquo; 就是一切。它驱动完整性，可读性和简单性。这些是精心编写的软件的基石，使得它可以保持正常并持续运行下去。编写保证给定类型数据的值或者指针语义一致的代码是实现这一点的重要方法。</p>
+
+<h1 id="面向数据设计-data-oriented-design">面向数据设计（Data Oriented Design）</h1>
+
+<p>&ldquo;如果你不了解这些数据，你就不明白这个问题。因为所有的问题都是独特的，并且与你所使用的数据关系紧密。当数据发生变化时，你的问题也会跟着变化。但问题发生变化时，你的算法（数据转换）也需要跟着变化。&rdquo; - Bill Kennedy</p>
+
+<p>想一想。你解决问题的方法实际上是解决数据转换的问题。你写的每个函数，运行的每个程序，（只不过）都是获取一些输入数据，产生一些输出数据。从这个角度看，你的软件的心智模型就是对这些数据转换的理解（例如，如何在代码中组织和使用它们）。&rdquo;少即是多&rdquo; 的原则对于解决问题时实现较少的层数，代码量，迭代次数，以及降低复杂性和减少工作量非常重要。</p>
+
+<h1 id="类型-就是生命-type-is-life">类型（就是生命）（Type (Is Life)）</h1>
+
+<p>&ldquo;完整性意味着每次分配内存，读取内存和写入内存都是准确，一致和高效的。类型系统对于我们具有这种微观完整性至关重要。&rdquo; - William Kennedy</p>
+
+<p>如果数据驱动你所做的一切，那么代表数据的类型就十分地重要。在我的观点里面 &ldquo;类型就是生命&rdquo;，因为类型为编译器提供了确保数据完整性的能力。类型也驱动并指示语义规则，程序必须遵循其所操作的数据的语义。这是正确地使用值或者指针语义的开始：使用类型。</p>
+
+<h1 id="数据-的能力">数据（的能力）</h1>
+
+<p>&ldquo;当数据是实际和合理的，方法才是有效的。&rdquo; - William Kennedy</p>
+
+<p>值或者指针语义的思想不会直接影响 Go 开发人员，除非他们需要决定方法接收值还是指针。这是我遇到的一个问题：我应该使用值作为参数还是指针？一听到这个问题，我就知道这个开发人员没有理解好这些（类型的）语义。</p>
+
+<p>方法的目的是使这些数据具有某种能力。想象一下，数据有能力做某些事情。我总是希望把重点放在数据上，因为它驱动程序的功能。数据驱动你写的算法，封装和能达到的性能。</p>
+
+<h1 id="多态-polymorphism">多态（Polymorphism）</h1>
+
+<p>&ldquo;多态意味着你写了一个特定的程序，但它的行为有所不同，具体取决于它所操作的数据。&rdquo; - Tom Kurtz (inventor of BASIC)</p>
+
+<p>我很喜欢 Tom 上面说的话。函数的行为可以根据操作的数据的不同而不同。这个数据的行为是将函数从它们可以接受和使用的具体数据类型中分离出来的，这是数据可以具有某种能力的原因。这个观点是使得架构和设计可以适应变化的系统的基石。</p>
+
+<h1 id="原型的第一种方法-prototype-first-approach">原型的第一种方法（Prototype First Approach）</h1>
+
+<p>&ldquo;除非开发人员对软件会被如何使用有一个很好的了解，否则软件很可能会出问题。如果开发人员不是很了解或者对软件不是很理解，那么获得尽可能多的用户输入和用户级测试就相当的重要。&rdquo; - Brian Kernighan</p>
+
+<p>我希望你始终专注于理解具体的数据和为了解决问题所需要的数据转换的算法。采用这种原型的第一种方法，编写也可以在生产环境中部署的具体实现（如果这样做是合理和实际的话）。一旦一个具体的实现已经能够工作，一旦你已经知道哪些工作起作用，哪些不起作用，就应该关注于重构，将实现与具体数据分离，将之赋予数据以能力（译者注：我的理解，简单地说，就是抽象为数据类型的一个方法）。</p>
+
+<h1 id="语义原则-semantic-guidelines">语义原则（Semantic Guidelines）</h1>
+
+<p>你在声明类型时，必须决定特定数据类型将使用哪种语义，值或者指针。接收或返回该类型数据的 API 必须遵循为该类型选择的语义。API 不允许（用户）指定或改变语义。他们必须知道数据使用什么语义，并符合这一点。这是实现大型代码库一致性的起码要求。</p>
+
+<p>以下是基本指导原则：</p>
+
+<ul>
+<li>当你声明一个类型时，你必须决定所使用的语义</li>
+<li>函数和方法必须遵循给定类型所选择的语义</li>
+<li>避免让方法接收与给定类型相对应的不同语义</li>
+<li>避免函数接收或者返回与给定类型相对应的不同语义</li>
+<li>避免改变给定类型的语义</li>
+</ul>
+
+<p>这些指导原则有一些例外的情况，最大的是 unmarshaling。Unmarshaling 总是需要使用指针语义。Marshaling 和 unmarshaling 似乎总是例外的规则。</p>
+
+<p>你如何选择一种给定类型的一种语义而不是另外一种？这些指导方针将回答这个问题。以下我们将在具体的情况下使用指导原则：</p>
+
+<h1 id="内置类型">内置类型</h1>
+
+<p>Go 语言中内置类型包含数字、文本和布尔类型。这些类型应该使用值语义进行处理。除非你有非常好的理由，否则不要使用指针来共享这些类型的值。</p>
+
+<p>作为一个例子，从 strings 包中查看这些函数的声明</p>
+
+<h2 id="代码清单-1">代码清单 1</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Replace</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
+<span class="kd">func</span> <span class="nf">LastIndex</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">sep</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span>
+<span class="kd">func</span> <span class="nf">ContainsRune</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">r</span> <span class="kt">rune</span><span class="p">)</span> <span class="kt">bool</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>所有这些函数在 API 设置中都使用值语义。</p>
+
+<h1 id="引用类型">引用类型</h1>
+
+<p>Go 语言中引用类型包括切片，map, 接口，函数和 channel。这些类型建议使用值语义，因为它们被设计成待在栈中以最小化堆的压力。它们允许每个函数都有自己的值副本，而不是每个函数都会造成潜在的分配。这是可能的，因为这些值包含一个在调用之间共享底层数据结构的指针。</p>
+
+<p>除非你有很好的理由，否则不要用指针共享这些类型的值。将调用栈中的 map 或 slice 共享给 Unmarshal 函数可能是一个例外。作为一个例子，看看 net 库上声明的这两种类型</p>
+
+<h2 id="代码清单-2">代码清单 2</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">IP</span> <span class="p">[]</span><span class="kt">byte</span>
+<span class="kd">type</span> <span class="nx">IPMask</span> <span class="p">[]</span><span class="kt">byte</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>IP 和 IPMask 都是字节切片。这意味着它们是引用类型，并且它们应该要符合值语义。下面是一个名叫 Mask 的方法，它被声明为接收一个 IPMask 值的 IP 类型。</p>
+
+<h2 id="代码清单-3">代码清单 3</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">ip</span> <span class="nx">IP</span><span class="p">)</span> <span class="nf">Mask</span><span class="p">(</span><span class="nx">mask</span> <span class="nx">IPMask</span><span class="p">)</span> <span class="nx">IP</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">mask</span><span class="p">)</span> <span class="o">==</span> <span class="nx">IPv6len</span> <span class="o">&amp;&amp;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">ip</span><span class="p">)</span> <span class="o">==</span> <span class="nx">IPv4len</span> <span class="o">&amp;&amp;</span> <span class="nf">allFF</span><span class="p">(</span><span class="nx">mask</span><span class="p">[:</span><span class="mi">12</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">mask</span> <span class="p">=</span> <span class="nx">mask</span><span class="p">[</span><span class="mi">12</span><span class="p">:]</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">mask</span><span class="p">)</span> <span class="o">==</span> <span class="nx">IPv4len</span> <span class="o">&amp;&amp;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">ip</span><span class="p">)</span> <span class="o">==</span> <span class="nx">IPv6len</span> <span class="o">&amp;&amp;</span> <span class="nf">bytesEqual</span><span class="p">(</span><span class="nx">ip</span><span class="p">[:</span><span class="mi">12</span><span class="p">],</span> <span class="nx">v4InV6Prefix</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">ip</span> <span class="p">=</span> <span class="nx">ip</span><span class="p">[</span><span class="mi">12</span><span class="p">:]</span>
+    <span class="p">}</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">ip</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">mask</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+    <span class="nx">out</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="nx">IP</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">out</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">ip</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="nx">mask</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">out</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>请注意，此方法是一种转变操作，并使用值语义的 API 样式。它使用 IP 值作为接收方，并根据传入的 IPMask 值创建一个新的 IP 值并将其返回给调用方。该方法遵循对引用类型使用值语义（的基本指导原则）。</p>
+
+<p>这跟系统默认的 append 函数有点相似。</p>
+
+<h2 id="代码清单-4">代码清单 4</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">data</span> <span class="p">[]</span><span class="kt">string</span>
+<span class="nx">data</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="s">&#34;string&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>append 函数的转变操作使用值语义。将切片值传递给 append，并在变化之后返回一个新切片值。</p>
+
+<p>总是除了 <code>unmarshaling</code>，它需要使用指针语义。</p>
+
+<h2 id="代码清单-5">代码清单 5</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">ip</span> <span class="o">*</span><span class="nx">IP</span><span class="p">)</span> <span class="nf">UnmarshalText</span><span class="p">(</span><span class="nx">text</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="o">*</span><span class="nx">ip</span> <span class="p">=</span> <span class="kc">nil</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+    <span class="nx">s</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span>
+    <span class="nx">x</span> <span class="o">:=</span> <span class="nf">ParseIP</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">x</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&amp;</span><span class="nx">ParseError</span><span class="p">{</span><span class="nx">Type</span><span class="p">:</span> <span class="s">&#34;IP address&#34;</span><span class="p">,</span> <span class="nx">Text</span><span class="p">:</span> <span class="nx">s</span><span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="nx">ip</span> <span class="p">=</span> <span class="nx">x</span>
+    <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>UnmarshalText 实现 encoding.TextUnmarshaler 接口。如果没有使用指针语义，根本无法实现。但这是可以的，因为共享值通常是安全的。除了 unmarshaling 之外，如果为一个引用类型使用指针语义，你应该三思。</p>
+
+<h1 id="用户定义类型-user-defined-types">用户定义类型（User Defined Types）</h1>
+
+<p>这是你最多需要做出决定的地方。你必须在你声明类型的时候决定使用语义 (值 OR 指针)</p>
+
+<p>如果我要求你给 time 包编写 API 接口，给你这种类型</p>
+
+<h2 id="代码清单-6">代码清单 6</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Time</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">sec</span>  <span class="kt">int64</span>
+    <span class="nx">nsec</span> <span class="kt">int32</span>
+    <span class="nx">loc</span>  <span class="o">*</span><span class="nx">Location</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>你会使用什么语义？</p>
+
+<p>在 Time 包中查看此类型的实现以及工厂函数 Now.</p>
+
+<h2 id="代码清单-7">代码清单 7</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">Time</span> <span class="p">{</span>
+    <span class="nx">sec</span><span class="p">,</span> <span class="nx">nsec</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">Time</span><span class="p">{</span><span class="nx">sec</span> <span class="o">+</span> <span class="nx">unixToInternal</span><span class="p">,</span> <span class="nx">nsec</span><span class="p">,</span> <span class="nx">Local</span><span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>工厂函数对于类型来说是一种非常重要的函数，因为它告诉你（这种类型）所选择的语义。Now 函数就很清晰地（向我们）表明使用了值语义。该函数创建一个类型为 Time 的值并将该值的副本返回给调用者。 共享 Time 值不是必要的，（因为）他们的生命周期内不需要一直存在于堆上。</p>
+
+<p>再看一下 Add 方法，它也是一个转变操作。</p>
+
+<h2 id="代码清单-8">代码清单 8</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">Time</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">d</span> <span class="nx">Duration</span><span class="p">)</span> <span class="nx">Time</span> <span class="p">{</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">sec</span> <span class="o">+=</span> <span class="nb">int64</span><span class="p">(</span><span class="nx">d</span> <span class="o">/</span> <span class="mf">1e9</span><span class="p">)</span>
+    <span class="nx">nsec</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">nsec</span> <span class="o">+</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">d</span><span class="o">%</span><span class="mf">1e9</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">nsec</span> <span class="o">&gt;=</span> <span class="mf">1e9</span> <span class="p">{</span>
+        <span class="nx">t</span><span class="p">.</span><span class="nx">sec</span><span class="o">++</span>
+        <span class="nx">nsec</span> <span class="o">-=</span> <span class="mf">1e9</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">nsec</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">t</span><span class="p">.</span><span class="nx">sec</span><span class="o">--</span>
+        <span class="nx">nsec</span> <span class="o">+=</span> <span class="mf">1e9</span>
+    <span class="p">}</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">nsec</span> <span class="p">=</span> <span class="nx">nsec</span>
+    <span class="k">return</span> <span class="nx">t</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>你可以再次看到 Add 方法遵循类型所选择的语义。Add 方法使用一个值接收器来操作它自己的 Time 值副本。其中，Time 值副本在调用中使用。它将修改自己的副本，并将 Time 值的新副本返回给调用者。</p>
+
+<p>以下是一个接受 Time 值的函数：</p>
+
+<h2 id="代码清单-9">代码清单 9</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">div</span><span class="p">(</span><span class="nx">t</span> <span class="nx">Time</span><span class="p">,</span> <span class="nx">d</span> <span class="nx">Duration</span><span class="p">)</span> <span class="p">(</span><span class="nx">qmod2</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">r</span> <span class="nx">Duration</span><span class="p">)</span> <span class="p">{</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>再一次，接受 Time 类型的值使用值语义。唯一使用指针语义的 Time API 接口，是这些 Unmarshal 相关的函数：</p>
+
+<h2 id="代码清单-10">代码清单 10</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Time</span><span class="p">)</span> <span class="nf">UnmarshalBinary</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Time</span><span class="p">)</span> <span class="nf">GobDecode</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Time</span><span class="p">)</span> <span class="nf">UnmarshalJSON</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Time</span><span class="p">)</span> <span class="nf">UnmarshalText</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>大多数情况下，使用值语义的能力是有限的。将值从一个函数传递到另一个函数，（通常）使用值拷贝的方法是不正确或者不合理的。修改数据需要将其隔离成单个值再进行共享。这时，应该使用指针语义。如果你没办法 100% 确定拷贝值是正确并且合理的，那就使用指针语义吧。</p>
+
+<p>查看 os 包中的 File 类型的生产函数。</p>
+
+<h2 id="代码清单-11">代码清单 11</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Open</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">file</span> <span class="o">*</span><span class="nx">File</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">OpenFile</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">O_RDONLY</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Open 函数返回一个 File 类型的指针。这意味着，对于 File 类型值，你应该使用指针语义来共享 File 的值。将指针语义修改为值语义，可能会对你的程序造成破坏性影响。当你与一个函数共享值时，最好假定你不允许拷贝值的指针并使用这个指针。否则，不知道将会出现什么样的异常情况。</p>
+
+<p>查看更多的 API， 你将会看到更多使用指针语义的例子。</p>
+
+<h2 id="代码清单-12">代码清单 12</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">File</span><span class="p">)</span> <span class="nf">Chdir</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">f</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">ErrInvalid</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">e</span> <span class="o">:=</span> <span class="nx">syscall</span><span class="p">.</span><span class="nf">Fchdir</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">fd</span><span class="p">);</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&amp;</span><span class="nx">PathError</span><span class="p">{</span><span class="s">&#34;chdir&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">e</span><span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>虽然 File 值永远不会被修改，但是 Chdir 方法还是使用指针语义。该方法必须遵循该类型的语义约定。</p>
+
+<h2 id="代码清单-13">代码清单 13</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">epipecheck</span><span class="p">(</span><span class="nx">file</span> <span class="o">*</span><span class="nx">File</span><span class="p">,</span> <span class="nx">e</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">e</span> <span class="o">==</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">EPIPE</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">file</span><span class="p">.</span><span class="nx">nepipe</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="p">{</span>
+            <span class="nf">sigpipe</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">file</span><span class="p">.</span><span class="nx">nepipe</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这是一个名为 epipecheck 的函数，它使用指针来接收 File 值。再次注意一下，对于 File 值，一致使用指针语义。</p>
+
+<h1 id="结论">结论</h1>
+
+<p>我在做代码 review 时，会寻找值或者指针语义是否使用一致。它可以帮助你保证代码的一致性和可预测性。它还使每个人能保持清醒和一致的心智模型。随着代码库和团队变得越来越大，值或者指针语义的一致性使用将会越来越重要。</p>
+
+<p>Go 语言令人不解的地方在于指针和值语义之间的选择早已超出了接收器和函数参数的声明范围。接口的机制，函数值和切片都在语言的工作范围内。在将来的文章中，我将在这些语言的不同部分中展示值或者指针语义。</p>
+
+<h1 id="see-also">See Also</h1>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-12-17</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/">
+            <span class="next-text nav-default">Golang | 语言机制之内存剖析</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-12-16 17:25:00 \x2b0800 CST',
+        title: 'Golang | 语言机制之数据和语法的设计哲学',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
