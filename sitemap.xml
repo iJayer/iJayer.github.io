@@ -102,7 +102,7 @@
   
   <url>
     <loc>https://zhezh09.github.io/post/tech/cloud/devops/20180927-cicd-04-dockerizing-bitbucketserver/</loc>
-    <lastmod>2018-11-02T16:09:25+00:00</lastmod>
+    <lastmod>2018-12-19T16:09:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -470,14 +470,14 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/tags/career/</loc>
+    <loc>https://zhezh09.github.io/categories/career/</loc>
     <lastmod>2018-09-19T14:21:07+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/career/</loc>
+    <loc>https://zhezh09.github.io/tags/career/</loc>
     <lastmod>2018-09-19T14:21:07+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -505,14 +505,14 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/tags/essay/</loc>
+    <loc>https://zhezh09.github.io/categories/essay/</loc>
     <lastmod>2018-10-15T21:18:24+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/categories/essay/</loc>
+    <loc>https://zhezh09.github.io/tags/essay/</loc>
     <lastmod>2018-10-15T21:18:24+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -540,13 +540,6 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/tags/life/</loc>
-    <lastmod>2018-10-15T21:42:56+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://zhezh09.github.io/categories/life/</loc>
     <lastmod>2018-09-08T15:54:21+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -554,14 +547,21 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/tags/others/</loc>
-    <lastmod>2018-08-21T13:38:03+08:00</lastmod>
+    <loc>https://zhezh09.github.io/tags/life/</loc>
+    <lastmod>2018-10-15T21:42:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zhezh09.github.io/categories/others/</loc>
+    <lastmod>2018-08-21T13:38:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/tags/others/</loc>
     <lastmod>2018-08-21T13:38:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>

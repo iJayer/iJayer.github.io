@@ -48,7 +48,7 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/devops/20180927-cicd-04-dockerizing-bitbucketserver/" /><meta property="article:published_time" content="2018-09-27T22:09:25&#43;00:00"/>
-<meta property="article:modified_time" content="2018-11-02T16:09:25&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-19T16:09:25&#43;00:00"/>
 
 <meta itemprop="name" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence">
 <meta itemprop="description" content="
@@ -61,8 +61,8 @@
 
 
 <meta itemprop="datePublished" content="2018-09-27T22:09:25&#43;00:00" />
-<meta itemprop="dateModified" content="2018-11-02T16:09:25&#43;00:00" />
-<meta itemprop="wordCount" content="741">
+<meta itemprop="dateModified" content="2018-12-19T16:09:25&#43;00:00" />
+<meta itemprop="wordCount" content="780">
 
 
 
@@ -149,7 +149,7 @@
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 741 words </span>
+          <span class="more-meta"> 780 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -162,9 +162,12 @@
 <ul>
 <li><a href="#dockerizing-bitbucket-server">Dockerizing Bitbucket Server</a></li>
 <li><a href="#config-bitbucket-server">Config Bitbucket Server</a></li>
-<li><a href="#dockerizing-jira-and-confluence-20181012-add">Dockerizing Jira and Confluence [20181012] [Add]</a></li>
+<li><a href="#dockerizing-jira-and-confluence-20181012-updated">Dockerizing Jira and Confluence [20181012 Updated]</a></li>
+<li><a href="#crack-20181219-updated">Crack [20181219 Updated]</a>
+<ul>
+<li><a href="#crack-bitbucket-server">Crack Bitbucket Server</a></li>
+</ul></li>
 <li><a href="#see-also">See Also</a></li>
-<li><a href="#crack-package">Crack Package</a></li>
 </ul>
 </nav>
   </div>
@@ -434,7 +437,7 @@ $ docker volume create --name postgresql-data</code></pre></td></tr></table>
 
 <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538182323/blog/images/bitbucket-setup-3.png" alt="" /></p>
 
-<h1 id="dockerizing-jira-and-confluence-20181012-add">Dockerizing Jira and Confluence [20181012] [Add]</h1>
+<h1 id="dockerizing-jira-and-confluence-20181012-updated">Dockerizing Jira and Confluence [20181012 Updated]</h1>
 
 <ul>
 <li>创建 Jira &amp; Confluence 相关数据目录</li>
@@ -608,6 +611,34 @@ $ docker volume create --name postgresql-data</code></pre></td></tr></table>
 </ul></li>
 </ul>
 
+<h1 id="crack-20181219-updated">Crack [20181219 Updated]</h1>
+
+<h2 id="crack-bitbucket-server">Crack Bitbucket Server</h2>
+
+<p>Step1: <a href="https://res.cloudinary.com/zher-files/raw/upload/v1540971426/blog/resource/bitbucket-server.7z">Download Bitbucket Server Crack Jar files</a></p>
+
+<ul>
+<li>atlassian-extras-decoder-v2-3.3.0.jar</li>
+<li>atlassian-extras-legacy-3.3.0.jar</li>
+</ul>
+
+<p>Step2: Copy crack jar files to docker server</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker cp atlassian-extras-decoder-v2-3.3.0.jar &lt;container_name<span class="o">(</span>id<span class="o">)</span>_of_bitbucket_server&gt;:/opt/atlassian/bitbucket/app/WEB-INF/lib
+$ docker cp atlassian-extras-legacy-3.3.0.jar &lt;container_name<span class="o">(</span>id<span class="o">)</span>_of_bitbucket_server&gt;:/opt/atlassian/bitbucket/app/WEB-INF/lib
+$ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</span>_of_bitbucket_server&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>Finally, the result looks like this:</p>
+
+<p><img src="https://img-blog.csdn.net/20180808170849254?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2d1bGlqaWFuZzIwMDg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="" /></p>
+
 <h1 id="see-also">See Also</h1>
 
 <blockquote>
@@ -621,12 +652,6 @@ $ docker volume create --name postgresql-data</code></pre></td></tr></table>
 <li><a href="https://github.com/omidraha/atlassian">dockerize atlassian</a></li>
 <li><a href="https://github.com/blacklabelops/jira">Dockerized Atlassian Jira</a></li>
 </ul>
-
-<h1 id="crack-package">Crack Package</h1>
-
-<ul>
-<li><a href="https://res.cloudinary.com/zher-files/raw/upload/v1540971426/blog/resource/bitbucket-server.7z">Bitbucket Server Crack Jar Download</a></li>
-</ul>
     </div>
 
     <div class="post-copyright">
@@ -636,7 +661,7 @@ $ docker volume create --name postgresql-data</code></pre></td></tr></table>
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-11-02</span>
+    <span class="item-content">2018-12-19</span>
   </p>
   
   <p class="copyright-item">
