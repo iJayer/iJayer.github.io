@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>『Go核心36讲』| 07 - go语句以及执行规则（下） - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  Q1：用什么手段可以对 goroutine 的启用数量加以限制 ? Q2：怎样才能让主 goroutine 等待其他 goroutine ? Q3：怎样让我们启用的多个 goroutine  专栏：17 | go语句及其执行规则（下）
+ " /><meta name="keywords" content="go" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="『Go核心36讲』| 07 - go语句以及执行规则（下）" />
+<meta property="og:description" content="
+
+
+
+Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?
+Q2：怎样才能让主 goroutine 等待其他 goroutine ?
+Q3：怎样让我们启用的多个 goroutine
+
+
+
+  专栏：17 | go语句及其执行规则（下）
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/" /><meta property="article:published_time" content="2019-01-13T11:57:26&#43;08:00"/>
+<meta property="article:modified_time" content="2019-01-17T11:57:26&#43;00:00"/>
+
+<meta itemprop="name" content="『Go核心36讲』| 07 - go语句以及执行规则（下）">
+<meta itemprop="description" content="
+
+
+
+Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?
+Q2：怎样才能让主 goroutine 等待其他 goroutine ?
+Q3：怎样让我们启用的多个 goroutine
+
+
+
+  专栏：17 | go语句及其执行规则（下）
+
+
+">
+
+
+<meta itemprop="datePublished" content="2019-01-13T11:57:26&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-17T11:57:26&#43;00:00" />
+<meta itemprop="wordCount" content="2096">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="『Go核心36讲』| 07 - go语句以及执行规则（下）"/>
+<meta name="twitter:description" content="
+
+
+
+Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?
+Q2：怎样才能让主 goroutine 等待其他 goroutine ?
+Q3：怎样让我们启用的多个 goroutine
+
+
+
+  专栏：17 | go语句及其执行规则（下）
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">『Go核心36讲』| 07 - go语句以及执行规则（下）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-13 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2096 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#q1-用什么手段可以对-goroutine-的启用数量加以限制">Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?</a></li>
+<li><a href="#q2-怎样才能让主-goroutine-等待其他-goroutine">Q2：怎样才能让主 goroutine 等待其他 goroutine ?</a>
+<ul>
+<li><a href="#a1-小睡一会儿">A1：小睡一会儿</a></li>
+<li><a href="#a2-让其他-goroutine-在运行完毕后通知主-goroutine">A2：让其他 goroutine 在运行完毕后通知主 goroutine</a></li>
+<li><a href="#a3-使用-sync-waitgroup">A3：使用 sync.WaitGroup</a></li>
+</ul></li>
+<li><a href="#q3-怎样让我们启用的多个-goroutine-按照既定的顺序执行">Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?</li>
+<li>Q2：怎样才能让主 goroutine 等待其他 goroutine ?</li>
+<li>Q3：怎样让我们启用的多个 goroutine</li>
+</ul>
+
+<div class='align-right'>
+  <p><a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：17 | go语句及其执行规则（下）</a></p>
+
+</div>
+</blockquote>
+
+<div class='align-center'>
+  <p><img src="https://res.cloudinary.com/twenty20/private_images/t_standard-fit/v1521838898/photosp/8aaa273b-9295-454a-a85c-069a4a58ccb2/8aaa273b-9295-454a-a85c-069a4a58ccb2.jpg" alt="" />
+— <a href="https://www.twenty20.com/sussialfredsson?cta=ft&amp;cta_uid=07188173-8090-4f5e-86d6-52e263eb0b7e&amp;utm_t20_source=partner&amp;utm_t20_channel=reshot&amp;utm_t20_campaign=gallery">@cabday Alfredsson</a></p>
+
+</div>
+
+<h1 id="q1-用什么手段可以对-goroutine-的启用数量加以限制">Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?</h1>
+
+<p>自己尝试用 <code>buffer channel</code> 实现了一个比较陋的Demo：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/*
+</span><span class="cm"> * 说明：用什么手段可以对 goroutine 的启用数量加以限制?
+</span><span class="cm"> * 作者：zhe
+</span><span class="cm"> * 时间：2019-01-17 20:12 PM
+</span><span class="cm"> * 更新：比较陋的实现。。。
+</span><span class="cm"> */</span>
+
+<span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;runtime&#34;</span>
+	<span class="s">&#34;sync&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">// max worker
+</span><span class="c1"></span><span class="kd">const</span> <span class="p">(</span>
+	<span class="nx">taskNum</span>          <span class="p">=</span> <span class="mi">1000000</span>
+	<span class="nx">defaultMaxWorker</span> <span class="p">=</span> <span class="mi">100</span>
+<span class="p">)</span>
+
+<span class="c1">// wg waiting for all goroutine finished.
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">wg</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
+
+<span class="c1">// task and worker
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">w</span> <span class="p">=</span> <span class="nf">newWorker</span><span class="p">(</span><span class="nx">defaultMaxWorker</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">t</span> <span class="p">=</span> <span class="nf">newTask</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">EnableGoPool</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">EnableGoPool</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">taskNum</span><span class="p">)</span>
+
+	<span class="k">go</span> <span class="nx">t</span><span class="p">.</span><span class="nf">watching</span><span class="p">()</span>
+	<span class="k">go</span> <span class="nx">t</span><span class="p">.</span><span class="nf">produce</span><span class="p">(</span><span class="nx">taskNum</span><span class="p">)</span>
+
+	<span class="nx">t</span><span class="p">.</span><span class="nf">wait</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// worker
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">worker</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">max</span>  <span class="kt">uint64</span>
+	<span class="nx">pool</span> <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}</span> <span class="c1">// buffered chan, len(cap) &lt;= max
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// newWorker
+</span><span class="c1">// max = 0, 表明只有一个 worker
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">newWorker</span><span class="p">(</span><span class="nx">max</span> <span class="kt">uint64</span><span class="p">)</span> <span class="o">*</span><span class="nx">worker</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">max</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">max</span> <span class="p">=</span> <span class="nx">defaultMaxWorker</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">worker</span><span class="p">{</span>
+		<span class="nx">max</span><span class="p">:</span>  <span class="nx">max</span><span class="p">,</span>
+		<span class="nx">pool</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">max</span><span class="p">),</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// done
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">worker</span><span class="p">)</span> <span class="nf">done</span><span class="p">()</span> <span class="p">{</span>
+	<span class="o">&lt;-</span><span class="nx">w</span><span class="p">.</span><span class="nx">pool</span>
+<span class="p">}</span>
+
+<span class="c1">// task
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">task</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">worker</span> <span class="o">*</span><span class="nx">worker</span>
+<span class="p">}</span>
+
+<span class="c1">// newTask
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">newTask</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">worker</span><span class="p">)</span> <span class="o">*</span><span class="nx">task</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">task</span><span class="p">{</span><span class="nx">worker</span><span class="p">:</span> <span class="nx">w</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// add
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">task</span><span class="p">)</span> <span class="nf">add</span><span class="p">(</span><span class="nx">num</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// produce 产出任务, 任务数量不得小于 1
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">task</span><span class="p">)</span> <span class="nf">produce</span><span class="p">(</span><span class="nx">num</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">num</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">num</span> <span class="p">=</span> <span class="mi">1</span> <span class="c1">// 至少安排一个任务
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">num</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="c1">// 检查 pool 是否已经被沾满，如果已满则阻塞等待
+</span><span class="c1"></span>		<span class="c1">// 空闲的 worker；当有 worker 被释放时，继续执
+</span><span class="c1"></span>		<span class="c1">// 行后面的代码块，即分配新任务给空闲的 worker
+</span><span class="c1"></span>		<span class="nx">t</span><span class="p">.</span><span class="nx">worker</span><span class="p">.</span><span class="nx">pool</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+
+		<span class="k">go</span> <span class="nx">t</span><span class="p">.</span><span class="nf">do</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="c1">// do sth long-running
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// wait
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">task</span><span class="p">)</span> <span class="nf">wait</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// do
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">task</span><span class="p">)</span> <span class="nf">do</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">defer</span> <span class="nx">t</span><span class="p">.</span><span class="nf">done</span><span class="p">()</span>
+
+	<span class="c1">// 模拟耗时操作
+</span><span class="c1"></span>	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;[task][%4v][%v] done.\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">utils</span><span class="p">.</span><span class="nf">Now</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="c1">// done
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">task</span><span class="p">)</span> <span class="nf">done</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">worker</span><span class="p">.</span><span class="nf">done</span><span class="p">()</span>
+	<span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">task</span><span class="p">)</span> <span class="nf">watching</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;go: %v\n&#34;</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">NumGoroutine</span><span class="p">())</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="q2-怎样才能让主-goroutine-等待其他-goroutine">Q2：怎样才能让主 goroutine 等待其他 goroutine ?</h1>
+
+<p>先来看 Demo：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+		<span class="p">}()</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这段代码运行后是不会有任何输出的，至于原因在 <a href="https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/">上一节</a>已经分析过了, 你可以回过头在看看。现在我们来看看有那些方式可以实现让主 goroutine 等待其他 goroutine</p>
+
+<h2 id="a1-小睡一会儿">A1：小睡一会儿</h2>
+
+<p>最简单粗暴的方式就是让主 goroutine &ldquo;小睡&rdquo; 一会儿，来改下代码看看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+		<span class="p">}()</span>
+	<span class="p">}</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">500</span><span class="p">)</span> <span class="c1">// + 小睡会儿：让主 goroutine 暂停运行，等待恢复后会继续执行后边的代码
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这个办法是可行的，只要 “睡眠” 的时间不要太短就好。不过，问题恰恰就在这里，我们让主 goroutine “睡眠” 多长时间才合适呢？ 如果睡眠太短，则很可能不足以让其他的 goroutine 运行完毕，而若 “睡眠” 太长则纯属浪费时间，这个时间就太难把握了。</p>
+
+<p>既然是这样，那会不会有更好的实现方法呢？ 当然是有的啊，可以让其他 goroutine 在运行完毕的时候告诉我们一下就 🆗 了啊，来在改改代码看看</p>
+
+<h2 id="a2-让其他-goroutine-在运行完毕后通知主-goroutine">A2：让其他 goroutine 在运行完毕后通知主 goroutine</h2>
+
+<p>这里，你是否想到了通道呢？通道的长度应该与我们手动启用的 goroutine 数量一致。在每个手动启用的 goroutine 即将运行结束的时候，我们都要向该通道发送一个值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+    <span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="mi">10</span>
+    <span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">n</span><span class="p">)</span>
+    <span class="c1">// 这里有个细节需要注意：
+</span><span class="c1"></span>    <span class="c1">// 我们在声明通道 done 的时候是以 chan struct{} 作为类型的。其中
+</span><span class="c1"></span>    <span class="c1">// 的类型字面量 struct{} 有些类似于空接口类型 interface{}, 它代
+</span><span class="c1"></span>    <span class="c1">// 表了既不包含任何字段也不拥有任何方法的空结构体类型
+</span><span class="c1"></span>    <span class="c1">//
+</span><span class="c1"></span>    <span class="c1">// 注意：
+</span><span class="c1"></span>    <span class="c1">// struct 类型值得表示法只有一个，即：struct{}{}。并且，它占用的
+</span><span class="c1"></span>    <span class="c1">// 内存空间是 0 字节。 确切的说，这个值在整个 Go 程序中永远都只会
+</span><span class="c1"></span>    <span class="c1">// 存在一份。虽然我们可以无数次地使用这个值字面量，但是用到的却都是
+</span><span class="c1"></span>    <span class="c1">// 同一个值。
+</span><span class="c1"></span>
+
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+            <span class="nx">done</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+        <span class="p">}()</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="nx">j</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+        <span class="o">&lt;-</span> <span class="nx">done</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note：当我们仅仅把通道当作传递某种简单信号的介质的时候，用 <code>struct{}</code> 作为其元素类型是再好不过的了。</p>
+</blockquote>
+
+<p>再看这个问题，想想有没有更好的答案？ 可定也是有的，如果了解 <code>sync</code> 代码包的话，那么可能会想到 <code>sync.WaitGroup</code> 类型。 来看看代码实现</p>
+
+<h2 id="a3-使用-sync-waitgroup">A3：使用 sync.WaitGroup</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+    <span class="s">&#34;sync&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="mi">10</span>
+
+    <span class="nx">wg</span> <span class="o">:=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
+    <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+            <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+        <span class="p">}()</span>
+    <span class="p">}</span>
+
+    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="q3-怎样让我们启用的多个-goroutine-按照既定的顺序执行">Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?</h1>
+
+<blockquote>
+<p>既然是按既定的顺序执行，那么肯定是要让异步发起的 go 函数得到同步的执行</p>
+</blockquote>
+
+<p>Demo 实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/*
+</span><span class="cm"> * 说明：for 循环启用 10 个 goroutine 打印迭代变量的序号，怎么保证按自然数的顺序(0,1,2...) 输出
+</span><span class="cm"> * 作者：zhe
+</span><span class="cm"> * 时间：2019-01-15 10:10 PM
+</span><span class="cm"> * 更新：
+</span><span class="cm"> */</span>
+
+<span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;sync/atomic&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">cnt</span> <span class="kt">uint32</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">TestByTriggerFn</span><span class="p">()</span>
+	<span class="nf">ImplementationByChan</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// ********************************************* 方式一：自旋(spinning)函数
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestByTriggerFn</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">InputNumPassByTrigger</span><span class="p">()</span>
+	<span class="nf">trigger</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{})</span> <span class="c1">// 等待主 goroutine 结束
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">trigger</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">uint32</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">n</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">cnt</span><span class="p">);</span> <span class="nx">n</span> <span class="o">==</span> <span class="nx">i</span> <span class="p">{</span> <span class="c1">// 自旋，直到 i 和 n 相等时
+</span><span class="c1"></span>			<span class="c1">// 才执行 if 里代码，n 从 0 起计数
+</span><span class="c1"></span>			<span class="nf">fn</span><span class="p">()</span>
+			<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">cnt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// cnt 会在多 goroutine 间会产生竞态，所以这里采用原子操作
+</span><span class="c1"></span>			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Nanosecond</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">InputNumPassByTrigger</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nb">uint32</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">uint32</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">fn</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">}</span>
+			<span class="nf">trigger</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span>
+		<span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// ********************************************* 方式二：用通道实现
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">ImplementationByChan</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+	<span class="k">go</span> <span class="nf">InputNum</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
+
+	<span class="nf">OutByOrder</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
+	<span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">InputNum</span><span class="p">(</span><span class="nx">ch</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">i</span>
+		<span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">OutByOrder</span><span class="p">(</span><span class="nx">ch</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">cnt</span> <span class="o">:=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">i</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="nx">cnt</span> <span class="p">{</span> <span class="c1">// cnt 从 0 开始递增 =&gt; 从 goroutine 接收的值也从 0 递增
+</span><span class="c1"></span>				<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+				<span class="nx">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+				<span class="k">continue</span>
+			<span class="p">}</span>
+			<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">i</span> <span class="p">}()</span> <span class="c1">// 不符合自然数顺序的重新放回通道中去
+</span><span class="c1"></span>		<span class="k">default</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nx">cnt</span> <span class="o">==</span> <span class="mi">10</span> <span class="p">{</span> <span class="c1">// cnt 计数到 10 说明接收完成，退出函数
+</span><span class="c1"></span>				<span class="k">return</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://time.geekbang.org/column/article/39844?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%25253D">17 | go语句及其执行规则（下）</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-01-17</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/tech/code/golang/20190107-tutorial-go36-05/">
+            <span class="next-text nav-default">『Go核心36讲』| 05 - 使用函数的正确姿势</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-01-13 11:57:26 \x2b0800 CST',
+        title: '『Go核心36讲』| 07 - go语句以及执行规则（下）',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 2019 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

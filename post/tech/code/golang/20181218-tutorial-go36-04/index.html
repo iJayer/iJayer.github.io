@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>『Go核心36讲』| 04 - 程序性能分析基础 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  性能分析，有哪些工具可以用？ 概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？ 每一种概要信息代表了什么，包含什么样的内容？ runtime/pprof.Lookup 函数的正确调用方式是什么？ 通过这些怎么检查程序瓶颈？ 怎么为基于 HTTP 协议的网络服务添加性能分析接口？ runtime/trace 代码包的功用是什么?  专栏：48 &amp;amp; 49 | 程序性能分析基础 " /><meta name="keywords" content="go, container" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20181218-tutorial-go36-04/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="『Go核心36讲』| 04 - 程序性能分析基础" />
+<meta property="og:description" content="
+
+
+
+性能分析，有哪些工具可以用？
+概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？
+每一种概要信息代表了什么，包含什么样的内容？
+runtime/pprof.Lookup 函数的正确调用方式是什么？
+通过这些怎么检查程序瓶颈？
+怎么为基于 HTTP 协议的网络服务添加性能分析接口？
+runtime/trace 代码包的功用是什么?
+
+
+
+  专栏：48 &amp; 49 | 程序性能分析基础
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20181218-tutorial-go36-04/" /><meta property="article:published_time" content="2018-12-18T21:45:30&#43;08:00"/>
+<meta property="article:modified_time" content="2019-01-07T12:45:30&#43;00:00"/>
+
+<meta itemprop="name" content="『Go核心36讲』| 04 - 程序性能分析基础">
+<meta itemprop="description" content="
+
+
+
+性能分析，有哪些工具可以用？
+概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？
+每一种概要信息代表了什么，包含什么样的内容？
+runtime/pprof.Lookup 函数的正确调用方式是什么？
+通过这些怎么检查程序瓶颈？
+怎么为基于 HTTP 协议的网络服务添加性能分析接口？
+runtime/trace 代码包的功用是什么?
+
+
+
+  专栏：48 &amp; 49 | 程序性能分析基础
+
+">
+
+
+<meta itemprop="datePublished" content="2018-12-18T21:45:30&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-07T12:45:30&#43;00:00" />
+<meta itemprop="wordCount" content="4879">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="『Go核心36讲』| 04 - 程序性能分析基础"/>
+<meta name="twitter:description" content="
+
+
+
+性能分析，有哪些工具可以用？
+概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？
+每一种概要信息代表了什么，包含什么样的内容？
+runtime/pprof.Lookup 函数的正确调用方式是什么？
+通过这些怎么检查程序瓶颈？
+怎么为基于 HTTP 协议的网络服务添加性能分析接口？
+runtime/trace 代码包的功用是什么?
+
+
+
+  专栏：48 &amp; 49 | 程序性能分析基础
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">『Go核心36讲』| 04 - 程序性能分析基础</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-12-18 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 4879 words </span>
+          <span class="more-meta"> 10 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#go-程序性能分析基础">Go 程序性能分析基础</a>
+<ul>
+<li><a href="#接口和工具">接口和工具</a>
+<ul>
+<li><a href="#api">API</a></li>
+<li><a href="#tools">Tools</a></li>
+</ul></li>
+<li><a href="#概要文件">概要文件</a></li>
+<li><a href="#性能分析数据的采样工作">性能分析数据的采样工作</a>
+<ul>
+<li><a href="#怎样让程序对-cpu-概要信息进行采样">怎样让程序对 CPU 概要信息进行采样？</a>
+<ul>
+<li><a href="#问题解析">问题解析</a></li>
+</ul></li>
+<li><a href="#怎样设定内存概要信息的采样频率">怎样设定内存概要信息的采样频率？</a></li>
+<li><a href="#怎样获取到阻塞概要信息">怎样获取到阻塞概要信息？</a></li>
+<li><a href="#runtime-pprof-lookup-函数的正确调用方式是什么"><code>runtime/pprof.Lookup</code> 函数的正确调用方式是什么？</a></li>
+<li><a href="#如何为基于-http-协议的网络服务添加性能分析接口">如何为基于 HTTP 协议的网络服务添加性能分析接口？</a></li>
+</ul></li>
+<li><a href="#扩展问题">扩展问题</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>性能分析，有哪些工具可以用？</li>
+<li>概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？</li>
+<li>每一种概要信息代表了什么，包含什么样的内容？</li>
+<li><code>runtime/pprof.Lookup</code> 函数的正确调用方式是什么？</li>
+<li>通过这些怎么检查程序瓶颈？</li>
+<li>怎么为基于 HTTP 协议的网络服务添加性能分析接口？</li>
+<li><code>runtime/trace</code> 代码包的功用是什么?</li>
+</ul>
+
+<div class='align-right'>
+  <a href="https://time.geekbang.org/column/article/69812">专栏：48 &amp; 49 | 程序性能分析基础</a>
+</div>
+</blockquote>
+
+<div class='align-center'>
+  <p><img src="https://images.unsplash.com/photo-1520004434532-668416a08753?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="" /></p>
+
+<p>— <a href="https://unsplash.com/@kellysikkema">Kelly Sikkema</a></p>
+
+</div>
+
+<h1 id="go-程序性能分析基础">Go 程序性能分析基础</h1>
+
+<h2 id="接口和工具">接口和工具</h2>
+
+<h3 id="api">API</h3>
+
+<p>Go 语言为程序开发者们提供了丰富的性能分析 API 以及非常好用的标准工具。这些 API 主要存在于一下三个代码包中：</p>
+
+<ul>
+<li><code>runtime/pprof</code></li>
+<li><code>net/http/pprof</code> (常用)</li>
+<li><code>runtime/trace</code> (还没接触)</li>
+</ul>
+
+<p>另外，<code>runtime</code> 代码包中还包含了一些更底层的 API。它们可以被用来收集或输出 Go 程序运行过程中的一些关键指标，并帮助我们生成相应的概要文件以供后续分析使用。</p>
+
+<h3 id="tools">Tools</h3>
+
+<p>标准工具主要有：</p>
+
+<ul>
+<li><code>go tool pprof</code>(常用)</li>
+<li><code>go tool trace</code>(还没接触)</li>
+</ul>
+
+<p>它们可以解析概要文件中的信息，并以人类易读的方式把这些信息展示出来。</p>
+
+<p>此外，<code>go test</code> 命令也可以在程序测试完成后生成概要文件。</p>
+
+<h2 id="概要文件">概要文件</h2>
+
+<p>在 Go 语言中，用于分析程序性能的概要文件有三种：<code>CPU 概要文件(CPU Profile)</code>、<code>内存概要文件(Mem Profile)</code> 和<code>阻塞概要文件(Block Profile)</code></p>
+
+<blockquote>
+<p>这些概要文件中包含的是：在某一段时间内，对 Go 程序的相关指标进行多次采样后得到的概要信息。</p>
+</blockquote>
+
+<ul>
+<li><p>对 <code>CPU 概要文件</code>来说，其中的每一段独立的概要信息都记录着，在进行某一次采样的那个时刻，CPU 上正在执行的 Go 代码。</p></li>
+
+<li><p>对 <code>内存概要文件</code>来说，其中的每一段概要信息都记载着，在某个采样时刻，正在执行的 Go 代码以及堆内存的使用情况，这里包含已分配和已释放的字节数量和对象数量</p></li>
+
+<li><p>对 <code>阻塞概要文件</code>来说，其中的每一段概要信息，都代表着 Go 程序中的一个 goroutine 阻塞事件。</p></li>
+</ul>
+
+<blockquote>
+<p>Note: 在默认情况下，这些概要文件中的信息并不是普通的文件，它们都是以二进制的形式展现的。如果你使用一个常规的文件编辑器查看它们的话，那么肯定会看到一堆 <code>乱码</code>。</p>
+</blockquote>
+
+<p>查看这些概要文件包含的信息，就需要使用 <code>go tool pprof</code> 这个工具了。我们可以通过它进入一个基于命令行的交互式界面，并对指定的概要文件进行查询。就像下面这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go tool pprof cpuprofile.out
+Type: cpu
+Time: Nov <span class="m">9</span>, <span class="m">2018</span> at <span class="m">4</span>:31pm <span class="o">(</span>CST<span class="o">)</span>
+Duration: <span class="m">7</span>.96s, Total <span class="nv">samples</span> <span class="o">=</span> <span class="m">6</span>.88s <span class="o">(</span><span class="m">86</span>.38%<span class="o">)</span>
+Entering interactive mode <span class="o">(</span><span class="nb">type</span> <span class="s2">&#34;help&#34;</span> <span class="k">for</span> commands, <span class="s2">&#34;o&#34;</span> <span class="k">for</span> options<span class="o">)</span>
+<span class="o">(</span>pprof<span class="o">)</span> </code></pre></td></tr></table>
+</div>
+</div>
+<p>关于这个工具的具体用法：在交互式界面输入 <code>help</code> + <kbd>Enter</kbd></p>
+
+<h2 id="性能分析数据的采样工作">性能分析数据的采样工作</h2>
+
+<p>前面提到了，要分析程序的相关性能指标，如 CPU、Mem、Block 等，就要从与其对应得概要文件入手进行分析，那么这些概要文件数据是怎么得来的呢？ 概要文件不是普通的文件，它又是如何生成的呢？ 来，让我们继续往下看</p>
+
+<p>Go 程序的概要文件时通过 <a href="https://github.com/protocolbuffers/protobuf">protocol buffers</a> 生成的二进制数据流，或者说字节流。</p>
+
+<p>概括来讲，protocol buffers 是一种数据序列化协议，同时也是一个序列化工具。它可以把一个值，比如一个结构体或者一个字典，转换成一段字节流。 换句话说，protocol buffers 定义和实现了一种“可以让数据在结构形态和扁平形态之间互相转换”的方式。</p>
+
+<p>首先来看看第一个问题吧！</p>
+
+<h3 id="怎样让程序对-cpu-概要信息进行采样">怎样让程序对 CPU 概要信息进行采样？</h3>
+
+<p><strong>对这个问题的典型回答：</strong></p>
+
+<p>这需要用到 <code>runtime/pprof</code> 包中的 API。更具体地说，在我们想让程序开始对 CPU 概要信息进行采样的时候，需要调用这个代码包中的 <code>StartCPUProfile</code> 函数，而在停止采样的时候则需要调用该包中的 <code>StopCPUProfile</code> 函数。</p>
+
+<h4 id="问题解析">问题解析</h4>
+
+<p><code>runtime/pprof.StartCPUProfile</code> 函数（以下简称 StartCPUProfile 函数）在被调用的时候，先会去设定 CPU 概要信息的 <code>采样频率</code>，并会在单独的 goroutine 中进行 CPU 概要信息的收集和输出。</p>
+
+<blockquote>
+<p>Note: <code>StartCPUProfile</code> 函数设定的采样频率总是固定的，即 <code>100 赫兹</code>。也就是说，每 <code>s</code> 采样 100 次，或者说每 <code>10ms</code> 采样一次。</p>
+</blockquote>
+
+<p><strong>扩展知识：</strong></p>
+
+<p>赫兹，也称 Hz，是从英文单词“Hertz”（一个英文姓氏）音译过来的一个中文词。它是 CPU 主频的基本单位。</p>
+
+<p>CPU 主频指的是，CPU 内核工作的时钟频率，也常被称为 CPU clock speed。这个时钟频率的倒数即为时钟周期（clock cycle），也就是一个 CPU 内核执行一条运算指令所需的时间，单位是秒。</p>
+
+<p>StartCPUProfile 函数设定的 CPU 概要信息采样频率，相对于现代的 CPU 主频来说是非常低的。这主要有两个方面的原因：</p>
+
+<ul>
+<li><p>其一：</p>
+
+<p>过高的采样频率会对 Go 程序的运行效率造成很明显的负面影响。因此，<code>runtime</code> 包中 <code>SetCPUProfileRate</code> 函数在被调用的时候，会保证采样频率不超过 1MHz(兆赫)，也就是说它只允许美 1 微秒最多采样一次。<code>StartCPUProfile</code> 函数正是通过调用这个函数来设定 CPU 概要信息的采样频率的。</p></li>
+
+<li><p>其二</p>
+
+<p>经过大量的实验，Go 语言团队发现 100 Hz 是一个比较合适的设定。因为这样做既可以得到足够多、足够有用的概要信息，又不至于让程序的运行出现停滞。另外，操作系统对高频采样的处理能力也是有限的，一般情况下，超过 500 Hz 就很可能得不到及时的响应了。</p>
+
+<p>在 StartCPUProfile 函数执行后，一个新启用的 goroutine 将会负责执行 CPU 概要信息的收集和输出，直到 <code>runtime/pprof</code> 包中的 StopCPUProfile 函数被成功调用。</p>
+
+<p>StopCPUProfile 函数也会调用 runtime.SetCPUProfileRate 函数，并把参数值(也就是采样频率) 设为0。这会让针对 CPU 概要信息的采样工作停止。同时，它也会给负责收集 CPU 概要信息的代码一个 <code>信号</code>，以告知收集工作也需要停止了。</p>
+
+<p>在接收到这样的<code>信号</code>之后，那部分程序将会把这段时间内收集到的所有 CPU 概要信息，全部写入到我们在调用 StartCPUProfile 函数的时候指定的写入器中。只有在上述操作全部完成之后，StopCPUProfile 函数才会返回。</p></li>
+</ul>
+
+<h3 id="怎样设定内存概要信息的采样频率">怎样设定内存概要信息的采样频率？</h3>
+
+<p>针对内存概要信息的采样会按照一定比例收集 Go 程序在运行期间的堆内存使用情况。设定内存概要信息采样频率的方法很简单，只要为 <code>runtime.MemProfileRate</code> 变量赋值即可。</p>
+
+<p>这个变量的含义是：平均每分配多少个字节，就对堆内存的使用情况进行一次采样。如果把该变量的值设为 0, Go 语言运行时系统就会完全停止对内存概要信息的采样。该变量的缺省值是 <code>512 KB</code></p>
+
+<blockquote>
+<p>Note: 注意，如果你要设定这个采样频率，那么越早设定越好，并且只应该设定一次，否则就可能会对 Go 语言运行时系统的采样工作，造成不良影响。比如，只在 <code>main</code> 函数的开始出设定一次。</p>
+</blockquote>
+
+<p>在这之后，当我们想获取内存概要信息的时候，还需要调用 <code>runtime/pprof</code> 包中的 <code>WriteHeapProfile</code> 函数。该函数会把收集好的内存概要信息，写入到我们指定的写入器中。</p>
+
+<blockquote>
+<p>Note: 我们通过 <code>WriteHeapProfile</code> 函数得到的内存概要信息并不是实时的，它是一个快照，是在最近一次的内存垃圾收集工作完成时产生的。如果你想要实时的信息，那么可以调用 <code>runtime.ReadMemStats</code> 函数。不过要特别注意，该函数会引起 Go 语言的短暂停顿。</p>
+</blockquote>
+
+<h3 id="怎样获取到阻塞概要信息">怎样获取到阻塞概要信息？</h3>
+
+<p>我们调用 <code>runtime</code> 包中的 <code>SetBlockProfileRate</code> 函数，即可对阻塞概要信息的采样频率进行设定。该函数有一个名叫 rate 的参数，它是 int 类型的。</p>
+
+<p>这个参数的含义是，只要发现一个阻塞时间的持续时间达到了多少个纳秒，就可以对其进行采样。如果这个参数的值小于或等于0，那么久意味着 Go 语言运行时系统将会完全停止对阻塞概要信息的采样。</p>
+
+<p>在 <code>runtime</code> 包中，还有一个名叫 <code>blockprofilerate</code> 的包级私有变量，它是 <code>uint64</code> 类型的。这个变量的含义是，只要发现一个阻塞事件的持续时间跨越了多少个 CPU 时钟周期，就可以对其进行采样。 (与 rate 参数很相似，其区别仅仅在于单位不同)</p>
+
+<p>另一方面，当我们需要获取阻塞概要信息的时候，需要先调用 <code>runtime/pprof</code> 包中的 <code>Lookup</code> 函数并传入参数值 <code>block</code>，从而得到一个 <code>*runtime/pprof.Profile</code> 类型的值(以下简称 Profile 值)。在这之后，我们还需要调用这个 Profile 值得 <code>WriteTo</code> 方法，以驱使它把概要信息写进我们指定的写入器中。</p>
+
+<p>这个 <code>WriteTo</code> 方法有两个参数，一个参数就是我们刚刚提到的写入器，它是 <code>io.Writer</code> 类型的。而另一个参数则代表了概要信息详细程度的 int 类型参数 debug.</p>
+
+<p>debug 参数主要的可选值有两个，即 <code>0</code> 和 <code>1</code>：</p>
+
+<ul>
+<li><p>当 debug 为 0 时，通过 WriteTo 方法写进写入器的概要信息仅会包含 <code>go tool pprof</code> 工具所需的内存地址，这些内存地址会以十六进制的形式展现出来。</p></li>
+
+<li><p>当 debug 为 1 时，相应的包名、函数名、源码文件路径、代码行号等信息就都会作为注释被加入进去。另外，debug 为 0 时的概要信息，会经由 protocol buffers 转换为字节流。而在 debug 为 1 的时候，WriteTo 方法输出的这些概要信息就是我们可以读懂的普通文本了。</p></li>
+
+<li><p>除此之外，debug的值也可以是2。这时，被输出的概要信息也会是普通的文本，并且通常会包含更多的细节。至于这些细节都包含哪些内容，那就要看我们调用 <code>runtime/pprof.Lookup</code> 函数的时候传入的是什么样的参数值了。</p></li>
+</ul>
+
+<h3 id="runtime-pprof-lookup-函数的正确调用方式是什么"><code>runtime/pprof.Lookup</code> 函数的正确调用方式是什么？</h3>
+
+<p><code>runtime/pprof.Lookup</code> 函数的功能是：提供与给定名称相对应的概要信息。这个概要信息会由一个 <code>Profile</code> 值代表。如果该函数返回了一个 <code>nil</code>，那么久说明不存在与给定名称相对应的概要信息。</p>
+
+<p><code>runtime/pprof</code> 包已经为我们预定义了 6 个概要名称。它们对应的概要信息收集方法和输出方法也都已经准备好了。我们可以直接拿来使用：<code>goroutine、heap、allocs、treadcreate、block 和 mutex</code>。</p>
+
+<ul>
+<li><p>当我们把 <code>goroutine</code> 传入 <code>Lookup</code> 函数的时候，该函数会利用相应的方法，收集到当前正在使用的所有 goroutine 的堆栈跟踪信息。注意，这样的收集会引起 Go 语言调度器的短暂停顿。</p>
+
+<ul>
+<li>当调用该函数返回的 <code>Profile</code> 值得 <code>WriteTo</code> 方法时，如果参数 <code>debug</code> 的值大于或等于 2，那么该方法就会输出所有 <code>goroutine</code> 的堆栈跟踪信息。这些信息可能会非常多。如果它们占用的空间超过了 64 MB （也就是64兆字节），那么相应的方法就会将超出的部分截掉。</li>
+</ul></li>
+
+<li><p>如果 <code>Lookup</code> 函数接到的参数值是 <code>heap</code>，那么它就会收集与堆内存的分配和释放有关的采样信息。这实际上就是我们在前面讨论过的内存概要信息。在我们传入 &ldquo;allocs&rdquo; 的时候，后续的操作会与之非常的相似。</p>
+
+<ul>
+<li><p>在这两种情况下，<code>Lookup</code> 函数返回的 <code>Profile</code> 函数值也会及其相像。只不过，在这两种 Profile 值得 WriteTo 方法被调用时，他们输出的概要信息会有细微的差别，而且这仅仅体现在参数 debug 等于 0 的时候</p></li>
+
+<li><p><code>heap</code> 会使得被输出的内存概要信息默认以 <code>在用空间(inuse_space)</code> 的视角呈现，而 <code>allocs</code> 对应的默认视角则是 <code>已分配空间(alloc_space)</code></p>
+
+<ul>
+<li><code>在用空间(inuse_space)</code>：指已经分配但还未被释放的内存空间。go tool pprof 工具并不会去理会与已释放空间有关的那部分信息。而在“已分配空间”的视角下，所有的内存分配信息都会被展现出来，无论这些内存空间在采样时是否已被释放。</li>
+</ul></li>
+</ul></li>
+
+<li><p>参数值 <code>threadcreate</code> 会使Lookup函数去收集一些堆栈跟踪信息。这些堆栈跟踪信息中的每一个都会描绘出一个代码调用链，这些调用链上的代码都导致新的操作系统线程产生。这样的Profile值的输出规格也只有两种，取决于我们传给其WriteTo方法的参数值是否大于0。</p>
+
+<ul>
+<li>再说 <code>block</code> 和 <code>mutex</code>。<code>block</code> 代表的是，因争用同步原语而被阻塞的那些代码的堆栈跟踪信息。<code>mutex</code> 代表的是，曾经作为同步原语持有者的那些代码，它们的堆栈跟踪信息。它们的输出规格也都只有两种，取决于debug是否大于0。</li>
+</ul></li>
+</ul>
+
+<p>这里所说的同步原语，指的是存在于 Go 语言运行时系统内部的的一种底层的同步工具，或者说一种同步机制。</p>
+
+<p>它是直接面向内存地址的，并以异步信号量和原子操作作为实现手段。我们已经熟知的通道、互斥锁、条件变量、”WaitGroup“，以及 Go 语言运行时系统本身，都会利用它来实现自己的功能。</p>
+
+<h3 id="如何为基于-http-协议的网络服务添加性能分析接口">如何为基于 HTTP 协议的网络服务添加性能分析接口？</h3>
+
+<p>添加方式如下：</p>
+
+<p>先在程序中导入 <code>net/http/pprof</code> 代码包，就像这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">import _ &#34;net/http/pprof&#34;</pre></td></tr></table>
+</div>
+</div>
+<p>然后，启动网络服务并开始监听，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServer</span><span class="p">(</span><span class="s">&#34;localhost:8082&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">))</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>在运行这个程序之后，我们就可以通过在网络浏览器中访问 <code>http://localhost:8082/debug/pprof</code> 这个地址看到一个简约的网页。</p>
+
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li><p><code>/debug/pprof/heap</code> 路径下，可以接收一个名叫 <code>gc</code> 的查询参数，它用于控制是否在获取概要信息之前强制执行一次垃圾回收，只要它的值大于 0，程序就会这样做。</p></li>
+
+<li><p><code>/debug/pprof/profile</code> 路径下，可以接收一个名为 <code>seconds</code> 的查询参数。该参数的含义是，采样工作需要持续多少秒。默认(缺省) 30s。 例如：<code>go tool pprof http://localhost:6060/debug/pprof/profile?seconds=60</code></p></li>
+
+<li><p><code>/debug/pprof/trace</code> 被访问时，程序主要会利用 <code>runtime/trace</code> 代码包中的 API 来处理我们的请求</p>
+
+<ul>
+<li>更具体地说，程序会先调用 <code>trace.Start</code> 函数，然后再查询参数 seconds 指定的持续时间之后再调用 <code>trace.Stop</code> 函数。这里的 <code>seconds</code> 的缺省值是 <code>1s</code>。</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<p>定制路由：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">mux</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewServeMux</span><span class="p">()</span>
+<span class="nx">pathPrefix</span> <span class="o">:=</span> <span class="s">&#34;/d/pprof/&#34;</span>
+<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="nx">pathPrefix</span><span class="p">,</span>
+	<span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">name</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimPrefix</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">,</span> <span class="nx">pathPrefix</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">name</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+			<span class="nx">pprof</span><span class="p">.</span><span class="nf">Handler</span><span class="p">(</span><span class="nx">name</span><span class="p">).</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+		<span class="nx">pprof</span><span class="p">.</span><span class="nf">Index</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+	<span class="p">})</span>
+<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="nx">pathPrefix</span><span class="o">+</span><span class="s">&#34;cmdline&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Cmdline</span><span class="p">)</span>
+<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="nx">pathPrefix</span><span class="o">+</span><span class="s">&#34;profile&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Profile</span><span class="p">)</span>
+<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="nx">pathPrefix</span><span class="o">+</span><span class="s">&#34;symbol&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Symbol</span><span class="p">)</span>
+<span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="nx">pathPrefix</span><span class="o">+</span><span class="s">&#34;trace&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Trace</span><span class="p">)</span>
+
+<span class="nx">server</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Server</span><span class="p">{</span>
+	<span class="nx">Addr</span><span class="p">:</span>    <span class="s">&#34;localhost:8083&#34;</span><span class="p">,</span>
+	<span class="nx">Handler</span><span class="p">:</span> <span class="nx">mux</span><span class="p">,</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="扩展问题">扩展问题</h2>
+
+<p>问题：<a href="https://golang.org/pkg/runtime/trace/">runtime/trace</a> 代码包的功用是什么？</p>
+
+<p>Package trace contains facilities(实施) for programs to generate traces for the Go execution tracer(执行追踪器).</p>
+
+<ul>
+<li><a href="https://blog.gopheracademy.com/advent-2017/go-execution-tracer/">Go execution tracer</a></li>
+<li><a href="https://making.pusher.com/go-tool-trace/index.html">go tool trace</a>
+
+<ul>
+<li><a href="https://studygolang.com/articles/9693">译文</a></li>
+</ul></li>
+</ul>
+
+<h1 id="总结">总结</h1>
+
+<p>Go 语言的运行时系统会根据要求对程序的相关指标进行多次采样，并对采样的结果进行组织和整理，最后形成一份完整的性能分析报告。 而我们需要理解以 <code>采样</code>、<code>收集</code>、<code>输出</code> 为代表的一系列操作步骤，以及每一种概要信息都代表了什么，它们分别都包含了什么样的内容。</p>
+
+<p><a href="https://github.com/hyper0x/Golang_Puzzlers/blob/master/src/puzzlers/article37/q1/demo96.go">Click Here for Demo Code</a></p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://developers.google.com/protocol-buffers/?hl=zh-CN">Protocol Buffers Docs</a></li>
+<li><a href="https://time.geekbang.org/column/article/69812">Go语言核心36讲 | 48 | 程序性能分析基础（上）</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-01-07</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20190107-tutorial-go36-05/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">『Go核心36讲』| 05 - 使用函数的正确姿势</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/">
+            <span class="next-text nav-default">Golang | 语言机制之数据和语法的设计哲学</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-12-18 21:45:30 \x2b0800 CST',
+        title: '『Go核心36讲』| 04 - 程序性能分析基础',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 2019 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

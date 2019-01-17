@@ -6,10 +6,79 @@
     <description>Recent content in tech on Zher</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Dec 2018 17:25:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 Jan 2019 11:57:26 +0800</lastBuildDate>
     
 	<atom:link href="https://zhezh09.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>『Go核心36讲』| 07 - go语句以及执行规则（下）</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/</link>
+      <pubDate>Sun, 13 Jan 2019 11:57:26 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?&lt;/li&gt;
+&lt;li&gt;Q2：怎样才能让主 goroutine 等待其他 goroutine ?&lt;/li&gt;
+&lt;li&gt;Q3：怎样让我们启用的多个 goroutine&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#39;align-right&#39;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：17 | go语句及其执行规则（下）&lt;/a&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>『Go核心36讲』| 05 - 使用函数的正确姿势</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20190107-tutorial-go36-05/</link>
+      <pubDate>Mon, 07 Jan 2019 11:37:08 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20190107-tutorial-go36-05/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;函数类型、函数签名&lt;/li&gt;
+&lt;li&gt;高阶函数&lt;/li&gt;
+&lt;li&gt;闭包&lt;/li&gt;
+&lt;li&gt;函数传参&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#39;align-right&#39;&gt;
+  &lt;a href=&#34;https://time.geekbang.org/column/article/14671?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%252525253D&#34;&gt;专栏：12 | 使用函数的正确姿势&lt;/a&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>『Go核心36讲』| 04 - 程序性能分析基础</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20181218-tutorial-go36-04/</link>
+      <pubDate>Tue, 18 Dec 2018 21:45:30 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20181218-tutorial-go36-04/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;性能分析，有哪些工具可以用？&lt;/li&gt;
+&lt;li&gt;概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？&lt;/li&gt;
+&lt;li&gt;每一种概要信息代表了什么，包含什么样的内容？&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;runtime/pprof.Lookup&lt;/code&gt; 函数的正确调用方式是什么？&lt;/li&gt;
+&lt;li&gt;通过这些怎么检查程序瓶颈？&lt;/li&gt;
+&lt;li&gt;怎么为基于 HTTP 协议的网络服务添加性能分析接口？&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;runtime/trace&lt;/code&gt; 代码包的功用是什么?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#39;align-right&#39;&gt;
+  &lt;a href=&#34;https://time.geekbang.org/column/article/69812&#34;&gt;专栏：48 &amp;amp; 49 | 程序性能分析基础&lt;/a&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;</description>
+    </item>
     
     <item>
       <title>Golang | 语言机制之数据和语法的设计哲学</title>

@@ -25,6 +25,21 @@
     </item>
     
     <item>
+      <title>DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/devops/20180927-cicd-04-dockerizing-bitbucketserver/</link>
+      <pubDate>Thu, 27 Sep 2018 22:09:25 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/devops/20180927-cicd-04-dockerizing-bitbucketserver/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;基于 Docker 部署 Bitbucket Server&lt;/li&gt;
+&lt;li&gt;基于 Docker 部署 Jira&lt;/li&gt;
+&lt;li&gt;基于 Docker 部署 Confluence&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
       <title>Docker | Docker Compose 基础</title>
       <link>https://zhezh09.github.io/post/tech/cloud/docker/docker-compose-note/</link>
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
