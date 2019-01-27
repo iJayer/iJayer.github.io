@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | FAQ - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" Docker 使用过程中经常遇到的问题备忘
+" /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/docker/faq/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | FAQ" />
+<meta property="og:description" content="
+
+
+Docker 使用过程中经常遇到的问题备忘
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/docker/faq/" /><meta property="article:published_time" content="2017-07-11T16:39:25&#43;08:00"/>
+<meta property="article:modified_time" content="2017-07-11T18:39:25&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | FAQ">
+<meta itemprop="description" content="
+
+
+Docker 使用过程中经常遇到的问题备忘
+">
+
+
+<meta itemprop="datePublished" content="2017-07-11T16:39:25&#43;08:00" />
+<meta itemprop="dateModified" content="2017-07-11T18:39:25&#43;00:00" />
+<meta itemprop="wordCount" content="600">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | FAQ"/>
+<meta name="twitter:description" content="
+
+
+Docker 使用过程中经常遇到的问题备忘
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | FAQ</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-07-11 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 600 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#q1-基于alpine构建的docker镜像出现时间和宿主时间不同步问题-时区设置有问题">Q1: 基于Alpine构建的Docker镜像出现时间和宿主时间不同步问题，时区设置有问题</a></li>
+<li><a href="#q2-docker-pull很慢-需要docker加速器">Q2: Docker pull很慢，需要docker加速器</a>
+<ul>
+<li><a href="#加速器">加速器</a></li>
+<li><a href="#配置">配置</a></li>
+</ul></li>
+<li><a href="#q3-docker-升级">Q3: Docker 升级</a>
+<ul>
+<li><a href="#centos-7">CentOS 7</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>Docker 使用过程中经常遇到的问题备忘</p>
+</blockquote>
+
+<h1 id="q1-基于alpine构建的docker镜像出现时间和宿主时间不同步问题-时区设置有问题">Q1: 基于Alpine构建的Docker镜像出现时间和宿主时间不同步问题，时区设置有问题</h1>
+
+<blockquote>
+<p>Alpine默认时区·UTC, 通过 Dockerfile 可修改时区设置，所有容器都将生效</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">RUN</span>  <span class="nb">echo</span> <span class="s1">&#39;http://mirrors.ustc.edu.cn/alpine/v3.5/main&#39;</span> &gt; /etc/apk/repositories <span class="o">&amp;&amp;</span> <span class="se">\ </span>               <span class="err">
+</span><span class="err"></span>     <span class="nb">echo</span> <span class="s1">&#39;http://mirrors.ustc.edu.cn/alpine/v3.5/community&#39;</span> &gt;&gt; /etc/apk/repositories <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>     apk update <span class="o">&amp;&amp;</span> apk add tzdata <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span class="o">&amp;&amp;</span> <span class="se">\ </span><span class="err">
+</span><span class="err"></span>     <span class="nb">echo</span> <span class="s2">&#34;Asia/Shanghai&#34;</span> &gt; /etc/timezone</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><a href="http://www.jianshu.com/p/4e7553179a72">Alpine设置时区</a></li>
+</ul>
+
+<h1 id="q2-docker-pull很慢-需要docker加速器">Q2: Docker pull很慢，需要docker加速器</h1>
+
+<h2 id="加速器">加速器</h2>
+
+<ul>
+<li><p>中国科技大学的镜像加速器：中科大的加速器不用注册，直接使用地址 <a href="https://docker.mirrors.ustc.edu.cn/">https://docker.mirrors.ustc.edu.cn/</a> 配置加速器即可。</p>
+
+<ul>
+<li>进一步的信息可以访问：<a href="http://mirrors.ustc.edu.cn/help/dockerhub.html?highlight=docker">http://mirrors.ustc.edu.cn/help/dockerhub.html?highlight=docker</a> (首选方案)</li>
+</ul></li>
+
+<li><p>阿里云加速器：注册阿里云开发账户(免费的)后，访问这个链接就可以看到加速器地址： <a href="https://cr.console.aliyun.com/#/accelerator">https://cr.console.aliyun.com/#/accelerator</a></p></li>
+
+<li><p>DaoCloud 加速器：注册 DaoCloud 账户(支持微信登录)，然后访问： <a href="https://www.daocloud.io/mirror#accelerator-doc">https://www.daocloud.io/mirror#accelerator-doc</a></p></li>
+</ul>
+
+<h2 id="配置">配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ vim /lib/systemd/system/docker.service
+
+# 找到 ExecStart=/usr/bin/dockerd
+# 添加 --registry-mirror=&lt;加速地址&gt;
+# ExecStart=/usr/bin/dockerd --registry-mirror=https://docker.mirrors.ustc.edu.cn/
+
+$ systemctl daemon-reload
+$ systemctl restart docker</pre></td></tr></table>
+</div>
+</div>
+<p>配置文件修改：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;data-root&#34;</span><span class="p">:</span> <span class="s2">&#34;/home/workspace/docker/data&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;insecure-registry&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;&lt;your_host_domain&gt;:5000&#34;</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;allow-nondistributable-artifacts&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;&lt;your_host_domain&gt;:5000&#34;</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;registry-mirrors&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;https://fasdhwsdf1.mirror.aliyuncs.com&#34;</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><a href="https://blog.csdn.net/xl_lx/article/details/78286216">Docker pull很慢，需要docker加速器</a></li>
+<li><a href="http://mirrors.ustc.edu.cn/help/dockerhub.html?highlight=docker">Docker Hub 源使用帮助</a></li>
+<li><a href="http://blog.51cto.com/xiexf/1955702">解决docker pull镜像速度慢的问题</a></li>
+<li><a href="https://orianna-zzo.github.io/blog/2018-03/%E6%85%A2%E5%AD%A6docker3-docker-hub%E9%80%9F%E5%BA%A6%E8%9C%97%E7%89%9B%E7%88%AC%E6%80%8E%E4%B9%88%E5%8A%9E/">慢学DOCKER(3) DOCKER HUB速度蜗牛爬怎么办</a></li>
+</ul>
+
+<h1 id="q3-docker-升级">Q3: Docker 升级</h1>
+
+<ul>
+<li><a href="https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce-1">Docker Official Website</a></li>
+</ul>
+
+<h2 id="centos-7">CentOS 7</h2>
+
+<blockquote>
+<p>Note: docker 升级不会影响原有的镜像和容器 <a href="https://linoxide.com/containers/upgrade-docker-fedora-centos/">Ref Bolg</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">    <span class="c1"># step1: remove old version</span>
+    
+    $ yum remove docker docker-common docker-selinux docker-engine 
+
+    <span class="c1"># step2: install Docker CE</span>
+   
+    $ yum install -y yum-utils device-mapper-persistent-data lvm2
+
+    $ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    $ yum install docker-ce
+
+    $ systemctl start docker
+
+    $ docker version</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-07-11</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/cloud/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Docker | 容器配置静态 IP</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/cloud/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/">
+            <span class="next-text nav-default">Docker | 私有仓库搭建</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-07-11 16:39:25 \x2b0800 CST',
+        title: 'Docker | FAQ',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

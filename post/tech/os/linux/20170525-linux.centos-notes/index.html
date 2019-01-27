@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux | Centos 系统优化 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/os/linux/20170525-linux.centos-notes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux | Centos 系统优化" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/os/linux/20170525-linux.centos-notes/" /><meta property="article:published_time" content="2017-05-25T17:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-05-31T19:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="Linux | Centos 系统优化">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-05-25T17:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-05-31T19:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="779">
+
+
+
+<meta itemprop="keywords" content="linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux | Centos 系统优化"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux | Centos 系统优化</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-25 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 779 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#更新系统">更新系统</a></li>
+<li><a href="#配置静态ip">配置静态IP</a></li>
+<li><a href="#配置防火墙">配置防火墙</a>
+<ul>
+<li><a href="#状态控制">状态控制</a></li>
+<li><a href="#开放端口">开放端口</a></li>
+<li><a href="#links">Links</a></li>
+</ul></li>
+<li><a href="#命令行相关配置">命令行相关配置</a></li>
+<li><a href="#selinux">SELinux</a></li>
+<li><a href="#yum指令">yum指令</a></li>
+<li><a href="#centos中文乱码">Centos中文乱码</a></li>
+<li><a href="#centos7-时间-时区设置">Centos7 时间·时区设置</a></li>
+<li><a href="#centos7-图形和命令桌面切换">Centos7 图形和命令桌面切换</a></li>
+<li><a href="#scp">SCP</a></li>
+<li><a href="#install-chrome">Install Chrome</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="更新系统">更新系统</h1>
+
+<ul>
+<li><p>备份系统镜像源</p>
+
+<ul>
+<li><code>$ cd /etc/yum.repos.d</code></li>
+<li><code>$ cp CentOS-Base.repo CentOS-Base.repo.bak</code></li>
+<li><code>$ cp CentOS-Epel.repo CentOS-Epel.repo.bak</code></li>
+</ul></li>
+
+<li><p>下载163的镜像源</p>
+
+<ul>
+<li><code>$ wget http://mirrors.aliyun.com/repo/Centos-7.repo</code>&lsquo;</li>
+<li><code>$ mv Centos-7.repo CentOS-Base.repo</code></li>
+</ul></li>
+
+<li><p>生成缓存</p>
+
+<ul>
+<li><code>$ yum makecache</code>
+<br /></li>
+</ul></li>
+
+<li><p>更新系统</p>
+
+<ul>
+<li><code>$ yum upgrade</code></li>
+</ul></li>
+</ul>
+
+<h1 id="配置静态ip">配置静态IP</h1>
+
+<ul>
+<li><a href="http://blog.csdn.net/johnnycode/article/details/40624403">Centos-7·学习之静态IP设置</a></li>
+</ul>
+
+<h1 id="配置防火墙">配置防火墙</h1>
+
+<p>Centos7默认防火墙firewall, 与之前的iptables不同</p>
+
+<blockquote>
+<p>防火墙配置完成后切记重启系统</p>
+</blockquote>
+
+<h2 id="状态控制">状态控制</h2>
+
+<ul>
+<li><p>查看防火墙状态</p>
+
+<ul>
+<li><code>$ systemctl status firewalld.service</code>
+<br /></li>
+</ul></li>
+
+<li><p>关闭防火墙</p>
+
+<ul>
+<li><code>$ systemctl stop firewalld.service</code>
+<br /></li>
+</ul></li>
+
+<li><p>开启防火墙</p>
+
+<ul>
+<li><code>$ systemctl start firewalld.service</code></li>
+</ul></li>
+</ul>
+
+<h2 id="开放端口">开放端口</h2>
+
+<ul>
+<li><a href="https://www.zybuluo.com/ruoli/note/473508">Centos7开放端口</a></li>
+</ul>
+
+<h2 id="links">Links</h2>
+
+<ul>
+<li><a href="http://www.jianshu.com/p/d6414b5295b8">Centos-7·防火墙配置</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2015/0701/5768.html">Centos-7·防火墙配置</a></li>
+<li><a href="http://havee.me/linux/2015-01/using-firewalls-on-centos-7.html">CentOS 7 下使用 Firewall</a></li>
+<li><a href="http://havee.me/linux/2015-01/using-firewalls-on-centos-7.html">CentOS 上的 FirewallD 简明指南</a></li>
+</ul>
+
+<h1 id="命令行相关配置">命令行相关配置</h1>
+
+<ul>
+<li><p>Termianl目录颜色</p>
+
+<ul>
+<li>vim /etc/DIR_COLORS</li>
+</ul></li>
+</ul>
+
+<h1 id="selinux">SELinux</h1>
+
+<ul>
+<li><p>查看状态</p>
+
+<ul>
+<li><code>$ cat /etc/selinux/config |grep -v '#' |grep -i selinux</code></li>
+</ul></li>
+
+<li><p>禁止SELinux</p>
+
+<ul>
+<li><code>$ sed -i '/SELINUX/s/enforcing/disabled/' /etc/selinux/config</code></li>
+</ul></li>
+</ul>
+
+<h1 id="yum指令">yum指令</h1>
+
+<p>yum：Yellow dog Updater, Modified</p>
+
+<ul>
+<li><p>命令格式</p>
+
+<ul>
+<li>yum [options] [command] [package&hellip;]</li>
+</ul></li>
+
+<li><p>说明</p>
+
+<ul>
+<li>options：可选，-h(帮助)、-y(安装过程默认&rsquo;yes&rsquo;)、-q(不现实安装过程)</li>
+<li>command：</li>
+</ul></li>
+
+<li><p>Links</p>
+
+<ul>
+<li><a href="http://blog.csdn.net/violet_echo_0908/article/details/52033005">yum command</a></li>
+</ul></li>
+</ul>
+
+<h1 id="centos中文乱码">Centos中文乱码</h1>
+
+<p>产生乱码原因：当前系统设置编码与终端编码、文件编码中的某个不一样的话就会产生乱码现象<br />
+解决乱码方法：让系统编码和终端显示编码相同</p>
+
+<blockquote>
+<p>注：&rdquo;C&rdquo;是系统默认的locale，&rdquo;POSIX&rdquo;是&rdquo;C&rdquo;的别名。所以当我们新安装完一个系统时，默认的locale就是C或POSIX。
+我的理解 C就是linux系统默认的语言环境。</p>
+</blockquote>
+
+<ul>
+<li><p>输入指令查看当前系统文件配置：cat /etc/locale.conf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">LANG=&#34;C&#34;</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>查看locale环境配置：locale</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">LANG=C
+LC_CTYPE=&#34;C&#34;
+LC_NUMERIC=&#34;C&#34;
+LC_TIME=&#34;C&#34;
+LC_COLLATE=&#34;C&#34;
+LC_MONETARY=&#34;C&#34;
+LC_MESSAGES=&#34;C&#34;
+LC_PAPER=&#34;C&#34;
+LC_NAME=&#34;C&#34;
+LC_ADDRESS=&#34;C&#34;
+LC_TELEPHONE=&#34;C&#34;
+LC_MEASUREMENT=&#34;C&#34;
+LC_IDENTIFICATION=&#34;C&#34;
+LC_ALL=</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>修改配置：vim /etc/locale.conf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">#LANG=&#34;C&#34;
+LANG=&#34;en_US.UTF-8&#34;</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>使配置生效：source /etc/locale.conf</p></li>
+
+<li><p>links</p>
+
+<ul>
+<li><a href="http://mingz.me/blog/posts/2016/Dec/01/centos7-utf8-rst/">CentOS7 UTF8编码设置</a></li>
+</ul></li>
+</ul>
+
+<h1 id="centos7-时间-时区设置">Centos7 时间·时区设置</h1>
+
+<ul>
+<li><a href="https://blog.itnmg.net/centos-7-time-date/">links</a></li>
+</ul>
+
+<h1 id="centos7-图形和命令桌面切换">Centos7 图形和命令桌面切换</h1>
+
+<ul>
+<li><p>开启命令模式</p>
+
+<ul>
+<li>systemctl set-default multi-user.target</li>
+</ul></li>
+
+<li><p>开启图形桌面</p>
+
+<ul>
+<li>systemctl set-default graphical.target</li>
+</ul></li>
+</ul>
+
+<h1 id="scp">SCP</h1>
+
+<ul>
+<li><p>Issue<br />
+[root@qxs ~/.ssh]$ scp -i authorized_keys /etc/DIR_COLORS root@182.254.245.83:/etc/
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0644 for &lsquo;authorized_keys&rsquo; are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+Load key &ldquo;authorized_keys&rdquo;: bad permissions
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic).</p></li>
+
+<li><p>Answer</p>
+
+<blockquote>
+<p>修改key的文件权限为 0400</p>
+</blockquote>
+
+<p>[root@qxs ~/.ssh]$ chmod 0400 authorized_keys</p></li>
+</ul>
+
+<h1 id="install-chrome">Install Chrome</h1>
+
+<ul>
+<li><p><a href="https://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/">https://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/</a></p></li>
+
+<li><p><a href="https://segmentfault.com/a/1190000007705458">https://segmentfault.com/a/1190000007705458</a></p></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-05-31</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20170603-go-closure/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | 闭包</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/">
+            <span class="next-text nav-default">Shell | 基础学习笔记</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-05-25 17:53:01 \x2b0800 CST',
+        title: 'Linux | Centos 系统优化',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

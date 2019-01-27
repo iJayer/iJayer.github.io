@@ -22,5 +22,23 @@
 &lt;p&gt;&lt;strong&gt;学习笔记&lt;/strong&gt;：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&amp;hellip;&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>Nginx | 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</link>
+      <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Caddy | 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/</link>
+      <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
   </channel>
 </rss>

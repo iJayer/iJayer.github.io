@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MongoDB | 使用 logrotate 管理日志 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" 记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7&#43;G 之多&amp;hellip; Why?
+" /><meta name="keywords" content="mongodb" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="MongoDB | 使用 logrotate 管理日志" />
+<meta property="og:description" content="
+
+
+记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7&#43;G 之多&hellip; Why?
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/" /><meta property="article:published_time" content="2018-05-11T15:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2018-05-11T15:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="MongoDB | 使用 logrotate 管理日志">
+<meta itemprop="description" content="
+
+
+记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7&#43;G 之多&hellip; Why?
+">
+
+
+<meta itemprop="datePublished" content="2018-05-11T15:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-11T15:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="1381">
+
+
+
+<meta itemprop="keywords" content="db,mongodb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB | 使用 logrotate 管理日志"/>
+<meta name="twitter:description" content="
+
+
+记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7&#43;G 之多&hellip; Why?
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MongoDB | 使用 logrotate 管理日志</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-05-11 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1381 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#问题现象">问题现象</a></li>
+<li><a href="#问题原因">问题原因</a></li>
+<li><a href="#问题解决-使用-logrotate-回滚拆分日志文件">问题解决：使用 logrotate 回滚拆分日志文件</a>
+<ul>
+<li><a href="#选型">选型</a></li>
+<li><a href="#使用logrotate管理mongodb日志">使用Logrotate管理MongoDB日志</a></li>
+<li><a href="#找到日志文件及pid记录文件">找到日志文件及PID记录文件</a></li>
+<li><a href="#编写配置文件">编写配置文件</a></li>
+<li><a href="#验证">验证</a></li>
+<li><a href="#确定执行-cron-daily-情况">确定执行 cron.daily 情况</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7+G 之多&hellip; Why?</p>
+</blockquote>
+
+<h1 id="问题现象">问题现象</h1>
+
+<p>内网测试服务器出现了日志暴增的现象，日志描述如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-mongod.log" data-lang="mongod.log"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mongod.log" data-lang="mongod.log">- I WRITE [conn1117] update db.robots query: { date: &#34;2018-05-09&#34;, serial:&#34;93542d35-5030-41b9-xxxx-0e36c546c336&#34; } planSummary: COLLSCAN update: { $set: {
+- I COMMAND  [conn1117] command db.$cmd command: update { update: &#34;robots&#34;, updates: [ { q:{ date: &#34;2018-05-09&#34;, serial: &#34;93542d35-5030-41b9-xxxx-0e36c546c336&#34; }, u: { $set: {}}</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>可以从日志描述中了解到：<code>COLLSCAN</code>，即 <code>全表扫描</code> 导致了 <code>慢查询</code> 问题，进而导致日志所有操作日志都会被记录在日志文件中去，也就产生了日志暴增问题。</p>
+</blockquote>
+
+<p>那么，问题是：什么原因造成了 <code>COOLSCAN</code> ？ <code>慢操作</code> 是如何定义的？ 或超过多少时间的操作被认为是 <code>慢操作</code>？</p>
+
+<ul>
+<li>日志描述的主要操作是：客户端的一个定时任务，即：每台设备每 6s 中都要向服务器上报一次设备数据包</li>
+</ul>
+
+<h1 id="问题原因">问题原因</h1>
+
+<p>先来看看文档中的一些介绍：</p>
+
+<ul>
+<li><p>官网 <a href="https://docs.mongodb.com/manual/reference/log-messages/#log-message-format">Doc-Log Messages</a> 里面提到了：</p>
+
+<blockquote>
+<p>Client operations appear in the log if their duration exceeds the <code>slow operation threshold(慢操作阀值)</code> or when the <code>log verbosity level(日志详细程度)</code> is 1 or higher. These log entries include the full command object associated with the operation.</p>
+</blockquote></li>
+
+<li><p>Log Verbosity Level(日志详细程度)</p>
+
+<blockquote>
+<p>default: 0</p>
+</blockquote></li>
+
+<li><p>slow operation threshold 慢操作阈值</p>
+
+<ul>
+<li><a href="https://docs.mongodb.com/manual/reference/command/profile/#slowms-threshold-option">slowms-threshold-option</a>: 提到了，default: 100ms</li>
+</ul></li>
+</ul>
+
+<p>针对日志记录做测试</p>
+
+<ul>
+<li><p>测试：每 6s 向服务器发起一次接口请求</p></li>
+
+<li><p>结果：</p>
+
+<ul>
+<li>持续时间内，按一定频率(i.e: 6s)请求都会被 mongod 服务记录到日志中去，导致了日志文件暴增</li>
+<li>记录到日志中的操作，其耗时都超过了 slowns.default(100ms)</li>
+<li>磁盘空间被消耗</li>
+</ul></li>
+
+<li><p>分析：查询效率低下导致慢操作被记录日志，而索引设计的不合理又导致了查询效率低下问题</p></li>
+
+<li><p>解决：</p>
+
+<ul>
+<li>查询优化 =&gt; 代码逻辑优化 + 索引优化 + 数据模型设计优化</li>
+<li>日志管理 =&gt; 使用 logrotate 回滚拆分日志文件</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>查询优化主要在代码中实现，这里就不做赘述了。 来看看使用 logrotate 回滚拆分日志文件吧</p>
+</blockquote>
+
+<h1 id="问题解决-使用-logrotate-回滚拆分日志文件">问题解决：使用 logrotate 回滚拆分日志文件</h1>
+
+<h2 id="选型">选型</h2>
+
+<p><a href="https://elbarco.cn/2016/06/30/%E4%BD%BF%E7%94%A8Logrotate%E7%AE%A1%E7%90%86MongoDB%E6%97%A5%E5%BF%97/#%E9%80%89%E5%9E%8B">使用Logrotate管理MongoDB日志-选型</a></p>
+
+<h2 id="使用logrotate管理mongodb日志">使用Logrotate管理MongoDB日志</h2>
+
+<p><a href="https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/">logrotate使用指南</a></p>
+
+<h2 id="找到日志文件及pid记录文件">找到日志文件及PID记录文件</h2>
+
+<p>查看 mongod.conf 就可知晓：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-mongod.conf" data-lang="mongod.conf"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mongod.conf" data-lang="mongod.conf">systemLog:
+  path: /data/log/mongod.log
+processManagement:
+  pidFilePath: /var/run/mongodb/mongod.pid</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="编写配置文件">编写配置文件</h2>
+
+<p>通过 man logrotate 查看详细参数，结合业务需求，编写的配置文件如下：文件存放在 /etc/logrotate.d/ 目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vim /etc/logrotate.d/mongod
+
+<span class="c1"># 添加下面内容</span>
+/data/log/*.log <span class="o">{</span>
+    daily
+    rotate <span class="m">3</span>
+    size 512M
+    dateext
+    compress
+    missingok
+    notifempty
+    copytruncate
+    create <span class="m">644</span> root root
+    sharedscripts
+    postrotate
+        /bin/kill -SIGUSR1 <span class="s1">&#39;cat /var/run/mongodb/mongod.pid 2&gt; /dev/null&#39;</span> <span class="m">2</span>&gt;/dev/null <span class="o">||</span> <span class="nb">true</span>
+    endscript</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="验证">验证</h2>
+
+<p>执行命令 <code>logrotate -f -v /etc/logrotate.d/mongod</code> 来验证日志是否被轮换了，示例执行结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ logrotate -f -v /etc/logrotate.d/mongod
+reading config file /etc/logrotate.d/mongod
+Allocating <span class="nb">hash</span> table <span class="k">for</span> state file, size <span class="m">15360</span> B
+
+Handling <span class="m">1</span> logs
+
+rotating pattern: /data/log/*.log  forced from <span class="nb">command</span> line <span class="o">(</span><span class="m">3</span> rotations<span class="o">)</span>
+empty log files are not rotated, old logs are removed
+considering log /data/log/mongod.log
+  log needs rotating
+rotating log /data/log/mongod.log, log-&gt;rotateCount is <span class="m">3</span>
+dateext suffix <span class="s1">&#39;-20180511&#39;</span>
+glob pattern <span class="s1">&#39;-[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]&#39;</span>
+glob finding old rotated logs failed
+copying /data/log/mongod.log to /data/log/mongod.log-20180511
+truncating /data/log/mongod.log
+running postrotate script
+compressing log with: /bin/gzip
+
+$ ls /data/log/
+mongod.log  mongod.log-20180511.gz</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 当日志文件的实际大小小于配置文件(i.e:/etc/logrotate.d/mongod) 中的 size 阈值时，是不会进行转储操作的  (即：cron.daily 任务也不会进行转储)</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ du -sh /data/log/mongod.log
+248K    mongod.log
+
+<span class="c1"># debug 测试 /etc/logrotate.d/mongod 配置, 此时 size=100M</span>
+$ logrotate -dv /etc/logrotate.d/mongod
+reading config file /etc/logrotate.d/mongod
+Allocating <span class="nb">hash</span> table <span class="k">for</span> state file, size <span class="m">15360</span> B
+
+Handling <span class="m">1</span> logs
+
+rotating pattern: /data/log/mongod.log  <span class="m">104857600</span> bytes <span class="o">(</span><span class="m">3</span> rotations<span class="o">)</span>
+empty log files are not rotated, old logs are removed
+considering log /data/log/mongod.log
+  log does not need rotating <span class="o">(</span>log size is below the <span class="s1">&#39;size&#39;</span> threshold<span class="o">)</span>
+not running postrotate script, since no logs were rotated
+
+<span class="c1"># debug 测试 /etc/logrotate.d/mongod 配置, 此时 size=100K</span>
+$ logrotate -dv /etc/logrotate.d/mongod
+reading config file /etc/logrotate.d/mongod
+Allocating <span class="nb">hash</span> table <span class="k">for</span> state file, size <span class="m">15360</span> B
+
+Handling <span class="m">1</span> logs
+
+rotating pattern: /data/log/mongod.log  <span class="m">102400</span> bytes <span class="o">(</span><span class="m">3</span> rotations<span class="o">)</span>
+empty log files are not rotated, old logs are removed
+considering log /data/log/mongod.log
+  log needs rotating
+rotating log /data/log/mongod.log, log-&gt;rotateCount is <span class="m">3</span>
+dateext suffix <span class="s1">&#39;-20180511&#39;</span>
+glob pattern <span class="s1">&#39;-[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]&#39;</span>
+glob finding old rotated logs failed
+copying /data/log/mongod.log to /data/log/mongod.log-20180511
+truncating /data/log/mongod.log
+running postrotate script
+running script with arg /data/log/mongod.log : <span class="s2">&#34;
+</span><span class="s2">            /bin/kill -SIGUSR1 &#39;cat /var/run/mongodb/mongod.pid 2&gt; /dev/null&#39; 2&gt; /dev/null || true
+</span><span class="s2">&#34;</span>
+compressing log with: /bin/gzip</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="确定执行-cron-daily-情况">确定执行 cron.daily 情况</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ tail --lines 1000 /var/log/cron | grep cron.daily
+May 11 03:01:01 localhost anacron[15856]: Will run job `cron.daily&#39; in 25 min.
+May 11 03:26:01 localhost anacron[15856]: Job `cron.daily&#39; started
+May 11 03:26:01 localhost run-parts(/etc/cron.daily)[15929]: starting logrotate
+May 11 03:26:01 localhost run-parts(/etc/cron.daily)[15937]: finished logrotate
+May 11 03:26:01 localhost run-parts(/etc/cron.daily)[15929]: starting man-db.cron
+May 11 03:26:05 localhost run-parts(/etc/cron.daily)[16285]: finished man-db.cron
+May 11 03:26:05 localhost run-parts(/etc/cron.daily)[15929]: starting mlocate
+May 11 03:26:12 localhost run-parts(/etc/cron.daily)[16296]: finished mlocate
+May 11 03:26:12 localhost anacron[15856]: Job `cron.daily&#39; terminated
+[root@VM_110_229_centos ~]$</pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://dba.stackexchange.com/questions/25658/how-to-keep-mongodb-log-small-via-the-conf-file-or-other-persistent-method">https://dba.stackexchange.com/questions/25658/how-to-keep-mongodb-log-small-via-the-conf-file-or-other-persistent-method</a></li>
+<li><a href="https://stackoverflow.com/questions/5004626/mongodb-log-file-growth">https://stackoverflow.com/questions/5004626/mongodb-log-file-growth</a></li>
+<li><a href="https://github.com/cloudstax/firecamp/blob/master/catalog/mongodb/3.4/dockerfile/mongologrotate.sh#L21:18">mongologrotate.sh</a></li>
+<li><a href="https://stackoverflow.com/questions/5004626/mongodb-log-file-growth">MongoDB log file growth  </a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-05-11</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/db/">db</a>
+          <a href="/tags/mongodb/">mongodb</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/os/linux/20180511-tools-logrotate/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux | Tools | Logrotate 使用总结</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/web/20180424-nginx-learning-notes/">
+            <span class="next-text nav-default">Nginx | 学习笔记</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-05-11 15:53:01 \x2b0800 CST',
+        title: 'MongoDB | 使用 logrotate 管理日志',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

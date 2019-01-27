@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mongodb on Zher</title>
+    <link>https://zhezh09.github.io/tags/mongodb/</link>
+    <description>Recent content in mongodb on Zher</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 11 May 2018 15:53:01 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhezh09.github.io/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MongoDB | 使用 logrotate 管理日志</title>
+      <link>https://zhezh09.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</link>
+      <pubDate>Fri, 11 May 2018 15:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7+G 之多&amp;hellip; Why?&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Golang | mgo - Rich MongoDB Driver for Go [译]</title>
+      <link>https://zhezh09.github.io/post/tech/code/golang/20180127-lib-mgo/</link>
+      <pubDate>Sat, 27 Jan 2018 16:07:43 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/code/golang/20180127-lib-mgo/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://labix.org/mgo&#34;&gt;译：Rich MongoDB Driver for Go&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl</title>
+      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</link>
+      <pubDate>Mon, 19 Jun 2017 15:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>MongoDB | 部署一个 Sharding 集群</title>
+      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</link>
+      <pubDate>Sun, 18 Jun 2017 15:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>MongoDB | 部署一个 Replica Set 集群</title>
+      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</link>
+      <pubDate>Wed, 14 Jun 2017 15:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>MongoDB | 基础学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170612-basic-note/</link>
+      <pubDate>Mon, 12 Jun 2017 15:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170612-basic-note/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>MongoDB | 集群</title>
+      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170612-cluster-note/</link>
+      <pubDate>Mon, 12 Jun 2017 15:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170612-cluster-note/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>MongoDB | 配置选项</title>
+      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170423-config-options/</link>
+      <pubDate>Sun, 23 Apr 2017 15:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170423-config-options/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>MongoDB | 安装和配置</title>
+      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170307-install-and-config/</link>
+      <pubDate>Tue, 07 Mar 2017 15:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170307-install-and-config/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

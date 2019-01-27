@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Network | 计算机网络基础 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="zher, blog, tech, essay, life, footprint" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/network/20170926-net-basic/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Network | 计算机网络基础" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/network/20170926-net-basic/" /><meta property="article:published_time" content="2017-09-26T17:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-10-10T19:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="Network | 计算机网络基础">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-09-26T17:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-10-10T19:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="2759">
+
+
+
+<meta itemprop="keywords" content="network," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Network | 计算机网络基础"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Network | 计算机网络基础</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-09-26 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2759 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#网络硬件">网络硬件</a></li>
+<li><a href="#网络划分">网络划分</a>
+<ul>
+<li><a href="#个域网">个域网</a></li>
+<li><a href="#局域网">局域网</a></li>
+<li><a href="#城域网">城域网</a></li>
+<li><a href="#广域网">广域网</a></li>
+</ul></li>
+<li><a href="#网络层次划分">网络层次划分</a></li>
+<li><a href="#osi七层网络模型">OSI七层网络模型</a>
+<ul>
+<li><a href="#physics-layer">Physics Layer</a></li>
+<li><a href="#data-link-layer">Data Link Layer</a></li>
+<li><a href="#network-layer">Network Layer</a></li>
+<li><a href="#transport-layer">Transport Layer</a></li>
+<li><a href="#session-layer">Session Layer</a></li>
+<li><a href="#presentation-layer">Presentation Layer</a></li>
+<li><a href="#application-layer">Application Layer</a></li>
+</ul></li>
+<li><a href="#ip地址">IP地址</a>
+<ul>
+<li><a href="#ip地址组成">IP地址组成</a></li>
+<li><a href="#ip地址分类">IP地址分类</a></li>
+<li><a href="#特殊的ip地址">特殊的IP地址</a>
+<ul>
+<li><a href="#广播地址">广播地址</a></li>
+<li><a href="#255-255-255-255">255.255.255.255</a></li>
+<li><a href="#0-0-0-0">0.0.0.0</a></li>
+<li><a href="#回环地址">回环地址</a></li>
+<li><a href="#abc类私有地址">ABC类私有地址</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#子网掩码">子网掩码</a>
+<ul>
+<li><a href="#class-a-b-c的子网掩码-netmask">Class.A.B.C的子网掩码(Netmask)</a></li>
+</ul></li>
+<li><a href="#路由">路由</a></li>
+<li><a href="#arp协议">ARP协议</a></li>
+<li><a href="#nat协议">NAT协议</a></li>
+<li><a href="#dhcp协议">DHCP协议</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p><strong>计算机网络的核心内容就是<code>网络协议</code>学习</strong>。</p>
+</blockquote>
+
+<h1 id="网络硬件">网络硬件</h1>
+
+<p>网络传输技术：广播式链路和点到点链路</p>
+
+<ul>
+<li><code>单播</code>：即点到点链路，在点到点传输中只有一个发送方和接收方</li>
+<li><code>广播</code>：在广播系统中，把数据包发送给所有的目标机器，且目标机器接收数据包并进行处理</li>
+<li><code>组播</code>：在广播系统中，把数据包发送给某一组目标机器</li>
+</ul>
+
+<h1 id="网络划分">网络划分</h1>
+
+<h2 id="个域网">个域网</h2>
+
+<p>PAN(Personal Area Network)，设备围绕一个人通信的网络</p>
+
+<h2 id="局域网">局域网</h2>
+
+<p>LAN(Local Area Network)，属于私有网络，常用在家庭、工厂和办公室等</p>
+
+<p>局域网中的接入设备：</p>
+
+<ul>
+<li>接入点(Access Point)</li>
+<li>无线路由器(Wireless Router)</li>
+<li>以太网交换机(Switched Ethernet)</li>
+</ul>
+
+<h2 id="城域网">城域网</h2>
+
+<p>MAN(Metropolitan Area Network)，范围覆盖城市的网络</p>
+
+<h2 id="广域网">广域网</h2>
+
+<p>WAN(Wide Area Network), 跨地理区域的网络，通常是一个国家、地区或大陆</p>
+
+<h1 id="网络层次划分">网络层次划分</h1>
+
+<p>开放系统互联参考模型，即OSI/RM模型(Open System Interconnection/Reference Model)分七层，它将计算机网络体系结构的通信协议划分为七层：物理层(Physics Layer)、数据链路层(Data Link Layer)、网络层(Network Layer)、传输层(Transport Layer)、会话层(Session Layer)、表示层(Presentation Layer)、应用层(Application Layer), 其中第四层完成数据传输服务，最上面三层面向用户。</p>
+
+<p>除了OSI七层模型外还有常见的TCP/IP四层协议和TCP/IP五层协议，其对应关系如下:</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548470026/blog/images/OSI-TCP_IP.jpg" alt="OSI-TCP·IP" /></p>
+
+<h1 id="osi七层网络模型">OSI七层网络模型</h1>
+
+<h2 id="physics-layer">Physics Layer</h2>
+
+<h2 id="data-link-layer">Data Link Layer</h2>
+
+<h2 id="network-layer">Network Layer</h2>
+
+<h2 id="transport-layer">Transport Layer</h2>
+
+<h2 id="session-layer">Session Layer</h2>
+
+<h2 id="presentation-layer">Presentation Layer</h2>
+
+<h2 id="application-layer">Application Layer</h2>
+
+<h1 id="ip地址">IP地址</h1>
+
+<h2 id="ip地址组成">IP地址组成</h2>
+
+<ul>
+<li><p>IP地址由网络号(子网号)和主机号组成。</p>
+
+<ul>
+<li>网络号(NetID): 表示主机(或路由器)所连接的网络</li>
+<li>主机号(HostID): 表示该主机或路由器</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 例如 Class.C IP</span>
+<span class="m">192</span>.168.0.0 ~ <span class="m">192</span>.168.0.255
+<span class="m">11000000</span>.10101000.00000000.00000000
+<span class="m">11000000</span>.10101000.00000000.11111111
+           NetID          <span class="p">|</span> HostID</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>在上面例子中，前面三组数字(192.168.0)表示网络号，最后一组数字表示主机号; 在同一个物理网段内，主机的IP具有相同的NetID，并且具有独立的HostID</li>
+<li>注意，在同一个NetID内，不能具有相同的HostID，否则会发生IP冲突，导致两台主机都无法上网。</li>
+<li>网络号和主机号通过子网掩码进行区分</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>IP地址组成及路由图：</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548470097/blog/images/IPnet.png" alt="IP地址组成及路由图" /></p>
+
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>从上图可以看出IP包被转发到某个路由器时，利用目标IP地址的网络标识(NetID)完成路由。</li>
+<li>192.168.1.<sup>121</sup>&frasl;<sub>24</sub> 其中，<code>/24</code> 表示从头数到第几位为止为网络标识(NetID)</li>
+</ul>
+</blockquote>
+
+<h2 id="ip地址分类">IP地址分类</h2>
+
+<p>IP地址分为五类：每一类的范围主要与IP地址的32bits字节的前几位有关,基本定义如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># IP Address 以二进制说明第一个数字的定义</span>
+Class A:  0xxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx  <span class="c1"># NetID开头为 0</span>
+          <span class="p">|</span> NetID <span class="p">|</span>          HostID         <span class="p">|</span>
+
+Class B:  10xxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx  <span class="c1"># NetID开头为 10</span>
+          <span class="p">|</span>     NetID     <span class="p">|</span>     HostID      <span class="p">|</span>
+
+Class C:  110xxxxx.xxxxxxxx.xxxxxxxx.xxxxxxx<span class="p">|</span>  <span class="c1"># NetID开头为 110</span>
+          <span class="p">|</span>           NetID        <span class="p">|</span> HostID <span class="p">|</span>
+
+Class D:  1110xxxx.xxxxxxxx.xxxxxxxx.xxxxxxx   <span class="c1"># NetID开头为 1110</span>
+
+Class E:  1111xxxx.xxxxxxxx.xxxxxxxx.xxxxxxx   <span class="c1"># NetID开头为 1111</span>
+
+<span class="c1"># IP Address 点分十进制表示其范围</span>
+Class A:  <span class="m">0</span>.0.0.0   ~ <span class="m">127</span>.255.255.255
+Class B:  <span class="m">128</span>.0.0.0 ~ <span class="m">191</span>.255.255.255
+Class C:  <span class="m">192</span>.0.0.0 ~ <span class="m">223</span>.255.255.255
+Class D:  <span class="m">224</span>.0.0.0 ~ <span class="m">239</span>.255.255.255          <span class="c1"># D类地址作为组播地址（一对多的通信）</span>
+Class E:  <span class="m">240</span>.0.0.0 ~ <span class="m">255</span>.255.255.255          <span class="c1"># E类地址为保留地址，供以后使用</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 只有A、B、C类有网络号和主机号之分，D和E没有划分网络号和主机号</p>
+</blockquote>
+
+<ul>
+<li>IP地址分类图</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548470153/blog/images/IPaddress.png" alt="IP地址分类图" /></p>
+
+<h2 id="特殊的ip地址">特殊的IP地址</h2>
+
+<h3 id="广播地址">广播地址</h3>
+
+<p>广播地址通常称为直接广播地址，是为了区分受限广播地址
+广播地址与网络地址的主机号正好相反，广播地址中，主机号全为1。当向某个网络的广播地址发送消息时，该网络内的所有主机都会收到该消息。</p>
+
+<h3 id="255-255-255-255">255.255.255.255</h3>
+
+<p>该IP地址指的是受限的广播地址。受限的广播地址与一般广播地址(直接广播地址)区别在于, 受限广播地址只能用于本地网络；一般广播地址既可以在本地广播也可以跨网段广播。</p>
+
+<h3 id="0-0-0-0">0.0.0.0</h3>
+
+<p>INADDR-ANY 任意的IPV4地址，也叫通配地址</p>
+
+<h3 id="回环地址">回环地址</h3>
+
+<p>127.0.0.0/8被用作回环地址，回环地址表示本机的地址，常用于对本机的测试，用的最多的是127.0.0.1</p>
+
+<h3 id="abc类私有地址">ABC类私有地址</h3>
+
+<p>私有地址(Private Address), 亦即专用地址，不会再全球使用，只具有本地意义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Class A 私有地址:  <span class="m">10</span>.0.0.0/8, 范围是 <span class="m">10</span>.0.0.0 ~ <span class="m">10</span>.255.255.255
+Class B 私有地址:  <span class="m">172</span>.0.0.0/12，范围是 <span class="m">172</span>.16.0.0 ~ <span class="m">172</span>.31.255.255
+Class C 私有地址： <span class="m">192</span>.168.0.0/16，范围是：192.168.0.0 ~ <span class="m">192</span>.168.255.255</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="子网掩码">子网掩码</h1>
+
+<p>子网掩码是标志两个IP地址是否属于同一子网的, 也是32位二进制地址, 该地址每个字节的值为1表示网络位，为0表示主机位。子网掩码也采用点分十进制的方式表示。如果两个IP地址和子网掩码的按位 <code>与</code> 得到的结果相同，则表示这两IP属于同一子网。</p>
+
+<h2 id="class-a-b-c的子网掩码-netmask">Class.A.B.C的子网掩码(Netmask)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Class A, B, C 三个等级的 Netmask 表示方式：</span>
+Class A : <span class="m">11111111</span>.00000000.00000000.00000000 <span class="o">==</span>&gt; <span class="m">255</span>.  <span class="m">0</span>.  <span class="m">0</span>.  <span class="m">0</span>
+Class B : <span class="m">11111111</span>.11111111.00000000.00000000 <span class="o">==</span>&gt; <span class="m">255</span>.255.  <span class="m">0</span>.  <span class="m">0</span>
+Class C : <span class="m">11111111</span>.11111111.11111111.00000000 <span class="o">==</span>&gt; <span class="m">255</span>.255.255.  <span class="m">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="路由">路由</h1>
+
+<h1 id="arp协议">ARP协议</h1>
+
+<p>ARP(Address Resolution Protocol), 即地址解析协议：根据IP获取物理地址(MAC)的一个TCP/IP协议，在网络通信过程中每台机器都会在本机添加一个目标主机IP地址和MAC地址的映射——ARP缓存。</p>
+
+<p>主机发送信息时将包含目标IP的ARP请求广播到网络上的所有主机，并接受返回信息，以此确定目标的MAC地址；收到返回消息后将该IP地址和MAC地址存入本机ARP缓存并保留一定时间，下次请求时直接查询ARP缓存以节约资源。</p>
+
+<blockquote>
+<p>ARP工作流程举例：</p>
+
+<ul>
+<li>主机A的IP地址为192.168.1.1，MAC地址为0A-11-22-33-44-01；<br /></li>
+<li>主机B的IP地址为192.168.1.2，MAC地址为0A-11-22-33-44-02；<br /></li>
+<li>当主机A要与主机B通信时，地址解析协议可以将主机B的IP地址（192.168.1.2）解析成主机B的MAC地址，以下为工作流程：</li>
+</ul>
+</blockquote>
+
+<ol>
+<li>根据主机A上的路由表内容，IP确定用于访问主机B的转发IP地址是192.168.1.2。然后A主机在自己的本地ARP缓存中检查主机B的匹配MAC地址。</li>
+<li>如果主机A在ARP缓存中没有找到映射，它将询问192.168.1.2的硬件地址，从而将ARP请求帧广播到本地网络上的所有主机。源主机A的IP地址和MAC地址都包括在ARP请求中。本地网络上的每台主机都接收到ARP请求并且检查是否与自己的IP地址匹配。如果主机发现请求的IP地址与自己的IP地址不匹配，它将丢弃ARP请求。</li>
+<li>主机B确定ARP请求中的IP地址与自己的IP地址匹配，则将主机A的IP地址和MAC地址映射添加到本地ARP缓存中。</li>
+<li>主机B将包含其MAC地址的ARP回复消息直接发送回主机A。</li>
+<li>当主机A收到从主机B发来的ARP回复消息时，会用主机B的IP和MAC地址映射更新ARP缓存。本机缓存是有生存期的，生存期结束后，将再次重复上面的过程。主机B的MAC地址一旦确定，主机A就能向主机B发送IP通信了。</li>
+</ol>
+
+<h1 id="nat协议">NAT协议</h1>
+
+<p>NAT(Network Address Translation), 即网络地址转换协议：属于接入广域网(WAN)技术，是一种将私有(保留)地址转化为合法IP地址的转化技术，被广泛应用于各种Internet接入方式和各种类型的网络中。</p>
+
+<h1 id="dhcp协议">DHCP协议</h1>
+
+<p>DHCP(Dynamic Host Configuration Protocol), 即动态主机配置协议，属于局域网的网络协议, 使用UDP协议工作。主要完成: 给内部网络或网络服务供应商自动分配IP地质。</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://www.cnblogs.com/maybe2030/p/4781555.html#_label0">计算机网络基础知识总结</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html">互联网协议入门</a></li>
+<li><a href="https://wizardforcel.gitbooks.io/network-basic/content/0.html">网络基本功</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-10-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/network/">network</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/footprint/20171006-%E9%BB%84%E5%B1%B1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">『心之所向，素履以往』— 黄山</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/cloud/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/">
+            <span class="next-text nav-default">Docker | 跨主机通信</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-09-26 17:53:01 \x2b0800 CST',
+        title: 'Network | 计算机网络基础',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

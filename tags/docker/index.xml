@@ -13,10 +13,10 @@
     
     <item>
       <title>Docker | Deploy Docker Registry and Web UI</title>
-      <link>https://zhezh09.github.io/post/tech/cloud/docker/registry-and-webui/</link>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20181026-registry-and-webui/</link>
       <pubDate>Fri, 26 Oct 2018 09:48:45 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/cloud/docker/registry-and-webui/</guid>
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20181026-registry-and-webui/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -41,15 +41,189 @@
     
     <item>
       <title>Docker | Docker Compose 基础</title>
-      <link>https://zhezh09.github.io/post/tech/cloud/docker/docker-compose-note/</link>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20180925-docker-compose-note/</link>
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/cloud/docker/docker-compose-note/</guid>
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20180925-docker-compose-note/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;平时启动容器的时候，一般会使用 &lt;code&gt;docker run&lt;/code&gt; 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，&lt;code&gt;docker run&lt;/code&gt; 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 &lt;a href=&#34;https://docs.docker.com/compose/overview/&#34;&gt;Compose&lt;/a&gt;, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。&lt;/p&gt;
 &lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统（二）| 监控平台数据持久化</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/20180830-persistent-monitoring-platform-data/</link>
+      <pubDate>Thu, 30 Aug 2018 18:57:08 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/20180830-persistent-monitoring-platform-data/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</link>
+      <pubDate>Sun, 29 Jul 2018 18:57:08 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 跨主机通信</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/</link>
+      <pubDate>Tue, 19 Sep 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 容器配置静态 IP</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</link>
+      <pubDate>Thu, 13 Jul 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | FAQ</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/faq/</link>
+      <pubDate>Tue, 11 Jul 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/faq/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Docker 使用过程中经常遇到的问题备忘&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 私有仓库搭建</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 04 Jul 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 网络实现和网络模式</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Tue, 09 May 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我们在使用docker run创建Docker容器时，可以用&amp;ndash;net选项指定容器的网络模式；Docker网络有四种模式:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;桥模式：&amp;ndash;net=bridge&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;主机模式：&amp;ndash;net=host&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;容器模式：&amp;ndash;net=container_name|id&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;无网络模式：&amp;ndash;net=none&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 容器间访问方式</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Fri, 05 May 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 数据卷</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170503-data-volume/</link>
+      <pubDate>Wed, 03 May 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170503-data-volume/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 使用 Docker 部署 Go 程序</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170502-deploy-go-app-with-docker/</link>
+      <pubDate>Tue, 02 May 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170502-deploy-go-app-with-docker/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | Dockerfile</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170410-dockerfile/</link>
+      <pubDate>Mon, 10 Apr 2017 17:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170410-dockerfile/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;FROM&lt;/li&gt;
+&lt;li&gt;MAINTAINER&lt;/li&gt;
+&lt;li&gt;RUN&lt;/li&gt;
+&lt;li&gt;COPY&lt;/li&gt;
+&lt;li&gt;ADD&lt;/li&gt;
+&lt;li&gt;CMD&lt;/li&gt;
+&lt;li&gt;ENTRYPOINT&lt;/li&gt;
+&lt;li&gt;EXPOSE&lt;/li&gt;
+&lt;li&gt;ENV&lt;/li&gt;
+&lt;li&gt;ARG&lt;/li&gt;
+&lt;li&gt;VOLUME&lt;/li&gt;
+&lt;li&gt;WORKDIR&lt;/li&gt;
+&lt;li&gt;ONBUILD
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 构建镜像</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170410-build-image/</link>
+      <pubDate>Mon, 10 Apr 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170410-build-image/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 常用命令</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170409-common-cmd/</link>
+      <pubDate>Sun, 09 Apr 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170409-common-cmd/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | 基础知识学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170408-docker-basic-notes/</link>
+      <pubDate>Sat, 08 Apr 2017 16:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170408-docker-basic-notes/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Docker要求64bit系统(x86 or arm)&lt;br /&gt;
+Docker要求Linux内核：3.10+&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Docker | Install</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/docker/20170408-docker-01-install/</link>
+      <pubDate>Sat, 08 Apr 2017 15:39:25 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/docker/20170408-docker-01-install/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
   </channel>

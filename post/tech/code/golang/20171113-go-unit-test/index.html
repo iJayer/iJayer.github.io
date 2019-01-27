@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | 单元测试 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="go, golang, test" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20171113-go-unit-test/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | 单元测试" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20171113-go-unit-test/" /><meta property="article:published_time" content="2017-11-13T16:07:43&#43;08:00"/>
+<meta property="article:modified_time" content="2017-11-13T16:07:43&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | 单元测试">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-11-13T16:07:43&#43;08:00" />
+<meta itemprop="dateModified" content="2017-11-13T16:07:43&#43;00:00" />
+<meta itemprop="wordCount" content="3945">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | 单元测试"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | 单元测试</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-11-13 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3945 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#单元测试">单元测试</a>
+<ul>
+<li><a href="#单元测试基础">单元测试基础</a></li>
+<li><a href="#单元测试约定">单元测试约定</a></li>
+<li><a href="#go-test介绍">go test介绍</a>
+<ul>
+<li><a href="#运行测试">运行测试</a></li>
+</ul></li>
+<li><a href="#单元测试demo">单元测试Demo</a></li>
+</ul></li>
+<li><a href="#表驱动测试">表驱动测试</a></li>
+<li><a href="#测试覆盖率">测试覆盖率</a>
+<ul>
+<li><a href="#查看-cover-out-文件的方法">查看 cover.out 文件的方法</a></li>
+</ul></li>
+<li><a href="#基准测试-压力测试">基准测试(压力测试)</a></li>
+<li><a href="#web服务测试">Web服务测试</a>
+<ul>
+<li><a href="#httptest-server">httptest.Server</a></li>
+</ul></li>
+<li><a href="#相关知识点">相关知识点</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="单元测试">单元测试</h1>
+
+<h2 id="单元测试基础">单元测试基础</h2>
+
+<p>Go单元测试采用内置的测试框架，通过引入 <code>testing</code> 包以及 <code>go test</code> 命令来提供测试功能</p>
+
+<ul>
+<li><p><code>testing</code> 包专门用来进行自动化测试，日志和错误报告，且包含一些基准测试函数功能</p></li>
+
+<li><p><code>go test</code> 是一个按照一定的约定和组织来测试代码的程序</p></li>
+</ul>
+
+<p>在源代码包目录中，所有以 <code>_test.go</code> 为后缀的源文件被 go test 认定为测试文件，这些测试文件不包含在 go build 的代码构建中，而是单独通过 go test 来编译，执行。</p>
+
+<blockquote>
+<p><strong>Note</strong>:  <code>*_test.go</code> 文件中，有三种类型的函数：测试函数、基准测试(benchmark)函数、示例函数。</p>
+
+<ul>
+<li>一个测试函数是以Test为函数名前缀的函数，用于测试程序的一些逻辑行为是否正确；go test命令会调用这些测试函数并报告测试结果是PASS或FAIL。</li>
+<li>基准测试函数是以Benchmark为函数名前缀的函数，它们用于衡量一些函数的性能；go test命令会多次运行基准函数以计算一个平均的执行时间。</li>
+<li>示例函数是以Example为函数名前缀的函数，提供一个由编译器保证正确性的示例文档。</li>
+</ul>
+</blockquote>
+
+<h2 id="单元测试约定">单元测试约定</h2>
+
+<ul>
+<li><p>文件名必须是 <code>_test.go</code> 结尾, 且必须导入 <code>import testing</code> 包</p></li>
+
+<li><p>测试函数格式：<code>func TestFuncName(t *testing.T)</code> 其中 <code>FuncName</code> 为函数名，首字母必须大写, 参数是testing.T, 可以使用该类型来记录错误或者测试状态；测试函数签名如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestName</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>测试函数的名字必须以Test开头，可选的后缀名必须以大写字母开头：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestSin</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="nf">TestCos</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="kd">func</span> <span class="nf">TestLog</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>上面测试函数中：<code>(t *testing.T)</code> 是传给测试函数的结构类型,用来管理测试状态,支持格式化日志。如 t.Log、t.Error、t.Errorf等。在函数结尾把输出跟想要的的结果做对比，如果不等于就打印错误，成功的错误则直接返回。</p>
+
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li><p><code>Log</code> 和 <code>Logf</code> 方法用于日志输出，默认只输出错误日志，如果要输出全部日志需要使用-v标识运行go test命令。benchmarks默认输出全部日志。</p></li>
+
+<li><p><code>func (t *T) Fail()</code> — 标记测试函数为失败，然后继续执行当前函数测试代码以及剩余的所有的测试函数。</p></li>
+
+<li><p><code>func (t *T) FailNow()</code> — 标记测试失败并且立即停止执行当前函数测试代码，继续执行下一个（默认按书写顺序）测试函数(文件)。</p></li>
+
+<li><p><code>Error</code> 等价于 <code>Log 加 Fail</code>, <code>Errorf</code> 等价于 <code>Logf</code> 加 <code>Fail</code></p></li>
+
+<li><p><code>SkipNow</code> 标记跳过并停止执行该用例，继续执行下一个用例。<code>Skip</code> 等价于 Log 加 SkipNow，Skipf 等价于 Logf 加 SkipNow， Skipped 返还用例是否被跳过</p></li>
+
+<li><p><code>func (t *T) Fatal(args ...interface{})</code> —  FailNow + Log</p></li>
+</ul>
+</blockquote></li>
+
+<li><p>将测试文件和源码放在相同的目录下,并将名字命名为{source_filename}_test.go。(如：./example.go的测试文件为：./example_test.go)</p></li>
+
+<li><p>测试用例会按照源代码中写的顺序依次执行</p></li>
+</ul>
+
+<h2 id="go-test介绍">go test介绍</h2>
+
+<h3 id="运行测试">运行测试</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">go</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">test</span>      <span class="c1">// 指定目录
+</span><span class="c1"></span><span class="k">go</span> <span class="nx">test</span> <span class="nx">test</span>        <span class="c1">// 指定包名(包需要在GOPTAH/src或者GOROOT/src目录下面)
+</span><span class="c1"></span><span class="nx">cd</span> <span class="nx">test</span> <span class="o">&amp;&amp;</span> <span class="k">go</span> <span class="nx">test</span>  <span class="o">//</span> <span class="nx">进入包测试</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note</p>
+
+<ul>
+<li>go test 命令会遍历所有的 *_test.go 文件中符合上述命名规则的函数，生成一个临时的 main 包用于调用相应的测试函数，接着构建并运行，报告测试结果，最后清理测试中生成的临时文件。</li>
+<li>go test 可以接收一个或多个函数程序作为参数，并指定一些选项:
+
+<ul>
+<li><code>-v</code>: 参数可用于打印每个测试函数的名字和运行时间：(例如：go test fmt_test.go -v)</li>
+<li><code>-run</code>: 参数对应一个正则表达式，只有测试函数名被它正确匹配的测试函数才会被go test测试命令运行：</li>
+<li><code>-cover</code>: 参数可显示出执行的测试用例的测试覆盖率</li>
+</ul></li>
+<li>使用go test命令只能在一个目录下执行所有测试文件，如果想要执行当前目录及递归子目录所有测试文件，可以使用go test ./&hellip;，注意后面是三个点。</li>
+</ul>
+</blockquote>
+
+<h2 id="单元测试demo">单元测试Demo</h2>
+
+<p>Code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// main.go
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;errors&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">Sub</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">Mul</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">Div</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">float64</span><span class="p">)</span> <span class="p">(</span><span class="kt">float64</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">b</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;divisor can not be 0&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">a</span> <span class="o">/</span> <span class="nx">b</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+
+<span class="c1">// main_test.go
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;testing&#34;</span>
+
+<span class="kd">func</span> <span class="nf">TestAdd</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">r</span> <span class="o">!=</span> <span class="mi">3</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Fail</span><span class="p">()</span> <span class="c1">// continue next testing
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">&#34;add test is ok&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestSub</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nf">Sub</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">r</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">FailNow</span><span class="p">()</span> <span class="c1">// current file testing end in here, and continue test next file testing
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">&#34;sub test is ok&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestMul</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nf">Mul</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">r</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">()</span> <span class="c1">// = t.Log + t.FailNow()
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">&#34;mul test is ok&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestDiv</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Div</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">r</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">{</span> <span class="c1">// usual case
+</span><span class="c1"></span>		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;div test failed: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">&#34;div test is ok&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestDiv2</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Div</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="c1">// exception test
+</span><span class="c1"></span>		<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;div test failed: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="s">&#34;div test is ok&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Result:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; go <span class="nb">test</span> -v -cover
+<span class="o">===</span> RUN   TestAdd
+--- PASS: TestAdd <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+        main_test.go:10: add <span class="nb">test</span> is <span class="nv">ok</span>
+<span class="o">===</span> RUN   TestSub
+--- PASS: TestSub <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+        main_test.go:18: sub <span class="nb">test</span> is <span class="nv">ok</span>
+<span class="o">===</span> RUN   TestMul
+--- PASS: TestMul <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+        main_test.go:26: mul <span class="nb">test</span> is <span class="nv">ok</span>
+<span class="o">===</span> RUN   TestDiv
+--- PASS: TestDiv <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+        main_test.go:33: div <span class="nb">test</span> is <span class="nv">ok</span>
+<span class="o">===</span> RUN   TestDiv2
+--- FAIL: TestDiv2 <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+        main_test.go:38: div <span class="nb">test</span> failed: divisor can not be <span class="m">0</span>
+        main_test.go:40: div <span class="nb">test</span> is ok
+FAIL
+coverage: <span class="m">100</span>.0% of statements
+<span class="nb">exit</span> status <span class="m">1</span>
+FAIL    instance.golang.com/test        <span class="m">0</span>.094s</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 测试用例函数通常需要考虑一下几方面</p>
+
+<ul>
+<li>正常的用例</li>
+<li>错误的用例(错误的输入、没有输入、类型不符等)</li>
+<li>边界检查用例的(例如：参数范围为0-1000，则需要对此做检查)</li>
+</ul>
+</blockquote>
+
+<h1 id="表驱动测试">表驱动测试</h1>
+
+<p>表格驱动测试：在表格中预先定义好输入，期望的输出以及测试失败的描述信息，然后循环表格调用被测试的方法，根据输入判断输出是否与期望输出一致，不一致则测试失败，返回错误的描述信息。</p>
+
+<blockquote>
+<p>这种方法易于覆盖各种测试分支，测试逻辑代码没有冗余，开发人员只需要想表格中添加新的测试数据即可。</p>
+</blockquote>
+
+<p>Code</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// main.go
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;strings&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">StringInSlice</span><span class="p">(</span><span class="nx">a</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">list</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">b</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">list</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">HasSuffix</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">true</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="c1">// main_test.go
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;testing&#34;</span>
+
+<span class="kd">func</span> <span class="nf">TestStringInSlice</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">type</span> <span class="nx">args</span> <span class="kd">struct</span> <span class="p">{</span>
+		<span class="nx">a</span>    <span class="kt">string</span>
+		<span class="nx">list</span> <span class="p">[]</span><span class="kt">string</span>
+	<span class="p">}</span>
+	<span class="nx">tests</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">struct</span> <span class="p">{</span>
+		<span class="nx">name</span> <span class="kt">string</span>
+		<span class="nx">args</span> <span class="nx">args</span>
+		<span class="nx">want</span> <span class="kt">bool</span>
+	<span class="p">}{</span>
+		<span class="p">{</span>
+			<span class="nx">name</span><span class="p">:</span> <span class="s">&#34;yes&#34;</span><span class="p">,</span>
+			<span class="nx">args</span><span class="p">:</span> <span class="nx">args</span><span class="p">{</span><span class="nx">a</span><span class="p">:</span> <span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="nx">list</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;abc&#34;</span><span class="p">}},</span>
+			<span class="nx">want</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+		<span class="p">},</span>
+		<span class="p">{</span>
+			<span class="nx">name</span><span class="p">:</span> <span class="s">&#34;no&#34;</span><span class="p">,</span>
+			<span class="nx">args</span><span class="p">:</span> <span class="nx">args</span><span class="p">{</span><span class="nx">a</span><span class="p">:</span> <span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="nx">list</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;cd&#34;</span><span class="p">,</span> <span class="s">&#34;cde&#34;</span><span class="p">}},</span>
+			<span class="nx">want</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="p">},</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">tt</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">tests</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="nx">tt</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">got</span> <span class="o">:=</span> <span class="nf">StringInSlice</span><span class="p">(</span><span class="nx">tt</span><span class="p">.</span><span class="nx">args</span><span class="p">.</span><span class="nx">a</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">args</span><span class="p">.</span><span class="nx">list</span><span class="p">);</span> <span class="nx">got</span> <span class="o">!=</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">want</span> <span class="p">{</span>
+				<span class="nx">t</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;StringInSlice() = %v, want %v&#34;</span><span class="p">,</span> <span class="nx">got</span><span class="p">,</span> <span class="nx">tt</span><span class="p">.</span><span class="nx">want</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">})</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Result:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>zhe@zhe table<span class="o">]</span>$ go <span class="nb">test</span> -v
+<span class="o">===</span> RUN   <span class="nv">TestStringInSlice</span>
+<span class="o">===</span> RUN   TestStringInSlice/yes
+<span class="o">===</span> RUN   TestStringInSlice/no
+--- PASS: TestStringInSlice <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+    --- PASS: TestStringInSlice/yes <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+    --- PASS: TestStringInSlice/no <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+PASS
+ok      instance.golang.com/test/table  <span class="m">0</span>.208s</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="测试覆盖率">测试覆盖率</h1>
+
+<p>对待测程序执行的测试的程度称为测试的覆盖率。go tool命令可以报告测试覆盖率统计。</p>
+
+<p>测试覆盖率工具的使用用法: 即 <code>cover</code> 命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go tool cover
+
+Usage of <span class="s1">&#39;go tool cover&#39;</span>:
+
+Given a coverage profile produced by <span class="s1">&#39;go test&#39;</span>:
+	
+	go <span class="nb">test</span> -coverprofile<span class="o">=</span>c.out <span class="c1"># 生成覆盖率的profile文件</span>
+
+Open a web browser displaying annotated <span class="nb">source</span> code:
+	go tool cover -html<span class="o">=</span>c.out   <span class="c1"># 以html格式查看</span>
+	 
+Write out an HTML file instead of launching a web browser:
+    go tool cover -html<span class="o">=</span>c.out -o coverage.html
+
+Display coverage percentages to stdout <span class="k">for</span> each <span class="k">function</span>:
+    go tool cover -func<span class="o">=</span>c.out   <span class="c1"># 输出到 stdout 查看</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: go test可以生成覆盖率的profile文件(例如：cover.out)，这个文件可以被go tool cover工具解析。</p>
+</blockquote>
+
+<h2 id="查看-cover-out-文件的方法">查看 cover.out 文件的方法</h2>
+
+<ul>
+<li>输出到标准输出查看： go tool cover -func=cover.out</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">instance.golang.com<span class="se">\t</span>est<span class="se">\u</span>nit<span class="se">\m</span>ain.go:5:        main            <span class="m">0</span>.0%
+instance.golang.com<span class="se">\t</span>est<span class="se">\u</span>nit<span class="se">\m</span>ain.go:8:        Add             <span class="m">100</span>.0%
+instance.golang.com<span class="se">\t</span>est<span class="se">\u</span>nit<span class="se">\m</span>ain.go:12:       Sub             <span class="m">100</span>.0%
+instance.golang.com<span class="se">\t</span>est<span class="se">\u</span>nit<span class="se">\m</span>ain.go:16:       Mul             <span class="m">100</span>.0%
+instance.golang.com<span class="se">\t</span>est<span class="se">\u</span>nit<span class="se">\m</span>ain.go:20:       Div             <span class="m">66</span>.7%
+total:                                          <span class="o">(</span>statements<span class="o">)</span>    <span class="m">83</span>.3%</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>输出到 html 文件查看：go tool cover -html=c.out</p>
+
+<p><img src="../images/go-test-coverage.jpg" alt="go-test-coverage" /></p></li>
+</ul>
+
+<h1 id="基准测试-压力测试">基准测试(压力测试)</h1>
+
+<p>压力测试用来检测函数(方法)的性能，和编写单元功能测试的方法类似, 需要注意：</p>
+
+<ul>
+<li><p>基准测试文件名也必须以 <code>_test.go</code> 结尾(例如：add_bench_test.go)</p></li>
+
+<li><p>压力测试函数必须遵循格式: 以Benchmark为前缀名，并且带有一个*testing.B类型的参数, 其中XXX可以是任意字母数字的组合，但是首字母不能是小写字母, 如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BenchmarkXXX</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>go test默认不会执行压力测试的函数，如果要执行压力测试需要带上参数 <code>-test.bench | -bench</code> 手动指定要运行的基准测试函数, 语法格式如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">Usage</span><span class="p">:</span> <span class="k">go</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">test</span><span class="p">.</span><span class="nx">bench</span><span class="p">=</span><span class="s">&#34;test_name_regex&#34;</span>
+       <span class="k">go</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">bench</span><span class="p">=</span><span class="s">&#34;test_name_regex&#34;</span>
+       <span class="k">go</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">test</span><span class="p">.</span><span class="nx">bench</span><span class="p">=</span><span class="s">&#34;.*&#34;</span>  <span class="o">//</span> <span class="nx">例子</span><span class="err">：</span><span class="nx">表示测试全部的压力测试函数</span> </code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>-test.bench(-bench) 参数的值是一个正则表达式，用于匹配要执行的基准测试函数的名字, 默认值为空</li>
+<li><code>'.'</code> 模式将可以匹配所有基准测试函数</li>
+</ul></li>
+
+<li><p>在压力测试用例中,请记得在循环体内使用testing.B.N, 以使测试可以正常的运行(整数N，用于指定操作执行的循环次数。)</p></li>
+
+<li><p>如果有初始化代码，调用 b.ResetTimer 可重置计时器，这样可以避免for循环之前的初始化代码的干扰</p></li>
+</ul>
+
+<blockquote>
+<p>Note: 因为默认情况下 go test 会运行单元测试，为了防止单元测试的输出影响我们查看基准测试的结果，可以使用-run=匹配一个从来没有的单元测试方法，过滤掉单元测试的输出，比如用： <code>-run=none</code></p>
+</blockquote>
+
+<p>Code Demo:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">unit</span>
+
+<span class="kn">import</span> <span class="s">&#34;testing&#34;</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkAdd</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkSub</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nf">Sub</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkMul</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nf">Mul</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkDiv</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nf">Div</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Result:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>zhe@zhe unit<span class="o">]</span>$ go <span class="nb">test</span> -bench<span class="o">=</span>.
+goos: windows
+goarch: amd64
+pkg: instance.golang.com/test/unit
+BenchmarkAdd-4          <span class="m">2000000000</span>               <span class="m">0</span>.28 ns/op
+BenchmarkSub-4          <span class="m">2000000000</span>               <span class="m">0</span>.29 ns/op
+BenchmarkMul-4          <span class="m">2000000000</span>               <span class="m">0</span>.28 ns/op
+BenchmarkDiv-4          <span class="m">2000000000</span>               <span class="m">0</span>.71 ns/op
+PASS
+ok      instance.golang.com/test/unit   <span class="m">3</span>.314s</code></pre></td></tr></table>
+</div>
+</div>
+<p>压力测试结果剖析：</p>
+
+<ul>
+<li>基准测试结果中测试函数名的数字后缀部分，这里是 <code>4</code>，表示运行时对应的 GOMAXPROCS 的值</li>
+<li>接着的，<code>2000000000</code> 表示 for 循环的执行次数,也就是被测试的函数的执行次数</li>
+<li>最后，<code>0.28 ns/op</code> 表示每次执行的平均时间</li>
+<li>最后一条显示的是总共的执行时间</li>
+</ul>
+
+<p>以上是测试时间默认是 <code>1s</code>, 也就是说 1s 内调用了 2000000000 次，每次调用花费 0.28/ns。如果想要测试运行时间更长, 可以通过 <code>-benchtime</code> 选项指定，比如 3s:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go <span class="nb">test</span> -bench<span class="o">=</span>. -benchtime<span class="o">=</span>3s -run<span class="o">=</span>none
+goos: windows
+goarch: amd64
+pkg: instance.golang.com/go-web/testing/unit
+BenchmarkAdd-2          <span class="m">5000000000</span>               <span class="m">0</span>.35 ns/op
+BenchmarkSub-2          <span class="m">5000000000</span>               <span class="m">0</span>.38 ns/op
+BenchmarkMul-2          <span class="m">5000000000</span>               <span class="m">0</span>.35 ns/op
+BenchmarkDiv-2          <span class="m">5000000000</span>               <span class="m">0</span>.35 ns/op
+PASS
+ok      instance.golang.com/go-web/testing/unit <span class="m">7</span>.359s</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 可以发现，我们加长了测试时间，测试的次数变多了，但是最终的性能结果：每次执行的时间，并没有太大变化。一般来说这个值最好不要超过3秒，意义不大。</p>
+</blockquote>
+
+<h1 id="web服务测试">Web服务测试</h1>
+
+<blockquote>
+<p>针对模拟网络访问，标准库了提供了一个httptest包，可以让我们模拟http的网络调用， 可分为 <code>http server(http handler)</code> 和 <code>http client(提供mock server给client)</code>的测试</p>
+</blockquote>
+
+<ul>
+<li>要测试http handler, 所需要的是ResponseRecorder, 基本上相关的也只需要两个方法 <code>http.NewRequest</code>, <code>httptest.NewRecorder</code></li>
+</ul>
+
+<h2 id="httptest-server">httptest.Server</h2>
+
+<p>httptest.Server 是一个 Listening 在本地回环网口的端口上的服务，这个端口是系统选择的。它常用于端到端的HTTP测试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// A Server is an HTTP server listening on a system-chosen port on the
+</span><span class="c1">// local loopback interface, for use in end-to-end HTTP tests.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Server</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">URL</span>      <span class="kt">string</span> <span class="c1">// base URL of form http://ipaddr:port with no trailing slash
+</span><span class="c1"></span>        <span class="nx">Listener</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Listener</span>
+
+        <span class="c1">// TLS is the optional TLS configuration, populated with a new config
+</span><span class="c1"></span>        <span class="c1">// after TLS is started. If set on an unstarted server before StartTLS
+</span><span class="c1"></span>        <span class="c1">// is called, existing fields are copied into the new config.
+</span><span class="c1"></span>        <span class="nx">TLS</span> <span class="o">*</span><span class="nx">tls</span><span class="p">.</span><span class="nx">Config</span>
+
+        <span class="c1">// Config may be changed after calling NewUnstartedServer and
+</span><span class="c1"></span>        <span class="c1">// before Start or StartTLS.
+</span><span class="c1"></span>        <span class="nx">Config</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Server</span>
+        <span class="c1">// contains filtered or unexported fields
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="相关知识点">相关知识点</h1>
+
+<blockquote>
+<p>黑盒测试：黑盒测试只测试包公开文档和API，内部实现对测试代码是透明的</p>
+
+<p>白盒测试：白盒测试有访问函数内部和数据结构的权限，因此可以做到一些普通客户端无法实现的测试</p>
+</blockquote>
+
+<p><a href="https://github.com/zhezh09/go-practice/tree/master/go-web/testing">Click here to check out the repo</a></p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<p>2018-12-17 Updated</p>
+
+<ul>
+<li><a href="https://deepzz.com/post/the-command-flag-of-go-test.html">Go 测试，go test 工具的具体指令 flag</a></li>
+<li><a href="https://books.studygolang.com/The-Golang-Standard-Library-by-Example/chapter09/09.2.html">The-Golang-Standard-Library-by-Example: Test</a></li>
+<li><a href="https://colobu.com/2016/07/06/dive-into-go-12/#%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95">深入Go语言: 测试、性能测试以及代码示例的编写</a></li>
+</ul>
+
+<p>2017-11-04 Updated</p>
+
+<ul>
+<li><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/13.7.md">The way to Go</a></li>
+<li><a href="https://jimmysong.io/go-practice/docs/go_unit_test.html">Go单元测试</a></li>
+<li><a href="http://books.studygolang.com/gopl-zh/ch11/ch11-01.html">GOPL</a></li>
+<li><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/11.3.md">Build-web-application-with-golang</a></li>
+<li><a href="http://www.flysnow.org/2017/05/16/go-in-action-go-unit-test.html#top">http://www.flysnow.org/2017/05/16/go-in-action-go-unit-test.html#top</a></li>
+<li><a href="https://github.com/feixiao/testing/blob/master/basic.md">https://github.com/feixiao/testing/blob/master/basic.md</a></li>
+<li><a href="http://tonybai.com/2014/10/22/golang-testing-techniques/">http://tonybai.com/2014/10/22/golang-testing-techniques/</a></li>
+<li><a href="http://wiki.jikexueyuan.com/project/go-command-tutorial/0.7.html">GO 命令教程</a></li>
+<li><a href="http://tabalt.net/blog/golang-testing/">编写可测试的Go代码</a></li>
+<li><a href="http://codethoughts.info/go/2015/04/05/how-to-test-go-code/">如何测试 Go 代码 - 单元测试</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-11-13</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180127-lib-mgo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | mgo - Rich MongoDB Driver for Go [译]</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20171023-cgo-note/">
+            <span class="next-text nav-default">Golang | CGO =&gt; 基础 </span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-11-13 16:07:43 \x2b0800 CST',
+        title: 'Golang | 单元测试',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

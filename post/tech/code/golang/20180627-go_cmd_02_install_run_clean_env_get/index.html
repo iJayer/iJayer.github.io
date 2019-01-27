@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | cmd - go install | run | clean | env | get - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  go install go run go clean go env go get  " /><meta name="keywords" content="go, golang, cmd" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | cmd - go install | run | clean | env | get" />
+<meta property="og:description" content="
+
+
+
+go install
+go run
+go clean
+go env
+go get
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/" /><meta property="article:published_time" content="2018-06-27T14:09:26&#43;08:00"/>
+<meta property="article:modified_time" content="2018-07-06T14:09:26&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | cmd - go install | run | clean | env | get">
+<meta itemprop="description" content="
+
+
+
+go install
+go run
+go clean
+go env
+go get
+
+">
+
+
+<meta itemprop="datePublished" content="2018-06-27T14:09:26&#43;08:00" />
+<meta itemprop="dateModified" content="2018-07-06T14:09:26&#43;00:00" />
+<meta itemprop="wordCount" content="1178">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | cmd - go install | run | clean | env | get"/>
+<meta name="twitter:description" content="
+
+
+
+go install
+go run
+go clean
+go env
+go get
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | cmd - go install | run | clean | env | get</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-27 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1178 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#go-install">go install</a></li>
+<li><a href="#go-run">go run</a></li>
+<li><a href="#go-clean">go clean</a></li>
+<li><a href="#go-env">go env</a></li>
+<li><a href="#go-get">go get</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>go install</li>
+<li>go run</li>
+<li>go clean</li>
+<li>go env</li>
+<li>go get</li>
+</ul>
+</blockquote>
+
+<p><span id="content"><a href="#content"><strong>目录</strong></a></span>
+<!-- TOC --></p>
+
+<ul>
+<li><a href="#go-install">go install</a></li>
+<li><a href="#go-run">go run</a></li>
+<li><a href="#go-clean">go clean</a></li>
+<li><a href="#go-env">go env</a></li>
+<li><a href="#go-get">go get</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h1 id="go-install">go install</h1>
+
+<p>完成两步操作：</p>
+
+<ul>
+<li>第一步是生成结果文件(可执行文件或.a文件)</li>
+<li>第二步是把编译好的结果文件移到 $GOPATH/pkg 或 $GOPATH/bin</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">usage: go install <span class="o">[</span>-i<span class="o">]</span> <span class="o">[</span>build flags<span class="o">]</span> <span class="o">[</span>packages<span class="o">]</span>
+
+Install compiles and installs the packages named by the import paths.
+
+The -i flag installs the dependencies of the named packages as well.
+
+For more about the build flags, see <span class="s1">&#39;go help build&#39;</span>.
+For more about specifying packages, see <span class="s1">&#39;go help packages&#39;</span>.
+
+See also: go build, go get, go clean.</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="go-run">go run</h1>
+
+<p>编译并运行 Go 程序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">usage: go run <span class="o">[</span>build flags<span class="o">]</span> <span class="o">[</span>-exec xprog<span class="o">]</span> gofiles... <span class="o">[</span>arguments...<span class="o">]</span>
+
+Run compiles and runs the main package comprising<span class="o">(</span>包括<span class="o">)</span> the named Go <span class="nb">source</span> files.
+A Go <span class="nb">source</span> file is defined to be a file ending in a literal <span class="s2">&#34;.go&#34;</span> suffix.
+
+By default, <span class="s1">&#39;go run&#39;</span> runs the compiled binary directly: <span class="s1">&#39;a.out arguments...&#39;</span>.
+If the -exec flag is given, <span class="s1">&#39;go run&#39;</span> invokes the binary using xprog:
+        <span class="s1">&#39;xprog a.out arguments...&#39;</span>.
+If the -exec flag is not given, GOOS or GOARCH is different from the system
+default, and a program named go_<span class="nv">$GOOS_$GOARCH_exec</span> can be found
+on the current search path, <span class="s1">&#39;go run&#39;</span> invokes the binary using that program,
+<span class="k">for</span> example <span class="s1">&#39;go_nacl_386_exec a.out arguments...&#39;</span>. This allows execution of
+cross-compiled programs when a simulator or other execution method is
+available.
+
+For more about build flags, see <span class="s1">&#39;go help build&#39;</span>.
+
+See also: go build.</code></pre></td></tr></table>
+</div>
+</div>
+<p>go run 命令需要一个 go 文件作为参数，这个 go 源码文件必须包含 main 包和 main 函数，这样才可以运行，其他的参数和 go build 差不多.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">go run hello.go</pre></td></tr></table>
+</div>
+</div>
+<p>在运行 go run 的时候也可以给 Go 程序传递参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">go run main.go xxx</pre></td></tr></table>
+</div>
+</div>
+<h1 id="go-clean">go clean</h1>
+
+<p>用来移除当前源码包和关联源码包里面编译生成的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">usage: go clean <span class="o">[</span>-i<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-n<span class="o">]</span> <span class="o">[</span>-x<span class="o">]</span> <span class="o">[</span>-cache<span class="o">]</span> <span class="o">[</span>-testcache<span class="o">]</span> <span class="o">[</span>build flags<span class="o">]</span> <span class="o">[</span>packages<span class="o">]</span>
+
+Clean removes object files from package <span class="nb">source</span> directories.
+The go <span class="nb">command</span> builds most objects in a temporary directory,
+so go clean is mainly concerned<span class="o">(</span>关心<span class="o">)</span> with object files left by other
+tools or by manual invocations<span class="o">(</span>调用<span class="o">)</span> of go build.
+
+Specifically<span class="o">(</span>具体来说<span class="o">)</span>, clean removes the following files from each of the
+<span class="nb">source</span> directories corresponding<span class="o">(</span>相应<span class="o">)</span> to the import paths:
+
+        _obj/            old object directory, left from Makefiles
+        _test/           old <span class="nb">test</span> directory, left from Makefiles
+        _testmain.go     old gotest file, left from Makefiles
+        test.out         old <span class="nb">test</span> log, left from Makefiles
+        build.out        old <span class="nb">test</span> log, left from Makefiles
+        *.<span class="o">[</span>568ao<span class="o">]</span>        object files, left from Makefiles
+
+        DIR<span class="o">(</span>.exe<span class="o">)</span>        from go build
+        DIR.test<span class="o">(</span>.exe<span class="o">)</span>   from go <span class="nb">test</span> -c
+        MAINFILE<span class="o">(</span>.exe<span class="o">)</span>   from go build MAINFILE.go
+        *.so             from SWIG
+
+In the list, DIR represents the final path element of the
+directory<span class="o">(</span>最终路径元素<span class="o">)</span>, and MAINFILE is the base name of any Go <span class="nb">source</span>
+file in the directory that is not included when building
+the package.
+
+The -i flag causes clean to remove the corresponding installed
+archive or binary <span class="o">(</span>what <span class="s1">&#39;go install&#39;</span> would create<span class="o">)</span>.
+
+The -n flag causes clean to print the remove commands it would execute,
+but not run them.
+
+The -r flag causes clean to be applied recursively<span class="o">(</span>递归<span class="o">))</span> to all the
+dependencies of the packages named by the import paths.
+
+The -x flag causes clean to print remove commands as it executes them.
+
+The -cache flag causes clean to remove the entire go build cache.
+
+The -testcache flag causes clean to expire all <span class="nb">test</span> results in the
+go build cache.
+
+For more about build flags, see <span class="s1">&#39;go help build&#39;</span>.
+
+For more about specifying packages, see <span class="s1">&#39;go help packages&#39;</span>.</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="go-env">go env</h1>
+
+<p>查看当前 go 的环境变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go env" data-lang="go env"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go env" data-lang="go env">set GOBIN=D:/code/Go_Path/bin
+set GOCACHE=C:\Users\zhe\AppData\Local\go-build
+set GOEXE=.exe
+set GOHOSTARCH=amd64
+set GOHOSTOS=windows
+set GOOS=windows
+set GOPATH=D:\code\Go_Path
+set GORACE=
+set GOROOT=D:\Go
+set GOTMPDIR=
+set GOTOOLDIR=D:\Go\pkg\tool\windows_amd64
+set GCCGO=gccgo
+set CC=gcc
+set CXX=g++
+set CGO_ENABLED=1
+set CGO_CFLAGS=-g -O2
+set CGO_CPPFLAGS=
+set CGO_CXXFLAGS=-g -O2
+set CGO_FFLAGS=-g -O2
+set CGO_LDFLAGS=-g -O2
+set PKG_CONFIG=pkg-config
+set GOGCCFLAGS=-m64 -mthreads -fmessage-length=0 -fdebug-prefix-map=C:\Users\zhe\AppData\Local\Temp\go-build534551030=/tmp/go-build -gno-record-gcc-switches</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="go-get">go get</h1>
+
+<p>Download and install packages and dependencies</p>
+
+<p>下载或更新指定的代码包及其依赖包，并对他们进行编译安装</p>
+
+<p>Usage:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">go get [-d] [-f] [-fix] [-insecure] [-t] [-u] [-v] [build flags] [packages]
+
+go get = git clone + go install</pre></td></tr></table>
+</div>
+</div>
+<p>Options:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">-d：    只下载，不安装
+-f:     仅在使用 -u 标记时才有效。不让 `get -u` 去验证 import 中的每一个包都已经被获取了，这对于本地fork的包特别有用
+-fix:   让 get 指令在解决依赖包或编译代码之前，先对已下载的包运行 fix tool 进行修复
+-t:     同时下载需要为运行测试时所需要的包
+-u:     强制使用网络去更新包和它的依赖包。
+-v:     输出详细的执行过程和调试信息</pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://github.com/zhezh09/go-practice/blob/master/go-std-cmd">Click here to checkout the Repo</a></p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://golang.org/cmd/go/">https://golang.org/cmd/go/</a></li>
+<li><a href="http://wiki.jikexueyuan.com/project/go-command-tutorial/0.0.html">标准命令详解</a></li>
+<li><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/01.3.md">go命令</a></li>
+<li><a href="https://halfrost.com/go_command/">初探 Go 的编译命令执行过程</a></li>
+<li><a href="http://www.flysnow.org/2017/03/08/go-in-action-go-tools.html">Go开发工具</a>
+<br /></li>
+</ul>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-07-06</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180629-go_cmd_03_cgo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | cmd - go cgo</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/">
+            <span class="next-text nav-default">Golang | cmd - go build 构建 C 的静态 &#43; 动态链接库、Go 的动态链接库</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-06-27 14:09:26 \x2b0800 CST',
+        title: 'Golang | cmd - go install | run | clean | env | get',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

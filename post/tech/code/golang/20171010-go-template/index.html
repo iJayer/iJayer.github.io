@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | 模板 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="go, golang, template" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20171010-go-template/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | 模板" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20171010-go-template/" /><meta property="article:published_time" content="2017-10-10T16:07:43&#43;08:00"/>
+<meta property="article:modified_time" content="2017-10-10T16:07:43&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | 模板">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-10-10T16:07:43&#43;08:00" />
+<meta itemprop="dateModified" content="2017-10-10T16:07:43&#43;00:00" />
+<meta itemprop="wordCount" content="3028">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | 模板"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | 模板</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-10-10 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3028 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#什么是模板">什么是模板</a>
+<ul>
+<li><a href="#go中模板解析">Go中模板解析</a></li>
+</ul></li>
+<li><a href="#基本用法">基本用法</a>
+<ul>
+<li><a href="#变量">变量</a></li>
+<li><a href="#参数">参数</a></li>
+<li><a href="#条件">条件</a>
+<ul>
+<li><a href="#内置的逻辑判断函数">内置的逻辑判断函数</a></li>
+</ul></li>
+<li><a href="#管道">管道</a></li>
+<li><a href="#函数">函数</a>
+<ul>
+<li><a href="#函数集合定义">函数集合定义</a></li>
+<li><a href="#自定义和模板函数">自定义和模板函数</a></li>
+<li><a href="#函数调用">函数调用</a></li>
+</ul></li>
+<li><a href="#遍历">遍历</a>
+<ul>
+<li><a href="#遍历slice-1">遍历slice.1</a></li>
+<li><a href="#遍历slice-2">遍历slice.2</a></li>
+</ul></li>
+<li><a href="#with-上下文">with·上下文</a></li>
+<li><a href="#must操作">Must操作</a></li>
+<li><a href="#嵌套模板">嵌套模板</a>
+<ul>
+<li><a href="#子模板定义">子模板定义</a></li>
+<li><a href="#子模板调用">子模板调用</a></li>
+<li><a href="#代码测试">代码测试</a></li>
+</ul></li>
+<li><a href="#子模板访问父模板变量">子模板访问父模板变量</a></li>
+</ul></li>
+<li><a href="#模板相关函数详解">模板相关函数详解</a>
+<ul>
+<li><a href="#parse-parsefiles-parseblob">Parse &amp; ParseFiles &amp; ParseBlob</a>
+<ul>
+<li><a href="#函数定义">函数定义:</a></li>
+<li><a href="#代码示例">代码示例</a></li>
+</ul></li>
+<li><a href="#execute-executetemplate">Execute &amp; ExecuteTemplate</a>
+<ul>
+<li><a href="#函数定义-1">函数定义</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="什么是模板">什么是模板</h1>
+
+<blockquote>
+<p>Go中模板处理通过包: <code>text/template</code> 和 <code>html/template</code> 完成</p>
+</blockquote>
+
+<p>一个模板就是一个字符串或一个文件，里面包含了一个或多个双花括号 <code>{{}}</code> 包含的对象</p>
+
+<h2 id="go中模板解析">Go中模板解析</h2>
+
+<p>Go中模板解析主要步骤:</p>
+
+<ol>
+<li>创建模板对象</li>
+<li>加载模板字串(或模板文件)</li>
+<li>执行渲染模板</li>
+</ol>
+
+<blockquote>
+<p>Note: 其中最后一步就是将加载的字符和数据进行格式化</p>
+</blockquote>
+
+<h1 id="基本用法">基本用法</h1>
+
+<ul>
+<li>模板标签: 标签用 <code>{{}}</code> 括起来</li>
+<li>模板注释: 注释用 <code>{{/* a comment */}}</code> 括起来表示注释内容</li>
+</ul>
+
+<h2 id="变量">变量</h2>
+
+<p>Go渲染 template 的时候，接收一个 interface{} 类型的变量, 我们在模板文件或模板字串中取变量值然后渲染到模板里</p>
+
+<blockquote>
+<p>模板渲染时 interface{} 接收的变量通常为：</p>
+
+<ul>
+<li>struct: 在模板中用struct的字段进行渲染</li>
+<li>map[string][interface{}: 在模板中使用key进行渲染</li>
+</ul>
+</blockquote>
+
+<p>Usage:</p>
+
+<ul>
+<li><p><code>{{}}</code>: 表示模板渲染时需要被替换的字段</p></li>
+
+<li><p><code>{{.}}</code>: 表示输出当前对象的值</p></li>
+
+<li><p><code>{{.FieldOrMethodName}}</code>: 表示输出struct对象的字段或方法名称为&rsquo;FieldOrMethodName&rsquo;的值</p>
+
+<ul>
+<li>注：要访问的对象必须可导出的</li>
+<li>当 FieldOrMethodName 为匿名字段时, 可访问其内部字段或方法, 如 “New”: <code>{{.FieldOrMethodName.New}}</code></li>
+<li>当 New 是一个方法并返回一个struct对象，同样也可以访问其字段或方法: <code>{{.FieldOrMethodName.New.Field1}}</code>
+<br /></li>
+</ul></li>
+
+<li><p><code>{{.Method1 &quot;参数值1&quot; &quot;参数值2&quot;}}</code>: 调用方法“Method1”，将后面的参数值依次传递给此方法，并输出其返回值。</p></li>
+</ul>
+
+<h2 id="参数">参数</h2>
+
+<p>模板参数可以是 Go 中的基本数据类型，亦可是数组切片或者一个结构体</p>
+
+<p>在模板中定义变量： 变量名称由字母和数字组成,并附带 <code>$</code> 前缀, 用 <code>:=</code> 赋值</p>
+
+<ul>
+<li><p>比如，{{$X := &ldquo;ok&rdquo;}} or {{$Y := &ldquo;pipeline&rdquo;}}</p></li>
+
+<li><p>{{$FieldName}}: 用于输出在模板中定义的名称为 FieldName 的值，当 FieldName 本身是一个struct时，可访问其字段</p></li>
+</ul>
+
+<h2 id="条件">条件</h2>
+
+<p>Go的模板支持 bool 和 string 类型的条件判断, 语法格式如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// if
+</span><span class="c1"></span><span class="p">{{</span><span class="k">if</span> <span class="p">.</span><span class="nx">condition</span><span class="p">}}</span>
+    <span class="nx">some</span> <span class="nx">content</span>
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span>
+
+<span class="c1">// if-else 
+</span><span class="c1"></span><span class="p">{{</span><span class="k">if</span> <span class="p">.</span><span class="nx">condition</span><span class="p">}}</span>
+    <span class="nx">some</span> <span class="nx">content</span>
+<span class="p">{{</span><span class="k">else</span><span class="p">}}</span>
+    <span class="nx">some</span> <span class="nx">content</span>
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span>
+
+<span class="c1">// if-else if
+</span><span class="c1"></span><span class="p">{{</span><span class="k">if</span> <span class="p">.</span><span class="nx">condition</span><span class="p">}}</span>
+    <span class="nx">some</span> <span class="nx">content</span>
+<span class="p">{{</span><span class="k">else</span> <span class="k">if</span> <span class="p">.</span><span class="nx">condition</span><span class="p">}}</span>
+    <span class="nx">some</span> <span class="nx">content</span>
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 当.condition为bool类型时，值为true表示执行；当.condition为string类型时，值非空表示执行</p>
+</blockquote>
+
+<h3 id="内置的逻辑判断函数">内置的逻辑判断函数</h3>
+
+<ul>
+<li><p><code>not 非</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">not</span> <span class="p">.</span><span class="nx">condition</span><span class="p">}}</span>    
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p><code>and 与</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">and</span> <span class="p">.</span><span class="nx">condition1</span> <span class="p">.</span><span class="nx">condition2</span><span class="p">}}</span> 
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p><code>or  或</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">or</span> <span class="p">.</span><span class="nx">condition1</span> <span class="p">.</span><span class="nx">condition2</span><span class="p">}}</span> 
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p><code>eq  等于</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">eq</span> <span class="p">.</span><span class="nx">var1</span> <span class="p">.</span><span class="nx">var2</span><span class="p">}}</span> 
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p><code>ne  不等于</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">ne</span> <span class="p">.</span><span class="nx">var1</span> <span class="p">.</span><span class="nx">var2</span><span class="p">}}</span> 
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p><code>lt  小于</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">lt</span> <span class="p">.</span><span class="nx">var1</span> <span class="p">.</span><span class="nx">var2</span><span class="p">}}</span> 
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p><code>le  小于等于</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">le</span> <span class="p">.</span><span class="nx">var1</span> <span class="p">.</span><span class="nx">var2</span><span class="p">}}</span> 
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p><code>gt  大于</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">gt</span> <span class="p">.</span><span class="nx">var1</span> <span class="p">.</span><span class="nx">var2</span><span class="p">}}</span> 
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p><code>ge  大于等于</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="p">{{</span><span class="k">if</span> <span class="nx">ge</span> <span class="p">.</span><span class="nx">var1</span> <span class="p">.</span><span class="nx">var2</span><span class="p">}}</span> 
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="管道">管道</h2>
+
+<p>Go模板的管道函数提供和Unix的pipe一样的功能，可用于过滤简化数据等</p>
+
+<h2 id="函数">函数</h2>
+
+<p>Go的模板提供了自定义模板函数的功能：template包创建新模板的时候通过调用 <code>Funcs</code> 方法将自定义函数注册到该模板中，后续通过该模板渲染的文件均支持调用这些自定义函数</p>
+
+<h3 id="函数集合定义">函数集合定义</h3>
+
+<p>自定义模板函数的集合定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">FuncMap</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>key: 方法名，用于模板字串或文件中调用</li>
+<li>value: 函数。该函数对其参数个数无限制，但对函数返回值有两种限制
+
+<ul>
+<li>只返回一个值</li>
+<li>返回两个值，且第二个值必须为 error 类型</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<h3 id="自定义和模板函数">自定义和模板函数</h3>
+
+<ol>
+<li><p>创建一个 FuncMap类型的 map，key 为模板函数名称, value为函数定义</p></li>
+
+<li><p>将 FuncMap 注册到模板中</p></li>
+</ol>
+
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>FuncMap注册必须在 Parse | ParseFiles之前</li>
+<li>代码示例参考: <a href="#253-函数调用">函数调用</a></li>
+</ul>
+</blockquote>
+
+<h3 id="函数调用">函数调用</h3>
+
+<ul>
+<li><p><code>{{FuncName}}</code></p>
+
+<ul>
+<li>调用 FuncName 模板函数(等同于执行 &ldquo;FuncName()&rdquo; 并输出其返回值)</li>
+</ul></li>
+
+<li><p><code>{{FuncName &quot;Param1&quot; &quot;Param2&quot;}}</code></p>
+
+<ul>
+<li>调用 FuncName(Param1, Param2), 并输出其返回值</li>
+
+<li><p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Para</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">X</span> <span class="kt">int</span>
+    <span class="nx">Y</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">tmpl2</span> <span class="p">=</span> <span class="s">`Result is </span><span class="cp">{{</span><span class="nx">sum</span><span class="w"> </span><span class="na">.X</span><span class="w"> </span><span class="na">.Y</span><span class="cp">}}</span><span class="s">`</span>
+
+<span class="kd">func</span> <span class="nf">TmplTest2</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">funcMap</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">FuncMap</span><span class="p">{</span><span class="s">&#34;sum&#34;</span><span class="p">:</span> <span class="nx">add</span><span class="p">}</span>         <span class="c1">// 定义 FuncMap类型对象
+</span><span class="c1"></span>
+    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;Call func&#34;</span><span class="p">).</span><span class="nf">Funcs</span><span class="p">(</span><span class="nx">funcMap</span><span class="p">)</span>   <span class="c1">// 注册 Funcmap到模板
+</span><span class="c1"></span>    <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="nx">tmpl2</span><span class="p">)</span>
+
+    <span class="nx">p</span> <span class="o">:=</span> <span class="nx">Para</span><span class="p">{</span>
+        <span class="nx">X</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">Y</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="nx">t</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul></li>
+
+<li><p><code>{{.FieldName | FuncName}}</code></p>
+
+<ul>
+<li>将竖线 <code>“|”</code> 左边的 <code>“.FieldName”</code> 变量值作为函数参数传送, 并输出其返回值。</li>
+</ul></li>
+</ul>
+
+<h2 id="遍历">遍历</h2>
+
+<p>对于数组，切片或map，可用迭代的action，与go的迭代类似，使用range：<code>{{range ...}} ... {{end}}</code></p>
+
+<h3 id="遍历slice-1">遍历slice.1</h3>
+
+<p>遍历 slice，且获取其索引和值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">{{range $i, $v := .slice}}
+    the value is {{$i}}, {{$v}}
+{{end}}</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>在该循环中可通过 <code>$i</code>、<code>$v</code>访问遍历的值</li>
+<li>range&hellip;end结构内部如要使用外部的变量，比如.Var2，需要这样写：$.Var2 (（即：在外部变量名称前加符号“$”即可，单独的“$”意义等同于global）)</li>
+</ul>
+</blockquote>
+
+<p>Code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Slices</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Names</span>  <span class="p">[]</span><span class="kt">string</span>
+    <span class="nx">OutVar</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">tmpl3</span> <span class="p">=</span> <span class="s">`
+</span><span class="s"></span><span class="cp">{{</span><span class="k">range</span><span class="w"> </span><span class="nx">$i</span><span class="err">,</span><span class="w"> </span><span class="nx">$v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="na">.Names</span><span class="cp">}}</span><span class="s">
+</span><span class="s">    the index is </span><span class="cp">{{</span><span class="nx">$i</span><span class="cp">}}</span><span class="s"> and the value is </span><span class="cp">{{</span><span class="nx">$v</span><span class="cp">}}</span><span class="s">
+</span><span class="s">    outside variable is </span><span class="cp">{{</span><span class="na">$.OutVar</span><span class="cp">}}</span><span class="s"> </span><span class="cp">{{</span><span class="c">/* obtain outside variable */</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span><span class="s">
+</span><span class="s">`</span>
+
+<span class="kd">func</span> <span class="nf">TmplTest3</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">Slices</span><span class="p">{</span>
+        <span class="nx">Names</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;1&#34;</span><span class="p">,</span> <span class="s">&#34;2&#34;</span><span class="p">,</span> <span class="s">&#34;3&#34;</span><span class="p">,</span> <span class="s">&#34;4&#34;</span><span class="p">,</span> <span class="s">&#34;5&#34;</span><span class="p">,</span> <span class="s">&#34;6&#34;</span><span class="p">,</span> <span class="s">&#34;7&#34;</span><span class="p">},</span>
+        <span class="nx">OutVar</span><span class="p">:</span> <span class="s">&#34;0&#34;</span>
+	<span class="p">}</span>
+
+	<span class="nx">t</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;range test&#34;</span><span class="p">)</span>
+	<span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="nx">tmpl3</span><span class="p">)</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="遍历slice-2">遍历slice.2</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">{{range .slice}}
+    the value is {{.}}
+{{end}}</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 该循环没有或取其index和value，需通过 <code>.</code> 访问对应的值</p>
+</blockquote>
+
+<p>Code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">tmpl</span> <span class="p">=</span> <span class="s">`Hello </span><span class="cp">{{</span><span class="na">.Username</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">range</span><span class="w"> </span><span class="na">.Emails</span><span class="cp">}}</span><span class="s">
+</span><span class="s">	an email </span><span class="cp">{{</span><span class="na">.</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">range</span><span class="w"> </span><span class="na">.Friends</span><span class="cp">}}</span><span class="s">
+</span><span class="s">	my friend name is </span><span class="cp">{{</span><span class="na">.Name</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span><span class="s">
+</span><span class="s">`</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="with-上下文">with·上下文</h2>
+
+<p><code>{{with ...}} ... {{end}}</code></p>
+
+<p>with: 操作当前对象的值，类似上下文概念,其含义为创建一个封闭的作用域，在其范围内，可用 .action处理变量，而与外面的 . 无关，只与为with参数有关：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">{{with arg}}
+    {{/* 此时的 . 就是arg */}}
+{{end}}</pre></td></tr></table>
+</div>
+</div>
+<p>Code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Friend</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Fname</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">UserName</span> <span class="kt">string</span>
+	<span class="nx">Emails</span>   <span class="p">[]</span><span class="kt">string</span>
+	<span class="nx">Friends</span>  <span class="p">[]</span><span class="o">*</span><span class="nx">Friend</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">tmpl</span> <span class="p">=</span> <span class="s">`hello </span><span class="cp">{{</span><span class="na">.UserName</span><span class="cp">}}</span><span class="s">!
+</span><span class="s"></span><span class="cp">{{</span><span class="k">range</span><span class="w"> </span><span class="na">.Emails</span><span class="cp">}}</span><span class="s">
+</span><span class="s">	an email </span><span class="cp">{{</span><span class="na">.</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">with</span><span class="w"> </span><span class="na">.Friends</span><span class="cp">}}</span><span class="s"> 
+</span><span class="s"></span><span class="cp">{{</span><span class="k">range</span><span class="w"> </span><span class="na">.</span><span class="cp">}}</span><span class="s">
+</span><span class="s">	my friend name is </span><span class="cp">{{</span><span class="na">.Fname</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">else</span><span class="cp">}}</span><span class="s"> 
+</span><span class="s">    this is else </span><span class="cp">{{</span><span class="na">.</span><span class="cp">}}</span><span class="s">
+</span><span class="s"></span><span class="cp">{{</span><span class="k">end</span><span class="cp">}}</span><span class="s">
+</span><span class="s">`</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: with语句也可有 else，else中的点则和 with 外面的 . 作用一样</p>
+</blockquote>
+
+<h2 id="must操作">Must操作</h2>
+
+<p>模板包包含一个函数: <code>Must</code>，其作用为检测模板是否正确(例如：大括号是否匹配，注释是否正确关闭，变量是否是正确的书写)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">tOk</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;first&#34;</span><span class="p">)</span>
+	<span class="nx">template</span><span class="p">.</span><span class="nf">Must</span><span class="p">(</span><span class="nx">tOk</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="s">&#34; some static text /* and a comment */&#34;</span><span class="p">))</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;The first one parsed OK.&#34;</span><span class="p">)</span>
+
+	<span class="nx">template</span><span class="p">.</span><span class="nf">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;second&#34;</span><span class="p">).</span><span class="nf">Parse</span><span class="p">(</span><span class="s">&#34;some static text {{ .Name }}&#34;</span><span class="p">))</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;The second one parsed OK.&#34;</span><span class="p">)</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;The next one ought to fail.&#34;</span><span class="p">)</span>
+	<span class="nx">tErr</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;check parse error with Must&#34;</span><span class="p">)</span>
+	<span class="nx">template</span><span class="p">.</span><span class="nf">Must</span><span class="p">(</span><span class="nx">tErr</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="s">&#34; some static text {{ .Name }&#34;</span><span class="p">))</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="嵌套模板">嵌套模板</h2>
+
+<h3 id="子模板定义">子模板定义</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">{{define &#34;子模板名称&#34;}} 模板内容 {{end}}</pre></td></tr></table>
+</div>
+</div>
+<h3 id="子模板调用">子模板调用</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">{{template &#34;子模板名称&#34;}}</pre></td></tr></table>
+</div>
+</div>
+<h3 id="代码测试">代码测试</h3>
+
+<p>Code: 定义三个模板文件，header.tmpl、content.tmpl、footer.tmpl测试嵌套模板</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// header.tmpl
+</span><span class="c1"></span><span class="p">{{</span><span class="nx">define</span> <span class="s2">&#34;header&#34;</span><span class="p">}}</span>
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span> <span class="nx">演示信息</span> <span class="o">&lt;</span><span class="err">/title&gt;</span>
+<span class="o">&lt;</span><span class="err">/head&gt;</span>
+<span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// content.tmpl
+</span><span class="c1"></span><span class="p">{{</span><span class="nx">define</span> <span class="s2">&#34;content&#34;</span><span class="p">}}</span>
+<span class="p">{{</span><span class="nx">template</span> <span class="s2">&#34;header&#34;</span><span class="p">}}</span>
+<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span> <span class="nx">演示嵌套</span> <span class="o">&lt;</span><span class="err">/h1&gt;</span>
+<span class="o">&lt;</span><span class="nx">u1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span> <span class="nx">嵌套使用</span> <span class="nx">define</span> <span class="nx">定义子模板</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+    <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span> <span class="nx">调用使用</span> <span class="nx">template</span> <span class="s2">&#34;footer&#34;</span> <span class="o">&lt;</span><span class="err">/li&gt;</span>
+<span class="o">&lt;</span><span class="err">/u1&gt;</span>
+<span class="p">{{</span><span class="nx">template</span> <span class="s2">&#34;footer&#34;</span><span class="p">}}</span>
+<span class="p">{{</span><span class="nx">end</span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// footer.tmpl
+</span><span class="c1"></span><span class="p">{{</span><span class="nx">define</span> <span class="s2">&#34;footer&#34;</span><span class="p">}}</span>
+<span class="o">&lt;</span><span class="err">/body&gt;</span>
+<span class="o">&lt;</span><span class="err">/html&gt;</span>
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Embedded template
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">EmbeddedTmpl</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">path</span> <span class="o">:=</span> <span class="s">&#34;/home/work/code/Go_Path/src/instance.golang.com/tmpl/tmpl&#34;</span>
+	<span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nf">ParseFiles</span><span class="p">(</span><span class="nx">path</span><span class="o">+</span><span class="s">&#34;/header.tmpl&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="o">+</span><span class="s">&#34;/content.tmpl&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="o">+</span><span class="s">&#34;/footer.tmpl&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">logrus</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">t</span><span class="p">.</span><span class="nf">ExecuteTemplate</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="s">&#34;header&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>  <span class="c1">// 渲染指定模板 header
+</span><span class="c1"></span>	<span class="nx">t</span><span class="p">.</span><span class="nf">ExecuteTemplate</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="s">&#34;content&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// 渲染指定模板 content
+</span><span class="c1"></span>	<span class="nx">t</span><span class="p">.</span><span class="nf">ExecuteTemplate</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="s">&#34;footer&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>  <span class="c1">// 渲染指定模板 footer
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Output:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span> <span class="nx">演示信息</span> <span class="o">&lt;</span><span class="err">/title&gt;</span>
+<span class="o">&lt;</span><span class="err">/head&gt;</span>
+<span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+
+
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span> <span class="nx">演示信息</span> <span class="o">&lt;</span><span class="err">/title&gt;</span>
+<span class="o">&lt;</span><span class="err">/head&gt;</span>
+<span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span> <span class="nx">演示嵌套</span> <span class="o">&lt;</span><span class="err">/h1&gt;</span>
+<span class="o">&lt;</span><span class="nx">u1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span> <span class="nx">嵌套使用</span> <span class="nx">define</span> <span class="nx">定义子模板</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+    <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span> <span class="nx">调用使用</span> <span class="nx">template</span> <span class="s2">&#34;footer&#34;</span> <span class="o">&lt;</span><span class="err">/li&gt;</span>
+<span class="o">&lt;</span><span class="err">/u1&gt;</span>
+
+<span class="o">&lt;</span><span class="err">/body&gt;</span>
+<span class="o">&lt;</span><span class="err">/html&gt;</span>
+
+
+
+<span class="o">&lt;</span><span class="err">/body&gt;</span>
+<span class="o">&lt;</span><span class="err">/html&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>template.ParseFiles 可把所有嵌套模板解析到我们的模板对象</li>
+<li>每一个 {{define &ldquo;template_name&rdquo;}} 定义的文件都是一个独立的模板文件，与其他模板文件并行存在; 解析后的模板文件在内部存储类似一种map结构，即key-表示模板名称，value-模板内容</li>
+<li>ExecuteTemplate()用来渲染定义好的子模板文件</li>
+</ul>
+</blockquote>
+
+<h2 id="子模板访问父模板变量">子模板访问父模板变量</h2>
+
+<p>使用 <code>{{template &quot;content&quot; .}}</code> 可将当前变量传送给子模板</p>
+
+<h1 id="模板相关函数详解">模板相关函数详解</h1>
+
+<h2 id="parse-parsefiles-parseblob">Parse &amp; ParseFiles &amp; ParseBlob</h2>
+
+<h3 id="函数定义">函数定义:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">func</span> <span class="nf">ParseFiles</span><span class="p">(</span><span class="nx">filenames</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Template</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">ParseGlob</span><span class="p">(</span><span class="nx">pattern</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Template</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Template</span><span class="p">)</span> <span class="nf">Parse</span><span class="p">(</span><span class="nx">text</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Template</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Template</span><span class="p">)</span> <span class="nf">ParseFiles</span><span class="p">(</span><span class="nx">filenames</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Template</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Template</span><span class="p">)</span> <span class="nf">ParseGlob</span><span class="p">(</span><span class="nx">pattern</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Template</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li><code>Parse</code> 用来解析一个字符串，字符串代表模版的内容，并且嵌套的模版也会和这个模版进行关联。</li>
+<li><code>ParseFiles</code> 用来解析一组命名的文件模版，当模版定义在不同的文件中的时候，使用这个方法可以产生一个可执行的模版，模版执行的时候不会出错。</li>
+<li><code>ParseGlob</code> 与ParseFiles类似，它使用filepath.Glob模式匹配的方式遍历文件，将这些文件生成模版</li>
+<li>两个函数还可以作为 *Template的方法使用。作为函数使用的时候，它返回模版的名字是第一个文件的名字，模版以第一个文件作为base模版。同时后面的文件也会生成模版作为这个模版的关联模板,你可以通过Lookup方法查找到这个模版，因为每个模版都保存着它的关联模版：</li>
+</ul>
+</blockquote>
+
+<h3 id="代码示例">代码示例</h3>
+
+<h2 id="execute-executetemplate">Execute &amp; ExecuteTemplate</h2>
+
+<h3 id="函数定义-1">函数定义</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Template</span><span class="p">)</span> <span class="nf">Execute</span><span class="p">(</span><span class="nx">wr</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">data</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">error</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Template</span><span class="p">)</span> <span class="nf">ExecuteTemplate</span><span class="p">(</span><span class="nx">wr</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">data</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li><code>Execute</code> 直接接收data的值渲染模板</li>
+<li>使用 <code>ExecuteTemplate</code> 可以选择渲染 t 关联的模版作为渲染的主模版; name-指定主模版</li>
+</ul>
+</blockquote>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/07.4.md">模板处理</a></li>
+<li><a href="https://studygolang.com/articles/3071">golang模板语法简明教程</a></li>
+<li><a href="http://www.jianshu.com/p/05671bab2357">Golang Template 简明笔记</a></li>
+<li><a href="http://blog.csdn.net/sryan/article/details/52353937">golang 模板(template)的常用基本语法</a></li>
+<li><a href="https://gohugo.io/templates/introduction/">Introduction to Hugo Templating</a></li>
+<li><a href="http://colobu.com/2016/10/09/Go-embedded-template-best-practices/">Go 模板嵌套最佳实践</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-10-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20171013-go-func/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | 函数</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/footprint/20171006-%E9%BB%84%E5%B1%B1/">
+            <span class="next-text nav-default">『心之所向，素履以往』— 黄山</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-10-10 16:07:43 \x2b0800 CST',
+        title: 'Golang | 模板',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

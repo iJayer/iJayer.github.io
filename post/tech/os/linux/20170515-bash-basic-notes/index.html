@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux | Bash 基础 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="linux, bash" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/os/linux/20170515-bash-basic-notes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux | Bash 基础" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/os/linux/20170515-bash-basic-notes/" /><meta property="article:published_time" content="2017-05-15T17:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-05-18T19:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="Linux | Bash 基础">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-05-15T17:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-05-18T19:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="1231">
+
+
+
+<meta itemprop="keywords" content="linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux | Bash 基础"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux | Bash 基础</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-15 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1231 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#一个工具-bash-completion">一个工具·bash-completion</a></li>
+<li><a href="#bash中的常用命令">Bash中的常用命令</a>
+<ul>
+<li><a href="#type"><code>type</code></a></li>
+<li><a href="#echo"><code>echo</code></a></li>
+<li><a href="#printf"><code>printf</code></a></li>
+<li><a href="#test"><code>test</code></a></li>
+<li><a href="#unset"><code>unset</code></a></li>
+<li><a href="#反单引号"><code>反单引号</code></a></li>
+<li><a href="#env"><code>env</code></a></li>
+<li><a href="#set"><code>set</code></a></li>
+<li><a href="#toc_10"><code>$</code></a></li>
+<li><a href="#toc_11"><code>?</code></a></li>
+<li><a href="#export"><code>export</code></a></li>
+<li><a href="#locale"><code>locale</code></a></li>
+<li><a href="#read"><code>read</code></a></li>
+<li><a href="#declare-typeset"><code>declare/typeset</code></a></li>
+<li><a href="#ulimit"><code>ulimit</code></a></li>
+<li><a href="#alias-unalias"><code>alias &amp; unalias</code></a></li>
+<li><a href="#history"><code>history</code></a></li>
+</ul></li>
+<li><a href="#bash-shell操作环境">Bash Shell操作环境</a>
+<ul>
+<li><a href="#命令执行顺序">命令执行顺序</a></li>
+<li><a href="#bash的环境配置文件">Bash的环境配置文件</a>
+<ul>
+<li><a href="#login-shell"><code>login shell</code></a></li>
+<li><a href="#non-login-shell"><code>non-login shell</code></a></li>
+</ul></li>
+<li><a href="#通配符">通配符</a></li>
+<li><a href="#数据流重导向">数据流重导向</a></li>
+<li><a href="#命令执行的判断依据">命令执行的判断依据</a></li>
+<li><a href="#管道-pipe">管道 Pipe</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="一个工具-bash-completion">一个工具·bash-completion</h1>
+
+<p>选项/参数补齐</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ apt install bash-completion</pre></td></tr></table>
+</div>
+</div>
+<h1 id="bash中的常用命令">Bash中的常用命令</h1>
+
+<h2 id="type"><code>type</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 查询指令是否为bash shell的内置指令(找指令)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="echo"><code>echo</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 变量的取用与设置
+$ $Variable_Name | ${Variable}
+# 设置myname变量：
+$ myname=zhe</pre></td></tr></table>
+</div>
+</div>
+<h2 id="printf"><code>printf</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Usage
+$ printf format-string [args...]
+$ printf &#34;%d %s\n&#34; 1 &#34;abc&#34;</pre></td></tr></table>
+</div>
+</div>
+<h2 id="test"><code>test</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># test命令用于测试某个条件是否成立
+# 测试对象：　数值，字符串，文件
+# [] 也是用于测试某个条件是否成立的，等价于 test 指令</pre></td></tr></table>
+</div>
+</div>
+<h2 id="unset"><code>unset</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 取消设置的变量
+$ unset myname</pre></td></tr></table>
+</div>
+</div>
+<h2 id="反单引号"><code>反单引号</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 反单引号包含的命令会优先执行,结果作为外部的输入  </pre></td></tr></table>
+</div>
+</div>
+<h2 id="env"><code>env</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 列出目前shell中所有的环境变量</pre></td></tr></table>
+</div>
+</div>
+<h2 id="set"><code>set</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 列出系统所有变量(环境变量 &amp; 自定义变量)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="toc_10"><code>$</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 目前shell的pid
+# 本身就是一个变量</pre></td></tr></table>
+</div>
+</div>
+<h2 id="toc_11"><code>?</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 上个执行指令的回传值：0-正确，!0-错误
+# 本身就是一个变量</pre></td></tr></table>
+</div>
+</div>
+<h2 id="export"><code>export</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 自定义变量转化成环境变量
+# 自定义变量不能被子程序bash继承</pre></td></tr></table>
+</div>
+</div>
+<h2 id="locale"><code>locale</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 影响显示结果的语系变量(解决乱码)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="read"><code>read</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 读取键盘输入的变量
+# -p：后面接提示信息
+# -t：后面接等待的秒数
+$ read -p &#34;Please keyin your name: &#34; -t 30 myname
+$ echo $myname</pre></td></tr></table>
+</div>
+</div>
+<h2 id="declare-typeset"><code>declare/typeset</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 宣告变量的类型
+# Options: [-aixr]</pre></td></tr></table>
+</div>
+</div>
+<h2 id="ulimit"><code>ulimit</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 与文件系统及程序的限制关系
+$ ulimit [-SHacdfltu] [配额]</pre></td></tr></table>
+</div>
+</div>
+<h2 id="alias-unalias"><code>alias &amp; unalias</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 命令的别名与取消命令的别名
+$ alias 别名=&#39;指令 选项...&#39;</pre></td></tr></table>
+</div>
+</div>
+<h2 id="history"><code>history</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Bash命令历史 | 别名如下
+$ alias h=&#39;history&#39;`
+$ !n` 执行第 n 条命令
+$ !!` 执行上一条命令
+$ !command` 执行最近的以&#39;command&#39;开头的指令</pre></td></tr></table>
+</div>
+</div>
+<h1 id="bash-shell操作环境">Bash Shell操作环境</h1>
+
+<h2 id="命令执行顺序">命令执行顺序</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 路径下搜索( 绝对 /bin/ls | 相对 ./ls )
+# alias
+# builtin
+# $PATH 中的第一个</pre></td></tr></table>
+</div>
+</div>
+<h2 id="bash的环境配置文件">Bash的环境配置文件</h2>
+
+<h3 id="login-shell"><code>login shell</code></h3>
+
+<ul>
+<li><p>取得bash时需要完整的登陆流程</p></li>
+
+<li><p>login shell读取的配置文件</p>
+
+<ul>
+<li><p><code>/etc/profile</code>：整个系统的设置(login shell才会读)</p>
+
+<blockquote>
+<p>注：<code>/etc/profile</code> 还会调用外部的配置文件数据, 如下</p>
+
+<ul>
+<li>/etc/profile.d/*.sh<br /></li>
+<li>/etc/locale.conf<br /></li>
+<li>/usr/share/bash-completion/completions/*<br /></li>
+</ul>
+</blockquote></li>
+
+<li><p><code>~/.bash_profile</code> 或 <code>~/.bash_login</code> 或 <code>~/.profile</code>：用户自定义的设置(login shell才会读)</p>
+
+<blockquote>
+<p>注：以上用户配置文件只会读其中一个<br />
++ <code>~/.profile</code>最终会读取 <code>~/.bashrc</code></p>
+</blockquote></li>
+
+<li><p>login shell 的配置文件读取流程</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548398686/blog/images/login_shell.png" alt="login shell 的配置文件读取流程" /></p></li>
+</ul></li>
+</ul>
+
+<h3 id="non-login-shell"><code>non-login shell</code></h3>
+
+<ul>
+<li>取得bash接口的方法不需要重复操作</li>
+
+<li><p>non-login shell读取的配置文件</p>
+
+<ul>
+<li><code>~/.bashrc</code></li>
+</ul></li>
+</ul>
+
+<h2 id="通配符">通配符</h2>
+
+<p><code>*</code> 代表 &ldquo;0 到无穷多个&rdquo; 任意字符<br />
+<code>?</code> 代表 &ldquo;一定有一个&rdquo; 任意字符<br />
+<code>[]</code> 代表 &ldquo;一定有一个在括号内&rdquo; 的字符(非任意字符)</p>
+
+<h2 id="数据流重导向">数据流重导向</h2>
+
+<ul>
+<li><p><code>stdin</code>：代码为0， <code>&lt;</code> 或 <code>&lt;&lt;</code></p>
+
+<ul>
+<li>将原本由键盘输入的数据改由从文件获取<br />
+<br /></li>
+</ul></li>
+
+<li><p><code>stdout</code>：代码为1， <code>&gt;</code> 或 <code>&gt;&gt;</code></p></li>
+
+<li><p><code>stderr</code>：代码为2， <code>2&gt;</code> 或 <code>2&gt;&gt;</code></p></li>
+
+<li><p><code>&gt;</code> &amp; <code>2&gt;</code> 覆盖</p></li>
+
+<li><p><code>&gt;&gt;</code> &amp; <code>2&gt;&gt;</code> 累加</p></li>
+</ul>
+
+<h2 id="命令执行的判断依据">命令执行的判断依据</h2>
+
+<ul>
+<li><code>;</code> 不考虑指令相关性的连续下达</li>
+<li><code>&amp;&amp;</code></li>
+<li><code>||</code></li>
+<li><code>$?</code> 上个指令的回传值</li>
+</ul>
+
+<h2 id="管道-pipe">管道 Pipe</h2>
+
+<ul>
+<li><p><code>|</code> 管道界定符</p>
+
+<ul>
+<li>把上个命令的输出(stdout)作为下一个命令的输入(stdin)，会忽略掉stderr的输出</li>
+</ul></li>
+
+<li><p><code>grep</code> (Global Regular Expression Print)</p>
+
+<ul>
+<li><p>查找文件中符合条件的字符串</p></li>
+
+<li><p><code>grep [-acinv] 'search_str' filename</code></p></li>
+
+<li><p>Options</p>
+
+<ul>
+<li><code>-a</code>  将binary文件以text文件方式搜索数据</li>
+<li><code>-c</code>  统计找到的 &lsquo;search_str&rsquo; 的次数</li>
+<li><code>-i</code>  忽略大小写</li>
+<li><code>-n</code>  输出行号</li>
+<li><code>-v</code>  反向选择，即显示没有 &lsquo;search_str&rsquo; 的哪一行</li>
+</ul></li>
+</ul></li>
+
+<li><p><code>-</code> 减号</p>
+
+<ul>
+<li>可以代替 stdin 和 stdout</li>
+</ul></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://wizardforcel.gitbooks.io/vbird-linux-basic-4e/content/87.html">鸟哥的linux私房菜·第四版·Bash学习</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-05-18</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Shell | 基础学习笔记</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/os/linux/20170511-systemd-basic/">
+            <span class="next-text nav-default">Linux | Systemd 基础</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-05-15 17:53:01 \x2b0800 CST',
+        title: 'Linux | Bash 基础',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

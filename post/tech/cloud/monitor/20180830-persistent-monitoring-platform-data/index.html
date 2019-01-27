@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统（二）| 监控平台数据持久化 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="monitor" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/monitor/20180830-persistent-monitoring-platform-data/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统（二）| 监控平台数据持久化" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/monitor/20180830-persistent-monitoring-platform-data/" /><meta property="article:published_time" content="2018-08-30T18:57:08&#43;00:00"/>
+<meta property="article:modified_time" content="2018-08-30T18:57:08&#43;00:00"/>
+
+<meta itemprop="name" content="Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统（二）| 监控平台数据持久化">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2018-08-30T18:57:08&#43;00:00" />
+<meta itemprop="dateModified" content="2018-08-30T18:57:08&#43;00:00" />
+<meta itemprop="wordCount" content="1312">
+
+
+
+<meta itemprop="keywords" content="devops,docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统（二）| 监控平台数据持久化"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统（二）| 监控平台数据持久化</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-30 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1312 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#背景说明">背景说明</a></li>
+<li><a href="#配置-grafana-容器数据持久化-容器升级">配置 Grafana 容器数据持久化(容器升级)</a>
+<ul>
+<li><a href="#先在宿主机创建挂载点">先在宿主机创建挂载点</a></li>
+<li><a href="#备份数据">备份数据</a></li>
+<li><a href="#更新容器并启动">更新容器并启动</a></li>
+</ul></li>
+<li><a href="#配置-influxdb-数据持久化">配置 InfluxDB 数据持久化</a>
+<ul>
+<li><a href="#先在宿主机创建挂载点-1">先在宿主机创建挂载点</a></li>
+<li><a href="#备份数据-1">备份数据</a></li>
+<li><a href="#更新容器并启动-1">更新容器并启动</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="背景说明">背景说明</h1>
+
+<p>通常我们会采用本地持久存储卷来保存一些 Docker 容器服务的配置与数据，这样做的好处是配置与数据可以在容器主机上比较方便的进行修改、备份，因为容器本身并不保存任何数据，所以容器可以做到随用随弃，便于升级。</p>
+
+<h1 id="配置-grafana-容器数据持久化-容器升级">配置 Grafana 容器数据持久化(容器升级)</h1>
+
+<p>Grafana 容器镜像：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">grafana/grafana</pre></td></tr></table>
+</div>
+</div>
+<p>容器数据目录:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">/etc/grafana/grafana.ini            # 配置文件，owner &amp; group: root
+/var/lib/grafana                    # 数据目录，owner &amp; group: grafana</pre></td></tr></table>
+</div>
+</div>
+<p>容器主机挂载点:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">/home/docker/grafana                # 宿主机 grafana 容器的家目录
+/home/docker/grafana/grafana.ini    # 挂载点 grafana 配置
+/home/docker/grafana/data           # 挂载点 grafana 数据目录 data</pre></td></tr></table>
+</div>
+</div>
+<p>关于 Grafana 容器存储持久化请先详细阅读一下官方文档说明：</p>
+
+<ul>
+<li><p><a href="http://docs.grafana.org/installation/docker/#installing-using-docker">Installing using Docker</a></p>
+
+<ul>
+<li>Grafana container with persistent storage (recommended)</li>
+<li>Grafana container using bind mounts</li>
+</ul></li>
+</ul>
+
+<h2 id="先在宿主机创建挂载点">先在宿主机创建挂载点</h2>
+
+<p>创建挂载点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p /home/docker/grafana
+$ <span class="nb">cd</span> /home/docker/grafana
+$ mkdir data
+$ touch grafana.ini</code></pre></td></tr></table>
+</div>
+</div>
+<p>创建容器启动脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vim run.sh
+
+<span class="c1"># 填入如下内容, 有关 ID 的说明请参考前面给出的文档</span>
+<span class="c1"># 脚本中分别挂载了容器的数据目录以及配置文件到宿主机</span>
+
+<span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="nv">ID</span><span class="o">=</span><span class="k">$(</span>id -u<span class="k">)</span>
+
+docker run --name grafana --net monitor --restart always --user <span class="nv">$ID</span> --volume <span class="s2">&#34;</span><span class="nv">$PWD</span><span class="s2">/data:/var/lib/grafana&#34;</span> --volume <span class="s2">&#34;</span><span class="nv">$PWD</span><span class="s2">/grafana.ini:/etc/grafana/grafana.ini&#34;</span> -p <span class="m">3000</span>:3000 -d grafana/grafana
+
+<span class="nb">echo</span>
+
+docker ps <span class="p">|</span> grep grafana
+
+$ chmod +x run.sh</code></pre></td></tr></table>
+</div>
+</div>
+<p>Next, 由于我已经创建好了且不带数据卷的 Grafana 容器，所以将会以升级的方式来添加容器数据卷，操作步骤： 备份 -&gt; 删除旧容器 -&gt; 启动新容器。(Note: 如果是新建容器则直接启动即可)</p>
+
+<h2 id="备份数据">备份数据</h2>
+
+<p>为什么要备份呢？</p>
+
+<p>因为已有容器未作持久化层，容器删除后数据会丢失，所以先备份，然后新创建的容器再与备份数据挂载，这样就可以保留原有数据了</p>
+
+<p>从已有容器中拷贝相关数据到本地挂载点: 使用 <code>docker cp</code> 命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> /home/docker/grafana
+$ docker cp grafana:/etc/grafana/grafana.ini .
+$ docker cp grafana:/var/lib/grafana/ .
+$ mv grafana data</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="更新容器并启动">更新容器并启动</h2>
+
+<p>删除旧容器(Note: 未创建数据卷的容器执行删除操作会丢失所有数据)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker stop grafana
+$ docker rm grafana</code></pre></td></tr></table>
+</div>
+</div>
+<p>启动新容器, 直接运行前面创建好的脚本：run.sh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">./run.sh</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 宿主机上更新配置文件后，需要重启容器才会生效</p>
+</blockquote>
+
+<p>查看日志可执行如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker logs -f grafana</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 容器默认日志是打印在终端的，并未记录到文件中，这里我没修改采用的是默认设置，所以使用上面的命令查看日志</p>
+</blockquote>
+
+<p>至此，Grafana 容器升级完成。</p>
+
+<h1 id="配置-influxdb-数据持久化">配置 InfluxDB 数据持久化</h1>
+
+<p>容器镜像：tutum/influxdb</p>
+
+<p>容器数据目录:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">/config/config.toml                 # 配置文件
+/data                               # 数据目录</pre></td></tr></table>
+</div>
+</div>
+<p>Host:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">/home/docker/influxdb               # 宿主机 influxdb 容器的家目录
+/home/docker/influxdb/config.toml   # 挂载点 influxdb 配置
+/home/docker/influxdb/data          # 挂载点 influxdb 数据目录 data</pre></td></tr></table>
+</div>
+</div>
+<h2 id="先在宿主机创建挂载点-1">先在宿主机创建挂载点</h2>
+
+<p>创建挂载点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p /home/docker/influxdb
+$ <span class="nb">cd</span> /home/docker/influxdb
+$ mkdir data
+$ touch confit.toml</code></pre></td></tr></table>
+</div>
+</div>
+<p>创建容器启动脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vim run.sh
+
+<span class="c1"># 填入如下内容</span>
+
+<span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+<span class="nb">echo</span> <span class="s1">&#39;docker run --name influxdb --net monitor --restart always -v &#34;$PWD/config.toml:/config/config.toml&#34; -v &#34;$PWD/data:/data&#34; -p 8083:8083 -p 8086:8086&#39;</span>
+docker run --name influxdb --net monitor --restart always -v <span class="s2">&#34;</span><span class="nv">$PWD</span><span class="s2">/config.toml:/config/config.toml&#34;</span> -v <span class="s2">&#34;</span><span class="nv">$PWD</span><span class="s2">/data:/data&#34;</span> -p <span class="m">8083</span>:8083 -p <span class="m">8086</span>:8086 -d tutum/influxdb
+
+<span class="nb">echo</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;docker ps&#39;</span>
+docker ps
+
+
+$ chmod +x run.sh</code></pre></td></tr></table>
+</div>
+</div>
+<p>Next, 由于我已经创建好了, 且没有指定数据卷的 Influxdb 容器，所以将会以升级的方式来添加容器数据卷，操作步骤： 备份 -&gt; 删除旧容器 -&gt; 启动新容器。(Note: 如果是新建容器则直接启动即可)</p>
+
+<h2 id="备份数据-1">备份数据</h2>
+
+<p>根据 tutum/influxdb 容器的 <a href="https://hub.docker.com/r/tutum/influxdb/~/dockerfile/">Dockerfile</a> 描述，构建镜像时已经创建了数据卷：容器挂载点：/data, 对应宿主机的挂载点在 /var/lib/docker/volumes/{sha256} 下, 具体的路径可以通过如下命令得到，即：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker inspect influxdb <span class="p">|</span> grep volume
+    <span class="s2">&#34;Type&#34;</span>: <span class="s2">&#34;volume&#34;</span>,
+    <span class="s2">&#34;Source&#34;</span>: <span class="s2">&#34;/var/lib/docker/volumes/50963a680b3110e7223e8bc766a3e819fc006ca58131c190beae8e82af961ca6/_data&#34;</span>,</code></pre></td></tr></table>
+</div>
+</div>
+<p>其中 <code>/var/lib/docker/volumes/50***/_data</code> 目录下就是 influxdb 容器存储在宿主机上的数据</p>
+
+<p>然后，我们将容器数据拷贝到我们创建好的目录下进行备份，同时也方便管理，这里直接用 <code>docker cp</code> 拷贝，执行命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> /home/docker/influxdb
+$ docker cp influxdb:/config/config.toml .
+$ docker cp influxdb:/data .
+
+<span class="c1"># ... 等好一会儿</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="更新容器并启动-1">更新容器并启动</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 删除旧容器，其默认的数据卷也一并删除，即加 -v 参数</span>
+$ docker stop influxdb
+$ docker rm -v influxdb
+
+<span class="c1"># 启动新容器</span>
+$ ./run.sh</code></pre></td></tr></table>
+</div>
+</div>
+<p>至此，Influxdb 容器升级完成。</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-08-30</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/devops/">devops</a>
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180903-tutorial-go36-00/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">『Go核心36讲』| 学习笔记集</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180828-feature-go-modules-02/">
+            <span class="next-text nav-default">Golang | 依赖管理-02：Go Modules 使用笔记</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-08-30 18:57:08 \x2b0000 UTC',
+        title: 'Monitor | 基于 cAdvisor\x2bInfluxDB\x2bGrafana 搭建监控系统（二）| 监控平台数据持久化',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

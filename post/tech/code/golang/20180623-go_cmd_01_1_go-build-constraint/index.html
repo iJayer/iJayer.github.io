@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | cmd - go build 构建约束 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="go, golang, cmd" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | cmd - go build 构建约束" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/" /><meta property="article:published_time" content="2018-06-23T14:04:26&#43;08:00"/>
+<meta property="article:modified_time" content="2018-06-23T14:04:26&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | cmd - go build 构建约束">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2018-06-23T14:04:26&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-23T14:04:26&#43;00:00" />
+<meta itemprop="wordCount" content="930">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | cmd - go build 构建约束"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | cmd - go build 构建约束</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-23 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 930 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#build-constraints-约束">Build Constraints(约束)</a>
+<ul>
+<li><a href="#build-tags">Build <code>-tags</code></a></li>
+<li><a href="#file-suffixes">File Suffixes</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="build-constraints-约束">Build Constraints(约束)</h1>
+
+<h2 id="build-tags">Build <code>-tags</code></h2>
+
+<p>A build constraint, also known as a build tag, is a line comment that begins</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// +build</pre></td></tr></table>
+</div>
+</div>
+<p>that lists the conditions under which a file should be included in the package. Constraints may appear in any kind of source file (not just Go), but <code>they must appear near the top of the file</code>, <code>preceded(之前) only by blank lines and other line comments</code>. These rules mean that in Go files a build constraint must appear before the package clause(条款).</p>
+
+<p>To distinguish(区分) build constraints from package documentation, a series of build constraints must be followed by a blank line.</p>
+
+<p>A build constraint is evaluated as the <code>OR</code> of <code>space-separated</code> options; each option evaluates as the <code>AND</code> of its <code>comma-separated</code> terms; and each term is an alphanumeric word or, preceded by <code>!</code>, its <code>negation</code>. That is, the build constraint:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// +build linux,386 darwin,!cgo</pre></td></tr></table>
+</div>
+</div>
+<p>corresponds(对应于) to the boolean formula:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">(linux AND 386) OR (darwin AND (NOT cgo))</pre></td></tr></table>
+</div>
+</div>
+<p>A file may have multiple build constraints. The overall(总体) constraint is the AND of the individual(单独的) constraints. That is, the build constraints:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// +build linux darwin
+// +build 386</pre></td></tr></table>
+</div>
+</div>
+<p>During a particular build, the following words are satisfied:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">- the target operating system, as spelled by runtime.GOOS
+- the target architecture, as spelled by runtime.GOARCH
+- the compiler being used, either &#34;gc&#34; or &#34;gccgo&#34;
+- &#34;cgo&#34;, if ctxt.CgoEnabled is true
+- &#34;go1.1&#34;, from Go version 1.1 onward
+- &#34;go1.2&#34;, from Go version 1.2 onward
+- &#34;go1.3&#34;, from Go version 1.3 onward
+- &#34;go1.4&#34;, from Go version 1.4 onward
+- &#34;go1.5&#34;, from Go version 1.5 onward
+- &#34;go1.6&#34;, from Go version 1.6 onward
+- &#34;go1.7&#34;, from Go version 1.7 onward
+- &#34;go1.8&#34;, from Go version 1.8 onward
+- &#34;go1.9&#34;, from Go version 1.9 onward
+- &#34;go1.10&#34;, from Go version 1.10 onward(向前)
+- any additional words listed in ctxt.BuildTags</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note：A build tags follow these three rules
+- a build tag is evaluated as the OR of space-separated options(空格分割，OR)
+- each option evaluates as the AND of its comma-separated terms(逗号分隔，AND)
+- each term is an alphanumeric word or, preceded by !, its negation(!, 否定)</p>
+</blockquote>
+
+<h2 id="file-suffixes">File Suffixes</h2>
+
+<p>If a file&rsquo;s name, after stripping(剥离) the extension(扩展名) and a possible <code>_test suffix</code>, matches any of the following patterns:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">*_GOOS
+*_GOARCH
+*_GOOS_GOARCH</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>*_GOOS_GOARCH 中 GOOS 和 GOARCH 的顺序不能变</p>
+</blockquote>
+
+<p>(example: source_windows_amd64.go) where GOOS and GOARCH represent any known operating system and architecture values respectively(分别), then the file is considered to have an implicit(隐式的)) build constraint requiring those terms (in addition to any explicit(明确的) constraints in the file).</p>
+
+<p>To keep a file from being considered for the build:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// +build ignore</pre></td></tr></table>
+</div>
+</div>
+<p>(any other unsatisfied(不满意) word will work as well, but “ignore” is conventional(常规的). 临时让某个文件不参与编译)</p>
+
+<p>To build a file only when using cgo, and only on Linux and OS X:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// +build linux,cgo darwin,cgo</pre></td></tr></table>
+</div>
+</div>
+<p>Such a file is usually paired with another file implementing the default functionality for other systems, which in this case would carry the constraint:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// +build !linux,!darwin !cgo</pre></td></tr></table>
+</div>
+</div>
+<p>Naming a file dns_windows.go will cause it to be included only when building the package for Windows; similarly, math_386.s will be included only when building the package for 32-bit x86.</p>
+
+<p>Using GOOS=android matches build tags and files as for GOOS=linux in addition to android tags and files.(当使编译Android平台的时候，会把Linux相关的文件一起加入进行编译，优先编译了_linux.go文件，然后再到_android.go文件)</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://golang.org/pkg/go/build/#hdr-Build_Constraints">Package build</a></li>
+<li><a href="https://dave.cheney.net/2013/10/12/how-to-use-conditional-compilation-with-the-go-build-tool">How to use conditional compilation with the go build tool</a></li>
+<li><a href="https://linkscue.com/2018/06/18/2018-06-18-golang-build-constraints/">你一直在寻找的GO语言条件编译</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-06-23</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | cmd - go build 构建模式</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180621-go_cmd_01_go-build/">
+            <span class="next-text nav-default">Golang | cmd - go build</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-06-23 14:04:26 \x2b0800 CST',
+        title: 'Golang | cmd - go build 构建约束',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

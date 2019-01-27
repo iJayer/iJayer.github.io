@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux | Tools | Logrotate 使用总结 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="linux, logrotate" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux | Tools | Logrotate 使用总结" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/" /><meta property="article:published_time" content="2018-05-11T17:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2018-05-11T19:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="Linux | Tools | Logrotate 使用总结">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2018-05-11T17:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-11T19:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="2357">
+
+
+
+<meta itemprop="keywords" content="linux,tools," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux | Tools | Logrotate 使用总结"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux | Tools | Logrotate 使用总结</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-05-11 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2357 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#name">Name</a></li>
+<li><a href="#synopsis-概要">Synopsis 概要</a></li>
+<li><a href="#description">Description</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#configuration-file">Configuration File</a>
+<ul>
+<li><a href="#logroate-默认安装的文件存储位置说明">logroate 默认安装的文件存储位置说明</a></li>
+<li><a href="#查看-logrotate-主文件默认配置情况">查看 logrotate 主文件默认配置情况</a></li>
+<li><a href="#以-nginx-的配置为例对-logroate-的配置文件加以说明">以 Nginx 的配置为例对 logroate 的配置文件加以说明</a></li>
+</ul></li>
+<li><a href="#logrotate-常用配置参数注解">logrotate 常用配置参数注解</a></li>
+<li><a href="#logrotate-机制和原理">logrotate 机制和原理</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>日志实在是太有用了，它记录了程序运行时各种信息。通过日志可以分析用户行为，记录运行轨迹，查找程序问题。可惜磁盘的空间是有限的，就像飞机里的黑匣子，记录的信息再重要也只能记录最后一段时间发生的事。为了节省空间和整理方便，日志文件经常需要按时间或大小等维度分成多份，删除时间久远的日志文件。这就是通常说的日志滚动(log rotation)</p>
+</blockquote>
+
+<h1 id="name">Name</h1>
+
+<p>logrotate: rotates(回滚)、compresses(压缩)、and mails(邮寄) system logs</p>
+
+<h1 id="synopsis-概要">Synopsis 概要</h1>
+
+<p><code>logrotate [-dv] [-f|--force] [-s|--state file] config_file ..</code></p>
+
+<h1 id="description">Description</h1>
+
+<p><code>logrotate</code> is designed to ease(缓解) administration of systems(系统管理) that generate large numbers of log files. It allows automatic rotation, compression, removal(切除), and mailing of log files. Each log file may be handled daily, weekly, monthly, or when it grows too large.</p>
+
+<p>Normally, <code>logrotate</code> is run as a daily cron job. It will not modify a log multiple times(多次) in one day unless the criterion[krīˈti(ə)rēən, 标准] for that log is based on the <code>log's size</code> and logrotate is being <code>run multiple times</code> each day, or unless the <code>-f or --force</code> option is used.</p>
+
+<p>Any number of config files may be given on the command line. Later config files may override the options given in earlier files[后来的配置文件可能会覆盖早期文件中给出的选项], so the order in which the logrotate config files are listed is important. Normally, a single config file which includes any other config files which are needed should be used. See below for more information on how to use the include directive to accomplish this. If a directory is given on the command line, every file in that directory is used as a config file.</p>
+
+<h1 id="options">Options</h1>
+
+<ul>
+<li>-d, &ndash;debug<br />
+Turns on debug mode and implies -v. In debug mode, no changes will be made to the logs or to the logrotate state file. (测试配置文件是否有误，仅调试，不做实际处理)</li>
+<li>-f, &ndash;force 强制转储文件</li>
+<li>-m, &ndash;mail &lsquo;command&rsquo; 发送日志到指定邮箱</li>
+<li>-s, &ndash;state &lsquo;statefile&rsquo; 使用指定的状态文件</li>
+<li>-v, &ndash;verbose 显示转储过程</li>
+</ul>
+
+<h1 id="configuration-file">Configuration File</h1>
+
+<h2 id="logroate-默认安装的文件存储位置说明">logroate 默认安装的文件存储位置说明</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">/etc/cron.daily                         <span class="c1"># logrotate脚本文件存放位置</span>
+/etc/logrotate.conf                     <span class="c1"># 主配置文件</span>
+/etc/logrotate.d/                       <span class="c1"># 特定服务日志存储目录(自己设定的配置文件), 该目录的所有文件都会被主动的读入 /etc/logrotate.conf 中执行</span>
+/etc/sbin/logrotate                     <span class="c1"># 二进制程序文件</span>
+/var/lib/logrotate/logrotate.status     <span class="c1"># 状态文件</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: logrotate 是基于 <code>cron</code> 来运行的，其脚本是 /etc/cron.daily/logrotate， <code>日志轮转是系统自动完成的</code>。实际运行时，logrotate 会调用配置文件 /etc/logrotate.conf。</p>
+</blockquote>
+
+<h2 id="查看-logrotate-主文件默认配置情况">查看 logrotate 主文件默认配置情况</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat /etc/logrotate.conf
+
+<span class="c1"># see &#34;man logrotate&#34; for details</span>                                   
+<span class="c1"># rotate log files weekly</span>                                           
+weekly                      <span class="c1"># 每周转储一次</span>                                                
+                                                                    
+<span class="c1"># keep 4 weeks worth of backlogs</span>                                    
+rotate <span class="m">4</span>                    <span class="c1"># 保留4个日志备份文件</span>                                        
+                                                                    
+<span class="c1"># create new (empty) log files after rotating old ones</span>              
+create                      <span class="c1"># rotate后，创建一个新的空文件</span>                                        
+                                                                    
+<span class="c1"># use date as a suffix of the rotated file</span>                          
+dateext                     <span class="c1"># 轮转的日志名字带有日期信息</span>                                        
+                                                                    
+<span class="c1"># uncomment this if you want your log files compressed</span>              
+<span class="c1">#compress</span>                                                           
+                                                                    
+<span class="c1"># RPM packages drop log rotation information into this directory</span>    
+include /etc/logrotate.d    <span class="c1"># 此目录下的配置文件优先生效</span>                                       
+                                                                    
+<span class="c1"># no packages own wtmp and btmp -- we&#39;ll rotate them here</span>           
+/var/log/wtmp <span class="o">{</span>             <span class="c1"># 指定/var/log/wtmp日志文件;</span>
+    monthly                 <span class="c1"># 每月轮转一次,优先于全局设定的每周轮转一次;</span>
+    minsize 1M              <span class="c1"># 日志文件大于1M才会去轮转;</span>
+    create <span class="m">0664</span> root utmp   <span class="c1"># 新日志文件的权限,属主,属组;</span>
+    rotate <span class="m">1</span>                <span class="c1"># 保留一个日志备份,优先于全局设置的四个;</span>
+<span class="o">}</span>
+
+/var/log/btmp <span class="o">{</span>             <span class="c1"># 指定/var/log/btmp日志文件;</span>
+    missingok               <span class="c1"># 如果日志丢失,不报错;</span>
+    monthly
+    create <span class="m">0600</span> root utmp
+    rotate <span class="m">1</span>
+<span class="o">}</span>                                                                 
+                                                                    
+<span class="c1"># system-specific logs may be also be configured here.</span>   
+<span class="c1"># 系统特定的日志也可以在主文件中配置。</span>           </code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="以-nginx-的配置为例对-logroate-的配置文件加以说明">以 Nginx 的配置为例对 logroate 的配置文件加以说明</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">/var/log/nginx/*.log <span class="o">{</span>
+        daily
+        missingok
+        rotate <span class="m">52</span>
+        compress
+        delaycompress
+        notifempty
+        create <span class="m">640</span> nginx adm
+        sharedscripts
+        postrotate
+                <span class="k">if</span> <span class="o">[</span> -f /var/run/nginx.pid <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+                        <span class="nb">kill</span> -USR1 <span class="sb">`</span>cat /var/run/nginx.pid<span class="sb">`</span>
+                <span class="k">fi</span>
+        endscript
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>首先第一行，配置了要自动轮换的日志文件的路径/var/log/nginx/<em>.log，即针对在/var/log/nginx下的</em>.log文件进行轮换</li>
+<li>其他参考 <a href="#7-logrotate-常用配置参数注解">logrotate 常用配置参数注解</a></li>
+</ul>
+
+<h1 id="logrotate-常用配置参数注解">logrotate 常用配置参数注解</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">daily,weekly,monthly    <span class="c1"># 转储周期分别是每天/每周/每月;</span>
+minsize 15M             <span class="c1"># 日志体积大于此值时轮换(例如:100K,4M);</span>
+dateext	                <span class="c1"># 轮询的文件名字带有日期信息;</span>
+missingok               <span class="c1"># 如果日志文件丢失,不要显示错误;</span>
+rotate <span class="m">5</span>                <span class="c1"># 轮转存储中包含多少备份日志文件,0为无备份,以数字为准; 其他旧的日志文件则删掉(配合daily使用)</span>
+compress                <span class="c1"># 通过gzip压缩转储以后的日志,以*.gz结尾;</span>
+nocompress              <span class="c1"># 不需要压缩时,用这个参数;</span>
+delaycompress           <span class="c1"># 延迟压缩,和compress一起使用时压缩所有日志,除当前和下一个最近的; 延迟压缩任务直到第二次轮换日志才进行，结果会导致你会有当前的日志文件，一个较旧的没有被压缩过的日志文件和一些压缩过的日志文件</span>
+compresscmd             <span class="c1"># 设置使用什么命令进行压缩，默认gzip</span>
+uncompresscmd           <span class="c1"># 设置解压的命令，默认gunzip</span>
+nodelaycompress         <span class="c1"># 覆盖delaycompress选项，转储同时压缩;</span>
+copytruncate            <span class="c1"># 用于还在打开中的日志文件,把当前日志备份并截断;</span>
+nocopytruncate          <span class="c1"># 备份日志文件但是不截断;</span>
+create <span class="m">644</span> www root     <span class="c1"># 转储文件,使用指定的文件模式创建新的日志文件;</span>
+nocreate                <span class="c1"># 不建立新的日志文件;</span>
+errors renwole@my.org   <span class="c1"># 专储时的错误信息发送到指定的Email地址;</span>
+ifempty                 <span class="c1"># 即使是空文件也转储，这个是logrotate的缺省选项；</span>
+notifempty              <span class="c1"># 如果日志文件为空，则不转储;</span>
+mail renwole@my.org     <span class="c1"># 把转储的日志文件发送到指定的E-mail地;</span>
+nomail                  <span class="c1"># 转储时不发送日志文件;</span>
+olddir /tmp             <span class="c1"># 转储后的日志文件放入指定目录,必须和当前日志文件在同一个文件系统;</span>    
+noolddir                <span class="c1"># 转储后的日志文件和当前日志文件放在同一个目录下;</span>
+tabooext                <span class="c1"># 不转储指定扩展名的文件,缺省扩展名：cfsaved,.disabled,.dpkg-dist等;</span>  
+dateformat              <span class="c1"># 配合dateext使用可以为切割后的日志加上YYYYMMDD格式的日期;</span>
+prerotate/endscript     <span class="c1"># 在转储以前需要执行的命令可以放入这个对,这两个关键字必须单独成行;</span>    
+postrotate/endscript    <span class="c1"># 在转储以后需要执行的命令可以放入这个对,这两个关键字必须单独成行;</span>    
+sharedscripts           <span class="c1"># 共享脚本,让postrotate/endscript包含脚本只执行一次即可; 即在所有的日志转换完毕后执行postrotate脚本。如果该项没有设置，则会在每个匹配的日志轮换后执行postrotate脚本。</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 以上参数都可以在全局主配置文件中定义，或指定为某个日志文件进行配置，注意：使用时参数之间不要冲突。</p>
+</blockquote>
+
+<h1 id="logrotate-机制和原理">logrotate 机制和原理</h1>
+
+<p><a href="https://www.lightxue.com/how-logrotate-works">logrotate机制和原理</a></p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://renwole.com/archives/927">如何在Centos 7上用Logrotate管理日志文件</a></li>
+<li><a href="https://elbarco.cn/2016/06/30/%E4%BD%BF%E7%94%A8Logrotate%E7%AE%A1%E7%90%86MongoDB%E6%97%A5%E5%BF%97/#%E9%80%89%E5%9E%8B">使用Logrotate管理MongoDB日志</a></li>
+<li><a href="https://www.cnblogs.com/kevingrace/p/6307298.html">运维中的日志切割操作梳理（Logrotate/python/shell脚本实现）</a></li>
+</ul>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-05-11</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/tools/">tools</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/footprint/20180520-%E5%8D%83%E5%B2%9B%E6%B9%96/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">『心之所向，素履以往』— 千岛湖</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/">
+            <span class="next-text nav-default">MongoDB | 使用 logrotate 管理日志</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-05-11 17:53:01 \x2b0800 CST',
+        title: 'Linux | Tools | Logrotate 使用总结',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

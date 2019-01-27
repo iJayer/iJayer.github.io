@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MongoDB | 配置选项 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="mongodb" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/db/mongodb/20170423-config-options/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="MongoDB | 配置选项" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/db/mongodb/20170423-config-options/" /><meta property="article:published_time" content="2017-04-23T15:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-04-23T15:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="MongoDB | 配置选项">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-04-23T15:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-04-23T15:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="2264">
+
+
+
+<meta itemprop="keywords" content="db,mongodb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB | 配置选项"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MongoDB | 配置选项</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-23 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2264 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#configuration-file">Configuration File</a></li>
+<li><a href="#use-the-configuration-file">Use The Configuration File</a>
+<ul>
+<li><a href="#specify-the-config-file-with-config">Specify the config file with <code>--config</code></a></li>
+<li><a href="#specify-the-config-file-with-f">Specify the config file with <code>-f</code></a></li>
+</ul></li>
+<li><a href="#core-options">Core Options</a>
+<ul>
+<li><a href="#systemlog">systemLog</a></li>
+<li><a href="#storage">storage</a></li>
+<li><a href="#processmanagement">processManagement</a></li>
+<li><a href="#net">net</a></li>
+<li><a href="#security">security</a></li>
+<li><a href="#replication">replication</a></li>
+<li><a href="#sharding">sharding</a></li>
+<li><a href="#仅mongos服务的选项">仅mongos服务的选项</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="configuration-file">Configuration File</h1>
+
+<p>Offical：<a href="https://docs.mongodb.com/manual/reference/configuration-options/#configuration-file">The Official Doc.Configuration File Options</a></p>
+
+<p>NOTE:</p>
+
+<ul>
+<li>File Format: <a href="http://www.yaml.org/">YAML</a></li>
+<li>YAML does not support tab characters for indentation: use spaces instead.</li>
+</ul>
+
+<h1 id="use-the-configuration-file">Use The Configuration File</h1>
+
+<h2 id="specify-the-config-file-with-config">Specify the config file with <code>--config</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mongod --config /etc/mongod.conf
+mongos --config /etc/mongos.conf</pre></td></tr></table>
+</div>
+</div>
+<h2 id="specify-the-config-file-with-f">Specify the config file with <code>-f</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mongod -f /etc/mongod.conf
+mongos -f /etc/mongos.conf</pre></td></tr></table>
+</div>
+</div>
+<h1 id="core-options">Core Options</h1>
+
+<h2 id="systemlog">systemLog</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">systemLog<span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="c"># 指定是一个文件</span><span class="w">
+</span><span class="w">   </span>destination<span class="p">:</span><span class="w"> </span>file<span class="w">         
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># 日志存放位置</span><span class="w">
+</span><span class="w">   </span>path<span class="p">:</span><span class="w"> </span>/home/mgo/mgo.log<span class="w">   
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># 产生日志内容追加到文件</span><span class="w">
+</span><span class="w">   </span>logAppend<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">           
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># 在quite模式下会限制输出信息</span><span class="w">
+</span><span class="w">   </span>quiet<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">               
+</span><span class="w">
+</span><span class="w">   </span><span class="c"># 默认是iso8601-local，日志信息中还有其他时间戳格式：</span><span class="w">
+</span><span class="w">   </span><span class="c"># ctime,iso8601-utc,iso8601-local </span><span class="w">
+</span><span class="w">   </span>timeStampFormat<span class="p">:</span><span class="w"> </span>iso8601-utc<span class="w"> </span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="storage">storage</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">storage<span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="c"># 是否开启journal(日志)持久存储，journal日志用来数据恢复，是mongodb最基础的性,</span><span class="w">
+</span><span class="w">   </span><span class="c"># 通常用于故障恢复。仅对mongod进程有效</span><span class="w">
+</span><span class="w">   </span>journal<span class="p">:</span><span class="w">
+</span><span class="w">      </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">           
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># 数据文件存放路径</span><span class="w">
+</span><span class="w">   </span>dbPath<span class="p">:</span><span class="w"> </span>/data/db<span class="w"> 
+</span><span class="w">
+</span><span class="w">   </span><span class="c"># - 是否将不同DB的数据存储在不同的目录，具体存放在dbPath的子目录，目录名为DB的名称</span><span class="w">
+</span><span class="w">   </span><span class="c"># - 对已经存储数据的mongod修改此值，需要首先使用mongodump指令将数据导出，然后关闭</span><span class="w">
+</span><span class="w">   </span><span class="c"># mongod，再修改此值和指定新的dbPath，然后使用mongorestore指令重新导入数据（即</span><span class="w">
+</span><span class="w">   </span><span class="c"># 导出数据，并使用mongorestore将数据重新写入mongod的新目录中）</span><span class="w">
+</span><span class="w">   </span><span class="c"># - 此参数仅对mongod进程有效，默认值为false，不建议修改此值</span><span class="w">
+</span><span class="w">   </span>directoryPerDB<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">   
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># mongod使用fsync操作将数据flush到磁盘的时间间隔, 默认值60s; </span><span class="w">
+</span><span class="w">   </span><span class="c"># mongod将变更的数据写入journal后再写入内存，并间歇性的将内存数据flush到磁盘中，</span><span class="w">
+</span><span class="w">   </span><span class="c"># 即延迟写入磁盘，有效提升磁盘效率。此指令不影响journal存储，仅对mongod有效。</span><span class="w">
+</span><span class="w">   </span>syncPeriodSecs<span class="p">:</span><span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="w">
+</span><span class="w">   </span><span class="c"># 数据引擎类型， mongodb 3.0之后支持“mmapv1”、“wiredTiger”两种引擎，默认值为</span><span class="w">
+</span><span class="w">   </span><span class="c"># “mmapv1”；官方宣称wiredTiger引擎更加优秀。</span><span class="w">
+</span><span class="w">   </span>engine<span class="p">:</span><span class="w"> </span>wiredTiger<span class="w">
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># wt引擎配置   </span><span class="w">
+</span><span class="w">   </span>wiredTiger<span class="p">:</span><span class="w">
+</span><span class="w">      </span>engineConfig<span class="p">:</span><span class="w"> 
+</span><span class="w">         </span><span class="c"># wiredTiger缓存工作集（working set）数据的内存大小，单位：GB</span><span class="w">
+</span><span class="w">         </span>cacheSizeGB<span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">         </span><span class="c"># 索引是否按数据库名进行单独存储      </span><span class="w">
+</span><span class="w">         </span>directoryForIndexes<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+</span><span class="w">      </span>collectionConfig<span class="p">:</span><span class="w">
+</span><span class="w">         </span><span class="c"># 压缩配置</span><span class="w">
+</span><span class="w">         </span>blockCompressor<span class="p">:</span><span class="w"> </span>zlib<span class="w">     
+</span><span class="w">      </span>indexConfig<span class="p">:</span><span class="w">
+</span><span class="w">         </span><span class="c"># 索引配置</span><span class="w">
+</span><span class="w">         </span>prefixCompression<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">   </span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="processmanagement">processManagement</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">processManagement<span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="c"># 以守护进程方式运行mongod/mongos, 默认false</span><span class="w">
+</span><span class="w">   </span>fork<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># 配合 &#34;fork:true&#34; 参数，将mongod/mongos进程ID写入指定的文件，如果</span><span class="w">
+</span><span class="w">   </span><span class="c"># 不指定，将不会创建PID文件   </span><span class="w">
+</span><span class="w">   </span>pidFilePath<span class="p">:</span><span class="w"> </span>/var/run/mgo.pid<span class="w">  </span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="net">net</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">net<span class="p">:</span><span class="w">
+</span><span class="w">   </span>port<span class="p">:</span><span class="w"> </span><span class="m">27017</span><span class="w"> 
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># 绑定ip地址访问mongodb，多个ip逗号分隔(0.0.0.0-绑定到所有接口, 即</span><span class="w">
+</span><span class="w">   </span><span class="c"># 内网·外网均可访问)</span><span class="w">
+</span><span class="w">   </span>bindIp<span class="p">:</span><span class="w"> </span><span class="m">127.0</span>.<span class="m">0.1</span><span class="w">
+</span><span class="w">   </span><span class="c"># bindIp: [127.0.0.1, 192.168.1.169]</span><span class="w">
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># mongod/mongos进程允许的最大连接数, 如果此值超过操作系统配置的连接</span><span class="w">
+</span><span class="w">   </span><span class="c"># 数阀值，将不会生效(ulimit)；默认值为65536。</span><span class="w">
+</span><span class="w">   </span>maxIncomingConnections<span class="p">:</span><span class="w"> </span><span class="m">65536</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="security">security</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">security<span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="c"># 指定分片集或副本集成员之间身份验证的key文件存储位置</span><span class="w">
+</span><span class="w">   </span>keyFile<span class="p">:</span><span class="w"> </span>/home/mgo/keyFile<span class="w">
+</span><span class="w">   
+</span><span class="w">   </span><span class="c"># 访问数据库和进行操作的用户角色认证 </span><span class="w">
+</span><span class="w">   </span>authorization<span class="p">:</span><span class="w"> </span>enabled<span class="w"> 
+</span><span class="w">
+</span><span class="w">   </span><span class="c"># 集群认证模式，默认是keyFile</span><span class="w">
+</span><span class="w">   </span>clusterAuthMode<span class="p">:</span><span class="w"> </span>/home/mgo/keyFile</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="replication">replication</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 复制集相关配置</span><span class="w">
+</span><span class="w"></span>replication<span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="c"># replication操作日志的最大尺寸，单位：MB。</span><span class="w">
+</span><span class="w">   </span><span class="c"># mongod进程根据磁盘最大可用空间来创建oplog，比如64位系统，oplog为磁盘</span><span class="w">
+</span><span class="w">   </span><span class="c"># 可用空间的5%，一旦mongod创建了oplog文件，此后再次修改oplogSizeMB将不</span><span class="w">
+</span><span class="w">   </span><span class="c"># 会生效。此值不要设置的太小， 应该足以保存24小时的操作日志，以保证secondary</span><span class="w">
+</span><span class="w">   </span><span class="c"># 有充足的维护时间；如果太小，secondary将不能通过oplog来同步数据，只能</span><span class="w">
+</span><span class="w">   </span><span class="c"># 全量同步。此值仅对mongod有效。</span><span class="w">
+</span><span class="w">   </span>oplogSizeMB<span class="p">:</span><span class="w"> </span><span class="m">51200</span><span class="w"> 
+</span><span class="w">
+</span><span class="w">   </span><span class="c"># 指定副本集的名称, 无默认值, 复制集中的所有mongd实例都必须有相同的名字</span><span class="w">
+</span><span class="w">   </span><span class="c"># sharding分布式下，不同的sharding应该使用不同的replSetName。仅对mongod有效。</span><span class="w">
+</span><span class="w">   </span>replSetName<span class="p">:</span><span class="w"> </span>rs<span class="w"> 
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># 指定副本集成员在接受oplog之前是否加载索引到内存。默认会加载所有的索引到内存。none不加载;all加载所有;_id_only仅加载_id</span><span class="w">
+</span><span class="w">   </span>secondaryIndexPrefetch<span class="p">:</span><span class="w"> </span>all</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="sharding">sharding</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># shard, 分片集群模式</span><span class="w">
+</span><span class="w"></span>sharding<span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="c"># 配置sharding集群中mongod服务的角色: 可选值</span><span class="w">
+</span><span class="w">   </span><span class="c">#   configsvr: config server(配置服务器)</span><span class="w">
+</span><span class="w">   </span><span class="c">#   shardsvr:  shard(分片)</span><span class="w">
+</span><span class="w">   </span>clusterRole<span class="p">:</span><span class="w"> </span>configsvr</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="仅mongos服务的选项">仅mongos服务的选项</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">sharding<span class="p">:</span><span class="w"> 
+</span><span class="w">   </span><span class="c"># mongos服务配置此参数，设定config server的地址列表，每个server地址以 “ , ”</span><span class="w">
+</span><span class="w">   </span><span class="c"># 隔开；config server为分片时，configDB的地址列表一定要加上 replSetName.</span><span class="w">
+</span><span class="w">   </span>configDB<span class="p">:</span><span class="w"> </span>cf/<span class="m">192.168</span>.<span class="m">1.167</span><span class="p">:</span><span class="m">27010</span><span class="p">,</span><span class="m">192.168</span>.<span class="m">1.167</span><span class="p">:</span><span class="m">27011</span><span class="p">,</span><span class="m">192.168</span>.<span class="m">1.167</span><span class="p">:</span><span class="m">27012</span><span class="w">
+</span><span class="w">
+</span><span class="w">   </span><span class="c"># shard集群中每个chunk的大小, 单位：MB, 默认64</span><span class="w">
+</span><span class="w">   </span><span class="c"># 整个sharding集群中，此值需要保持一致，集群启动后修改此值将不再生效。仅对mongos有效。</span><span class="w">
+</span><span class="w">   </span>chunkSize<span class="p">:</span><span class="w"> </span><span class="m">64</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://shift-alt-ctrl.iteye.com/blog/2242907">Mongodb配置说明</a></li>
+<li><a href="http://www.seekjune.com/post/32138">mongo配置文件详解</a></li>
+<li><a href="https://yq.aliyun.com/ziliao/92210">MongoDB的安装及配置文件选项全解_MongoDB</a>
+<br /></li>
+</ul>
+
+<p><a href="#content">返回目录</a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-04-23</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/db/">db</a>
+          <a href="/tags/mongodb/">mongodb</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/footprint/20170501-%E8%88%9F%E5%B1%B1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">『心之所向，素履以往』— 舟山</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/web/20170419-caddy-learning-notes/">
+            <span class="next-text nav-default">Caddy | 学习笔记</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-04-23 15:53:01 \x2b0800 CST',
+        title: 'MongoDB | 配置选项',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

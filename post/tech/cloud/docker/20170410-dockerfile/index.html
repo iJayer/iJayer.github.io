@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | Dockerfile - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  FROM MAINTAINER RUN COPY ADD CMD ENTRYPOINT EXPOSE ENV ARG VOLUME WORKDIR ONBUILD   " /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/docker/20170410-dockerfile/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | Dockerfile" />
+<meta property="og:description" content="
+
+
+
+FROM
+MAINTAINER
+RUN
+COPY
+ADD
+CMD
+ENTRYPOINT
+EXPOSE
+ENV
+ARG
+VOLUME
+WORKDIR
+ONBUILD
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/docker/20170410-dockerfile/" /><meta property="article:published_time" content="2017-04-10T17:39:25&#43;08:00"/>
+<meta property="article:modified_time" content="2017-04-10T19:39:25&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | Dockerfile">
+<meta itemprop="description" content="
+
+
+
+FROM
+MAINTAINER
+RUN
+COPY
+ADD
+CMD
+ENTRYPOINT
+EXPOSE
+ENV
+ARG
+VOLUME
+WORKDIR
+ONBUILD
+
+
+">
+
+
+<meta itemprop="datePublished" content="2017-04-10T17:39:25&#43;08:00" />
+<meta itemprop="dateModified" content="2017-04-10T19:39:25&#43;00:00" />
+<meta itemprop="wordCount" content="2980">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | Dockerfile"/>
+<meta name="twitter:description" content="
+
+
+
+FROM
+MAINTAINER
+RUN
+COPY
+ADD
+CMD
+ENTRYPOINT
+EXPOSE
+ENV
+ARG
+VOLUME
+WORKDIR
+ONBUILD
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | Dockerfile</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-10 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2980 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#from">FROM</a></li>
+<li><a href="#maintainer">MAINTAINER</a></li>
+<li><a href="#run">RUN</a></li>
+<li><a href="#copy">COPY</a></li>
+<li><a href="#add">ADD</a></li>
+<li><a href="#cmd">CMD</a></li>
+<li><a href="#entrypoint">ENTRYPOINT</a></li>
+<li><a href="#expose">EXPOSE</a></li>
+<li><a href="#env">ENV</a></li>
+<li><a href="#arg">ARG</a></li>
+<li><a href="#volume">VOLUME</a></li>
+<li><a href="#workdir">WORKDIR</a></li>
+<li><a href="#onbuild">ONBUILD</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>FROM</li>
+<li>MAINTAINER</li>
+<li>RUN</li>
+<li>COPY</li>
+<li>ADD</li>
+<li>CMD</li>
+<li>ENTRYPOINT</li>
+<li>EXPOSE</li>
+<li>ENV</li>
+<li>ARG</li>
+<li>VOLUME</li>
+<li>WORKDIR</li>
+<li>ONBUILD
+<br /></li>
+</ul>
+</blockquote>
+
+<h1 id="from">FROM</h1>
+
+<ul>
+<li>说明：FROM，指定镜像构建的基础镜像，每个Dockerfile都必须包含FROM指令，且为第一条指令。</li>
+<li>格式：FROM [Image] 或 FROM [Image:tag]</li>
+<li>示例：
+
+<ul>
+<li>FROM scratch</li>
+<li>FROM centos:centos7</li>
+</ul></li>
+<li>备注：
+
+<ul>
+<li><a href="https://hub.docker.com/explore/">官方镜像</a></li>
+<li>空白镜像：<code>scratch</code>
+
+<ul>
+<li><code>scratch</code>: 虚拟的概念，不实际存在；以scratch为基础镜像意味着不以任何镜像为基础，接下来的构建质量将作为镜像的第一层存在。</li>
+<li><code>Go</code> 开发的应用通常使用scratch作为基础镜像，go程序包含了运行所需的一切库文件。</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h1 id="maintainer">MAINTAINER</h1>
+
+<ul>
+<li>说明：指定维护者信息</li>
+<li>格式：MAINTAINER Name</li>
+<li>示例：MAINTAINER <a href="mailto:zhezh.boy@gmail.com">zhezh.boy@gmail.com</a></li>
+<li>备注：</li>
+</ul>
+
+<h1 id="run">RUN</h1>
+
+<ul>
+<li>说明：用来执行命令行命令。<code>切记</code>：每一层构建的最后一定要清理掉无关文件。</li>
+<li>格式：
+
+<ul>
+<li>shell：RUN [Command]<br /></li>
+<li>exec：RUN [&ldquo;可执行程序&rdquo;, &ldquo;参数&rdquo;, &ldquo;参数&rdquo;]<br /></li>
+</ul></li>
+<li>示例：
+
+<ul>
+<li><code>RUN mkdir -p /home/api/ &amp;&amp; \</code><br />
+<code>touch /home/api/Caddyfile &amp;&amp; \</code><br />
+<code>touch /home/api/Dockerfile</code></li>
+</ul></li>
+<li>备注：
+
+<ul>
+<li>在linux操作系统上默认 /bin/sh</li>
+<li>多行命令不要写多个RUN，原因是Dockerfile中每一个指令都会建立一层.多少个RUN就构建了多少层镜像，会造成镜像的臃肿、多层，不仅仅增加了构件部署的时间，还容易出错。RUN书写时的换行符是 <code>\</code></li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">FROM</span><span class="s"> debian:jessie</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> <span class="nv">buildDeps</span><span class="o">=</span><span class="s1">&#39;gcc libc6-dev make&#39;</span> <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get update <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get install -y <span class="nv">$buildDeps</span> <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> wget -O redis.tar.gz <span class="s2">&#34;http://download.redis.io/releases/redis-3.2.5.tar.gz&#34;</span> <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> mkdir -p /usr/src/redis <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> tar -xzf redis.tar.gz -C /usr/src/redis --strip-components<span class="o">=</span><span class="m">1</span> <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> make -C /usr/src/redis <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> make -C /usr/src/redis install <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> rm redis.tar.gz <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> rm -r /usr/src/redis <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get purge -y --auto-remove <span class="nv">$buildDeps</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="copy">COPY</h1>
+
+<ul>
+<li>说明：COPY：指令将镜像构建的上下文目录中<code>[源路径]</code>表示的文件或目录拷贝到新一层的镜像的<code>[目标路径]</code>中去。</li>
+<li>格式：
+
+<ul>
+<li>shell: COPY [源路径] [目标路径]</li>
+<li>exec:  COPY [&ldquo;源路径&rdquo;], [&ldquo;目标路径&rdquo;]</li>
+</ul></li>
+<li>示例：
+
+<ul>
+<li>COPY run.sh /home/api/</li>
+</ul></li>
+<li>备注：
+
+<ul>
+<li>有关 <a href="/Docker/04-2-BuildImage.md">上下文</a> 解释在这里</li>
+<li>源路径：可以是多个，也可以是通配符(满足Go的filepath.Match规则)
+
+<ul>
+<li>COPY hom* /mydir/</li>
+<li>COPY hom?.txt /mydir/</li>
+</ul></li>
+<li>目标路径：可以是容器内的绝对路径，也可以是相对于工作目录( <a href="#12-workdir">WORDDIR</a> 指定工作目录 )的相对路径；目标路径不存在，则创建；COPY会保留源文件属性。</li>
+<li><a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices">Best practices for writing Dockerfiles</a> 中建议尽量使用COPY, 并使用RUN &amp; COPY的组合来代替ADD, 建议只在复制tar文件时使用ADD</li>
+</ul></li>
+</ul>
+
+<h1 id="add">ADD</h1>
+
+<ul>
+<li>说明：添加文件或文件夹到容器</li>
+<li>格式：ADD [src] [dest]</li>
+<li>示例：ADD api.tar.gz /home/api/</li>
+<li>备注：ADD和COPY类似，区别在于
+
+<ul>
+<li>ADD会自动解压文件，而COPY只是文件拷贝</li>
+<li>此外ADD的<code>[源路径]</code>可以是URL</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">FROM</span><span class="s"> scratch</span><span class="err">
+</span><span class="err"></span><span class="k">ADD</span><span class="s">  ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /</span><span class="err">
+</span><span class="err"></span>     ...</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="cmd">CMD</h1>
+
+<ul>
+<li>说明：容器 <code>运行时</code> 执行的命令，但是一个Dockerfile中只能有一条CMD命令，多条则执行最后一条CMD命令。</li>
+<li>格式：
+
+<ul>
+<li>shell：CMD [command] [para1] [para2]</li>
+<li>exec：CMD [&ldquo;exec&rdquo;, &ldquo;para2&rdquo;, &ldquo;para2&rdquo;]</li>
+<li>参数列表：CMD [“参数1”，“参数2”, &hellip;]</li>
+</ul></li>
+<li>示例：
+
+<ul>
+<li>CMD [&ldquo;/usr/bin/mongod&rdquo;, &ldquo;-f&rdquo;, &ldquo;/etc/mongod.conf&rdquo;]</li>
+<li>CMD [&ldquo;C:\MongoDB\bin\mongod.exe&rdquo;, &ldquo;-f&rdquo;, &ldquo;D:\mgo\conf\mongod.conf&rdquo;]</li>
+<li>CMD [&ldquo;-f&rdquo;, &ldquo;/etc/mongod.conf&rdquo;]</li>
+</ul></li>
+<li>备注：
+
+<ul>
+<li>Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。CMD 指令就是用于指定默认的容器主进程的启动命令的</li>
+<li>当 docker run command 的命令匹配到 CMD command 时，会替换CMD执行的命令。</li>
+<li>在指令格式上，一般推荐使用 <code>exec</code> 格式，这类格式会被daemon解析为Json数组，因此一定要使用双引号 <code>&quot;</code>, 而不要使用单引号。例如
+
+<ul>
+<li>CMD echo $HOME, 在实际执行中会被解析为：</li>
+<li>CMD [ &ldquo;sh&rdquo;, &ldquo;-c&rdquo;, &ldquo;echo $HOME&rdquo; ]</li>
+</ul></li>
+<li>容器中的应用只有前台执行，容器内没有后台服务的概念；对于容器而言, 其启动程序就是容器运行的主进程，主进程执行完成，容器也就退出了。例如：
+
+<ul>
+<li>容器执行：CMD service mongod start</li>
+<li>结果发现：容器执行后立即退出, 甚至systemctl命令根本就不能执行</li>
+<li>原因分析：
+
+<ul>
+<li>CMD service mongod start 被解析为：</li>
+<li>CMD [ &ldquo;sh&rdquo;, &ldquo;-c&rdquo;, &ldquo;service mongod start&rdquo; ]</li>
+<li>此时，主进程其实为 <code>sh</code>, 当service命令执行完成后，sh也就结束了，即sh作为主进程退出, 随之容器也退出。</li>
+</ul></li>
+</ul></li>
+<li>正确的做法：直接执行mongod可执行文件，并且要求以前台方式执行。例如
+
+<ul>
+<li>CMD [&ldquo;mongod&rdquo;, &ldquo;-f&rdquo;, &ldquo;/etc/mongod.conf&rdquo;]</li>
+</ul></li>
+<li>ENTRYPOINT &amp; CMD 同时使用时，可用ENTRYPOINT来执行服务的可执行程序(monogd), CMD来执行服务启动的参数。例如：
+
+<ul>
+<li>ENTRYPOINT [&ldquo;mongod&rdquo;]</li>
+<li>CMD [&ldquo;-f&rdquo;, &ldquo;/etc/mongod.conf&rdquo;]</li>
+</ul></li>
+</ul></li>
+<li>Link
+
+<ul>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/image/dockerfile/cmd.html">CMD 容器启动命令</a>
+<br /></li>
+</ul></li>
+</ul>
+
+<h1 id="entrypoint">ENTRYPOINT</h1>
+
+<ul>
+<li>说明：容器入口点。container <code>启动时</code> 执行的命令，但是一个Dockerfile中只能有一条ENTRYPOINT命令，多条则只执行最后一条；不可以被容器运行时的命令所覆盖。</li>
+<li>格式：
+
+<ul>
+<li>exec：ENTRYPOINT [&ldquo;可执行程序&rdquo;, &ldquo;参数1&rdquo;, &ldquo;参数2&rdquo;]</li>
+<li>shell：ENTRYPOINT [command] [para1] [para2]</li>
+</ul></li>
+<li>示例：
+
+<ul>
+<li>ENTRYPOINT [&ldquo;mongod&rdquo;, &ldquo;-f&rdquo;, &ldquo;/etc/mongod.conf&rdquo;]</li>
+</ul></li>
+<li>备注：
+
+<ul>
+<li>ENTRYPOINT没有CMD的可替换特性</li>
+<li>当指定ENTRYPOINT后，CMD不在执行命令，而是将CMD的内容作为参数传递给ENTRYPOINT指令</li>
+<li>可在docker run命令时使用–entrypoint指定（但是只能用写法一）</li>
+<li>ENTRYPOINT有两种写法，第二种(shell form)会屏蔽掉docker run时后面加的命令和CMD里的参数</li>
+</ul></li>
+</ul>
+
+<h1 id="expose">EXPOSE</h1>
+
+<ul>
+<li>说明：暴露容器的端口</li>
+<li>格式：EXPOSE [port] [port]&hellip;</li>
+<li>示例：EXPOSE 80</li>
+<li>备注：Docker中有两种暴露端口方式：
+
+<ul>
+<li>EXPOSE： 隐式暴露，只在Dockerfile中出现，所暴露的端口只是被其他容器使用(Docker容器内部使用)</li>
+<li>PUBLISH：显示暴露，供外部网络使用；PUBLISH只是一个概念，在Dockerfile中没有具体指令，是通过docker run 的参数 -p 或 -P，或者docker-compose中的ports来体现的</li>
+<li>-P：自动映射，</li>
+<li>-p：固定映射，格式：-p 宿主端口:容器端口</li>
+</ul></li>
+</ul>
+
+<h1 id="env">ENV</h1>
+
+<ul>
+<li>说明：设置环境变量</li>
+<li>格式：
+
+<ul>
+<li>ENV [key] [value]</li>
+<li>ENV [&ldquo;key1=value1&rdquo;] [&ldquo;key2=value2&rdquo;]</li>
+</ul></li>
+<li>示例：
+
+<ul>
+<li>ENV  APIVersion=1.0 APIHome=/home/api/</li>
+</ul></li>
+<li>备注：ENV设置的环境变量和Shell中的用法一样，通过 <code>$APIVersion</code> 获取值</li>
+</ul>
+
+<h1 id="arg">ARG</h1>
+
+<ul>
+<li>说明：设置 docker build 时的参数</li>
+<li>格式：ARG [参数名] [=默认值]</li>
+<li>示例：ARG user=boyzhe</li>
+<li>备注：
+
+<ul>
+<li>ARG 命令设置的环境变量只在build时有效，在容器运行时是不会存在这些变量的</li>
+<li>ARG 指令是定义参数名称，以及默认值；该默认值在build时可通过 &ndash;build-arg &lt;参数名&gt;=&lt;参数值&gt;来覆盖</li>
+<li>如果在build镜像时指定了一个在Dockerfile中不存在的 ARG 参数，则会出现一个Warning.</li>
+</ul></li>
+</ul>
+
+<h1 id="volume">VOLUME</h1>
+
+<ul>
+<li>说明：创建挂载点，可用来让其他容器挂载以实现数据共享或对容器数据的备份、恢复或迁移</li>
+<li>格式：
+
+<ul>
+<li>VOLUME [path]</li>
+<li>VOLUME [&ldquo;path1&rdquo;, &ldquo;path2&rdquo;&hellip;]</li>
+</ul></li>
+<li>示例：
+
+<ul>
+<li>VOLUME /home/mongo/data /home/mongo/log</li>
+</ul></li>
+<li>备注：
+
+<ul>
+<li>容器使用的是AUFS，这种文件系统不能持久化数据，当容器关闭后，所有的更改都会丢失, 所以当数据需要持久化时用这个命令。</li>
+</ul></li>
+<li><a href="https://www.binss.me/blog/learn-docker-with-me-about-volume/">Dockerfile中使用VOLUME挂载目录和docker run时通过-v参数指定的挂载目录有何不同？</a>
+
+<ul>
+<li>主要的不同点就是docker run的-v参数可以指定挂载到宿主机的那个目录, 而Dockerfile的VOLUME不能，其在宿主机上的挂载目录是随机生成的。</li>
+<li><code>-v</code>参数格式及实例
+
+<ul>
+<li>docker run -v host_dir|file:container_dir|file</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h1 id="workdir">WORKDIR</h1>
+
+<ul>
+<li>说明：设置工作目录</li>
+<li>格式：WORKDIR [path]</li>
+<li>示例：WORKDIR /home/mongo/</li>
+<li>备注：
+
+<ul>
+<li>可以使用绝对路径，也可以使用相对路径，设置之后的所有操作都将在这个目录下完成</li>
+<li>设置工作目录，对RUN,CMD,ENTRYPOINT,COPY,ADD生效。如果不存在则会创建，也可以设置多次。<br /></li>
+</ul></li>
+</ul>
+
+<h1 id="onbuild">ONBUILD</h1>
+
+<ul>
+<li>说明：用来设置一些触发指令, 这些指令在当前镜像构建时不会被执行, 只有当以当前镜像为基础镜像, 去构建下一级镜像的时候才会被执行</li>
+<li>格式：ONBUILD [其他指令]</li>
+<li>示例：
+
+<ul>
+<li>ONBUILD COPY run.sh /home/api/</li>
+<li>ONBUILD RUN [&ldquo;apt-get&rdquo;, &ldquo;install&rdquo;, &ldquo;vim&rdquo;]</li>
+</ul></li>
+<li>备注：
+
+<ul>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/image/dockerfile/onbuild.html">ONBUILD</a></li>
+</ul></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/image/dockerfile/">Docker从入门到实践·Dockerfile指令详解</a></li>
+<li><a href="http://www.cnblogs.com/dazhoushuoceshi/p/7066041.html">Dockerfile命令详解（超全版本）</a></li>
+<li><a href="http://www.zslin.com/web/article/detail/59">Dockerfile指令详解（Docker系列）</a></li>
+<li><a href="http://seanlook.com/2014/11/17/dockerfile-introduction/">Dockerfile指令详解</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-04-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/web/20170419-caddy-learning-notes/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Caddy | 学习笔记</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/cloud/docker/20170410-build-image/">
+            <span class="next-text nav-default">Docker | 构建镜像</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-04-10 17:39:25 \x2b0800 CST',
+        title: 'Docker | Dockerfile',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

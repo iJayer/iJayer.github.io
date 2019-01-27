@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | 网络实现和网络模式 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" 我们在使用docker run创建Docker容器时，可以用&amp;ndash;net选项指定容器的网络模式；Docker网络有四种模式:
+ 桥模式：&amp;ndash;net=bridge
+ 主机模式：&amp;ndash;net=host
+ 容器模式：&amp;ndash;net=container_name|id
+ 无网络模式：&amp;ndash;net=none
+  " /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | 网络实现和网络模式" />
+<meta property="og:description" content="
+
+
+我们在使用docker run创建Docker容器时，可以用&ndash;net选项指定容器的网络模式；Docker网络有四种模式:
+
+
+桥模式：&ndash;net=bridge
+主机模式：&ndash;net=host
+容器模式：&ndash;net=container_name|id
+无网络模式：&ndash;net=none
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/" /><meta property="article:published_time" content="2017-05-09T16:39:25&#43;08:00"/>
+<meta property="article:modified_time" content="2017-05-09T18:39:25&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | 网络实现和网络模式">
+<meta itemprop="description" content="
+
+
+我们在使用docker run创建Docker容器时，可以用&ndash;net选项指定容器的网络模式；Docker网络有四种模式:
+
+
+桥模式：&ndash;net=bridge
+主机模式：&ndash;net=host
+容器模式：&ndash;net=container_name|id
+无网络模式：&ndash;net=none
+
+">
+
+
+<meta itemprop="datePublished" content="2017-05-09T16:39:25&#43;08:00" />
+<meta itemprop="dateModified" content="2017-05-09T18:39:25&#43;00:00" />
+<meta itemprop="wordCount" content="1704">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | 网络实现和网络模式"/>
+<meta name="twitter:description" content="
+
+
+我们在使用docker run创建Docker容器时，可以用&ndash;net选项指定容器的网络模式；Docker网络有四种模式:
+
+
+桥模式：&ndash;net=bridge
+主机模式：&ndash;net=host
+容器模式：&ndash;net=container_name|id
+无网络模式：&ndash;net=none
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | 网络实现和网络模式</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-09 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1704 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#docker-网络实现">Docker 网络实现</a>
+<ul>
+<li><a href="#相关知识">相关知识</a></li>
+<li><a href="#基本原理">基本原理</a></li>
+<li><a href="#容器网络模型">容器网络模型</a></li>
+<li><a href="#创建网络参数">创建网络参数</a></li>
+</ul></li>
+<li><a href="#docker-网络模式">Docker 网络模式</a>
+<ul>
+<li><a href="#bridge网络模式">bridge网络模式</a></li>
+<li><a href="#host网络模式">host网络模式</a></li>
+<li><a href="#container网络模式">container网络模式</a></li>
+<li><a href="#none网络模式">none网络模式</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>我们在使用docker run创建Docker容器时，可以用&ndash;net选项指定容器的网络模式；Docker网络有四种模式:</p>
+
+<ul>
+<li>桥模式：&ndash;net=bridge<br /></li>
+<li>主机模式：&ndash;net=host<br /></li>
+<li>容器模式：&ndash;net=container_name|id<br /></li>
+<li>无网络模式：&ndash;net=none<br /></li>
+</ul>
+</blockquote>
+
+<h1 id="docker-网络实现">Docker 网络实现</h1>
+
+<h2 id="相关知识">相关知识</h2>
+
+<p>Docker网络实现基础：</p>
+
+<ul>
+<li><a href="https://tonybai.com/2017/01/11/understanding-linux-network-namespace-for-docker-network/">Linux网络命名空间(net namespace)</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/linux/1310_xiawc_networkdevice/index.html">虚拟网络设备</a></li>
+</ul>
+
+<h2 id="基本原理">基本原理</h2>
+
+<p>设备要实现网络通信，至少需要一个网络接口(物理接口 or 虚拟接口)来收发数据包；如果是不同子网间通信则需要路由机制。</p>
+
+<p>Docker默认采用虚拟网络接口：在本地主机和容器中分别创建一个虚拟接口(veth)，使主机和容器彼此联通(该接口对为：veth pair)</p>
+
+<h2 id="容器网络模型">容器网络模型</h2>
+
+<p>容器网络模型由三部分组成：</p>
+
+<ul>
+<li>Sandbox: 保存容器的网络配置，一个Sandbox内可保存多个Endpoint</li>
+<li>Endpoint: 可以通过Network可以和其他的Endpoint进行通信，每个Endpoint都只在一个网络内</li>
+<li>Network: 由多个可相互通信的Endpoint组成，不同的网络间相互隔离</li>
+</ul>
+
+<blockquote>
+<p>基于这个网络模型，同一个网络内的所有容器都可以互相访问；如果需要隔离，创建新的网络即可。</p>
+</blockquote>
+
+<p><a href="http://qinghua.github.io/docker-overlay-network/">Docker的覆盖网络是怎么工作的</a></p>
+
+<h2 id="创建网络参数">创建网络参数</h2>
+
+<p><code>docker run --net</code> 可指定Docker启用的 <a href="#1">网络模式</a></p>
+
+<p>Docker创建容器时网络模块配置：</p>
+
+<ol>
+<li>创建一对虚拟接口，分别连接到本地主机和容器</li>
+<li>本地主机接口桥接到docker0(默认)或指定的网桥，并分配一个唯一的名字(如：veth17a2548)</li>
+<li>容器端接口连接到新容器，并重命名为eth0, eth0接口只在容器的命名空间可见</li>
+<li>从网桥(step-2指定)可用地址段查找空闲ip分配给eth0, 并配置默认路由到桥接网卡veth17a2548</li>
+</ol>
+
+<h1 id="docker-网络模式">Docker 网络模式</h1>
+
+<h2 id="bridge网络模式">bridge网络模式</h2>
+
+<blockquote>
+<p>bridge模式是Docker的默认网络设置</p>
+</blockquote>
+
+<ul>
+<li><p>该模式下，Docker守护进程会创建一个虚拟以太网桥docker0，任何附加在网桥docker0上的网卡间都能自动转发数据包。默认情况下，Docker守护进程会创建一对对等接口，将其中一个接口设置为容器的eth0接口，另一个接口放置在宿主机的命名空间中，从而将宿主机上的所有容器都连接到这个内部网络。同时，守护进程还会从网桥的私有地址空间中分配一个ip地址和子网给该容器。</p></li>
+
+<li><p>birdge网络模式图：</p></li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548403942/blog/images/docker_bridge_net.png" alt="birdge网络模式" /></p>
+
+<blockquote>
+<p>注：由于bridge是默认模式，可省略&ndash;net，直接启动</p>
+</blockquote>
+
+<h2 id="host网络模式">host网络模式</h2>
+
+<blockquote>
+<p>host模式会禁用Docker容器的网络隔离。</p>
+</blockquote>
+
+<p>该模式下容器共享宿主机的网络命名空间，直接会暴露在公共网络中，因此要通过端口映射(port mapping)来进行协调。</p>
+
+<ul>
+<li>host网络模式图：</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548403943/blog/images/docker_host_net.png" alt="host网络模式" /></p>
+
+<blockquote>
+<p>注：当时用host网络模式时，容器实际上继承了宿主机的ip地址。该模式比bridge更快，因为没有路由开销，但他将容器直接暴露在公网中，存有安全隐患。</p>
+</blockquote>
+
+<h2 id="container网络模式">container网络模式</h2>
+
+<blockquote>
+<p>container模式会重用另一个容器的网络命名空间。</p>
+</blockquote>
+
+<p>该模式指定新创建的容器和已经存在的某个容器共享同一个network namespace，而不是和宿主机共享。新建的容器不会创建自己的网卡，配置自己的ip，而是和指定的容器共享IP、端口范围等。同样，两个容器除了网络方面，其他比如文件系统、进程列表等还是隔离的。</p>
+
+<ul>
+<li>container网络模式图：</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548403942/blog/images/docker_container_net.jpg" alt="container网络模式" /></p>
+
+<ul>
+<li>实例</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-docker" data-lang="docker"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-docker" data-lang="docker">docker run --it --name centos_netshare centos_net bash ifconfig<span class="err">
+</span><span class="err"></span>docker run --it --name centos_netshare_host1 --net<span class="o">=</span>container:centos_netshare centos_net bash ifconfig</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>注：</p>
+
+<ul>
+<li>两个容器进程可以通过lo网卡设备通信</li>
+<li>由于两个容器共享一个network namespace, 因此需要注意端口冲突情况，否则第二个容器将无法被启动</li>
+</ul>
+</blockquote>
+
+<h2 id="none网络模式">none网络模式</h2>
+
+<blockquote>
+<p>none模式将容器放置在自己的网络栈中，但是不进行任何配置。也就是说，这个Docker容器没有网卡、IP、路由等信息，需要我们自己添加网卡、配置IP。</p>
+</blockquote>
+
+<p>该模式会关闭容器的网络功能，适用于一下两种情况：</p>
+
+<ol>
+<li>容器不需要网络(例如只需要写磁盘卷的批处理任务)</li>
+<li>自定义网络</li>
+</ol>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://www.infoq.com/cn/articles/docker-network-and-pipework-open-source-explanation-practice">Docker网络详解及pipework源码解读与实践</a></li>
+<li><a href="https://putty.biz/553">DOCKER网络管理 – 四种网络模式详解</a></li>
+<li><a href="http://dockone.io/article/1261">Docker网络模式</a></li>
+<li><a href="https://hujb2000.gitbooks.io/docker-flow-evolution/content/cn/advance/net/basis.html">Docker网络基础·网络模式</a></li>
+<li><a href="http://www.infoq.com/cn/articles/docker-network-and-pipework-open-source-explanation-practice">Docker网络详解及pipework源码解读与实践</a></li>
+<li><a href="http://www.cnblogs.com/sammyliu/p/5894191.html">理解Docker（5）：Docker 网络</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-05-09</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/os/linux/20170511-systemd-basic/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux | Systemd 基础</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/cloud/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/">
+            <span class="next-text nav-default">Docker | 容器间访问方式</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-05-09 16:39:25 \x2b0800 CST',
+        title: 'Docker | 网络实现和网络模式',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

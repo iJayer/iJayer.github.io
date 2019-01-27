@@ -39,6 +39,15 @@
     </item>
     
     <item>
+      <title>Linux | Common Cmd</title>
+      <link>https://zhezh09.github.io/post/tech/os/linux/common-cmd/</link>
+      <pubDate>Sun, 02 Sep 2018 17:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/linux/common-cmd/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
       <title>Tools | Git Submodule 学习笔记</title>
       <link>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</link>
       <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
@@ -50,6 +59,24 @@
 &lt;li&gt;什么是 Git 子模块&lt;/li&gt;
 &lt;li&gt;Git 子模块怎么用&lt;/li&gt;
 &lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux | Tools | top &amp; htop</title>
+      <link>https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/</link>
+      <pubDate>Tue, 29 May 2018 17:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux | Tools | Logrotate 使用总结</title>
+      <link>https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/</link>
+      <pubDate>Fri, 11 May 2018 17:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>

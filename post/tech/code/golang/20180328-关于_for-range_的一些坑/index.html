@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | 关于 for range 的一些细节 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  for range 的迭代变量会被重用 range expression 的副本参与 iteration  " /><meta name="keywords" content="go, golang, for-range" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | 关于 for range 的一些细节" />
+<meta property="og:description" content="
+
+
+
+for range 的迭代变量会被重用
+range expression  的副本参与 iteration
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/" /><meta property="article:published_time" content="2018-03-28T13:48:02&#43;08:00"/>
+<meta property="article:modified_time" content="2018-03-28T13:48:02&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | 关于 for range 的一些细节">
+<meta itemprop="description" content="
+
+
+
+for range 的迭代变量会被重用
+range expression  的副本参与 iteration
+
+">
+
+
+<meta itemprop="datePublished" content="2018-03-28T13:48:02&#43;08:00" />
+<meta itemprop="dateModified" content="2018-03-28T13:48:02&#43;00:00" />
+<meta itemprop="wordCount" content="3267">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | 关于 for range 的一些细节"/>
+<meta name="twitter:description" content="
+
+
+
+for range 的迭代变量会被重用
+range expression  的副本参与 iteration
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | 关于 for range 的一些细节</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-03-28 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3267 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-iteration-variable-重用">1. iteration variable 重用</a></li>
+<li><a href="#2-range-expression-副本参与-iteration">2. range expression 副本参与 iteration</a>
+<ul>
+<li><a href="#2-1-array">2.1. array</a></li>
+<li><a href="#2-2-pointer-to-array">2.2. pointer to array</a></li>
+<li><a href="#2-3-slice">2.3. slice</a></li>
+<li><a href="#2-4-其他-range-expression-类型">2.4. 其他 range expression 类型</a>
+<ul>
+<li><a href="#string">string</a></li>
+<li><a href="#map">map</a></li>
+<li><a href="#channel">channel</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li><code>for range</code> 的迭代变量会被重用</li>
+<li><code>range expression</code>  的副本参与 iteration</li>
+</ul>
+</blockquote>
+
+<h1 id="1-iteration-variable-重用">1. iteration variable 重用</h1>
+
+<p><code>for range</code> 的 idiomatic(惯用)使用方式是使用 short variable declaration(:=) 形式在 for expression 中声明 iteration variable，但需要注意的是这些variable在每次循环体中都会被重用，而不是重新声明。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">arr</span> <span class="p">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span> <span class="c1">// 声明包含有5个int类型元素的数组
+</span><span class="c1"></span>
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">arr</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;index: %v, value: %v\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+		<span class="p">}()</span>
+	<span class="p">}</span>
+
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// output:
+</span><span class="c1">// i=4, v=5, 0xc042010058 0xc042010060
+</span><span class="c1">// i=4, v=5, 0xc042010058 0xc042010060
+</span><span class="c1">// i=4, v=5, 0xc042010058 0xc042010060
+</span><span class="c1">// i=4, v=5, 0xc042010058 0xc042010060
+</span><span class="c1">// i=4, v=5, 0xc042010058 0xc042010060
+</span><span class="c1">//
+</span><span class="c1">// result:
+</span><span class="c1">// * 从输出结果可以看到: for 循环中，开启的 go 程中 i,v 的输出值是 for...range 遍历
+</span><span class="c1">// 完成后的最终值，而不是 go 程启动时所传入的值
+</span><span class="c1">// * 其次，for...range 遍历过程中，迭代变量 i,v 始终指向同一块内存空间(i:0xc042010058,
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">v</span><span class="p">:</span><span class="mh">0xc042010060</span><span class="p">),</span> <span class="nx">说明i</span><span class="p">,</span><span class="nx">v并没有重新初始化</span><span class="err">，</span><span class="nx">而是在重用</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 在上面的代码中，for循环启动的各个goroutine输出的 i, v 值都是 for range 循环结束后 i, v 的最终值，而不是各个goroutine启动时的 i, v 值。 一个可行的 fix 的方法：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">arr</span> <span class="p">{</span> <span class="c1">// 将i,v保存在匿名函数(闭包)所声明的作用域内
+</span><span class="c1"></span>		<span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;i=%v, v=%v\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+		<span class="p">}(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="p">}</span>
+	
+	<span class="c1">// result:
+</span><span class="c1"></span>	<span class="c1">// 循环中，go 程启动时，传入的参数(i,v)会被记录在内存中，所以在go程执行时
+</span><span class="c1"></span>	<span class="o">//</span> <span class="nx">输出的</span> <span class="nx">i</span><span class="p">,</span><span class="nx">v</span> <span class="nx">每次都是不同的值</span><span class="err">，</span><span class="nx">即传入的值</span><span class="err">，</span><span class="nx">且指向了不同的内存地址</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="2-range-expression-副本参与-iteration">2. range expression 副本参与 iteration</h1>
+
+<p>range 后面接收的表达式的类型包括：array、point to array、slice、map、string、channel(有读权限的)</p>
+
+<h2 id="2-1-array">2.1. array</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">arrayRangeExpression</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a =&#34;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">arr</span> <span class="p">{</span> <span class="c1">// range &#39;arr&#39; is copy from arr
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+			<span class="nx">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+		<span class="p">}</span>
+		<span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r =&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a =&#34;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span>
+
+	<span class="c1">// except output:
+</span><span class="c1"></span>	<span class="c1">// a = [1 2 3 4 5]
+</span><span class="c1"></span>	<span class="c1">// r = [1 12 13 4 5] 然而，这里 r 输出并不是这样的
+</span><span class="c1"></span>	<span class="c1">// a = [1 12 13 4 5]
+</span><span class="c1"></span>	<span class="c1">//
+</span><span class="c1"></span>	<span class="c1">// actual output:
+</span><span class="c1"></span>	<span class="c1">// a = [1 2 3 4 5]
+</span><span class="c1"></span>	<span class="c1">// r = [1 2 3 4 5]
+</span><span class="c1"></span>	<span class="c1">// a = [1 12 13 4 5]
+</span><span class="c1"></span>	<span class="c1">//
+</span><span class="c1"></span>	<span class="c1">// result:
+</span><span class="c1"></span>	<span class="c1">// v 是range表达式 arr 的副本 `arr`中取出来的值，因此，在 if i==0 {} 作用域内
+</span><span class="c1"></span>	<span class="c1">// 对 arr[1] arr[2]元素值做修改不会影响 r 的结果
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 我们原以为在第一次 iteration，也就是 i=0 时，我们对a的修改(arr[1]=12, arr[2]=13)会在第二次，第三次循环中被 v 取出，但结果却是v取出的依旧是a被修改前的值：2和3。这就是 for&hellip;range 的一个不大不小的坑： range expression 副本参与循环。也就是说在上面这个例子里。正真参与循环的是 <code>arr 的副本</code>，而不是正真的 arr。</p>
+</blockquote>
+
+<p>Go 中的数组在内部表示为连续的字节序列，虽然长度是Go数组类型的一部分，但长度并不包含在数据的内部表示的部分中，而是由编译器在编译期计算出来。 这个例子中，对range表达式的拷贝，即对一个数据的拷贝，arr&rsquo; 则是Go临时分配的连续的字节序列，与 arr 完全不是一块内存。因此，无论 arr 被如何修改，其副本arr&rsquo; 依旧保持原值，并且参与循环的是arr&rsquo;。所以，v从arr&rsquo;中取出的仍旧是arr的原值，而非修改后的值。</p>
+
+<blockquote>
+<p>Note: 但是在 for i:=0; i &lt; len(arr); i++ {} 这类循环结构中，直接操作的是原数据的值，并不是一份拷贝，是可以修改数据值的。</p>
+</blockquote>
+
+<h2 id="2-2-pointer-to-array">2.2. pointer to array</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// pointerToArrayRangeExpression
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">pointerToArrayRangeExpression</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;pointerToArrayRangeExpression result:&#34;</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a =&#34;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="o">&amp;</span><span class="nx">arr</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+			<span class="nx">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+		<span class="p">}</span>
+		<span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r =&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a =&#34;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span>
+	<span class="nb">println</span><span class="p">()</span>
+	
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// pointerToArrayRangeExpression result:
+</span><span class="c1"></span>	<span class="c1">// a = [1 2 3 4 5]
+</span><span class="c1"></span>	<span class="c1">// r = [1 12 13 4 5]
+</span><span class="c1"></span>	<span class="c1">// a = [1 12 13 4 5]
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 我们看到这次 r 数组的值与最终a被修改后的值一致了。这个例子中使用了 *[5]int 作为 range 的表达式，其副本依旧是一个指向原始数组 arr 的指针, 因此后续所有循环中均是 &amp;arr 指向的的原始数组的指针参与计算，因此 v 能从 &amp;arr 指向的原始数组中取出 arr 修改后的值。</p>
+
+<p>idiomatic go 建议我们尽可能的使用slice替换掉array的使用</p>
+</blockquote>
+
+<h2 id="2-3-slice">2.3. slice</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// sliceRangeExpression
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">sliceRangeExpression</span><span class="p">(</span><span class="nx">arr</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sliceRangeExpression result:&#34;</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a =&#34;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="o">&amp;</span><span class="nx">arr</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+			<span class="nx">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+		<span class="p">}</span>
+		<span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r =&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a =&#34;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span>
+	<span class="nb">println</span><span class="p">()</span>
+
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// sliceRangeExpression result:
+</span><span class="c1"></span>	<span class="c1">// a = [1 2 3 4 5]
+</span><span class="c1"></span>	<span class="c1">// r = [1 12 13 4 5]
+</span><span class="c1"></span>	<span class="c1">// a = [1 12 13 4 5]
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 这里slice实现了预期的要求。 那 slice是如何做到的呢？</p>
+
+<ul>
+<li><code>slice</code> 在 go 的内部表示为一个 <code>struct</code>, 由 (*T, len, cap) 组成，其中 *T 指向slice对应的 underlying(底层) array的指针，len是slice当前的长度，cap是slice的最大容量。当range进行expression复制时，它实际上复制的是一个 slice, 也就是那个 struct。副本 struct 中的 *T 依旧指向原 slice 对应的 array，为此对slice的修改都反映到 underlying array arr上去了，v 从副本struct中 *T 指向的 underlying array 中获取数组元素，也就得到了修改后的元素值。</li>
+</ul>
+</blockquote>
+
+<p>slice 与 array还有一个不同点：就是 slice 的len在运行时可以被改变，而array得len是一个常量，不可改变。那么len变化的 slice 对 for range 有何影响呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// sliceLenChangeRangeExpression 测试在for...range迭代过程中，切片的长度发生
+</span><span class="c1">// 变化将会产生什么结果
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">sliceLenChangeRangeExpression</span><span class="p">(</span><span class="nx">a</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">r</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sliceLenChangeRangeExpression result:&#34;</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a =&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">r</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r =&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a =&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+	<span class="nb">println</span><span class="p">()</span>
+
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// liceLenChangeRangeExpression result:
+</span><span class="c1"></span>	<span class="c1">// a = [1 2 3 4 5]
+</span><span class="c1"></span>	<span class="c1">// r = [1 2 3 4 5]
+</span><span class="c1"></span>	<span class="c1">// a = [1 2 3 4 5 6 7]
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 在这个例子中，原slice a在 for range过程中被附加了两个元素6和7， 其中，len有5增加到了7，但是对于r却没有产生影响。是因为在 a 的副本 a&rsquo; 的内部表示的 struct 中，len 字段并没有改变，依旧是 5。因此 for&hellip;range只会循环5次，也就只获取a对应的underlying数组的前5个元素。</p>
+</blockquote>
+
+<p>range 副本行为会带来一些性能上的消耗，尤其是当range expression的类型的为数组时，range需要复制整个数组；而当 range expression 类型为 pointer to array 或 slice时，这个消耗将小得多，仅仅需要复制一个指针或一个slice的内部表示(一个struct即可)。</p>
+
+<h2 id="2-4-其他-range-expression-类型">2.4. 其他 range expression 类型</h2>
+
+<p>对于 range 后面的其他表达式类型，比如 <code>string，map，channel</code>，for range依旧会创建副本参与计算</p>
+
+<h3 id="string">string</h3>
+
+<p>对 string 来说，由于 string 的内部表示为 struct {*byte, len}, 并且 string 本身是 immutable(一成不变的)，因此其行为和消耗和 slice expression类似。不过 for&hellip;range 对于 string 来说，每次循环的单位是 rune(code point的值)，而不是byte，index为迭代字符码点的第一个字节的 position：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">s</span> <span class="o">:=</span> <span class="s">&#34;中国人&#34;</span>
+
+<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%d %s 0x%x\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">v</span><span class="p">),</span> <span class="nx">v</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// output:
+</span><span class="c1">// 0 中 0x4e2d
+</span><span class="c1">// 3 国 0x56fd
+</span><span class="c1"></span><span class="o">//</span> <span class="mi">6</span> <span class="nx">人</span> <span class="mh">0x4eba</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="map">map</h3>
+
+<p>对于 <code>map</code> 来说，map 内部表示为一个指针，指针副本也指向真实的map, 因此for range操作均操作的是源map</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// mapRangeExpression 测试 map 作为 for...range 的迭代变量，参与计算时将会
+</span><span class="c1">// 发生什么变化
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">mapRangeExpression</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">m</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
+		<span class="s">&#34;tony&#34;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
+		<span class="s">&#34;tom&#34;</span><span class="p">:</span>  <span class="mi">22</span><span class="p">,</span>
+		<span class="s">&#34;jim&#34;</span><span class="p">:</span>  <span class="mi">23</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">cnt</span> <span class="kt">int</span>
+
+	<span class="c1">//for k, v := range m { // m&#39; is copy from m(map[string]int)
+</span><span class="c1"></span>	<span class="c1">//	if cnt == 0 {
+</span><span class="c1"></span>	<span class="c1">//		delete(m, &#34;tony&#34;)
+</span><span class="c1"></span>	<span class="c1">//	}
+</span><span class="c1"></span>	<span class="c1">//	cnt++
+</span><span class="c1"></span>	<span class="c1">//	fmt.Println(k, v)
+</span><span class="c1"></span>	<span class="c1">//}
+</span><span class="c1"></span>	<span class="c1">//fmt.Println(&#34;cnt:&#34;, cnt)
+</span><span class="c1"></span>	<span class="c1">//fmt.Println(&#34;---------&#34;)
+</span><span class="c1"></span>
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// tony 21
+</span><span class="c1"></span>	<span class="c1">// tom 22
+</span><span class="c1"></span>	<span class="c1">// jim 23
+</span><span class="c1"></span>	<span class="c1">// cnt: 3
+</span><span class="c1"></span>	<span class="c1">//   or
+</span><span class="c1"></span>	<span class="c1">// tom 22
+</span><span class="c1"></span>	<span class="c1">// jim 23
+</span><span class="c1"></span>	<span class="c1">// cnt: 2
+</span><span class="c1"></span>
+	<span class="nx">cnt</span> <span class="p">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">m</span> <span class="p">{</span> <span class="c1">// m&#39; is copy from m(map[string]int)
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">cnt</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">m</span><span class="p">[</span><span class="s">&#34;lucy&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="mi">24</span>
+		<span class="p">}</span>
+		<span class="nx">cnt</span><span class="o">++</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;cnt:&#34;</span><span class="p">,</span> <span class="nx">cnt</span><span class="p">)</span>
+
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// tony 21
+</span><span class="c1"></span>	<span class="c1">// tom 22
+</span><span class="c1"></span>	<span class="c1">// jim 23
+</span><span class="c1"></span>	<span class="c1">// lucy 24
+</span><span class="c1"></span>	<span class="c1">// cnt: 4
+</span><span class="c1"></span>	<span class="c1">//  or
+</span><span class="c1"></span>	<span class="c1">// tony 21
+</span><span class="c1"></span>	<span class="c1">// tom 22
+</span><span class="c1"></span>	<span class="c1">// jim 23
+</span><span class="c1"></span>	<span class="c1">// cnt: 3
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>如果map中的某项在循环到达前被在循环体中删除了，那么它<code>可能</code>不会被iteration variable获取到</li>
+<li>如果在循环体中新建一个map元素项，那该项元素可能出现在后续循环中，也可能不出现</li>
+</ul>
+</blockquote>
+
+<h3 id="channel">channel</h3>
+
+<p>对于 channel 来说，channel 内部表示为一个指针，channel的指针副本其实指向真是的channel</p>
+
+<p>for&hellip;range最终以阻塞读的方式阻塞在channel expression上(即便是buffered channle,当channel中无数据时，for&hellip;range也会阻塞在channel)，直到channel关闭</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">channelRangeExpression</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">c</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+		<span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+		<span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">2</span>
+		<span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">3</span>
+		<span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+	<span class="p">}()</span>
+
+	<span class="nx">flag</span> <span class="o">:=</span> <span class="kc">true</span>
+	<span class="nx">start</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="k">for</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span> <span class="c1">// 阻塞3秒，后读取数据
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">flag</span> <span class="p">{</span>
+			<span class="nx">flag</span> <span class="p">=</span> <span class="kc">false</span>
+			<span class="nx">end</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">end</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">//output:
+</span><span class="c1"></span>	<span class="c1">//3.0004311s
+</span><span class="c1"></span>	<span class="c1">//1
+</span><span class="c1"></span>	<span class="c1">//2
+</span><span class="c1"></span>	<span class="c1">//3
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: channel变量为 nil, 则for&hellip;range将永远阻塞</p>
+</blockquote>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://tonybai.com/2015/09/17/7-things-you-may-not-pay-attation-to-in-go/">关于Go，你可能不注意的7件事</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-03-28</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/life/20180421-%E6%9D%AD%E5%9F%8E-%E5%A4%9C%E6%B8%B8%E4%BA%AC%E6%9D%AD%E8%BF%90%E6%B2%B3/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">杭州 | 夜游京杭运河</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/">
+            <span class="next-text nav-default">Golang | net/http =&gt; Customize Handler、ServeMux、Middleware</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-03-28 13:48:02 \x2b0800 CST',
+        title: 'Golang | 关于 for range 的一些细节',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

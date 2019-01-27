@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | 定时任务 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="go, golang" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | 定时任务" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/" /><meta property="article:published_time" content="2018-03-07T16:07:43&#43;08:00"/>
+<meta property="article:modified_time" content="2018-03-07T16:07:43&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | 定时任务">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2018-03-07T16:07:43&#43;08:00" />
+<meta itemprop="dateModified" content="2018-03-07T16:07:43&#43;00:00" />
+<meta itemprop="wordCount" content="2420">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | 定时任务"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | 定时任务</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-03-07 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2420 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#cron">Cron</a>
+<ul>
+<li><a href="#cron表达式格式">cron表达式格式</a>
+<ul>
+<li><a href="#格式1">格式1</a></li>
+<li><a href="#格式2">格式2</a></li>
+</ul></li>
+<li><a href="#cron特殊字符说明">cron特殊字符说明</a></li>
+<li><a href="#cron主要类型或接口说明">cron主要类型或接口说明</a>
+<ul>
+<li><a href="#cron-1">Cron</a></li>
+<li><a href="#entry">Entry</a></li>
+<li><a href="#job">Job</a></li>
+<li><a href="#schedule">Schedule</a></li>
+</ul></li>
+<li><a href="#cron主要实例化方法">cron主要实例化方法</a>
+<ul>
+<li><a href="#实例化-cron">实例化 Cron</a></li>
+<li><a href="#解析-cron表达式">解析 Cron表达式</a></li>
+<li><a href="#成员方法">成员方法</a></li>
+</ul></li>
+<li><a href="#cron使用实例">cron使用实例</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="cron">Cron</h1>
+
+<blockquote>
+<p>go get github.com/robfig/cron</p>
+
+<p>cron(定时任务): 按照约定的时间，定时的执行特定的任务（job），cron 表达式表达了这种约定。</p>
+</blockquote>
+
+<h2 id="cron表达式格式">cron表达式格式</h2>
+
+<h3 id="格式1">格式1</h3>
+
+<p>cron 表达式是一个字符串，字符串分为6个域，中间以空格隔开，每个域代表一种含义。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"> Seconds Minutes Hours DayofMonth Month DayofWeek</pre></td></tr></table>
+</div>
+</div>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>是否必须</th>
+<th>允许的值</th>
+<th>允许的特定字符</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>秒(Seconds)</td>
+<td>是</td>
+<td>0-59</td>
+<td>* / , –</td>
+</tr>
+
+<tr>
+<td>分(Minutes)</td>
+<td>是</td>
+<td>0-59</td>
+<td>* / , –</td>
+</tr>
+
+<tr>
+<td>时(Hours)</td>
+<td>是</td>
+<td>0-23</td>
+<td>* / , –</td>
+</tr>
+
+<tr>
+<td>日(Day of month)</td>
+<td>是</td>
+<td>1-31</td>
+<td>* / , – ?</td>
+</tr>
+
+<tr>
+<td>月(Month)</td>
+<td>是</td>
+<td>1-12 or JAN-DEC</td>
+<td>* / , –</td>
+</tr>
+
+<tr>
+<td>星期(Day of week)</td>
+<td>否</td>
+<td>0-6 or SUM-SAT</td>
+<td>* / , – ?</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>注：</p>
+
+<ul>
+<li>月(月)和星期(Day of week)字段的值不区分大小写, 如：SUN、Sun、sun是一样的</li>
+<li>星期(星期几)的字段没提供, 相当于是 *</li>
+</ul>
+</blockquote>
+
+<h3 id="格式2">格式2</h3>
+
+<ul>
+<li>每年执行：@yearly @annually</li>
+<li>每月执行：@monthlay</li>
+<li>每周执行：@weekly</li>
+<li>每天执行：@dail @midnight(深夜)</li>
+<li>没小时执行：@hourly</li>
+</ul>
+
+<blockquote>
+<p>注：</p>
+
+<ul>
+<li>@every + 空格 + * h * m * s (*表示具体的数字, h小时,m分钟,s秒)</li>
+<li>@every 2h 10m: 表示没两小时10分钟执行一次</li>
+</ul>
+</blockquote>
+
+<h2 id="cron特殊字符说明">cron特殊字符说明</h2>
+
+<ul>
+<li><p><code>星号(*)</code></p>
+
+<p>表示 cron表达式能匹配该字段的所有值。如在第5个字段使用星号(month)，表示每个月</p></li>
+
+<li><p><code>斜线(/)</code></p>
+
+<p>表示增长间隔，如第1个字段(minutes)值是 3-59/15，表示每小时的第3分钟开始执行一次，之后每隔 15 分钟执行一次（即 3、18、33、48这些时间点执行），这里也可以表示为：3/15</p>
+
+<p>例如：spec := &ldquo;*/5 * * * * *&rdquo; //每隔5s执行一次</p></li>
+
+<li><p><code>逗号(,)</code></p>
+
+<p>用于枚举值，如第6个字段值是 MON,WED,FRI，表示星期一、三、五执行</p>
+
+<p>例如: spec := &ldquo;* 52,54 9 * * *&rdquo; //每天9:52分和9:54分的每秒都执行一次</p></li>
+
+<li><p><code>连字号(-)</code></p>
+
+<p>表示一个范围，如第3个字段的值为 9-17 表示 9am到 5pm直接每个小时（包括9和17）</p>
+
+<p>例如：spec := &ldquo;15-30 * * * * *&rdquo; //每分钟的15-30s执行定时任务</p></li>
+
+<li><p><code>问号(?)</code></p>
+
+<p>只用于日(Day of month)和星期(Day of week)，表示不指定值，可以用于代替 *</p></li>
+</ul>
+
+<h2 id="cron主要类型或接口说明">cron主要类型或接口说明</h2>
+
+<h3 id="cron-1">Cron</h3>
+
+<blockquote>
+<p>Cron 包含一系列要执行的实体: 支持暂停[stop], 添加实体等</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Cron</span> <span class="kd">struct</span> <span class="p">{</span>  
+   <span class="nx">entries</span>  <span class="p">[]</span><span class="o">*</span><span class="nx">Entry</span>  
+   <span class="nx">stop</span>     <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}</span>   <span class="c1">// 控制 Cron 实例暂停  
+</span><span class="c1"></span>   <span class="nx">add</span>      <span class="kd">chan</span> <span class="o">*</span><span class="nx">Entry</span>     <span class="c1">// 当 Cron 已经运行了，增加新的 Entity 是通过 add 这个channel 实现的  
+</span><span class="c1"></span>   <span class="nx">snapshot</span> <span class="kd">chan</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Entry</span>   <span class="c1">// 获取当前所有 entity 的快照  
+</span><span class="c1"></span>   <span class="nx">running</span>  <span class="kt">bool</span>            <span class="c1">// 当已经运行时为true；否则为false  
+</span><span class="c1"></span><span class="p">}</span>  </code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="entry">Entry</h3>
+
+<blockquote>
+<p>调度实体</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Entry</span> <span class="kd">struct</span> <span class="p">{</span>  
+   <span class="c1">// The schedule on which this job should be run.  
+</span><span class="c1"></span>   <span class="c1">// 负责调度当前 Entity 中的 Job 执行  
+</span><span class="c1"></span>   <span class="nx">Schedule</span> <span class="nx">Schedule</span>  
+   
+   <span class="c1">// The next time the job will run. This is the zero time if Cron has notbeen  
+</span><span class="c1"></span>   <span class="c1">// started or this entry&#39;s schedule is unsatisfiable  
+</span><span class="c1"></span>   <span class="c1">// Job 下一次执行的时间  
+</span><span class="c1"></span>   <span class="nx">Next</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  
+   
+   <span class="c1">// The last time this job was run. This is the zero time if the job hasnever  
+</span><span class="c1"></span>   <span class="c1">// been run.  
+</span><span class="c1"></span>   <span class="c1">// 上一次执行时间  
+</span><span class="c1"></span>   <span class="nx">Prev</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  
+   
+   <span class="c1">// The Job to run.  
+</span><span class="c1"></span>   <span class="c1">// 要执行的 Job  
+</span><span class="c1"></span>   <span class="nx">Job</span> <span class="nx">Job</span>  
+<span class="p">}</span>  </code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="job">Job</h3>
+
+<blockquote>
+<p>每一个实体包含一个需要运行的 Job: Job 是一个接口, 有一个方法: run</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">job</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nf">Run</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>由于 Entity中需要 Job类型，因此，我们希望定期运行的任务，就需要实现 Job接口。同时，由于 Job接口只有一个无参数无返回值的方法，为了使用方便，作者提供了一个类型：</p>
+
+<p><code>type FuncJob func()</code></p>
+
+<p>它通过简单的实现 Run()方法来实现 Job接口：</p>
+
+<p><code>func (f FuncJob) Run() { f() }</code></p>
+
+<p>这样，任何无参数无返回值的函数，通过强制类型转换为 FuncJob，就可以当作 Job来使用了，AddFunc方法 就是这么做的</p>
+
+<h3 id="schedule">Schedule</h3>
+
+<blockquote>
+<p>每一个实体包含一个调度器(Schedule): 负责调度Job的执行, 也是一个接口</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Schedule</span> <span class="kd">interface</span> <span class="p">{</span>  
+   <span class="c1">// Return the next activation time, later than the given time.  
+</span><span class="c1"></span>   <span class="c1">// Next is invoked initially, and then each time the job is run.  
+</span><span class="c1"></span>   <span class="c1">// 返回同一 Entity 中的 Job 下一次执行的时间  
+</span><span class="c1"></span>   <span class="nf">Next</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  
+<span class="p">}</span>  </code></pre></td></tr></table>
+</div>
+</div>
+<p>Schedule 的具体实现通过解析Cron表达式得到。</p>
+
+<p>库中提供了 Schedule的两个具体实现，分别是 SpecSchedule和 ConstantDelaySchedule。</p>
+
+<ul>
+<li>SpecSchedule</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">SpecSchedule</span> <span class="kd">struct</span> <span class="p">{</span>  
+   <span class="nx">Second</span><span class="p">,</span> <span class="nx">Minute</span><span class="p">,</span> <span class="nx">Hour</span><span class="p">,</span> <span class="nx">Dom</span><span class="p">,</span> <span class="nx">Month</span><span class="p">,</span> <span class="nx">Dow</span> <span class="kt">uint64</span>  
+<span class="p">}</span>  </code></pre></td></tr></table>
+</div>
+</div>
+<p>从开始介绍的 Cron表达式可以容易得知各个字段的意思，同时，对各种表达式的解析也会最终得到一个 SpecSchedule的实例。库中的 Parse返回的其实就是 SpecSchedule的实例（当然也就实现了 Schedule接口）</p>
+
+<ul>
+<li>ConstantDelaySchedule</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">ConstantDelaySchedule</span> <span class="kd">struct</span> <span class="p">{</span>  
+   <span class="nx">Delay</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span> <span class="c1">// 循环的时间间隔  
+</span><span class="c1"></span><span class="p">}</span>  </code></pre></td></tr></table>
+</div>
+</div>
+<p>这是一个简单的循环调度器，如：每 5分钟。注意，最小单位是秒，不能比秒还小，比如毫秒。</p>
+
+<p>通过 Every函数可以获取该类型的实例，如：</p>
+
+<p>constDelaySchedule := Every(5e9)</p>
+
+<p>得到的是一个每 5秒执行一次的调度器。</p>
+
+<h2 id="cron主要实例化方法">cron主要实例化方法</h2>
+
+<h3 id="实例化-cron">实例化 Cron</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">New</span><span class="p">()</span> <span class="o">*</span><span class="nx">Cron</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="o">&amp;</span><span class="nx">Cron</span><span class="p">{</span>
+       <span class="nx">entries</span><span class="p">:</span>  <span class="kc">nil</span><span class="p">,</span>
+       <span class="nx">add</span><span class="p">:</span>      <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="o">*</span><span class="nx">Entry</span><span class="p">),</span>
+       <span class="nx">stop</span><span class="p">:</span>     <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}),</span>
+       <span class="nx">snapshot</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Entry</span><span class="p">),</span>
+       <span class="nx">running</span><span class="p">:</span>  <span class="kc">false</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>可见实例化时，成员使用的基本是默认值；</p>
+
+<h3 id="解析-cron表达式">解析 Cron表达式</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Parse</span><span class="p">(</span><span class="nx">spec</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">_</span> <span class="nx">Schedule</span><span class="p">,</span> <span class="nx">errerror</span><span class="p">)</span>
+
+<span class="c1">// spec 可以是：
+</span><span class="c1"></span>
+<span class="c1">// Full crontab specs, e.g. “* * * * * ?”
+</span><span class="c1"></span>
+<span class="o">//</span> <span class="nx">Descriptors</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">g</span><span class="p">.</span> <span class="err">“@</span><span class="nx">midnight</span><span class="err">”</span><span class="p">,</span> <span class="err">“@</span><span class="nx">every1h30m</span><span class="err">”</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="成员方法">成员方法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 将 job加入 Cron中
+</span><span class="c1">// 如上所述，该方法只是简单的通过FuncJob类型强制转换 cmd，然后调用 AddJob方法
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cron</span><span class="p">)</span> <span class="nf">AddFunc</span><span class="p">(</span><span class="nx">spec</span> <span class="kt">string</span><span class="p">,</span> <span class="nf">cmdfunc</span><span class="p">())</span> <span class="kt">error</span>
+
+
+<span class="c1">// 将 job加入 Cron中
+</span><span class="c1">// 通过 Parse函数解析 cron表达式 spec的到调度器实例(Schedule)，之后调用 c.Schedule方法
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cron</span><span class="p">)</span> <span class="nf">AddJob</span><span class="p">(</span><span class="nx">spec</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">cmd</span> <span class="nx">Job</span><span class="p">)</span><span class="kt">error</span>
+
+
+<span class="c1">// 获取当前 Cron总所有 Entities的快照
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cron</span><span class="p">)</span> <span class="nf">Entries</span><span class="p">()</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Entry</span>
+
+
+<span class="c1">// 通过两个参数实例化一个Entity，然后加入当前 Cron 中
+</span><span class="c1">// 注意：如果当前 Cron未运行，则直接将该 entity加入 Cron中；
+</span><span class="c1">// 否则，通过 add这个成员 channel将 entity加入正在运行的 Cron中
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cron</span><span class="p">)</span> <span class="nf">Schedule</span><span class="p">(</span><span class="nx">schedule</span> <span class="nx">Schedule</span><span class="p">,</span><span class="nx">cmd</span> <span class="nx">Job</span><span class="p">)</span>
+
+ 
+<span class="c1">// 新启动一个 goroutine运行当前 Cron
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cron</span><span class="p">)</span> <span class="nf">Start</span><span class="p">()</span>
+
+ 
+<span class="c1">// 通过给 stop成员发送一个 struct{}{}来停止当前 Cron，同时将 running置为 false
+</span><span class="c1">// 从这里知道，stop只是通知 Cron停止，因此往 channel发一个值即可，而不关心值是多少
+</span><span class="c1">// 所以，成员 stop定义为空 struct
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cron</span><span class="p">)</span> <span class="nf">Stop</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="cron使用实例">cron使用实例</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+ 
+<span class="kn">import</span> <span class="p">(</span>
+   <span class="s">&#34;github.com/robfig/cron&#34;</span>
+   <span class="s">&#34;log&#34;</span>
+<span class="p">)</span>
+ 
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">i</span><span class="o">:=</span> <span class="mi">0</span>
+    <span class="nx">c</span><span class="o">:=</span> <span class="nx">cron</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+   <span class="nx">spec</span> <span class="o">:=</span> <span class="s">&#34;*/5 * * * * ?&#34;</span>
+   <span class="nx">c</span><span class="p">.</span><span class="nf">AddFunc</span><span class="p">(</span><span class="nx">spec</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+       <span class="nx">i</span><span class="o">++</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;cron running:&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+   <span class="p">})</span>
+   <span class="nx">c</span><span class="p">.</span><span class="nf">Start</span><span class="p">()</span>
+ 
+   <span class="k">select</span><span class="p">{}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/gemSender/timing-wheel-scheduler/blob/master/TimingWheel.go">timing-wheel-scheduler</a></li>
+<li><a href="https://studygolang.com/articles/10273?fr=sidebar">golang cron 定时任务使用</a></li>
+<li><a href="http://blog.csdn.net/skh2015java/article/details/78223951">golang中执行定时任务的包—cron</a></li>
+<li><a href="http://xiaorui.cc/2016/03/03/golang-crontab的计划任务及定时任务使用/">golang crontab的计划任务及定时任务使用</a></li>
+<li><a href="http://blog.csdn.net/hot_vc/article/details/48261195">Linux中Cron任务间隔执行:每隔几分钟/几小时/几天</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-03-07</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180316_net-http_01_reading-server.go/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | net/http =&gt; server.go 源码阅读</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/life/20180303-%E6%9D%AD%E5%9F%8E-%E9%9B%A8%E5%90%8E%E7%9A%84%E6%B8%85%E6%99%A8/">
+            <span class="next-text nav-default">杭州 | 雨后的清晨</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-03-07 16:07:43 \x2b0800 CST',
+        title: 'Golang | 定时任务',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

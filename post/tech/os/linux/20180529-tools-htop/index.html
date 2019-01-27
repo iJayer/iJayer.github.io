@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux | Tools | top &amp; htop - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="linux, htop" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux | Tools | top &amp; htop" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/" /><meta property="article:published_time" content="2018-05-29T17:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2018-05-29T19:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="Linux | Tools | top &amp; htop">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2018-05-29T17:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-29T19:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="3074">
+
+
+
+<meta itemprop="keywords" content="linux,tools," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux | Tools | top &amp; htop"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux | Tools | top &amp; htop</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-05-29 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3074 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#top">top</a>
+<ul>
+<li><a href="#top-命令交互操作命令">top 命令交互操作命令</a></li>
+<li><a href="#实例">实例</a>
+<ul>
+<li><a href="#多核cpu监控">多核CPU监控</a></li>
+<li><a href="#高亮显示当前运行进程">高亮显示当前运行进程</a></li>
+<li><a href="#显示完整的程序命令">显示完整的程序命令</a></li>
+<li><a href="#显示指定的进程信息">显示指定的进程信息</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#更强大的工具-htop">更强大的工具 htop</a>
+<ul>
+<li><a href="#语法">语法</a></li>
+<li><a href="#参数">参数</a></li>
+<li><a href="#选项">选项</a></li>
+<li><a href="#设置">设置</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="top">top</h1>
+
+<p><code>top</code> 命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用情况，类似win的任务管理器。</p>
+
+<p>top 是一个动态显示过程，即可以通过用户按键来不断刷新当前状态。如果在前台执行该命令，它将独占前台，知道用户终止该程序为止。比较准确的说，top命令提供了实时的监视系统处理器状态的功能，它将显示系统中 CPU 最<code>敏感</code>的任务列表。</p>
+
+<p>该命令可按：CPU使用、内存使用、执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定。</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548400470/blog/images/top.png" alt="" /></p>
+
+<p>第一行：</p>
+
+<ul>
+<li>10:31:02: 系统当前时间</li>
+<li>up 5 min: 系统开机到现在经过了多少时间</li>
+<li>1 users: 当前用户在线</li>
+<li>load average: 0.79, 0.82, 0.41 系统1分钟、5分钟、15分钟的CPU负载信息</li>
+</ul>
+
+<p>第二行：</p>
+
+<ul>
+<li>Tasks: 任务</li>
+<li>87 total: 当前有87个任务，也就是87个进程</li>
+<li>2 running: 2个进程正在运行</li>
+<li>85 sleeping：85个进程睡眠</li>
+<li>0 stopped：停止的进程数</li>
+<li>0 zombie：僵死的进程数</li>
+</ul>
+
+<p>第三行：</p>
+
+<blockquote>
+<p>Cpu(s)表示的是cpu信息。各个值的意思是：</p>
+
+<ul>
+<li>us: user cpu time (or) % CPU time spent in user space<br /></li>
+<li>sy: system cpu time (or) % CPU time spent in kernel space<br /></li>
+<li>ni: user nice cpu time (or) % CPU time spent on low   priority &gt; processes</li>
+<li>id: idle cpu time (or) % CPU time spent idle<br /></li>
+<li>wa: io wait cpu time (or) % CPU time spent in wait (on disk)<br /></li>
+<li>hi: hardware irq (or) % CPU time spent servicing/handling hardware interrupts</li>
+<li>si: software irq (or) % CPU time spent servicing/handling software interrupts</li>
+<li>st: steal time - - % CPU time in involuntary wait by virtual cpu while hypervisor is servicing another processor (or) % CPU time stolen from a virtual machine</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>%Cpu(s)：表示这一行显示CPU的总体信息</li>
+<li>19.5 us: 用户态进程占用CPU时间百分比，不包 renice 值为负的任务占用的CPU的时间</li>
+<li>5.5 sy: 内核占用CPU时间百分比</li>
+<li>0.0 ni: 改变过优先级的进程占用CPU的百分比</li>
+<li>64.0 id: 空闲CPU时间百分比</li>
+<li>7.5 wa: 等待I/O的CPU时间百分比</li>
+<li>0.0 hi: CPU 硬中断时间百分比</li>
+<li>0.0 si: CPU 软中断时间百分比</li>
+</ul>
+
+<blockquote>
+<p>Note：这里显示数据是所有CPU的平均值，如果想看每一个CPU的处理情况，按 1 即可；折叠，再次按 1</p>
+</blockquote>
+
+<p>第四行：</p>
+
+<ul>
+<li>KiB Mem: 内存信息(Kib=1024byte)</li>
+<li>1883616 total: 物理内存总量(1.75GiB)</li>
+<li>440660 free: 空闲的物理内存量(0.44GiB)</li>
+<li>591500 used: 使用的物理内存量(0.59GiB)</li>
+<li>851456 buff/cache: 用作内核缓存的物理内存量</li>
+</ul>
+
+<blockquote>
+<p>Note: KB &amp; KiB 的区别：1KB(kilobyte)=1000byte,    1KiB(kibibyte)=1024byte</p>
+</blockquote>
+
+<p>第五行：</p>
+
+<ul>
+<li>KiB Swap：交换空间</li>
+<li>0 total：交换区总量</li>
+<li>0 free：空闲的交换区量</li>
+<li>0 used：使用的交换区量</li>
+<li>1114452 avail Mem：可用的物理内存总量</li>
+</ul>
+
+<p>进程信息</p>
+
+<ul>
+<li>再下面就是进程信息</li>
+<li>PID：进程的ID</li>
+<li>USER: 进程的所有者</li>
+<li>PR: 进程的优先级别，越小越被优先执行</li>
+<li>NI(NInice): 进程的优先级别值，默认的为0，可以进行调整</li>
+<li>VIRT: 进程占用的虚拟内存</li>
+<li>RES: 进程占用的物理内存</li>
+<li>SHR: 进程使用的共享内存</li>
+<li>S: 进程的状态</li>
+<li>%CPU：进程占用CPU的使用率</li>
+<li>%MEM: 进程使用的物理内存和总内存的百分比</li>
+<li>TIME+: 该进程启动后占用的总的CPU的时间，即占用CPU使用时间的累加值</li>
+<li>COMMAND: 进程启动命令名称</li>
+</ul>
+
+<h2 id="top-命令交互操作命令">top 命令交互操作命令</h2>
+
+<p>下面列出一些常用的 top命令操作指令</p>
+
+<ul>
+<li>q：退出top命令</li>
+<li>Space：立即刷新</li>
+<li>s：设置刷新时间间隔</li>
+<li>c：显示启动命令完全模式</li>
+<li>t: 显示或隐藏进程和CPU状态信息</li>
+<li>m: 显示或隐藏内存状态信息</li>
+<li>l: 显示或隐藏uptime信息</li>
+<li>f: 增加或减少进程显示标志</li>
+<li>S: 累计模式，会把已经完成或退出的子进程占用的CPU时间累计到父进程的TIME+</li>
+<li>P: 按%CPU使用率排序</li>
+<li>T: 按TIME+排序</li>
+<li>M：按%MEM内存使用率排序</li>
+<li>u: 指定显示用户进程</li>
+<li>r: 修改进程 renice 值</li>
+<li>k：kill 进程</li>
+<li>i: 只显示正在运行的进程</li>
+<li>W: 保存对 top 的设置到文件 ~/.toprc, 下次启动将自动调用 toprc 文件的设置。</li>
+<li>h: 帮助命令</li>
+</ul>
+
+<blockquote>
+<p>Note: 使用频率最高的是P、T、M，因为通常使用 top， 我们就想看看是哪些进程最耗CPU资源，占用的内存最多；通过 <code>shift+&gt;</code> 或 <code>shift + &lt;</code> 可以向右或向左改变排序列。如果只需要查看内存，可用 free 命令。只查看uptime时间信息(第一行)，可用uptime命令</p>
+</blockquote>
+
+<h2 id="实例">实例</h2>
+
+<h3 id="多核cpu监控">多核CPU监控</h3>
+
+<p>在 top 基本试图中，按键盘数字 1, 可监控每个逻辑CPU的状况</p>
+
+<h3 id="高亮显示当前运行进程">高亮显示当前运行进程</h3>
+
+<p>在 top 基本视图中，按键盘 b，(打开/关闭加亮效果)</p>
+
+<h3 id="显示完整的程序命令">显示完整的程序命令</h3>
+
+<p>$ top -c</p>
+
+<h3 id="显示指定的进程信息">显示指定的进程信息</h3>
+
+<p>$ top -p pid</p>
+
+<p>指定进程信息有多个时，需要结合其他工具将回车替换为(-p 支持 pid, pid, pid语法)</p>
+
+<p>$ top -p pgrep MULTI_PROCESS | tr &ldquo;\n&rdquo; &ldquo;,&rdquo; | sed &rsquo;s/,$//&rsquo;</p>
+
+<h1 id="更强大的工具-htop">更强大的工具 htop</h1>
+
+<p><strong>htop</strong></p>
+
+<p>htop 是一个Linux下的交互式的进程浏览器，可以用来替换Linux下的top命令</p>
+
+<p>与Linux传统的top比，htop更加人性化。它可让用户交互式操作，支持颜色主题，可横向或纵向滚动浏览进程列表，并支持鼠标操作</p>
+
+<p>与 top 相比，htop 有以下优点：</p>
+
+<ul>
+<li>可以横向或纵向滚动浏览进程列表，以便看到所有的进程和完整的命令行</li>
+<li>在启动上，比 top 更快</li>
+<li>杀进程时不需要输入进程号</li>
+<li>htop 支持鼠标操作</li>
+</ul>
+
+<p>top 缺点：
+- 只支持键盘操作
+- 显示也单调</p>
+
+<h2 id="语法">语法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">htop</pre></td></tr></table>
+</div>
+</div>
+<h2 id="参数">参数</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">-C --no-color               使用单色配色方案
+-d --delay<span class="o">=</span>DELAY            设置更新之间的延迟，在十秒
+-s --sort-key<span class="o">=</span>COLUMN        纵列排序<span class="o">(</span>try --sort-key<span class="o">=</span><span class="nb">help</span> <span class="k">for</span> a list<span class="o">)</span>
+-u --user<span class="o">=</span>USERNAME          只显示一个指定用户的进程
+-p --pid<span class="o">=</span>PID,<span class="o">[</span>,PID,PID...<span class="o">]</span>  只显示给用户
+-h --help                   打印此命令帮助
+-v --version                打印版本信息</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="选项">选项</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">h,?     F1：查看htop使用说明
+S       F2：设置
+/       F3：搜索进程
+<span class="se">\ </span>      F4：过滤器，按关键字搜索
+t       F5：显示树形结构
+&lt;,&gt;     F6：选择排序方式
+<span class="o">[</span>       F7：减少nice值，这样就可以提高对应进程的优先级
+<span class="o">]</span>       F8：增加nice值，这样可以降低对应进程的优先级
+k       F9：杀掉选中的进程
+q       F10：退出htop
+
+
+/ : 搜索字符
+h : 显示帮助
+l : 显示进程打开的文件: 如果安装了lsof，按此键可以显示进程所打开的文件
+u : 显示所有用户，并可以选择某一特定用户的进程
+U : 取消标记所有的进程
+s : 将调用strace追踪进程的系统调用
+t : 显示树形结构
+
+H：显示/隐藏用户线程
+I：倒转排序顺序
+K：显示/隐藏内核线程    
+M：按内存占用排序
+P：按CPU排序    
+T：按运行时间排序
+
+上下键或PgUP， PgDn : 移动选中进程  
+左右键或Home， End : 移动列表  
+Space<span class="o">(</span>空格<span class="o">)</span> : 标记/取消标记一个进程。命令可以作用于多个进程，例如 <span class="s2">&#34;kill&#34;</span>，将应用于所有已标记的进程
+Htop设定
+鼠标点击Setup或者按下F2 之后进入htop 设定的页面</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="设置">设置</h2>
+
+<ul>
+<li><p>Meters</p>
+
+<p>设定顶端的 显示信息，分为左右两侧，Left column 表示左侧的显示的信息，Right column表示右侧显示的信息，如果要新加选项，可以选择Available meters添加，F5新增到上方左侧，F6新增到上方右侧。Left column和Right column下面的选项，可以选定信息的显示方式，有LED、Bar(进度条)、Text(文本模式)，可以根据个人喜好进行设置</p></li>
+
+<li><p>Display options</p>
+
+<p>选择要显示的内容，按空格 x表示显示，选择完后，按F10保存</p></li>
+
+<li><p>Colors</p>
+
+<p>设定界面以什么颜色来显示，个人认为用处不大，各人喜好不同</p></li>
+
+<li><p>Colums</p>
+
+<p>作用是增加或取消要显示的各项内容，选择后F7(向上移动)、F8(向下移动)、F9(取消显示、F10(保存更改))此处增加了PPID、PGRP，根据各人需求，显示那些信息。</p></li>
+
+<li><p>F3 搜索进程</p>
+
+<p>在界面下按F3或直接输入”/”就可以直接进入搜索模式，是按照进程名进行搜索的，搜索到的进程会用设定的颜色标记出来，方便查看。</p></li>
+
+<li><p>F4：过滤器</p>
+
+<p>相当于模糊查找，不区分大小写，下方输入要搜索的内容后，则界面只显示搜索到的内容，更加方便查看</p></li>
+
+<li><p>F5: 以树形方式显示</p></li>
+
+<li><p>F6：排序方式</p>
+
+<p>按下F6后会跳转至以树形方式显示界面，让您选择以什么方式进行排序，在Sort by下选择您要以什么来排序</p></li>
+
+<li><p>F7，F8：调整进程nice值</p>
+
+<p>F7表示减小nice值(增大优先级)，F8增大nice值(减小优先级)，选择某一进程，按F7或F8来增大或减小nice值，nice值范围为-20-19</p></li>
+
+<li><p>F9：杀死进程</p>
+
+<p>选择某一进程按F9即可杀死此进程，很方便</p></li>
+
+<li><p>F10: 退出htop</p></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/top.html">top linux下的任务管理器</a></li>
+<li><a href="https://segmentfault.com/a/1190000008125006">Linux内存管理</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2011/07/linux_load_average_explained.html">理解Linux系统负荷</a></li>
+<li><a href="http://wangchujiang.com/linux-command/c/htop.html">htop</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzI3MTI2NzkxMA==&amp;mid=2247484585&amp;idx=1&amp;sn=6f49154c7f53025a616953803d5cd403&amp;chksm=eac52580ddb2ac96d2446a3cfe3d121720e9e103224b85bb377cf277f7714e4d324d1dc2281e&amp;mpshare=1&amp;scene=1&amp;srcid=1007s2mAwfKam3A2UidICBJ3#rd">一款比top强悍好用的进程管理监控工具</a></li>
+<li><a href="https://blog.fengcl.com/2017/11/04/htop-introduction/">Htop命令使用详解</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-05-29</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/tools/">tools</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">杭城 | 篮球</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/footprint/20180520-%E5%8D%83%E5%B2%9B%E6%B9%96/">
+            <span class="next-text nav-default">『心之所向，素履以往』— 千岛湖</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-05-29 17:53:01 \x2b0800 CST',
+        title: 'Linux | Tools | top \x26 htop',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

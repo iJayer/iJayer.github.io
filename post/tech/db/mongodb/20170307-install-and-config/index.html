@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MongoDB | 安装和配置 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="mongodb" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/db/mongodb/20170307-install-and-config/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="MongoDB | 安装和配置" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/db/mongodb/20170307-install-and-config/" /><meta property="article:published_time" content="2017-03-07T15:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-06-08T15:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="MongoDB | 安装和配置">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-03-07T15:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-06-08T15:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="1528">
+
+
+
+<meta itemprop="keywords" content="db,mongodb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB | 安装和配置"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MongoDB | 安装和配置</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-03-07 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1528 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#install-package-summary">Install Package Summary</a>
+<ul>
+<li><a href="#mongodb-org">mongodb-org</a></li>
+<li><a href="#mongodb-org-server">mongodb-org-server</a></li>
+<li><a href="#mongodb-org-mongos">mongodb-org-mongos</a></li>
+<li><a href="#mongodb-org-shell">mongodb-org-shell</a></li>
+<li><a href="#mongodb-org-tools">mongodb-org-tools</a></li>
+</ul></li>
+<li><a href="#windows">Windows</a>
+<ul>
+<li><a href="#download-install">Download &amp; Install</a></li>
+<li><a href="#configure-mongodb">Configure MongoDB</a></li>
+<li><a href="#create-mongodb-service">Create MongoDB Service</a></li>
+<li><a href="#start-mongodb-service">Start MongoDB Service</a></li>
+</ul></li>
+<li><a href="#linux">Linux</a>
+<ul>
+<li><a href="#download-install-1">Download &amp; Install</a>
+<ul>
+<li><a href="#ubuntu">Ubuntu</a></li>
+<li><a href="#centos-7">Centos-7</a></li>
+</ul></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#config-mongod">Config mongod</a>
+<ul>
+<li><a href="#创建目录文件">创建目录文件</a></li>
+<li><a href="#配置数据和日志文件目录">配置数据和日志文件目录</a></li>
+<li><a href="#配置远程访问">配置远程访问</a></li>
+<li><a href="#span-id-1-开启linux后台运行-span"><span id="1"> 开启Linux后台运行</span></a></li>
+<li><a href="#配置实例">配置实例：</a></li>
+<li><a href="#centos的配置步骤">CentOS的配置步骤</a></li>
+</ul></li>
+<li><a href="#enable-configure-file">Enable configure file</a>
+<ul>
+<li><a href="#ubuntu-1">ubuntu</a></li>
+<li><a href="#centos">centos</a></li>
+</ul></li>
+<li><a href="#运行">运行</a></li>
+<li><a href="#卸载">卸载</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="install-package-summary">Install Package Summary</h1>
+
+<p>MongoDB安装包说明：</p>
+
+<h2 id="mongodb-org">mongodb-org</h2>
+
+<ul>
+<li>可自动安装以下四个包</li>
+</ul>
+
+<h2 id="mongodb-org-server">mongodb-org-server</h2>
+
+<ul>
+<li>可安装mongod进程、配置文件和启动脚本</li>
+<li><code>mongod</code>：核心基础进程，用来接受和读写请求，负责存储实际数据; mongod实例是负责构建集群的基本单位，如Replica Set, Sharding Cluster、Config Server</li>
+</ul>
+
+<h2 id="mongodb-org-mongos">mongodb-org-mongos</h2>
+
+<ul>
+<li>可安装mongos进程</li>
+<li><code>mongos</code>：集群核心基础进程，是Sharding Cluster架构模式中的“路由”进程；即将客户端的请求转发到合适的Shard Server进行处理并将结果返回给客户端; mongos服务基本不存储数据，只是在内存中缓存部分shard key与shard server的对应关系，方便理由。</li>
+</ul>
+
+<h2 id="mongodb-org-shell">mongodb-org-shell</h2>
+
+<h2 id="mongodb-org-tools">mongodb-org-tools</h2>
+
+<ul>
+<li>mongoimport, mongoexport, mongodump, mongrestore, mongofiles, bsondump, mongooplog, mongoperf, mongostat, mongotop, (mongosniff)</li>
+</ul>
+
+<h1 id="windows">Windows</h1>
+
+<blockquote>
+<p>平台：Windows10-64bit</p>
+</blockquote>
+
+<h2 id="download-install">Download &amp; Install</h2>
+
+<ul>
+<li><a href="https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.4.4-signed.msi">Download MongoDB</a></li>
+</ul>
+
+<h2 id="configure-mongodb">Configure MongoDB</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建数据存放文件夹</span>		
+$ mkdir <span class="s2">&#34;C:\data\db&#34;</span>
+	 		
+<span class="c1"># 创建日志文件夹</span>
+$ mkdir <span class="s2">&#34;C:\data\log&#34;</span>
+<span class="c1"># 创建MongoDB服务配置文件</span>
+$ mongod.cfg	
+		
+<span class="c1"># 添加mongod.cfg数据</span>
+  	systemLog:
+		destination: file
+		path: c:<span class="se">\d</span>ata<span class="se">\l</span>og<span class="se">\m</span>ongod.log
+	storage:
+		dbPath: c:<span class="se">\d</span>ata<span class="se">\d</span>b
+	security:
+		authorization: <span class="s2">&#34;disabled&#34;</span>	</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="create-mongodb-service">Create MongoDB Service</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ sc.exe create MongoDB <span class="nv">binPath</span><span class="o">=</span> <span class="s2">&#34;\&#34;C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe\&#34; --service --config=\&#34;C:\data\mongod.cfg\&#34;&#34;</span> <span class="nv">DisplayName</span><span class="o">=</span> <span class="s2">&#34;MongoDB&#34;</span> <span class="nv">start</span><span class="o">=</span> <span class="s2">&#34;auto&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="start-mongodb-service">Start MongoDB Service</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动服务</span>
+$ net start MongoDB
+<span class="c1"># 停止</span>
+$ net stop MongoDB
+<span class="c1"># 重启</span>
+$ net start MongoDB</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="linux">Linux</h1>
+
+<blockquote>
+<p>平台</p>
+
+<ul>
+<li>Ubuntu14|16.04-LTS-64bit</li>
+<li>CentOS-7-64bit</li>
+</ul>
+</blockquote>
+
+<h2 id="download-install-1">Download &amp; Install</h2>
+
+<h3 id="ubuntu">Ubuntu</h3>
+
+<ul>
+<li><p>导入包管理系统使用的公钥</p>
+
+<ul>
+<li><code>$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6</code>
+<br /></li>
+</ul></li>
+
+<li><p>Create a list file for MongoDB</p>
+
+<ul>
+<li><code>$ echo &quot;deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</code>
+<br /></li>
+</ul></li>
+
+<li><p>更新软件源列表</p>
+
+<ul>
+<li><code>$ sudo apt-get update</code>
+<br /></li>
+</ul></li>
+
+<li><p>安装mongodb（默认是安装稳定版）</p>
+
+<ul>
+<li><code>$ sudo apt-get install -y mongodb-org</code>
+<br /></li>
+</ul></li>
+</ul>
+
+<h3 id="centos-7">Centos-7</h3>
+
+<p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">Official Mongo-Centos-Install Doc</a></p>
+
+<ul>
+<li><p>安装之前确保关闭SELinux防护，否则会出现服务启动失败</p>
+
+<ul>
+<li><p>查看状态：</p>
+
+<ul>
+<li><p><code>$ cat /etc/selinux/config |grep -v '#' |grep -i selinux</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 输出该信息表示关闭
+SELINUX=disabled        
+SELINUXTYPE=targeted</pre></td></tr></table>
+</div>
+</div></li>
+</ul></li>
+
+<li><p>如果没有则需要关闭SELinux，并且重启</p>
+
+<ul>
+<li><code>$ sed -i '/SELINUX/s/enforcing/disabled/' /etc/selinux/config</code></li>
+<li><code>$ reboot</code></li>
+</ul></li>
+</ul></li>
+
+<li><p>保存如下内容到 /etc/yum.repos.d/mongodb-org-3.4.repo</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[mongodb-org-3.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>sudo yum install -y mongodb-org</p></li>
+</ul>
+
+<h2 id="overview">Overview</h2>
+
+<blockquote>
+<ul>
+<li><code>/var/lib/mongodb</code>：MongoDB数据文件</li>
+<li><code>/var/log/mongodb</code>：MongoDB日志文件</li>
+<li><code>/etc/mongod.conf</code>：MongoDB配置文件，可在该文件指定数据和日志文件存放目录</li>
+<li><code>/etc/init.d/mongodb</code>：ubuntu的mongod服务启动控制脚本</li>
+<li><code>/usr/lib/systemd/system/mongod.service</code>：centos的mongod服务启动控制脚本</li>
+<li><code>mongo</code>：MongoDB客户端程序</li>
+<li><code>mongod</code>：MongoDB服务端程序</li>
+<li><code>默认由mongodb用户运行</code></li>
+</ul>
+</blockquote>
+
+<h2 id="config-mongod">Config mongod</h2>
+
+<blockquote>
+<p>注：</p>
+
+<ul>
+<li>ubuntu安装完成后没有生成 mongod.service脚本</li>
+<li>centos有生成mongod.service服务脚本，root账号使用该脚本时需要修改脚本相关属性为root。如果不配置此脚本将会导致服务启动失败。</li>
+<li>在mongod.conf中一定要开启<a href="#1">Linux后台运行</a>配置选项</li>
+</ul>
+</blockquote>
+
+<h3 id="创建目录文件">创建目录文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 创建数据存放目录
+$ mkdir -p /home/mongo/data/db
+
+# 创建日志文件存放目录
+$ mkdir -p /home/mongo/log/
+$ cd /home/mongo/log/ &amp;&amp; touch mongod.log</pre></td></tr></table>
+</div>
+</div>
+<h3 id="配置数据和日志文件目录">配置数据和日志文件目录</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ vim /etc/mongod.conf
+
+storage:
+  dbPath: /home/mongo/data/db
+systemLog: 
+  path: /home/mongo/log/mongod.log</pre></td></tr></table>
+</div>
+</div>
+<h3 id="配置远程访问">配置远程访问</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">net: 
+  port: 27017
+  bindIp: 127.0.0.1
+# 多个ip配置方式如下
+# bindIp: [127.0.0.1,192.168.1.105,xxx]
+
+# bindIp: 127.0.0.1 表示只允许本地连接
+# bindIp: 0.0.0.0   表示允许所有外网连接</pre></td></tr></table>
+</div>
+</div>
+<h3 id="span-id-1-开启linux后台运行-span"><span id="1"> 开启Linux后台运行</span></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">processManagement:
+  fork: true</pre></td></tr></table>
+</div>
+</div>
+<h3 id="配置实例">配置实例：</h3>
+
+<p><img src="./images/mongodb-conf.png" alt="配置文件" /></p>
+
+<h3 id="centos的配置步骤">CentOS的配置步骤</h3>
+
+<ul>
+<li>配置 mongod.conf</li>
+<li>软连接 /home/mongo/mongod.conf 到 /etc/mongod.conf(可选)</li>
+<li>修改 mongo.service配置
+<br /></li>
+</ul>
+
+<h2 id="enable-configure-file">Enable configure file</h2>
+
+<h3 id="ubuntu-1">ubuntu</h3>
+
+<ul>
+<li><p>直接启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ mongod --config /etc/mongod.conf 
+# 或者
+$ mongod -f /etc/mongod.conf</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>开机启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 将MongoDB启动配置文件加入到开机启动脚本
+$ vim /etc/profile
+
+# Set MongoDB Config
+# `&amp;` 表示在后台执行该命令，如果不加则会导致阻塞
+$ /usr/bin/mongod --config /etc/mongod.conf &amp;   </pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h3 id="centos">centos</h3>
+
+<ul>
+<li>mongod.serice 控制
+<br /></li>
+</ul>
+
+<h2 id="运行">运行</h2>
+
+<ul>
+<li><p>Start MongoDB</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ sudo service mongod start
+$ systemctl start mongod
+# 启动客户端
+$ mongo</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Stop MongoDB</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ sudo service mongod stop
+$ systemctl stop mongod</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Restart MongoDB</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ sudo service mongod restart
+$ systemctl restart mongod</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Lookup status</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ sudo service mongod status
+$ systemctl status mongod</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="卸载">卸载</h2>
+
+<ul>
+<li><p>先停止MongoDB服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ sudo service mongod stop </pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>删除软件包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ apt-get purge mongodb-org*
+$ sudo yum erase $(rpm -qa | grep mongodb-org)</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>删除数据和日志文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ rm -rf /home/data/db/
+$ rm -rf /home/data/log/</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/">MongoDb Official Doc</a></li>
+<li><a href="https://buzheng.org/2017/20170118-install-mongodb-on-ubuntu.html">Ubuntu安装MongoDB</a></li>
+<li><a href="http://www.voidcn.com/blog/junbujianwpl/article/p-6101618.html">Ubuntu下mongodb开机自启动</a></li>
+<li><a href="http://www.jianshu.com/p/65c220653afd">Mongodb-Centos7</a></li>
+<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">Install MongoDB CentOS</a></li>
+</ul>
+
+<p><a href="#content">返回目录</a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-06-08</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/db/">db</a>
+          <a href="/tags/mongodb/">mongodb</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | Context 基础</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/footprint/20160903-%E4%B9%8C%E9%95%87/">
+            <span class="next-text nav-default">『心之所向，素履以往』— 乌镇</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-03-07 15:53:01 \x2b0800 CST',
+        title: 'MongoDB | 安装和配置',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

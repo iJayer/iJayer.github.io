@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | Performance Optimization =&gt; pprof practice - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  pprof 小练习  " /><meta name="keywords" content="go, golang, pprof" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | Performance Optimization =&gt; pprof practice" />
+<meta property="og:description" content="
+
+
+
+pprof 小练习
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/" /><meta property="article:published_time" content="2018-06-15T13:48:02&#43;08:00"/>
+<meta property="article:modified_time" content="2018-06-15T13:48:02&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | Performance Optimization =&gt; pprof practice">
+<meta itemprop="description" content="
+
+
+
+pprof 小练习
+
+">
+
+
+<meta itemprop="datePublished" content="2018-06-15T13:48:02&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-15T13:48:02&#43;00:00" />
+<meta itemprop="wordCount" content="1293">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | Performance Optimization =&gt; pprof practice"/>
+<meta name="twitter:description" content="
+
+
+
+pprof 小练习
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | Performance Optimization =&gt; pprof practice</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-15 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1293 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#注册自定义的-pprof-接口-基于httprouter">注册自定义的 pprof 接口(基于httprouter)</a></li>
+<li><a href="#分析-memory">分析 Memory</a>
+<ul>
+<li><a href="#通过索引页-查看-heap-信息">通过索引页，查看 heap 信息</a></li>
+<li><a href="#通过-web-可视化视图查看内存分配信息">通过 web 可视化视图查看内存分配信息</a></li>
+</ul></li>
+<li><a href="#分析-cpu">分析 CPU</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>pprof 小练习</li>
+</ul>
+</blockquote>
+
+<blockquote>
+<p>实践练习项目：<a href="http://yangxikun.com/golang/2017/12/24/golang-profiling-optimizing.html">Golang profiling and optimizing</a></p>
+</blockquote>
+
+<h1 id="注册自定义的-pprof-接口-基于httprouter">注册自定义的 pprof 接口(基于httprouter)</h1>
+
+<ol>
+<li><p>注册接口函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 使用自定义的 endpoint 提供 pprof 分析, 采用 httprouter 提供路由
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">router</span> <span class="o">:=</span> <span class="nx">httprouter</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Index</span><span class="p">)</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/profile&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Profile</span><span class="p">)</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/trace&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Trace</span><span class="p">)</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/symbol&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Symbol</span><span class="p">)</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/cmdline&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nx">Cmdline</span><span class="p">)</span>    
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/heap&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nf">Handler</span><span class="p">(</span><span class="s">&#34;heap&#34;</span> <span class="p">.</span><span class="nx">ServeHTTP</span><span class="p">)</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/goroutine&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nf">Handle</span>    <span class="p">(</span><span class="s">&#34;goroutine&#34;</span><span class="p">).</span><span class="nx">ServeHTTP</span><span class="p">)</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/block&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nf">Handler</span><span class="p">(</span><span class="s">&#34;block&#34;</span>   <span class="p">.</span><span class="nx">ServeHTTP</span><span class="p">)</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/threadcreate&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nf">Handle</span> <span class="p">(</span><span class="s">&#34;threadcreate&#34;</span><span class="p">).</span><span class="nx">ServeHTTP</span><span class="p">)</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/debug/pprof/mutex&#34;</span><span class="p">,</span> <span class="nx">pprof</span><span class="p">.</span><span class="nf">Handler</span><span class="p">(</span><span class="s">&#34;mutex&#34;</span>   <span class="p">.</span><span class="nx">ServeHTTP</span><span class="p">)</span>    
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:8082&#34;</span><span class="p">,</span> <span class="nx">router</span><span class="p">))</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>运行服务</p>
+
+<blockquote>
+<p>Note: 如果启用了 Caddy 做反向代理，则需开启 proxy /debug host:ip 转发</p>
+</blockquote></li>
+
+<li><p>打开浏览器，进入 debug/pporf 的索引页面, 会有如下的输出：</p>
+
+<p><a href="https://host:ip/debug/pprof">https://host:ip/debug/pprof</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">/debug/pprof/
+
+profiles:
+0   block
+447 goroutine
+816 heap
+0   mutex
+5   threadcreate
+
+full goroutine stack dump</pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<blockquote>
+<p>Note: 这个索引页面上所有可统计的数据，包括 go tool pprof 采集到的数据都依赖于进程中的 pprof 采样率, 默认 512KB 采样一次, 当需求的数据不够精确时，可以调节采样率：runtime.MemProfileRate, 但是采样率越低，进程云进行速度越慢。</p>
+</blockquote>
+
+<h1 id="分析-memory">分析 Memory</h1>
+
+<h2 id="通过索引页-查看-heap-信息">通过索引页，查看 heap 信息</h2>
+
+<p><a href="https://host:ip/debug/pprof/heap?debug=1">https://host:ip/debug/pprof/heap?debug=1</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">heap profile: 4: 1136 [12390: 25948656] @ heap/1048576
+2: 768 [2: 768] @ 0x433b71 0x43408d 0x455ce6 0x456739 0x42f050
+#	0x433b70	runtime.malg+0x30		D:/Go/src/runtime/proc.go:3221
+#	0x43408c	runtime.newproc1+0x42c		D:/Go/src/runtime/proc.go:3273
+#	0x455ce5	runtime.newproc.func1+0x45	D:/Go/src/runtime/proc.go:3244
+#	0x456738	runtime.systemstack+0x78	D:/Go/src/runtime/asm_amd64.s:409
+#	0x42f050	runtime.mstart+0x0		D:/Go/src/runtime/proc.go:1175
+
+1: 352 [137: 48224] @ 0x8a9f82 0x76d1f7 0x7726f8 0x6beb00 0x76310e 0x66b5e4 0x66e28c 0x66a601 0x4590a1
+#	0x8a9f81	qx-api/src/resource.(*Robot).Create+0x41			D:/code/Go_Path/src/qx-api/src/resource/robot.go:59
+#	0x76d1f6	qx-api/src/api.(*resource).handleCreate+0x186			D:/code/Go_Path/src/qx-api/src/api/resource.go:121
+#	0x7726f7	qx-api/src/api.(*API).addResource.func2+0x407			D:/code/Go_Path/src/qx-api/src/api/api.go:96
+#	0x6beaff	github.com/julienschmidt/httprouter.(*Router).ServeHTTP+0x76f	D:/code/Go_Path/src/github.com/julienschmidt/httprouter/router.go:344
+#	0x76310d	github.com/rs/cors.(*Cors).Handler.func1+0xfd			D:/code/Go_Path/src/github.com/rs/cors/cors.go:190
+#	0x66b5e3	net/http.HandlerFunc.ServeHTTP+0x43				D:/Go/src/net/http/server.go:1947
+#	0x66e28b	net/http.serverHandler.ServeHTTP+0xbb				D:/Go/src/net/http/server.go:2694
+#	0x66a600	net/http.(*conn).serve+0x650					D:/Go/src/net/http/server.go:1830
+
+------------------------------------------------------------------------------------
+
+# runtime.MemStats
+# Alloc = 4693984
+# TotalAlloc = 6570567768
+# Sys = 15476984
+# Lookups = 6441
+# Mallocs = 106981880
+# Frees = 106936207
+# HeapAlloc = 4693984
+# HeapSys = 10321920
+# HeapIdle = 4726784
+# HeapInuse = 5595136
+# HeapReleased = 2342912
+# HeapObjects = 45673
+# Stack = 2260992 / 2260992
+# MSpan = 95608 / 147456
+# MCache = 1736 / 16384
+# BuckHashSys = 1700763
+# GCSys = 610304
+# OtherSys = 419165
+# NextGC = 5206176
+# LastGC = 1529050738440737221
+# PauseNs = [24391 22047 27986 23706 33849 31450 29197 26735 40822 26734 25389 24701 32894 38224 22443 23303 31302 66411 73710 .......]
+# PauseEnd = [1529050573425521907 1529050575212897649 1529050576923992459 1529050579026633238 1529050580885216128 1529050582768778420 .......]
+# NumGC = 2905
+# NumForcedGC = 0
+# GCCPUFraction = 0.0006629790327640667
+# DebugGC = false</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 其中显示的内容会比较多，但是主体分为2个部分:
+- 第一部分：打印的是通过 runtime.MemProfile() 获取的 runtime.MemProfileRecord 记录。其含义为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">   heap profile: 4(inused_objects): 1136(inused_bytes) [12390((alloc objects)): 25948656(alloc bytes)] @ heap/1048576((2*MemProfileRate))
+   2: 768 [2: 768] @ 0x433b71 0x43408d 0x455ce6 0x456739 0x42f050(0xxxx表示: 记录中的栈指针)
+   #  0x433b70    runtime.malg+0x30       D:/Go/src/runtime/proc.go:3221 (栈信息)</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>第二部分：打印的是通过 runtime.ReadMemStats() 读取的 runtime.MemStats 信息
+
+<ul>
+<li>Sys: 进程从系统获得的内存空间，虚拟地址空间(单位：bytes)</li>
+<li>HeapAlloc: 进程对内存分配使用的内存空间, 通常是用户 new 出来的堆对象, 包含未被 gc 掉的</li>
+<li>HeapSys: 进程从系统获得的堆内存，因为 golang 底层使用 TCmalloc 机制，会缓存一部分堆内存，虚拟地址空间</li>
+<li>PauseNs: 记录每次 gc 暂停的时间(单位：ns)，最多记录 256 个最新记录</li>
+<li>NumGC: 记录GC发生的次数</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<h2 id="通过-web-可视化视图查看内存分配信息">通过 web 可视化视图查看内存分配信息</h2>
+
+<ol>
+<li><p>执行命令：默认采集 inuse_space, 加 -alloc_space 采集程序整个生命周期内的内存分配</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ go tool pprof https://host:ip:1013/debug/pprof/heap 
+$ go tool pprof -alloc_space https://host:ip/debug/pprof/heap </pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>进入交互式命令行: 输入 <code>web</code> 命令，进入可视化界面</p>
+
+<ul>
+<li>inuse_space</li>
+</ul>
+
+<p><img src="1" alt="" /></p>
+
+<ul>
+<li>alloc_space</li>
+</ul>
+
+<p><img src="2" alt="" /></p></li>
+</ol>
+
+<blockquote>
+<p>总结：</p>
+
+<ul>
+<li><p>不管是使用 <code>top</code> 命令查看输出的内存分配率，还是使用 <code>web</code> 命令查看可视化的分配图，都可以看出在 <code>string-[]byte相互转换</code>、<code>分配map: reflect.mapassign</code>、<code>创建切片:bytes.makeSlice</code>、<code>json编解码：encoding/json.Unmarshal</code> 等函数调用上，累计分配的内存较多。</p>
+
+<ul>
+<li>针对该问题就可以进行代码 review, 设计如何减少这些函数的调用次数或者优化相关代码逻辑</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<h1 id="分析-cpu">分析 CPU</h1>
+
+<ol>
+<li><p>执行命令:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">go tool pprof https://open.robot-qixing.com:1013/debug/pprof/profile</pre></td></tr></table>
+</div>
+</div>
+<p>waitting 30s &hellip;</p></li>
+
+<li><p>进入交互式命令行: 输入 <code>web</code> 命令，进入可视化界面</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>zhe@zhe ~<span class="o">]</span>$ go tool pprof https://open.robot-qixing.com:1013/debug/pprof/profile
+Fetching profile over HTTP from https://open.robot-qixing.com:1013/debug/pprof/profile
+Local symbolization failed <span class="k">for</span> app: open /home/api/app: The system cannot find the path specified.
+Some binary filenames not available. Symbolization may be incomplete.
+Try setting PPROF_BINARY_PATH to the search path <span class="k">for</span> <span class="nb">local</span> binaries.
+Saved profile in C:<span class="se">\U</span>sers<span class="se">\z</span>he<span class="se">\p</span>prof<span class="se">\p</span>prof.app.samples.cpu.002.pb.gz
+File: app
+Type: cpu
+Time: Jun <span class="m">15</span>, <span class="m">2018</span> at <span class="m">3</span>:33pm <span class="o">(</span>CST<span class="o">)</span>
+Duration: 30s, Total <span class="nv">samples</span> <span class="o">=</span> <span class="m">1</span>.20s <span class="o">(</span> <span class="m">4</span>.00%<span class="o">)</span>
+Entering interactive mode <span class="o">(</span><span class="nb">type</span> <span class="s2">&#34;help&#34;</span> <span class="k">for</span> commands, <span class="s2">&#34;o&#34;</span> <span class="k">for</span> options<span class="o">)</span>
+<span class="o">(</span>pprof<span class="o">)</span>
+<span class="o">(</span>pprof<span class="o">)</span>
+<span class="o">(</span>pprof<span class="o">)</span> web</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://juejin.im/entry/596827706fb9a06bc569044c">golang 内存分析/动态追踪</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-06-15</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180619-performance-optimization-05-experience/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | Performance Optimization =&gt; 优化建议</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180610-stdlib-runtime/">
+            <span class="next-text nav-default">Golang | Stdlib - runtime</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-06-15 13:48:02 \x2b0800 CST',
+        title: 'Golang | Performance Optimization =\x3e pprof practice',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

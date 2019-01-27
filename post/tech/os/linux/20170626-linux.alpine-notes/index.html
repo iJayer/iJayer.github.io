@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux | Alpine 学习笔记 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/os/linux/20170626-linux.alpine-notes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux | Alpine 学习笔记" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/os/linux/20170626-linux.alpine-notes/" /><meta property="article:published_time" content="2017-06-26T17:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-06-26T19:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="Linux | Alpine 学习笔记">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-06-26T17:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-06-26T19:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="958">
+
+
+
+<meta itemprop="keywords" content="linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux | Alpine 学习笔记"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux | Alpine 学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-06-26 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 958 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#包管理-apk">包管理 <code>apk</code></a>
+<ul>
+<li><a href="#镜像源配置">镜像源配置</a></li>
+<li><a href="#apk包管理命令">apk包管理命令</a></li>
+</ul></li>
+<li><a href="#网络配置">网络配置</a>
+<ul>
+<li><a href="#hostname-配置">hostname 配置</a></li>
+<li><a href="#dns-配置">DNS 配置</a></li>
+<li><a href="#ip配置">IP配置</a></li>
+<li><a href="#iptables防火墙安装">iptables防火墙安装</a></li>
+<li><a href="#network服务重启">network服务重启</a></li>
+</ul></li>
+<li><a href="#alpine-linux-init-系统">Alpine Linux Init 系统</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="简介">简介</h1>
+
+<blockquote>
+<p><a href="https://alpinelinux.org/">https://alpinelinux.org/</a></p>
+</blockquote>
+
+<h1 id="包管理-apk">包管理 <code>apk</code></h1>
+
+<h2 id="镜像源配置">镜像源配置</h2>
+
+<ul>
+<li><p>官方镜像源：<a href="http://rsync.alpinelinux.org/alpine/MIRRORS.txt">http://rsync.alpinelinux.org/alpine/MIRRORS.txt</a><br />
+MIRRORS.txt中是当前Alpine官方提供的镜像源（Alpine安装的时候系统自动选择最佳镜像源），但是列表中并未列出国内几个包含国内较好镜像源，列举如下：</p>
+
+<ul>
+<li>清华TUNA 镜像源：<a href="https://mirror.tuna.tsinghua.edu.cn/alpine/">https://mirror.tuna.tsinghua.edu.cn/alpine/</a></li>
+<li>中科大镜像源：<a href="http://mirrors.ustc.edu.cn/alpine/">http://mirrors.ustc.edu.cn/alpine/</a></li>
+<li>阿里云镜像源：<a href="http://mirrors.aliyun.com/alpine/">http://mirrors.aliyun.com/alpine/</a>
+<br /></li>
+</ul></li>
+
+<li><p>镜像源配置：</p>
+
+<ul>
+<li>配置文件：/etc/apk/repositories</li>
+</ul></li>
+</ul>
+
+<h2 id="apk包管理命令">apk包管理命令</h2>
+
+<p>通过 <code>apk --help</code> 命令可查看完整的包管理命令</p>
+
+<ul>
+<li><p><code>update</code></p>
+
+<p>从远程镜像源中更新本地镜像源索引</p>
+
+<ul>
+<li><code>apk update</code></li>
+<li>update 命令会从各个镜像源列表下载APKINDEX.tar.gz并存储到本地缓存, 一般在 /var/cache/apk (Alpinez在该目录)、/var/lib/apk、/etc/apk/cache下。</li>
+</ul></li>
+
+<li><p><code>add</code></p>
+
+<p>安装Packages并自动解决依赖关系</p>
+
+<ul>
+<li><code>apk add openssl vim</code></li>
+<li><code>apk add docker --update-cache --repository http:////mirrors.ustc.edu.cn/alpine/v3.4/main/ --allow-untrusted</code></li>
+<li>apk 命令从仓库中安装最新的软件包, 并自动安装必需的依赖包，也可以从第三方仓库安装软件包
+<br /></li>
+</ul></li>
+
+<li><p><code>del</code></p>
+
+<p>卸载并删除Packages</p>
+
+<ul>
+<li><code>apk del openssl vim</code></li>
+</ul></li>
+
+<li><p><code>upgrade</code></p>
+
+<p>升级当前已安装的软件包(一般包括内核)</p>
+
+<ul>
+<li><code>apk update</code>                # 一般先，更新本地镜像源列表</li>
+<li><code>apk upgrade</code>               # 升级软件</li>
+<li><code>apk add --upgrade busybox</code> # 升级指定的软件包</li>
+</ul></li>
+
+<li><p><code>search</code></p>
+
+<p>搜索可用软件包，<code>-v</code> 参数输出描述内容, 支持通配符；<code>-d</code> 或 <code>--description</code>参数指定通过软件包描述查询。</p>
+
+<ul>
+<li><code>apk search</code>              # 查找所有可用的软件包</li>
+<li><code>apk search -v</code>           # 查找所有可用的软件包及描述内容</li>
+<li><code>apk search -v 'acf*'</code>    # 通过软件包名称查找软件</li>
+<li><code>apk search -d 'docker'</code>  # 通过描述文件查找特定的软件包</li>
+</ul></li>
+
+<li><p><code>info</code></p>
+
+<p>列出Packages或镜像源的信息, <code>-a</code> 参数可显示详细信息.</p>
+
+<ul>
+<li><code>apk info</code>                # 列出所有已安装的软件包</li>
+<li><code>apk info -a git</code>         # 显示完整的软件包信息</li>
+</ul></li>
+</ul>
+
+<h1 id="网络配置">网络配置</h1>
+
+<h2 id="hostname-配置">hostname 配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">echo &#34;hostname&#34; &gt;&gt; /etc/hostname
+hostname -F /etc/hostname</pre></td></tr></table>
+</div>
+</div>
+<h2 id="dns-配置">DNS 配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">vim /etc/resolv.conf
+
+nameserver 8.8.8.8
+nameserver 114.114.114.114</pre></td></tr></table>
+</div>
+</div>
+<h2 id="ip配置">IP配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">vim /etc/network/interfaces
+
+#lo
+auto lo
+iface lo inet loopback
+#dhcp自动获取配置ip
+    auto eth0
+    iface eth0 inet dhcp
+#static配置静态ip
+    iface eth0 inet static
+        address 192.168.1.169
+        netmask 255.255.255.0
+        gateway 192.168.1.1</pre></td></tr></table>
+</div>
+</div>
+<h2 id="iptables防火墙安装">iptables防火墙安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apk add iptables
+apk add ip6tables
+apk add iptables-doc</pre></td></tr></table>
+</div>
+</div>
+<h2 id="network服务重启">network服务重启</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">/etc/init.d/networking restart
+
+service networking restart</pre></td></tr></table>
+</div>
+</div>
+<h1 id="alpine-linux-init-系统">Alpine Linux Init 系统</h1>
+
+<p>Alpine使用 <a href="https://en.wikipedia.org/wiki/OpenRC" title="OpenRC">OpenRC</a> init 系统</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://www.10tiao.com/html/357/201702/2247484888/1.html">Alpine Linux配置使用技巧</a></li>
+<li><a href="https://www.lakevilladom.com/2016/10/23/Alpine-Linux%E9%85%8D%E7%BD%AE%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E/">Alpine Linux配置使用</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-06-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/cloud/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Docker | 私有仓库搭建</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/">
+            <span class="next-text nav-default">MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-06-26 17:53:01 \x2b0800 CST',
+        title: 'Linux | Alpine 学习笔记',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

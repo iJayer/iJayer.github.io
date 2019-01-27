@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | 数据卷 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/docker/20170503-data-volume/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | 数据卷" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/docker/20170503-data-volume/" /><meta property="article:published_time" content="2017-05-03T16:39:25&#43;08:00"/>
+<meta property="article:modified_time" content="2017-05-03T18:39:25&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | 数据卷">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-05-03T16:39:25&#43;08:00" />
+<meta itemprop="dateModified" content="2017-05-03T18:39:25&#43;00:00" />
+<meta itemprop="wordCount" content="820">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | 数据卷"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | 数据卷</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-03 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 820 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#数据卷">数据卷</a></li>
+<li><a href="#添加数据卷">添加数据卷</a></li>
+<li><a href="#删除数据卷">删除数据卷</a></li>
+<li><a href="#挂载宿主机目录">挂载宿主机目录</a></li>
+<li><a href="#挂载数据卷容器">挂载数据卷容器</a></li>
+<li><a href="#数据卷备份与恢复">数据卷备份与恢复</a>
+<ul>
+<li><a href="#备份">备份</a></li>
+<li><a href="#恢复">恢复</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="数据卷">数据卷</h1>
+
+<p>数据卷(Data Volume): 可供一个或多个容器使用的特殊目录，绕过<code>UFS</code></p>
+
+<ul>
+<li>Data Volume可在容器间共享和重用</li>
+<li>对Data Volume的修改立马生效</li>
+<li>对Data Volume的更新不影响镜像</li>
+<li>Data Volume默认一直存在，即使容器被删除<br />
+<br /></li>
+</ul>
+
+<blockquote>
+<p>Note：</p>
+
+<ul>
+<li>Data Volume用法类似于Linux下对文件|目录进行<code>mount</code></li>
+</ul>
+</blockquote>
+
+<h1 id="添加数据卷">添加数据卷</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Usage
+# docker run -v [HOST_PATH]:[CONTAINER_PATH] IMAGE [COMMAND] [ARG...]
+# HOST_PATH：宿主机文件系统路径；CONTAINER_PATH：容器文件系统路径(路径都为绝对路径)
+# -v：创建数据卷并挂载到容器，一次run可用多个-v，建立多个数据卷
+
+$ docker run --name datavolume -it -d -v /data ubuntu:14.04 /bin/bash</pre></td></tr></table>
+</div>
+</div>
+<h1 id="删除数据卷">删除数据卷</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Usage
+# docker rm [OPTIONS] CONTAINER [CONTAINER...]
+# 数据卷生命周期独立于容器,不随容器删除而删除
+# 在删除容器时用：docker rm -v移除数据卷
+
+$ docker rm -v datavolume </pre></td></tr></table>
+</div>
+</div>
+<h1 id="挂载宿主机目录">挂载宿主机目录</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># `-v`:  指定宿主机目录挂载到容器     
+# `:ro`: docker默认数据卷权限为读写，`:ro`指定为只读  
+
+$ docker run --name datavolume -v /home/data:/home/mongo/db ubuntu:14.04 /bin/bash</pre></td></tr></table>
+</div>
+</div>
+<p>查看数据卷信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Usage     
+# docker inspect [OPTIONS] Container_NAME|ID [NAME|ID...]    
+$ docker inspect datavolume     </pre></td></tr></table>
+</div>
+</div>
+<p>挂载本地文件作为数据卷</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># `-v`: 亦可指定主机文件挂载到容器       
+$ docker rum --rm -it -v ~/.bash_history:/.bash_history ubuntu14:04 /bin/bash</pre></td></tr></table>
+</div>
+</div>
+<h1 id="挂载数据卷容器">挂载数据卷容器</h1>
+
+<p>挂在数据卷容器主要用于容器间共享数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Usage
+# --volumes-from list —&gt;Mount volumes from the specified container(s) (default[])
+# 创建容器时通过`--volumes-from`参数指定要挂载的数据卷容器
+# 将datavolume容器的`/home/mongo/db`数据卷, 挂载到另一个容器中
+
+$ docker run --name mydb -d --volumes-from datavolume ubuntu:14.04 /bin/bash</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>数据卷容器间可以<code>级联</code>挂载<br /></li>
+<li><code>--volumes-from</code>指定的数据卷容器在挂载时不需要保持运行状态</li>
+</ul>
+</blockquote>
+
+<h1 id="数据卷备份与恢复">数据卷备份与恢复</h1>
+
+<h2 id="备份">备份</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 备份mydb容器中的数据卷/home/mongo/db, 到宿主机目录下的backup.tar文件中    
+$ docker run --name mybackup --rm --volumes-from mydb -v $(PWD):/home/back ubuntu:14.04 tar zcvf /home/backup/backup.tar.gz /home/mongo/db</pre></td></tr></table>
+</div>
+</div>
+<h2 id="恢复">恢复</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 恢复本地目录下的backup.tar.gz文件到mydb容器下的/home/mongo/db数据卷
+$ docker run --rm --volumes-from mydb -v $(pwd):/backup ubuntu:14.04 tar zxvf /backup/backup.tar.gz</pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/data_management/volume.html">数据卷</a></li>
+<li><a href="http://www.kancloud.cn/lyric/docker-intro/79894">数据卷使用</a></li>
+<li><a href="https://www.binss.me/blog/learn-docker-with-me-about-volume/">Docker—Volume</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-05-03</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/cloud/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Docker | 容器间访问方式</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/cloud/docker/20170502-deploy-go-app-with-docker/">
+            <span class="next-text nav-default">Docker | 使用 Docker 部署 Go 程序</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-05-03 16:39:25 \x2b0800 CST',
+        title: 'Docker | 数据卷',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

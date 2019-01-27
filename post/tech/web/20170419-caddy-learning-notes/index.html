@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Caddy | 学习笔记 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="web" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Caddy | 学习笔记" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/" /><meta property="article:published_time" content="2017-04-19T17:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2018-04-24T19:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="Caddy | 学习笔记">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-04-19T17:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-24T19:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="3387">
+
+
+
+<meta itemprop="keywords" content="web," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Caddy | 学习笔记"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Caddy | 学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-19 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3387 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#安装">安装</a>
+<ul>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#windows">Windows</a></li>
+<li><a href="#source-code">Source code</a></li>
+</ul></li>
+<li><a href="#运行">运行</a></li>
+<li><a href="#应用-配置caddy">应用(配置Caddy)</a>
+<ul>
+<li><a href="#静态文件-server">静态文件 Server</a></li>
+<li><a href="#单一站点">单一站点</a></li>
+<li><a href="#多站点部署">多站点部署</a></li>
+<li><a href="#反向代理">反向代理</a>
+<ul>
+<li><a href="#服务器ip-反向代理">服务器IP 反向代理</a></li>
+<li><a href="#域名-反向代理-http">域名 反向代理 HTTP</a></li>
+<li><a href="#域名-反向代理-https">域名 反向代理 HTTPS</a></li>
+<li><a href="#http-重定向为-https">HTTP 重定向为 HTTPS</a></li>
+</ul></li>
+<li><a href="#负载均衡">负载均衡</a></li>
+<li><a href="#websocket">Websocket</a></li>
+<li><a href="#https">HTTPS</a>
+<ul>
+<li><a href="#自助申请letsencrypt证书">自助申请letsencrypt证书</a></li>
+<li><a href="#自签发证书">自签发证书</a></li>
+</ul></li>
+<li><a href="#权限认证">权限认证</a>
+<ul>
+<li><a href="#basic-auth">Basic Auth</a></li>
+<li><a href="#jwt">JWT</a></li>
+</ul></li>
+<li><a href="#用-cors-解决跨域">用 CORS 解决跨域</a></li>
+<li><a href="#地址过滤">地址过滤</a></li>
+<li><a href="#请求限流">请求限流</a></li>
+<li><a href="#重定向">重定向</a></li>
+</ul></li>
+<li><a href="#生产环境使用">生产环境使用</a>
+<ul>
+<li><a href="#caddy-配置">Caddy 配置</a>
+<ul>
+<li><a href="#修改-caddy-可执行文件使用权限">修改 caddy 可执行文件使用权限</a></li>
+<li><a href="#创建用户组-www-data-及用户-www-data">创建用户组(www-data)及用户(www-data)</a></li>
+<li><a href="#创建存放-caddy-配置文件的目录">创建存放 caddy 配置文件的目录</a></li>
+<li><a href="#创建-ssl-证书存放目录">创建 SSL 证书存放目录</a></li>
+<li><a href="#创建-caddyfile">创建 Caddyfile</a></li>
+<li><a href="#最后-创建一个网址放置目录-并且将需要部署的网站-例如-qs-com-拷贝到-www-目录下">最后，创建一个网址放置目录, 并且将需要部署的网站 (例如：qs.com ) 拷贝到 www 目录下</a></li>
+</ul></li>
+<li><a href="#系统服务-linux">系统服务(Linux)</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="安装">安装</h1>
+
+<h2 id="linux">Linux</h2>
+
+<blockquote>
+<p>Note: You must specify a personal or commercial license; see getcaddy.com for instructions. (安装时要求必须给出一种许可证，所以下面命令添加了选项：<code>-s personal</code>)</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 一键安装脚本</span>
+<span class="o">[</span>zhe@zhe Temp<span class="o">]</span>$ curl https://getcaddy.com <span class="p">|</span> bash -s personal 
+
+<span class="c1"># 查看文件安装路径</span>
+<span class="o">[</span>zhe@zhe Temp<span class="o">]</span>$ which caddy</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="windows">Windows</h2>
+
+<p><a href="https://caddyserver.com/download">download</a></p>
+
+<ul>
+<li><p>platform 选择需要安装的平台</p></li>
+
+<li><p>plugins 选择需要的插件(可以不选)</p></li>
+
+<li><p>下载完成后解压即可得到 caddy.exe</p></li>
+</ul>
+
+<h2 id="source-code">Source code</h2>
+
+<p>从 <a href="github.com/mholt/caddy/caddy">源码</a> 安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">go get github.com/mholt/caddy/caddy</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note: <a href="https://github.com/Unknwon/wuwen.org/issues/11">从源码安装参考</a></p>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h1 id="运行">运行</h1>
+
+<blockquote>
+<p>以 Linux 平台作测试</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 直接运行即可</span>
+<span class="o">[</span>zhe@zhe Temp<span class="o">]</span>$ caddy
+Activating privacy features... <span class="k">done</span>.
+http://:2015
+
+<span class="c1"># Output: visit http://:2015, got 404 Not Found 则表示成功</span>
+
+<span class="c1"># 从指定的 Caddyfile 中读取配置启动服务</span>
+<span class="o">[</span>zhe@zhe Temp<span class="o">]</span>$ caddy -conf /path/to/Caddyfile</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: caddy 从当前目录的 <code>Caddyfile(默认)</code> 文件中读取配置; 也可以通过 <code>-conf</code> 指定配置文件路径</p>
+</blockquote>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h1 id="应用-配置caddy">应用(配置Caddy)</h1>
+
+<p><strong><code>官方文档</code></strong>：<a href="https://caddyserver.com/tutorial/caddyfile">Caddyfile Primer(入门书)</a>、<a href="https://caddyserver.com/docs">Caddyfile Directive(指令介绍)</a></p>
+
+<p>Caddyfile格式: Caddyfile 总是以站点的 <code>Addr</code> 开始,  <code>#</code> 表示注释；且之后的每一行都是官方提供的指令</p>
+
+<h2 id="静态文件-server">静态文件 Server</h2>
+
+<p>文件目录结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[root@qxs /home/caddy/test]$ tree
+.
+├── caddy
+├── Caddyfile
+├── test
+│   └── test.txt
+├── test01.txt
+└── test02.txt</pre></td></tr></table>
+</div>
+</div>
+<p>Caddyfile 内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">localhost:7055 <span class="o">{</span>
+    root ./ 
+    browse  <span class="c1"># 支持浏览文件</span>
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note: 对于静态文件Server，caddy支持在website的root路径下首先查找是否有如下四个文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// caddy/middleware/browse/browse.go
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">IndexPages</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
+    <span class="s">&#34;index.html&#34;</span><span class="p">,</span>
+    <span class="s">&#34;index.htm&#34;</span><span class="p">,</span>
+    <span class="s">&#34;default.html&#34;</span><span class="p">,</span>
+    <span class="s">&#34;default.htm&#34;</span><span class="p">,</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<ul>
+<li><p>如果查到有其中一个，则优先返回这个文件内容，这就是静态站点的首页。</p></li>
+
+<li><p>如果要支持目录文件列表浏览，则需要为 website 配置 browse middleware，这样对于无 index file 的目录，我们可以看到目录文件列表。</p></li>
+</ul>
+</blockquote>
+
+<h2 id="单一站点">单一站点</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">localhost:8080
+
+gzip                <span class="c1"># 支持 gzip 压缩</span>
+root /home/mes/www  <span class="c1"># 网站目录</span>
+...                 </code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="多站点部署">多站点部署</h2>
+
+<blockquote>
+<p>Note: 多站点部署即是： <code>80</code> 端口多路复用</p>
+</blockquote>
+
+<p>如果需要配置独立的虚拟主机，需要将配置信息移动到站点名之后的大括号内：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mysite.com <span class="o">{</span>
+    root /www/mysite.com
+<span class="o">}</span>
+
+sub.mysite.com <span class="o">{</span>
+    root /www/sub.mysite.com
+    gzip
+    log ../access.log
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>左括号必须与站点名位于同一行，而右括号则是必须单起一行</li>
+<li>站点地址配置多个的话，需要用 <code>,</code>  <code>空格</code> 隔开， 且最后的地址和大括号之间也要有空格</li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">localhost:2020, https://site.com, http://mysite.com <span class="o">{</span>
+    ...
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>当 Caddy 检测到站点名符合下列条件时会自动使用 Let&rsquo;s Encrypt 脚本来为站点添加 HTTPS 支持，并且自动监听 80 与 443 端口：</p>
+
+<blockquote>
+<ul>
+<li><p>主机名不可为空并且没有 localhost 与 IP 地址</p></li>
+
+<li><p>端口号未明确指定为 80</p></li>
+
+<li><p>Scheme 未明确指定为 http</p></li>
+
+<li><p>TLS 未被关闭</p></li>
+
+<li><p>未指明证书</p></li>
+</ul>
+</blockquote>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h2 id="反向代理">反向代理</h2>
+
+<p><code>proxy</code> 指令提供了基本的反向代理功能, 其支持 Health Checks 和 Failovers, 并且支持对 Websocket 的反向代理。</p>
+
+<ul>
+<li><p>其基本语法为：<code>proxy from to</code></p>
+
+<ul>
+<li>from: 即是请求匹配的基本路径</li>
+<li>to: 则是请求转发的端点地址。</li>
+</ul></li>
+
+<li><p>将所有发往 /v0 的API接口请求转发到 localhost:7005 的后端服务程序</p></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">proxy /v0 localhost:7005</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>使用随机策略将所有请求负载均衡到三个后端服务器</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">proxy / web1.local:7005 web2.local:8005 web3.local:8007</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>使用循环机制</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">proxy / web1.local:80 web2.local:90 web3.local:100 <span class="o">{</span>    
+    policy round_robin
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>添加健康检查，并且透明转发主机名、地址与上游：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">proxy / web1.local:80 web2.local:90 web3.local:100 <span class="o">{</span>    
+    policy round_robin
+    health_check /health
+    transparent
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>转发 websocket 请求</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">proxy /ws localhost:7005 <span class="o">{</span>
+    websocket
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>避免对静态请求转发</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">proxy / localhost:7005 <span class="o">{</span>
+    except /static/ /robots.txt
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">localhost:2015 <span class="o">{</span>
+    log ./2015.log
+
+    proxy /foo localhost:9001
+    proxy /bar localhost:9002
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<ul>
+<li>当访问 localhost:2015/foo 时，实际上访问的是 9001 端口的服务程序；<br /></li>
+<li>当访问 localhost:2015/bar 时，实际上访问的是 9002 端口的服务程序。</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>使用 <code>transparent</code> 指令增加 X-* 的头</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">header_upstream Host {host}
+header_upstream X-Real-IP {remote}
+header_upstream X-Forwarded-For {remote}
+header_upstream X-Forwarded-Proto {scheme}</pre></td></tr></table>
+</div>
+</div>
+<h3 id="服务器ip-反向代理">服务器IP 反向代理</h3>
+
+<p>用服务器的 IP 来反向代理一个 http 协议的网站 <a href="http://www.baidu.com">http://www.baidu.com</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">:80 <span class="o">{</span>
+    gzip
+    proxy / http://www.baidu.com
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 服务器IP 也可以反向代理 HTTPS 协议的网站，但是需要自签SSL证书，现在的浏览器一般都不会认 自签的SSL证书，所以不建议这么做</p>
+</blockquote>
+
+<h3 id="域名-反向代理-http">域名 反向代理 HTTP</h3>
+
+<p>用域名来反向代理一个 http 协议的网站 <a href="http://www.baidu.com">http://www.baidu.com</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">http://toyoo.ml <span class="o">{</span>
+    gzip
+    proxy / http://www.baidu.com
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="域名-反向代理-https">域名 反向代理 HTTPS</h3>
+
+<ul>
+<li>如果有SSL证书和密匙的话, 参考 <a href="#372-自签发证书">HTTPS-自签发证书</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">https://toyoo.ml <span class="o">{</span>
+    gzip
+    tls /path/to/xxx.crt /path/to/xxx.key
+    proxy / https://www.baidu.com
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>如果没有 SSL证书和密匙， 参考<a href="#371-自助申请letsencrypt证书">HTTPS-自助申请letsencrypt证书</a></li>
+</ul>
+
+<h3 id="http-重定向为-https">HTTP 重定向为 HTTPS</h3>
+
+<p>当我们手动指定 SSL 证书和密匙来配置的话，Caddy 只会监听 443 端口(https)，并不会自动设置 80 端口(http)的重定向（如果是Caddy自动申请的SSL证书，那么就自动做好了），如果要做重定向的话，可以这样做：</p>
+
+<ul>
+<li>下面的示例代码中，是把 <a href="http://toyoo.ml、http://233.toyoo.ml、https://666.toyoo.ml">http://toyoo.ml、http://233.toyoo.ml、https://666.toyoo.ml</a> 三个域名都重定向到了 <a href="https://toyoo.ml">https://toyoo.ml</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">http://toyoo.ml, http://233.toyoo.ml, https://666.toyoo.ml <span class="o">{</span>
+    redir https://toyoo.ml<span class="o">{</span>url<span class="o">}</span>
+<span class="o">}</span>
+
+https://toyoo.ml <span class="o">{</span>
+    gzip
+    tls /path/to/xxx.crt /path/to/xxx.key
+    proxy / https://www.baidu.com
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="负载均衡">负载均衡</h2>
+
+<p>Caddy支持负载均衡配置，并支持三种负载均衡算法：random（随机）、least_conn（最少连接）以及 round_robin (轮询调度); 负载均衡同样是通过 proxy middleware 实现的.</p>
+
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">localhost:2015 <span class="o">{</span>
+    log ./2015.log
+
+    proxy / localhost:9001 localhost:9003 <span class="o">{</span>
+        policy round_robin
+    <span class="o">}</span>
+    proxy /bar localhost:9002 localhost:9004 <span class="o">{</span>
+        policy least_conn
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h2 id="websocket">Websocket</h2>
+
+<p>Caddy 内建支持 websocket 连接, 其允许客户端发起 WebSocket 连接的时候服务端执行某个简单的指令，其基本语法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">websocket [path] command</pre></td></tr></table>
+</div>
+</div>
+<p>Caddyfile 配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">websocket /echo <span class="s2">&#34;echo &#34;</span>hello world<span class="s2">&#34;&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="https">HTTPS</h2>
+
+<p>我们只需要提供一个邮箱账号， Caddy 即可使用 <code>tls</code> 指令可为网站开启 https 功能， 并自动申请、配置和续约SSL证书， 其命令格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">tls your@emial.com</pre></td></tr></table>
+</div>
+</div>
+<p>或者指定已有证书和私钥的路径, 这样的话 caddy 就不会去自动申请证书，而是使用路径给出的证书了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">tls /path/to/cert.pem /path/to/key.pem</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>cert: 指定CA的根证书<br /></li>
+<li>key:  指定CA的私有密钥</li>
+<li>需要在浏览器导入CA跟证书</li>
+</ul>
+</blockquote>
+
+<h3 id="自助申请letsencrypt证书">自助申请letsencrypt证书</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">https://domain.com <span class="o">{</span>
+    gzip
+    tls your@email.com
+    proxy /api/v0 localhost:7005
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 申请 SSL证书前，请务必提前解析好域名记录(解析后最好等一会，以全球生效)，否则 Caddy会申请并配置失败！
+- Caddy自动申请SSL证书位置：/.caddy/acme/acme-v01.api.letsencrypt.org/sites/xxx.xxx(域名)/</p>
+</blockquote>
+
+<h3 id="自签发证书">自签发证书</h3>
+
+<p>在本地开发时，自然没法用 Let’s Encrypt 来签证书，这时候可以用 tls 指令自签发证书; 但是，客户端是不认自签发的证书的，需要手动信任。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">https://domain.com <span class="o">{</span>
+    gzip
+    tls /path/to/cert.pem /path/to/key.pem
+    proxy /api/v0 localhost:7005
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 启动 Caddy 时，Caddy 会自动在内存里创建证书。由于证书是存在内存里的，所以下次启动的时候证书又会重新生成，需要再次手动信任。</p>
+</blockquote>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h2 id="权限认证">权限认证</h2>
+
+<h3 id="basic-auth">Basic Auth</h3>
+
+<h3 id="jwt">JWT</h3>
+
+<h2 id="用-cors-解决跨域">用 CORS 解决跨域</h2>
+
+<p>使用 cors 指令可为服务器添加跨域请求的能力：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cors /v0 <span class="o">{</span>
+    origin            http://allowedSite.com
+    origin            http://anotherSite.org https://anotherSite.org
+    methods           POST,PUT
+    allow_credentials <span class="nb">false</span>
+    max_age           <span class="m">3600</span>
+    allowed_headers   X-Custom-Header,X-Foobar
+    exposed_headers   X-Something-Special,SomethingElse
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 在 allowed_headers &amp; exposed_headers 等中，各个key之间只能用 <code>,</code> 隔开，且不能有其他的字符(例如：空格)等。</p>
+</blockquote>
+
+<h2 id="地址过滤">地址过滤</h2>
+
+<p>我们可以使用 <code>ipfilter</code> 指令来基于用户的 IP 来允许或者限制用户访问，其基本语法为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ipfilter paths... <span class="o">{</span>
+    rule       block <span class="p">|</span> allow
+    ip         list or/and range of IPs...
+    country    countries ISO codes...
+    database   db_path
+    blockpage  block_page
+    strict
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>仅允许某个IP访问</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ipfilter / <span class="o">{</span>
+    rule allow
+    ip <span class="m">93</span>.168.247.245
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="请求限流">请求限流</h2>
+
+<p>我们可以使用 <code>ratelimit</code> 这个扩展指令来为资源添加请求限流的功能，对于单资源可以使用如下指令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">    ratelimit path rate burst unit 
+    
+    <span class="c1"># 限制客户端每秒最多对 /storage/download/terminal.exe 资源发起两个请求，突发上线最多为 3 个</span>
+    ratelimit /storage/download/termianl.exe <span class="m">2</span> <span class="m">3</span> second</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>对多个资源的请求限流控制</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ratelimit rate burst unit <span class="o">{</span>
+    /assets/resource
+    /download
+    ...
+<span class="o">}</span>
+
+<span class="c1"># 限制对于资源文件的访问时长为 2 分钟</span>
+ratelimit <span class="m">2</span> <span class="m">2</span> minute <span class="o">{</span>
+    /foo.html
+    /dir
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h2 id="重定向">重定向</h2>
+
+<blockquote>
+<p>Note: redir 默认使用指令 <a href="https://caddyserver.com/docs/redir"><code>redir</code></a> 可以完成请求跳转，语法格式为：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">redir from to [code]</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>from: 请求地址(必须完全匹配，例如：<code>/</code> 将匹配所有)</p></li>
+
+<li><p>to: 重定向的目的地址 ( 这个也可以使用 <a href="https://caddyserver.com/docs/placeholders">占位符</a> )</p></li>
+
+<li><p>code: is the HTTP status code to respond with; must be in the range [300-308] excluding 306. May also be meta to issue meta tag redirect for browsers. The default status code is 301 Moved Permanently.</p></li>
+</ul>
+
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">http://bitbucket.robot-qixing.com <span class="o">{</span>
+	redir http://192.168.1.8:7990<span class="o">{</span>uri<span class="o">}</span>
+<span class="o">}</span>
+
+http://jira.robot-qixing.com <span class="o">{</span>
+	redir http://192.168.1.8:8088<span class="o">{</span>uri<span class="o">}</span>
+<span class="o">}</span>
+
+http://confluence.robot-qixing.com <span class="o">{</span>
+	redir http://192.168.1.8:7999<span class="o">{</span>uri<span class="o">}</span>
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="生产环境使用">生产环境使用</h1>
+
+<p>生产环境使用Caddy配置文件一般放置在：<code>/etc/caddy</code> 目录下, 且不要使用 root 账号去运行 caddy</p>
+
+<p><strong>Instructions</strong></p>
+
+<ul>
+<li>run caddy as user <code>www-data</code> and group <code>www-data</code>, with UID and GID 33</li>
+</ul>
+
+<h2 id="caddy-配置">Caddy 配置</h2>
+
+<h3 id="修改-caddy-可执行文件使用权限">修改 caddy 可执行文件使用权限</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo cp /path/to/caddy /usr/local/bin
+sudo chown root:root /usr/local/bin/caddy
+sudo chmod <span class="m">755</span> /usr/local/bin/caddy</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Give the caddy binary the ability to bind to privileged ports (e.g. 80, 443) as a non-root user:</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo setcap <span class="s1">&#39;cap_net_bind_service=+ep&#39;</span> /usr/local/bin/caddy</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="创建用户组-www-data-及用户-www-data">创建用户组(www-data)及用户(www-data)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo groupadd -g <span class="m">33</span> www-data
+sudo useradd <span class="se">\
+</span><span class="se"></span>  -g www-data --no-user-group <span class="se">\
+</span><span class="se"></span>  --home-dir /var/www --no-create-home <span class="se">\
+</span><span class="se"></span>  --shell /usr/sbin/nologin <span class="se">\
+</span><span class="se"></span>  --system --uid <span class="m">33</span> www-data</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 可能出现错误：useradd: UID 33 is not unique，这里换成 333 重新执行即可(问题原因还未查明验证)</p>
+</blockquote>
+
+<h3 id="创建存放-caddy-配置文件的目录">创建存放 caddy 配置文件的目录</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo mkdir /etc/caddy
+sudo chown -R root:www-data /etc/caddy</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="创建-ssl-证书存放目录">创建 SSL 证书存放目录</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo mkdir -p /etc/ssl/caddy
+sudo touch www-data:root /etc/ssl/caddy
+sudo chmod <span class="m">0770</span> /etc/ssl/caddy </code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 因为 ssl 文件夹里存放私钥，所以权限设置成 0770 禁止其他用户访问</p>
+</blockquote>
+
+<h3 id="创建-caddyfile">创建 Caddyfile</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo cp /path/to/Caddyfile /etc/caddy/
+sudo chown www-data:www-data /etc/caddy/Caddyfile
+sudo chmod <span class="m">444</span> /etc/caddy/Caddyfile</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 这里 Caddyfile 权限在 root(我当前登录用户) 时是 <code>read-only</code>， 所以需要注意修改该文件时要赋予它可写的权限</p>
+</blockquote>
+
+<h3 id="最后-创建一个网址放置目录-并且将需要部署的网站-例如-qs-com-拷贝到-www-目录下">最后，创建一个网址放置目录, 并且将需要部署的网站 (例如：qs.com ) 拷贝到 www 目录下</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo mkdir -p /var/www
+sudo chown www-data:www-data /var/www
+sudo chmod <span class="m">555</span> /var/www</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo cp -R qs.com /var/www/
+sudo chown -R www-data:www-data /var/www/qs.com
+sudo chmod -R <span class="m">555</span> /var/www/qs.com</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Noet: 部署站点时需要在Caddyfile中用指令： root /var/www/qs.com 指定网站根目录, example:</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">domain.com <span class="o">{</span>
+    root /var/www/qx.com
+    ...
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="系统服务-linux">系统服务(Linux)</h2>
+
+<p><a href="https://github.com/mholt/caddy/blob/master/dist/init/linux-systemd/README.md">README</a></p>
+
+<p>创建 systemd service</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo cp caddy.service /etc/systemd/system/
+sudo chown root:root /etc/systemd/system/caddy.service
+sudo chmod <span class="m">644</span> /etc/systemd/system/caddy.service</code></pre></td></tr></table>
+</div>
+</div>
+<p>caddy.service 内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Caddy HTTP/2 web server
+<span class="nv">After</span><span class="o">=</span>syslog.target
+<span class="nv">After</span><span class="o">=</span>network.target
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">User</span><span class="o">=</span>www-data
+<span class="nv">Group</span><span class="o">=</span>www-data
+<span class="nv">LimitNOFILE</span><span class="o">=</span><span class="m">64000</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/local/bin/caddy --conf<span class="o">=</span>/etc/caddy/Caddyfile
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target</code></pre></td></tr></table>
+</div>
+</div>
+<p>启动服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo systemctl daemon-reload
+sudo systemctl start caddy.service
+sudo systemctl status caddy.service</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/Unknwon/wuwen.org/issues/11">Caddy 部署实践</a></li>
+<li><a href="https://lengzzz.com/note/caddy-http-2-web-server-guide-for-beginners">Caddy HTTPS server</a></li>
+<li><a href="https://studygolang.com/articles/9687">Caddy，一个用Go实现的Web Server</a></li>
+<li><a href="https://segmentfault.com/a/1190000008742322#articleHeader5">清新脱俗的 Web 服务器 Caddy</a></li>
+<li><a href="https://doub.io/jzzy-2/">利用 Caddy 非常简单的部署 反向代理/镜像（支持自签SSL证书）</a></li>
+<li><a href="http://gtfix.com/2017/09/12/Caddy_config/">Caddy的内容集合</a></li>
+<li><a href="https://www.sooele.com/index.php/2018/01/31/caddy%E6%9C%80%E5%AE%B9%E6%98%93%E4%B8%8A%E6%89%8B%E7%9A%84web-server-%E8%87%AA%E5%8A%A8%E5%8C%96https%E4%B8%80%E5%88%86%E9%92%9F%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99%E7%BD%91%E7%9B%98-2/">https://www.sooele.com/index.php/2018/01/31/caddy%E6%9C%80%E5%AE%B9%E6%98%93%E4%B8%8A%E6%89%8B%E7%9A%84web-server-%E8%87%AA%E5%8A%A8%E5%8C%96https%E4%B8%80%E5%88%86%E9%92%9F%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99%E7%BD%91%E7%9B%98-2/</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-04-24</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/web/">web</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/db/mongodb/20170423-config-options/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">MongoDB | 配置选项</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/cloud/docker/20170410-dockerfile/">
+            <span class="next-text nav-default">Docker | Dockerfile</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-04-19 17:53:01 \x2b0800 CST',
+        title: 'Caddy | 学习笔记',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

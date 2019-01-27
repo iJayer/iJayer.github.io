@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | Performance Optimization =&gt; go tarch 学习笔记 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  go tarch（火焰图）学习笔记  " /><meta name="keywords" content="go, golang, pprof" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | Performance Optimization =&gt; go tarch 学习笔记" />
+<meta property="og:description" content="
+
+
+
+go tarch（火焰图）学习笔记
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/" /><meta property="article:published_time" content="2018-06-19T13:48:02&#43;08:00"/>
+<meta property="article:modified_time" content="2018-06-19T13:48:02&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | Performance Optimization =&gt; go tarch 学习笔记">
+<meta itemprop="description" content="
+
+
+
+go tarch（火焰图）学习笔记
+
+">
+
+
+<meta itemprop="datePublished" content="2018-06-19T13:48:02&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-19T13:48:02&#43;00:00" />
+<meta itemprop="wordCount" content="1247">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | Performance Optimization =&gt; go tarch 学习笔记"/>
+<meta name="twitter:description" content="
+
+
+
+go tarch（火焰图）学习笔记
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | Performance Optimization =&gt; go tarch 学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-19 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1247 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#火焰图-flame-graph">火焰图(Flame Graph)</a></li>
+<li><a href="#安装-go-torch">安装 go-torch</a>
+<ul>
+<li><a href="#install-go-torch">Install go-torch</a></li>
+<li><a href="#get-the-flame-graph-script">Get the flame graph script</a></li>
+<li><a href="#check">Check</a></li>
+</ul></li>
+<li><a href="#go-torch-使用">go-torch 使用</a>
+<ul>
+<li><a href="#使用-go-torch-分析-api项目内存分配情况">使用 go-torch 分析 API项目内存分配情况</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>go tarch（火焰图）学习笔记</li>
+</ul>
+</blockquote>
+
+<h1 id="火焰图-flame-graph">火焰图(Flame Graph)</h1>
+
+<p><a href="http://www.brendangregg.com/flamegraphs.html">火焰图</a> 也是性能分析的利器。最初是由 Netflix 的 Brendan Gregg 发明并推广的。</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548059970/blog/images/go-tarch.png" alt="Frame Graph" /></p>
+
+<div class='align-center'>
+  <p>图片来自：<a href="https://blog.lab99.org/post/golang-2017-10-20-video-seven-ways-to-profile-go-apps.html#fang-fa-liu-huo-yan-tu-flame-graph">blog.lab99.org</a></p>
+
+</div>
+
+<p>火焰图说明：</p>
+
+<ul>
+<li><code>X轴</code> 显示的是在<code>该性能指标分析</code>中所占用的资源量: 即横向越宽，则意味着该指标占用的资源就越多</li>
+<li><code>Y轴</code> 栈帧(Stack frame,调用链)垂直堆叠, 显示的是调用栈的深度</li>
+<li>如果一个方法被调用者调用了多次, 那么它也会显示多次, 且分列在不同调用者的堆栈上(注：这点和pprof工具不同，pprof只显示了一个方法的框，上面的时间标签是所有的调用者调用的时间)</li>
+<li>火焰图的调用顺序<code>从下到上</code>, 每一个方块代表一个函数, 方块上面的一层表示该函数会去调用那些函数</li>
+<li>需要注意的几点：
+
+<ul>
+<li><code>左右顺序不重要</code>，X 轴不是按时间顺序发生的，而是按字母顺序排序的</li>
+<li>虽然很好看，但是和 <code>颜色深浅没关系</code>，颜色是随机生成的</li>
+</ul></li>
+</ul>
+
+<p>火焰图可以来自于很多数据：包括 <code>pprof</code> &amp; <code>perf</code>, 且go-torch和pprof一样，它也采用30秒的采样数据生成火焰图</p>
+
+<h1 id="安装-go-torch">安装 go-torch</h1>
+
+<p><a href="https://github.com/uber/go-torch">https://github.com/uber/go-torch</a></p>
+
+<h2 id="install-go-torch">Install go-torch</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ go get github.com/uber/go-torch</pre></td></tr></table>
+</div>
+</div>
+<h2 id="get-the-flame-graph-script">Get the flame graph script</h2>
+
+<p>FlameGraph 是profile数据的可视化层工具，已被广泛用于Python和Node</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ cd $GOPATH/src/github.com/uber/go-torch
+$ git clone https://github.com/brendangregg/FlameGraph.git</pre></td></tr></table>
+</div>
+</div>
+<p>Set PATH：检出完成后，把flamegraph.pl拷到我们机器环境变量$PATH的路径中去，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ cp flamegraph.pl /usr/local/bin</pre></td></tr></table>
+</div>
+</div>
+<h2 id="check">Check</h2>
+
+<p>在终端输入 <code>flamegraph.pl -h</code> 检查是否安装FlameGraph成功</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ flamegraph.pl -h
+Option h is ambiguous (hash, height, help)
+USAGE: /usr/bin/flamegraph.pl [options] infile &gt; outfile.svg
+
+    --title TEXT     # change title text
+    --subtitle TEXT  # second level title (optional)
+    --width NUM      # width of image (default 1200)
+    --height NUM     # height of each frame (default 16)
+    --minwidth NUM   # omit smaller functions (default 0.1 pixels)
+    --fonttype FONT  # font type (default &#34;Verdana&#34;)
+    --fontsize NUM   # font size (default 12)
+    --countname TEXT # count type label (default &#34;samples&#34;)
+    --nametype TEXT  # name type label (default &#34;Function:&#34;)
+    --colors PALETTE # set color palette. choices are: hot (default), mem,
+                     # io, wakeup, chain, java, js, perl, red, green, blue,
+                     # aqua, yellow, purple, orange
+    --hash           # colors are keyed by function name hash
+    --cp             # use consistent palette (palette.map)
+    --reverse        # generate stack-reversed flame graph
+    --inverted       # icicle graph
+    --negate         # switch differential hues (blue&lt;-&gt;red)
+    --notes TEXT     # add notes comment in SVG (for debugging)
+    --help           # this message
+
+    eg,
+    /usr/bin/flamegraph.pl --title=&#34;Flame Graph: malloc()&#34; trace.txt &gt; graph.svg</pre></td></tr></table>
+</div>
+</div>
+<h1 id="go-torch-使用">go-torch 使用</h1>
+
+<p>go-torch 工具的使用非常简单，没有任何参数的话，它会尝试从 <a href="http://localhost:8080/debug/pprof/profile">http://localhost:8080/debug/pprof/profile</a> 获取 profiling 数据。它有三个常用的参数可以调整：</p>
+
+<ul>
+<li>-u &ndash;url：要访问的 URL，这里只是主机和端口部分</li>
+<li>-s &ndash;suffix：pprof profile 的路径，默认为 /debug/pprof/profile</li>
+<li>&ndash;seconds：要执行 profiling 的时间长度，默认为 30s</li>
+</ul>
+
+<h2 id="使用-go-torch-分析-api项目内存分配情况">使用 go-torch 分析 API项目内存分配情况</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ go-torch -alloc_space http://127.0.0.1:8080/debug/pprof/heap --colors=mem
+$ go-torch -inuse_space http://127.0.0.1:8080/debug/pprof/heap --colors=mem</pre></td></tr></table>
+</div>
+</div>
+<p>alloc_space:</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548060074/blog/images/api-heap-tarch.png" alt="api-heap-torch" /></p>
+
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>-alloc_space/-inuse_space参数与-u/-b等参数有冲突，使用了-alloc_space/-inuse_space后请将pprof的 资源直接追加在参数后面，而不要使用-u/-b参数去指定，这与go-torch的参数解析问题有关，看过其源码后既能明白</li>
+<li>同时还要注意，分析内存的URL一定是heap结尾的，因为默认路径是profile的，其用来分析cpu相关问题</li>
+</ul>
+</blockquote>
+
+<p>这张图，就像一个山脉的截面图，从下而上是每个函数的调用栈，因此山的高度跟函数 调用的深度正相关，而山的宽度跟使用/分配内存的数量成正比。我们只需要留意那些宽而平的山顶，这些部分通常是我们 需要优化的地方。</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://lihaoquan.me/2017/1/1/Profiling-and-Optimizing-Go-using-go-torch.html">实践项目：Go代码调优利器-火焰图</a></li>
+<li><a href="https://blog.lab99.org/post/golang-2017-10-20-video-seven-ways-to-profile-go-apps.html#fang-fa-liu-huo-yan-tu-flame-graph">方法六：火焰图 (Flame Graph)</a></li>
+<li><a href="http://colobu.com/2017/03/02/a-short-survey-of-golang-pprof/">鸟窝 3/go-torch</a></li>
+<li><a href="http://cizixs.com/2017/09/11/profiling-golang-program">使用 pprof 和火焰图调试 golang 应用</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-06-19</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180621-go_cmd_01_go-build/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | cmd - go build</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180619-performance-optimization-05-experience/">
+            <span class="next-text nav-default">Golang | Performance Optimization =&gt; 优化建议</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-06-19 13:48:02 \x2b0800 CST',
+        title: 'Golang | Performance Optimization =\x3e go tarch 学习笔记',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

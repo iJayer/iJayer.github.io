@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="mongodb" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/" /><meta property="article:published_time" content="2017-06-19T15:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-06-22T15:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-06-19T15:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-06-22T15:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="2553">
+
+
+
+<meta itemprop="keywords" content="db,mongodb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-06-19 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2553 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#集群服务原理图">集群服务原理图</a>
+<ul>
+<li><a href="#整体原理图">整体原理图</a></li>
+<li><a href="#副本集原理图">副本集原理图</a></li>
+</ul></li>
+<li><a href="#集群规划">集群规划</a></li>
+<li><a href="#配置primary节点服务">配置Primary节点服务</a>
+<ul>
+<li><a href="#mongodkey-文件">mongodkey 文件</a></li>
+<li><a href="#mongod-conf文件">mongod.conf文件</a></li>
+<li><a href="#mongod-service文件">mongod.service文件</a></li>
+<li><a href="#运行-停止-状态">运行·停止·状态</a></li>
+</ul></li>
+<li><a href="#配置secondary节点服务">配置Secondary节点服务</a>
+<ul>
+<li><a href="#dockerfile文件">Dockerfile文件</a></li>
+<li><a href="#mongod-conf文件-1">mongod.conf文件</a></li>
+<li><a href="#run-sh-文件">run.sh 文件</a></li>
+<li><a href="#构建mongodb镜像">构建MongoDB镜像</a></li>
+<li><a href="#运行-停止-删除">运行·停止·删除</a></li>
+</ul></li>
+<li><a href="#配置replica-set副本集">配置Replica Set副本集</a>
+<ul>
+<li><a href="#连接到primary节点服务">连接到Primary节点服务</a></li>
+<li><a href="#配置初始化参数">配置初始化参数</a></li>
+<li><a href="#执行初始化">执行初始化</a></li>
+<li><a href="#查看初始化状态及配置">查看初始化状态及配置</a></li>
+</ul></li>
+<li><a href="#创建数据库账号">创建数据库账号</a>
+<ul>
+<li><a href="#创建角色为-root-的超级管理员账号">创建角色为 <code>root</code> 的超级管理员账号</a></li>
+<li><a href="#创建角色为-useradminanydatabase-的管理员账号">创建角色为 <code>userAdminAnyDatabase</code> 的管理员账号</a></li>
+<li><a href="#创建应用数据库账号">创建应用数据库账号</a></li>
+</ul></li>
+<li><a href="#连接集群节点-查看状态">连接集群节点&amp;查看状态</a>
+<ul>
+<li><a href="#连接到primary节点-账号-密码">连接到primary节点(账号+密码)</a></li>
+<li><a href="#连接到secondary节点-账号-密码">连接到secondary节点(账号+密码)</a></li>
+</ul></li>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#将来优化方向">将来优化方向</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="集群服务原理图">集群服务原理图</h1>
+
+<h2 id="整体原理图">整体原理图</h2>
+
+<p>主节点(Primary)搭建在物理主机</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548321937/blog/images/ServerModel.jpg" alt="" /></p>
+
+<h2 id="副本集原理图">副本集原理图</h2>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548319535/blog/images/sharding.png" alt="" /></p>
+
+<h1 id="集群规划">集群规划</h1>
+
+<p>一个Primary节点，两个Secondary节点</p>
+
+<table>
+<thead>
+<tr>
+<th>ip</th>
+<th>port</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>192.168.1.167</td>
+<td>27017</td>
+<td>primary, 搭建在物理主机</td>
+</tr>
+
+<tr>
+<td>172.17.0.5</td>
+<td>27017</td>
+<td>secondary, mongod镜像</td>
+</tr>
+
+<tr>
+<td>172.17.0.6</td>
+<td>27017</td>
+<td>secondary, mongod镜像</td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="配置primary节点服务">配置Primary节点服务</h1>
+
+<blockquote>
+<p><a href="https://docs.mongodb.com/manual/tutorial/enforce-keyfile-access-control-in-existing-replica-set/">MongoDB Offical Doc——Internal Authentication_Enforce Keyfile Access Control in a Replica Set</a><br />
+<a href="https://docs.mongodb.com/manual/tutorial/deploy-replica-set-with-keyfile-access-control/">MongoDB Offical Doc——Internal Authentication_Deploy Replica Set With Keyfile Access Control</a></p>
+</blockquote>
+
+<h2 id="mongodkey-文件">mongodkey 文件</h2>
+
+<p>用openssl生成验证文件keyFile</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">openssl rand -base64 <span class="m">756</span> &gt; mongodkey
+chmod <span class="m">400</span> mongodkey</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>集群成员间通过keyfile作安全验证<br /></li>
+<li>客户端和集群服务器间通过账号作安全验证<br /></li>
+<li>生产环境应该采用：x.509 Internal Authentication<br /></li>
+<li>keyFile文件格式：<br />
+
+<ul>
+<li>mongodkey可成功开启服务<br /></li>
+<li>mongod.key开启服务失败(具体原因还未验证,猜测文件格式有影响)</li>
+</ul></li>
+<li><a href="#mgo">MongoDB角色权限问题</a><br /></li>
+</ul>
+</blockquote>
+
+<h2 id="mongod-conf文件">mongod.conf文件</h2>
+
+<p>mongod服务启动参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf">#
+# Program: mongod.conf 
+# History: zhezhang	2017/05/25
+#
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: /home/mongo/log/mongod.log
+
+# where and how to store data.
+storage:
+  dbPath: /home/mongo/data/db
+  journal:
+    enabled: true
+
+# how the process runs
+processManagement:
+  fork: true  # fork and run in background
+  pidFilePath: /var/run/mongodb/mongod.pid  # location of pidfile
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 192.168.1.169  # Listen to local interface only, comment to listen on all interfaces.
+
+# authorization
+security:
+  #authorization: enabled
+  #authorization: disabled
+  keyFile: /home/mongo/mongodkey
+
+# replica set
+replication:
+  replSetName: rs</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note</p>
+
+<ul>
+<li>在Replica Set集群未初始化前先不开启MongoDB安全验证，即 <code>security.authorization=disabled</code></li>
+<li>在Replica Set集群搭建，集群成员间需要通过 keyFile 进行验证-<a href="https://docs.mongodb.com/manual/tutorial/deploy-replica-set-with-keyfile-access-control/#deploy-repl-set-with-auth">Reference</a> (接下来的从节点配置也需要keyFile)</li>
+</ul>
+</blockquote>
+
+<h2 id="mongod-service文件">mongod.service文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>High-performance, schema-free document-oriented database
+<span class="nv">After</span><span class="o">=</span>network.target
+<span class="nv">Documentation</span><span class="o">=</span>https://docs.mongodb.org/manual
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">User</span><span class="o">=</span>root
+<span class="nv">Group</span><span class="o">=</span>root
+<span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;OPTIONS=--quiet -f /home/mongo/mongod.conf&#34;</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/mongod <span class="nv">$OPTIONS</span> run
+<span class="nv">ExecStartPre</span><span class="o">=</span>/usr/bin/mkdir -p /var/run/mongodb
+<span class="nv">ExecStartPre</span><span class="o">=</span>/usr/bin/chown root:root /var/run/mongodb
+<span class="nv">ExecStartPre</span><span class="o">=</span>/usr/bin/chmod <span class="m">0755</span> /var/run/mongodb
+<span class="nv">PermissionsStartOnly</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">PIDFile</span><span class="o">=</span>/var/run/mongodb/mongod.pid
+<span class="c1"># file size</span>
+<span class="nv">LimitFSIZE</span><span class="o">=</span>infinity
+<span class="c1"># cpu time</span>
+<span class="nv">LimitCPU</span><span class="o">=</span>infinity
+<span class="c1"># virtual memory size</span>
+<span class="nv">LimitAS</span><span class="o">=</span>infinity
+<span class="c1"># open files</span>
+<span class="nv">LimitNOFILE</span><span class="o">=</span><span class="m">64000</span>
+<span class="c1"># processes/threads</span>
+<span class="nv">LimitNPROC</span><span class="o">=</span><span class="m">64000</span>
+<span class="c1"># total threads (user+kernel)</span>
+<span class="nv">TasksMax</span><span class="o">=</span>infinity
+<span class="nv">TasksAccounting</span><span class="o">=</span><span class="nb">false</span>
+<span class="c1"># Recommended limits for for mongod as specified in</span>
+<span class="c1"># http://docs.mongodb.org/manual/reference/ulimit/#recommended-settings</span>
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="运行-停止-状态">运行·停止·状态</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">systemctl start mongod.service
+systemctl stop mongod.service
+systemctl status mongod.service</pre></td></tr></table>
+</div>
+</div>
+<h1 id="配置secondary节点服务">配置Secondary节点服务</h1>
+
+<p>Secondary 节点以Docker Container方式运行</p>
+
+<h2 id="dockerfile文件">Dockerfile文件</h2>
+
+<p>编写构建MongoDB容器的Dockerfile文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c">#</span><span class="err">
+</span><span class="err"></span><span class="c"># Program: Dockerfile for MongoDB ReplicaSet</span><span class="err">
+</span><span class="err"></span><span class="c"># </span><span class="err">
+</span><span class="err"></span><span class="c"># History: zhezhang 2017/06/21</span><span class="err">
+</span><span class="err"></span><span class="c">#</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Build Images:</span><span class="err">
+</span><span class="err"></span><span class="c"># docker build -t mgo:rs .</span><span class="err">
+</span><span class="err"></span><span class="c">#</span><span class="err">
+</span><span class="err"></span><span class="c"># Create Container:</span><span class="err">
+</span><span class="err"></span><span class="c"># docker run \ </span><span class="err">
+</span><span class="err"></span><span class="c"># --name container_name \</span><span class="err">
+</span><span class="err"></span><span class="c"># -v /home/docker/mongo/conf:/home/mongo/conf \ </span><span class="err">
+</span><span class="err"></span><span class="c"># -v /home/docker/mongo/log:/home/mongo/log \</span><span class="err">
+</span><span class="err"></span><span class="c"># -d mgo:rs</span><span class="err">
+</span><span class="err"></span><span class="c"># </span><span class="err">
+</span><span class="err"></span><span class="c"># Start:</span><span class="err">
+</span><span class="err"></span><span class="c"># docker start container_name ... </span><span class="err">
+</span><span class="err"></span><span class="c">#</span><span class="err">
+</span><span class="err"></span><span class="c"># Stop:</span><span class="err">
+</span><span class="err"></span><span class="c"># docker stop container_name ...</span><span class="err">
+</span><span class="err"></span><span class="c"># </span><span class="err">
+</span><span class="err"></span><span class="c"># Delete:</span><span class="err">
+</span><span class="err"></span><span class="c"># docker rm -v container_name ...</span><span class="err">
+</span><span class="err"></span><span class="c"># </span><span class="err">
+</span><span class="err"></span><span class="c"># Get Container Ip:</span><span class="err">
+</span><span class="err"></span><span class="c"># docker-ip container_name ...</span><span class="err">
+</span><span class="err"></span><span class="c"># </span><span class="err">
+</span><span class="err"></span><span class="c"># Connect bash</span><span class="err">
+</span><span class="err"></span><span class="c"># docker exec -it container_name /bin/bash</span><span class="err">
+</span><span class="err"></span><span class="c">#</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">FROM</span><span class="s"> centos:centos7</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">MAINTAINER</span><span class="s"> &lt;boyzhz@163.com&gt;  </span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">ADD</span><span class="s"> ./mongodb-org-3.4.repo /etc/yum.repos.d/</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> yum -y update <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    yum -y install mongodb-org-server <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    yum clean all <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    mkdir -p /home/mongo/data/db <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    mkdir -p /home/mongo/log/ <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    mkdir -p /home/mongo/conf <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    touch /home/mongo/log/mongod.log <span class="o">&amp;&amp;</span> chmod <span class="m">666</span> /home/mongo/log/mongod.log <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    mkdir -p /home/mongo/pid/ <span class="err">
+</span><span class="err">
+</span><span class="err"></span>COPY mongod.conf mongodkey run.sh /home/mongo/conf/<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">EXPOSE</span><span class="s"> 27017</span><span class="err">
+</span><span class="err"></span>                <span class="err">
+</span><span class="err"></span><span class="k">CMD</span><span class="s"> [&#34;/home/mongo/conf/run.sh&#34;]</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># ENTRYPOINT [&#34;/usr/bin/mongod&#34;]</span><span class="err">
+</span><span class="err"></span><span class="c"># CMD [&#34;-f&#34;, &#34;/home/mongo/mongod.conf&#34;]                     </span></code></pre></td></tr></table>
+</div>
+</div>
+<p>MongoDB镜像源：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-repo" data-lang="repo"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-repo" data-lang="repo">[mongodb-org-3.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note：</p>
+
+<ul>
+<li><a href="#dockerfile">Dockerfile配置错误导致的问题</a></li>
+<li>基础镜像中只需要安装mongoddb-org-server服务即可</li>
+<li>程序安装完成后一定要执行相关清理命令</li>
+</ul>
+</blockquote>
+
+<h2 id="mongod-conf文件-1">mongod.conf文件</h2>
+
+<p>mongod服务启动参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf">#
+# Program: mongod.conf 
+# History: zhezhang	2017/05/25
+#
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: /home/mongo/log/mongod.log
+
+# Where and how to store data.
+storage:
+  dbPath: /home/mongo/data/db
+  journal:
+    enabled: true
+
+# how the process runs
+#processManagement:
+#  fork: true  # fork and run in background
+#  pidFilePath: /home/mongo/pid/mongod.pid  # location of pidfile
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 0.0.0.0  # Listen to local interface only, comment to listen on all interfaces.
+
+# authorization
+security:
+  #authorization: enabled
+  #keyFile: /home/mongo/conf/mongodkey
+  authorization: disabled
+
+# replica set
+replication:
+  replSetName: rs</code></pre></td></tr></table>
+</div>
+</div>
+<p>注：</p>
+
+<ul>
+<li><code>keyFile</code> 用于ReplicaSet集群内部节点之间的验证，所有节点服务都要存储一份该文件</li>
+<li><code>keyFile</code> 选项默认开启了 <code>authorization=enabled</code>, 详细说明在接下来的安全验证部分</li>
+</ul>
+
+<h2 id="run-sh-文件">run.sh 文件</h2>
+
+<p>run.sh 用于容器启动时开启mongod服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>#
+<span class="c1"># Program: start api service</span>
+#
+<span class="c1"># History: zhezhang	2017/06/07</span>
+# 
+
+<span class="nb">echo</span> -e <span class="s2">&#34;mongod service is starting...&#34;</span>
+<span class="c1"># mongod config</span>
+
+<span class="nv">WorkDir</span><span class="o">=</span>/home/mongo
+<span class="nv">Config</span><span class="o">=</span><span class="si">${</span><span class="nv">WorkDir</span><span class="si">}</span>/conf/mongod.conf
+<span class="nv">Options</span><span class="o">=</span><span class="s2">&#34;--quiet --config </span><span class="si">${</span><span class="nv">Config</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="nv">CMD</span><span class="o">=</span>/usr/bin/mongod
+
+<span class="si">${</span><span class="nv">CMD</span><span class="si">}</span> <span class="si">${</span><span class="nv">Options</span><span class="si">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="构建mongodb镜像">构建MongoDB镜像</h2>
+
+<ul>
+<li><p>构建mongo基镜像：mgors:base</p>
+
+<p>docker build -t mgors:base .</p></li>
+</ul>
+
+<blockquote>
+<p>Note: Secondary节点以mgors:base基础进行构建</p>
+</blockquote>
+
+<h2 id="运行-停止-删除">运行·停止·删除</h2>
+
+<ul>
+<li><p>启动容器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">docker run \ 
+  --name rs1 \
+  --network docker1 \
+  --ip 172.18.0.167 \
+  --restart always \
+  -v /home/docker/mongo/conf:/home/mongo/conf \ 
+  -v /home/docker/mongo/log:/home/mongo/log \
+  -d mgors:base
+
+docker run \ 
+  --name rs2 \
+  --network docker1 \
+  --ip 172.18.0.168 \
+  --restart always \
+  -v /home/docker/mongo/conf:/home/mongo/conf \ 
+  -v /home/docker/mongo/log:/home/mongo/log \
+  -d mgors:base</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: <code>-v</code> 将本地主机目录(文件)挂载到容器中，修改总是时时更新的</p>
+</blockquote></li>
+
+<li><p>启动|停止|删除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">docker start rs1 rs2 
+docker stop rs1 rs2 
+docker rm -v rs1 rs2 </pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p><code>-v</code> 指定在删除容器的同时删除数据卷</p>
+</blockquote></li>
+</ul>
+
+<h1 id="配置replica-set副本集">配置Replica Set副本集</h1>
+
+<ul>
+<li><a href="https://zhezh09.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/">Ref to here</a></li>
+</ul>
+
+<h2 id="连接到primary节点服务">连接到Primary节点服务</h2>
+
+<p>Replica Set 未配置完成，直接登陆即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mongo 192.168.1.169：27017</pre></td></tr></table>
+</div>
+</div>
+<h2 id="配置初始化参数">配置初始化参数</h2>
+
+<p>首先切换到 admin 数据库：use admin</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">cfg</span> <span class="err">=</span> <span class="p">{</span>
+  <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="s2">&#34;rs&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;members&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34;192.168.1.169:27017&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34;172.17.0.5:27017&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34;172.17.0.6:27017&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>           </code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="执行初始化">执行初始化</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">rs.initiate(cfg)
+
+# return { &#34;ok&#34; : 1 }, represent success.</pre></td></tr></table>
+</div>
+</div>
+<h2 id="查看初始化状态及配置">查看初始化状态及配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">rs.status()
+rs.config()</pre></td></tr></table>
+</div>
+</div>
+<h1 id="创建数据库账号">创建数据库账号</h1>
+
+<p>首先切换到 primary 节点，然后切换到admin数据库，再创建账号</p>
+
+<h2 id="创建角色为-root-的超级管理员账号">创建角色为 <code>root</code> 的超级管理员账号</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use admin
+
+db.createUser({
+    user: &#34;root&#34;,
+    pwd: &#34;root09&#34;,
+    customData:{description:&#34;超级管理员&#34;},
+    roles: [{ role: &#34;root&#34;, db: &#34;admin&#34; }]
+})
+db.auth(&#34;root&#34;, &#34;root09&#34;)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="创建角色为-useradminanydatabase-的管理员账号">创建角色为 <code>userAdminAnyDatabase</code> 的管理员账号</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use admin
+
+db.createUser({
+    user: &#34;admin&#34;,
+    pwd: &#34;admin09&#34;,
+    customData:{description:&#34;管理员&#34;},
+    roles: [{ role: &#34;userAdminAnyDatabase&#34;, db: &#34;admin&#34; }]
+})
+db.auth(&#34;admin&#34;, &#34;admin09&#34;)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="创建应用数据库账号">创建应用数据库账号</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">use cloud-v0
+
+db.createUser({
+    user: &#34;hzqx&#34;,
+    pwd: &#34;hzqx09&#34;,
+    roles: [ { role: &#34;readWrite&#34;, db: &#34;cloud-v0&#34; } ]
+})
+db.auth(&#34;hzqx&#34;, &#34;hzqx09&#34;)</pre></td></tr></table>
+</div>
+</div>
+<h1 id="连接集群节点-查看状态">连接集群节点&amp;查看状态</h1>
+
+<h2 id="连接到primary节点-账号-密码">连接到primary节点(账号+密码)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mongo 192.168.1.169:27017 -u root -p root09
+
+rs.status() // 执行该命令即可查看集群状态</pre></td></tr></table>
+</div>
+</div>
+<h2 id="连接到secondary节点-账号-密码">连接到secondary节点(账号+密码)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mongo 172.17.0.5:27017 -u root -p root09
+mongo 172.17.0.6:27017 -u root -p root09
+
+rs.status() // 执行该命令即可查看集群状态</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Over here，Deploy a MongoDB Replica Set with Docker and Keyfile Access Control Finished.</p>
+</blockquote>
+
+<h1 id="faq">FAQ</h1>
+
+<ul>
+<li><p><span id="dockerfile"> Dockefile配置错误 </span></p>
+
+<ul>
+<li><code>RUN</code> 指令下的多条子命令要用 <code>&amp;&amp;</code> 连接，但是最后一条指令一定不能添加 &amp;&amp; 连接符，否则会导致COPY作为RUN的子命令，进而导致错误：<code>/bin/sh: COPY: command not found</code></li>
+</ul></li>
+
+<li><p>基于镜像启动mongod服务时：mongod.conf中ip写死导致只有一个mongod服务启动，</p>
+
+<ul>
+<li>docker run &ndash;name mgors1 mongod:rs ——&gt; Exited (48) 17 seconds ago</li>
+</ul></li>
+
+<li><p><span id="mgo">MongodDB角色权限问题</span></p>
+
+<ul>
+<li>root： 登陆验证后执行rs.status()&hellip;等等命令成功</li>
+
+<li><p>admin：登陆验证后执行rs.status()&hellip;等等相关命令失败</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">rs:OTHER&gt; rs.initiate(cfg)
+{
+    &#34;ok&#34; : 0,
+    &#34;errmsg&#34; : &#34;not authorized on admin to execute command { replSetInitiate: { _id: \&#34;rs\&#34;, members: [ { _id: 0.0, host: \&#34;172.17.0.5:27017\&#34; }, { _id: 1.0, host: \&#34;172.17.0.6:27017\&#34; }, { _id: 2.0, host: \&#34;172.17.0.7:27017\&#34; } ] } }&#34;,
+    &#34;code&#34; : 13,
+    &#34;codeName&#34; : &#34;Unauthorized&#34;
+}</pre></td></tr></table>
+</div>
+</div></li>
+</ul></li>
+
+<li><p>创建账号必须在primary节点，其他节点报错</p>
+
+<ul>
+<li>Error: couldn&rsquo;t add user: not master :</li>
+</ul></li>
+</ul>
+
+<h1 id="将来优化方向">将来优化方向</h1>
+
+<ul class="task-list">
+<li><label><input type="checkbox" disabled class="task-list-item"> 引入X509安全验证</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> MongoDB Replica Set集群性能优化·读写分离&hellip;</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> <del><em>- MongoDB Image 优化</em></del></label></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://www.kivixv.com/2016/08/15/%E5%9F%BA%E4%BA%8Edocker%E6%90%AD%E5%BB%BAmongodb%E5%89%AF%E6%9C%AC%E9%9B%86/">基于docker搭建mongodb副本集</a></li>
+<li><a href="https://github.com/mvertes/docker-alpine-mongo/blob/master/Dockerfile">docker-alpine-mongo</a></li>
+<li><a href="http://www.heblug.org/chinese_docker/examples/mongodb.html">Docker中运行MongoDB</a></li>
+<li><a href="http://www.askmaclean.com/archives/deploy-replica-set-and-configure-authentication-and-authorization.html">快速部署有身份验证和授权的MongoDB Replica SET复制集</a></li>
+<li><a href="https://medium.com/@gargar454/deploy-a-mongodb-cluster-in-steps-9-using-docker-49205e231319">Deploy a MongoDB Cluster in 9 steps Using Docker</a></li>
+<li><a href="https://blog.cloudandheat.com/index.php/en/2015/04/19/deploy-a-mongodb-3-0-replica-set-with-x-509-authentication-and-self-signed-certificates/">Deploy a MongoDB 3.0 Replica Set With X.509 Authentication and Self-Signed Certificates</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-06-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/db/">db</a>
+          <a href="/tags/mongodb/">mongodb</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/os/linux/20170626-linux.alpine-notes/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux | Alpine 学习笔记</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/">
+            <span class="next-text nav-default">MongoDB | 部署一个 Sharding 集群</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-06-19 15:53:01 \x2b0800 CST',
+        title: 'MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

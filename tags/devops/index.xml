@@ -123,6 +123,15 @@
     </item>
     
     <item>
+      <title>Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统（二）| 监控平台数据持久化</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/20180830-persistent-monitoring-platform-data/</link>
+      <pubDate>Thu, 30 Aug 2018 18:57:08 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/20180830-persistent-monitoring-platform-data/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+    <item>
       <title>Monitor | Grafana 使用</title>
       <link>https://zhezh09.github.io/post/tech/cloud/monitor/grafana-03-practice/</link>
       <pubDate>Sun, 05 Aug 2018 17:32:41 +0000</pubDate>
@@ -133,6 +142,15 @@
 &lt;blockquote&gt;
 &lt;p&gt;要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：&lt;/p&gt;
 &lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统</title>
+      <link>https://zhezh09.github.io/post/tech/cloud/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</link>
+      <pubDate>Sun, 29 Jul 2018 18:57:08 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/cloud/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>

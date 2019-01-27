@@ -101,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/cloud/docker/registry-and-webui/</loc>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20181026-registry-and-webui/</loc>
     <lastmod>2018-10-26T09:48:45+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -150,7 +150,7 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/cloud/docker/docker-compose-note/</loc>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20180925-docker-compose-note/</loc>
     <lastmod>2018-09-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -255,8 +255,22 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/post/tech/os/linux/common-cmd/</loc>
+    <lastmod>2018-09-02T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-00/</loc>
     <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/monitor/20180830-persistent-monitoring-platform-data/</loc>
+    <lastmod>2018-08-30T18:57:08+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -346,6 +360,13 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</loc>
+    <lastmod>2018-07-30T18:57:08+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/</loc>
     <lastmod>2018-07-29T17:46:58+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -395,8 +416,113 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</loc>
+    <lastmod>2018-07-18T14:09:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</loc>
+    <lastmod>2018-07-01T14:09:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</loc>
+    <lastmod>2018-06-29T14:09:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</loc>
+    <lastmod>2018-07-06T14:09:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</loc>
+    <lastmod>2018-06-25T14:09:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</loc>
+    <lastmod>2018-06-24T14:07:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</loc>
+    <lastmod>2018-06-23T14:04:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180621-go_cmd_01_go-build/</loc>
+    <lastmod>2018-06-21T14:04:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</loc>
+    <lastmod>2018-06-19T13:48:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</loc>
+    <lastmod>2018-06-19T13:48:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</loc>
+    <lastmod>2018-06-15T13:48:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180610-stdlib-runtime/</loc>
+    <lastmod>2018-06-10T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</loc>
+    <lastmod>2018-06-06T13:48:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</loc>
+    <lastmod>2018-06-05T13:48:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83/</loc>
     <lastmod>2018-06-02T15:55:24+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/</loc>
+    <lastmod>2018-05-29T19:53:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -409,8 +535,57 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/</loc>
+    <lastmod>2018-05-11T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</loc>
+    <lastmod>2018-05-11T15:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</loc>
+    <lastmod>2018-04-27T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/life/20180421-%E6%9D%AD%E5%9F%8E-%E5%A4%9C%E6%B8%B8%E4%BA%AC%E6%9D%AD%E8%BF%90%E6%B2%B3/</loc>
     <lastmod>2018-04-21T21:29:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</loc>
+    <lastmod>2018-03-28T13:48:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</loc>
+    <lastmod>2018-03-22T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</loc>
+    <lastmod>2018-03-20T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</loc>
+    <lastmod>2018-03-07T16:07:43+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -437,8 +612,78 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20180127-lib-mgo/</loc>
+    <lastmod>2018-05-10T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20171113-go-unit-test/</loc>
+    <lastmod>2017-11-13T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20171023-cgo-note/</loc>
+    <lastmod>2017-10-23T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20171013-go-func/</loc>
+    <lastmod>2017-10-13T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20171010-go-template/</loc>
+    <lastmod>2017-10-10T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/footprint/20171006-%E9%BB%84%E5%B1%B1/</loc>
     <lastmod>2017-10-06T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/network/20170926-net-basic/</loc>
+    <lastmod>2017-10-10T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/</loc>
+    <lastmod>2017-09-19T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</loc>
+    <lastmod>2017-09-15T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20170808-lib-sftp/</loc>
+    <lastmod>2017-08-08T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20170807-lib-ssh/</loc>
+    <lastmod>2017-08-07T16:07:43+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -458,8 +703,211 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</loc>
+    <lastmod>2017-07-13T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/faq/</loc>
+    <lastmod>2017-07-11T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2017-07-04T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</loc>
+    <lastmod>2017-06-26T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</loc>
+    <lastmod>2017-06-22T15:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</loc>
+    <lastmod>2017-06-23T15:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</loc>
+    <lastmod>2017-06-19T15:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/db/mongodb/20170612-basic-note/</loc>
+    <lastmod>2018-01-24T15:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/db/mongodb/20170612-cluster-note/</loc>
+    <lastmod>2017-09-18T15:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</loc>
+    <lastmod>2017-06-08T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20170603-go-closure/</loc>
+    <lastmod>2017-06-03T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/os/linux/20170525-linux.centos-notes/</loc>
+    <lastmod>2017-05-31T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</loc>
+    <lastmod>2017-05-19T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/os/linux/20170515-bash-basic-notes/</loc>
+    <lastmod>2017-05-18T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/os/linux/20170511-systemd-basic/</loc>
+    <lastmod>2017-12-01T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2017-05-09T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/</loc>
+    <lastmod>2017-05-05T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170503-data-volume/</loc>
+    <lastmod>2017-05-03T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170502-deploy-go-app-with-docker/</loc>
+    <lastmod>2017-05-02T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/post/footprint/20170501-%E8%88%9F%E5%B1%B1/</loc>
     <lastmod>2017-05-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/db/mongodb/20170423-config-options/</loc>
+    <lastmod>2017-04-23T15:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/</loc>
+    <lastmod>2018-04-24T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170410-dockerfile/</loc>
+    <lastmod>2017-04-10T19:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170410-build-image/</loc>
+    <lastmod>2017-04-10T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170409-common-cmd/</loc>
+    <lastmod>2017-04-09T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170408-docker-basic-notes/</loc>
+    <lastmod>2017-04-08T18:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/cloud/docker/20170408-docker-01-install/</loc>
+    <lastmod>2017-04-08T15:39:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/network/20170307-net-pits/</loc>
+    <lastmod>2017-10-10T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2017-03-07T16:07:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/post/tech/db/mongodb/20170307-install-and-config/</loc>
+    <lastmod>2017-06-08T15:53:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -582,6 +1030,27 @@
   </url>
   
   <url>
+    <loc>https://zhezh09.github.io/tags/linux/</loc>
+    <lastmod>2018-09-02T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/tags/mongodb/</loc>
+    <lastmod>2018-05-11T15:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/tags/network/</loc>
+    <lastmod>2017-10-10T19:53:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://zhezh09.github.io/tags/others/</loc>
     <lastmod>2018-08-21T13:38:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -591,6 +1060,13 @@
   <url>
     <loc>https://zhezh09.github.io/categories/others/</loc>
     <lastmod>2018-08-21T13:38:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhezh09.github.io/tags/shell/</loc>
+    <lastmod>2017-05-19T19:53:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | 函数 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="go, golang, func" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20171013-go-func/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | 函数" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20171013-go-func/" /><meta property="article:published_time" content="2017-10-13T16:07:43&#43;08:00"/>
+<meta property="article:modified_time" content="2017-10-13T16:07:43&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | 函数">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-10-13T16:07:43&#43;08:00" />
+<meta itemprop="dateModified" content="2017-10-13T16:07:43&#43;00:00" />
+<meta itemprop="wordCount" content="2940">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | 函数"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | 函数</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-10-13 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2940 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#函数">函数</a></li>
+<li><a href="#多返回值">多返回值</a></li>
+<li><a href="#错误">错误</a>
+<ul>
+<li><a href="#error类型">error类型</a></li>
+</ul></li>
+<li><a href="#错误处理策略">错误处理策略</a>
+<ul>
+<li><a href="#传递错误">传递错误</a></li>
+<li><a href="#重新尝试失败的操作">重新尝试失败的操作</a></li>
+<li><a href="#输出错误并结束程序">输出错误并结束程序</a></li>
+<li><a href="#输出错误不结束程序">输出错误不结束程序</a></li>
+<li><a href="#忽略错误">忽略错误</a></li>
+<li><a href="#go错误处理风格">Go错误处理风格</a></li>
+</ul></li>
+<li><a href="#eof错误">EOF错误</a></li>
+<li><a href="#函数值">函数值</a></li>
+<li><a href="#可变参数函数">可变参数函数</a></li>
+<li><a href="#内建函数">内建函数</a>
+<ul>
+<li><a href="#defer函数">defer函数</a></li>
+<li><a href="#new-make函数">new make函数</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="函数">函数</h1>
+
+<p>函数签名：函数参数列表 + 函数返回值</p>
+
+<ul>
+<li>func(i int, s string) string</li>
+<li>签名为：<code>func(int, string) string</code></li>
+</ul>
+
+<h1 id="多返回值">多返回值</h1>
+
+<p>标准库中的函数通常返回2个值，一个是期望得到的返回值，另一个是函数出错时的错误信息。</p>
+
+<p>如果一个函数将所有返回值都进行显示的命名，那么该函数的return语句可以省略操作数，即 <code>bare return(裸返回)</code></p>
+
+<h1 id="错误">错误</h1>
+
+<p>对于那些将运行失败看作是预期结果的函数，它们会返回一个额外的返回值，通常是最后一个，来传递错误信息。</p>
+
+<ul>
+<li>如果导致失败的原因只有一个，则额外的返回值可以为 bool 值，通常命名为ok</li>
+<li>通常，导致失败的原因不止一种，尤其对io操作而言，用户需要了解更多错误信息。因此，额外的返回值为 error 类型</li>
+</ul>
+
+<h2 id="error类型">error类型</h2>
+
+<p>内置的error类型是接口类型</p>
+
+<ul>
+<li><p>error类型的值可能是nil或者non-nil。nil意味着函数运行成功，non-nil表示失败</p></li>
+
+<li><p>当函数返回non-nil的error时，其他的返回值是未定义的(undefined),这些未定义的返回值如果有用，我们应优先处理这些不完整的数据，再处理错误。(比如，当读取文件发生错误时，Read函数会返回可以读取的字节数以及错误信息)</p></li>
+
+<li><p>因此对函数的返回值要有清晰的说明，以便于其他人使用。</p></li>
+</ul>
+
+<h1 id="错误处理策略">错误处理策略</h1>
+
+<h2 id="传递错误">传递错误</h2>
+
+<p>传播错误是最常用的错误处理策略。</p>
+
+<ul>
+<li>这意味着函数中某个子程序的失败，会变成该函数的失败</li>
+</ul>
+
+<p>函数示例：</p>
+
+<ul>
+<li>Case1： 如果findLinks对http.Get调用失败，findLinks会直接将这个HTTP错误返回给调用者</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">findLinks</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">{</span>
+        <span class="k">return</span> <span class="nx">nill</span><span class="p">,</span> <span class="nx">err</span>    <span class="c1">// return error
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+    <span class="cm">/* some other logic*/</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>Case2: 当对html.Parse的调用失败时，findLinks不会直接返回html.Parse的错误，因为缺少两条重要信息：1、错误发生在解析器；2、url已经被解析。这些信息有助于错误的处理，findLinks会构造新的错误信息返回给调用者：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">findLinks</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">{</span>
+        <span class="k">return</span> <span class="nx">nill</span><span class="p">,</span> <span class="nx">err</span>    
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+    
+    <span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">html</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;parsing %s as HTML: %v&#34;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span><span class="nx">err</span><span class="p">)</span> <span class="c1">// return self-define error
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="cm">/* some other logic*/</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>fmt.Errorf函数使用fmt.Sprintf格式化错误信息并返回</li>
+<li>使用该函数前缀添加额外的上下文信息到原始错误信息。当错误最终由main函数处理时，错误信息应提供清晰的从原因到后果的因果链。</li>
+<li>错误信息中应避免大写和换行符</li>
+<li>编写错误信息时,要注意错误信息表达的一致性(即相同的函数或同包内的同一组函数返回的错误在构成和处理方式上是相似的)</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>Case3: 以OS包为例，OS包确保文件操作（如os.Open、Read、Write、Close）返回的每个错误的描述不仅仅包含错误的原因（如无权限，文件目录不存在）,也包含文件名，这样调用者在构造新的错误信息时无需再添加这些信息。</li>
+</ul>
+
+<blockquote>
+<p>Note: 一般而言，被调函数f(x)会将调用信息和参数信息作为发生错误时的上下文放在错误信息中并返回给调用者，调用者需要添加一些错误信息中不包含的信息，比如添加url到html.Parse返回的错误中。</p>
+</blockquote>
+
+<h2 id="重新尝试失败的操作">重新尝试失败的操作</h2>
+
+<p>如果发生的错误是偶然的，或由不可预知的问题导致，我们需要重新尝试失败的操作。在重试时，我们需要限制重试的时间间隔或重试的次数，防止无限制重试。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">WaitForServer</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="kd">const</span> <span class="nx">timeout</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span>
+
+	<span class="nx">deadline</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Add</span><span class="p">(</span><span class="nx">timeout</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">tries</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Before</span><span class="p">(</span><span class="nx">deadline</span><span class="p">);</span> <span class="nx">tries</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">nil</span> <span class="c1">// success
+</span><span class="c1"></span>		<span class="p">}</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;server not responding (%s);retrying…&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">&lt;&lt;</span> <span class="nb">uint</span><span class="p">(</span><span class="nx">tries</span><span class="p">))</span> <span class="c1">// exponential back-off
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;server %s failed to respond after %s&#34;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="输出错误并结束程序">输出错误并结束程序</h2>
+
+<p>当发生的错误导致程序无法继续运行，这时应采用第三种策略: 输出错误信息并结束程序</p>
+
+<blockquote>
+<p>Note: 这种策略只应在 main 中执行；对库函数而言，应向上传播错误，除非该错误意味着程序内部包含不一致性，即遇到了 bug，才能在库函数中结束程序。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// (In function main.)
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">WaitForServer</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;Site is down: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="nx">os</span><span class="p">.</span><span class="nf">Exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// or execute log.Fatalf()
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">WaitForServer</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;Site is down: %v\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="输出错误不结束程序">输出错误不结束程序</h2>
+
+<p>有时，我们只需要输出错误信息就足够了，不需要中断程序的运行。可通过 log 包的函数处理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Ping</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;ping failed: %v; networking disabled&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// or output to os.stdout
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Ping</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;ping failed: %v; networking disabled&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: log 包中的所有函数会为没有换行符的字符串增加换行府</p>
+</blockquote>
+
+<h2 id="忽略错误">忽略错误</h2>
+
+<p>在某些情况下，虽然程序没有处理错误，但程序的逻辑不会因此受到影响时，我们可以忽略该错误。但需要记录忽略错误的意图。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// get temp dir
+</span><span class="c1"></span><span class="nx">dir</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">TempDir</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;scratch&#34;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;failed to create temp dir: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// use temp dir
+</span><span class="c1"></span><span class="nx">os</span><span class="p">.</span><span class="nf">RemoveAll</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="o">//</span> <span class="nx">ignore</span> <span class="nx">errors</span><span class="p">:</span> <span class="err">$</span><span class="nx">TMPDIR</span> <span class="nx">is</span> <span class="nx">cleaned</span> <span class="nx">periodically</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="go错误处理风格">Go错误处理风格</h2>
+
+<ul>
+<li><p>代码结构:</p>
+
+<ul>
+<li><p>初始检查(参数、逻辑、格式、数据有效性&hellip;)等，防止错误发生</p></li>
+
+<li><p>函数的实际逻辑</p></li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>Note: Go程序中，当检查某个子函数是否失败后，通常将处理失败的逻辑代码放在处理成功的代码之前。如果某个错误会导致函数返回，那么成功时的逻辑代码不应该放在else语句块中，而应直接放在函数体。</p>
+</blockquote>
+
+<h1 id="eof错误">EOF错误</h1>
+
+<p>EOF: 文件结尾错误，io包保证任何文件结束引起的读取失败都返回同一个错误——io.EOF, 该错误在io包中定义:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">io</span>
+
+<span class="kn">import</span> <span class="s">&#34;errors&#34;</span>
+
+<span class="c1">// EOF is the error returned by Read when no more input is avaliable.
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">EOF</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;EOF&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="函数值">函数值</h1>
+
+<p>在Go中，函数为第一类值：函数像其他值一样，有类型，可被赋值给其他变量，传递给函数和从函数返回。</p>
+
+<p>函数类型的零值是 nil。调用值为 nil 的函数值会引起 panic 错误。</p>
+
+<p>函数值可以与 nil 比较，但函数值之间不可比较，也不能用函数值作为map的key</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">f</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> 
+<span class="k">if</span> <span class="nx">f</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nf">f</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="可变参数函数">可变参数函数</h1>
+
+<p>可变参数函数: 参数数量可变的函数, 在声明可变参数函数时，需要在参数列表的<code>最后一个</code>参数类型前面加上省略符号 &ldquo;&hellip;&rdquo;, 这表示函数将接收<code>任意数量</code>的该类型的参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">sum</span><span class="p">(</span><span class="nx">vals</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">total</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">val</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">vals</span> <span class="p">{</span>
+        <span class="nx">total</span> <span class="o">+=</span> <span class="nx">val</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">total</span>
+<span class="p">}</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">sum</span><span class="p">())</span> <span class="c1">// &#34;0&#34;
+</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="c1">// &#34;3&#34;
+</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">//</span> <span class="s">&#34;10&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 函数体中，vals被看作类型 <code>[]int</code> 的切片</p>
+</blockquote>
+
+<p>给可变参数函数传入一个切片类型的变量：即在最后一个参数后加上省略符 <code>...</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">values</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="nx">values</span><span class="o">...</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="内建函数">内建函数</h1>
+
+<h2 id="defer函数">defer函数</h2>
+
+<p>defer关键字：允许在任意位置执行 <code>return</code> 语句之后, 才执行某个函数或方法</p>
+
+<p>defer使用场景：</p>
+
+<ul>
+<li>释放资源，或成对处理的操作(Open&amp;Colse, Connect&amp;Disconnect, Lock&amp;Unlock)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Operate file
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">ReadFile</span><span class="p">(</span><span class="nx">filename</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Close</span> 
+    <span class="k">return</span> <span class="nf">ReadAll</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Operate mutex
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">mu</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+<span class="kd">var</span> <span class="nx">cache</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">lookup</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+    <span class="k">defer</span> <span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">m</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// Connect DB
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">dbUrl</span> <span class="p">=</span> <span class="s">&#34;localhost:27017&#34;</span>
+<span class="nx">session</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mgo</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="nx">dbUrl</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;connect to %v failed. %v&#34;</span><span class="p">,</span> <span class="nx">dbUrl</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+<span class="k">defer</span> <span class="nx">session</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>追踪代码执行情况</li>
+<li>被延迟执行的匿名函数甚至可以修改函数返回给调用者的返回值</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">double</span><span class="p">(</span><span class="nx">x</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">result</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;double(%d) = %d\n&#34;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span><span class="nx">result</span><span class="p">)</span> <span class="p">}()</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">triple</span><span class="p">(</span><span class="nx">x</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">result</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">result</span> <span class="o">+=</span> <span class="nx">x</span> <span class="p">}()</span>
+    <span class="k">return</span> <span class="nf">double</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">triple</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="o">//</span> <span class="s">&#34;12&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 注意循环体中的 defer 调用，因为只有在函数执行完成后，这些被延迟的函数才会执行。</p>
+</blockquote>
+
+<p>循环处理文件的一个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">err</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span> <span class="c1">// Note: risky, could run out of file descriptors
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note</p>
+
+<ul>
+<li>上面代码回导致系统的文件描述符耗尽，因为在所有文件都被处理之前，没有文件会关闭。</li>
+<li>针对这个问题的一种解决方案是：将循环体中的defer语句移植另外一个函数，然后再for&hellip;range中调用它，确保文件在处理完成后立即被关闭。</li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">doFile</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">err</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">doFile</span><span class="p">(</span><span class="nx">file</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">err</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+    <span class="c1">// process f
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 当有多个 defer 行为被注册时，它们会以逆序执行（类似栈，即后进先出）</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">上面的代码将会输出</span><span class="err">：</span><span class="mi">4</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="new-make函数">new make函数</h2>
+
+<p><a href="http://www.cnblogs.com/hustcat/p/4004889.html">new 与 make</a></p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://gopl-zh.b0.upaiyun.com/ch5/ch5.html">GOPL·函数</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-10-13</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20171023-cgo-note/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | CGO =&gt; 基础 </span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20171010-go-template/">
+            <span class="next-text nav-default">Golang | 模板</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-10-13 16:07:43 \x2b0800 CST',
+        title: 'Golang | 函数',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

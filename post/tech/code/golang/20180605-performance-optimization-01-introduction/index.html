@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | 程序性能优化学习笔记 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  程序优化有哪些方式和步骤？ 可供选择的调优工具有哪些？  " /><meta name="keywords" content="go, golang, gc" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | 程序性能优化学习笔记" />
+<meta property="og:description" content="
+
+
+
+程序优化有哪些方式和步骤？
+可供选择的调优工具有哪些？
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/" /><meta property="article:published_time" content="2018-06-05T13:48:02&#43;08:00"/>
+<meta property="article:modified_time" content="2018-06-05T13:48:02&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | 程序性能优化学习笔记">
+<meta itemprop="description" content="
+
+
+
+程序优化有哪些方式和步骤？
+可供选择的调优工具有哪些？
+
+">
+
+
+<meta itemprop="datePublished" content="2018-06-05T13:48:02&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-05T13:48:02&#43;00:00" />
+<meta itemprop="wordCount" content="1940">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | 程序性能优化学习笔记"/>
+<meta name="twitter:description" content="
+
+
+
+程序优化有哪些方式和步骤？
+可供选择的调优工具有哪些？
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | 程序性能优化学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-05 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1940 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#调优之前">调优之前</a></li>
+<li><a href="#调优方式">调优方式</a></li>
+<li><a href="#分析步骤">分析步骤</a></li>
+<li><a href="#性能分析相关概要">性能分析相关概要</a>
+<ul>
+<li><a href="#cpu-性能分析">CPU 性能分析</a></li>
+<li><a href="#内存性能分析">内存性能分析</a></li>
+<li><a href="#阻塞性能分析">阻塞性能分析</a></li>
+<li><a href="#一次只分析一个东西">一次只分析一个东西</a></li>
+<li><a href="#对函数分析">对函数分析</a></li>
+<li><a href="#对整个应用分析">对整个应用分析</a></li>
+</ul></li>
+<li><a href="#性能分析注意事项">性能分析注意事项</a></li>
+<li><a href="#性能分析工具">性能分析工具</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>程序优化有哪些方式和步骤？</li>
+<li>可供选择的调优工具有哪些？</li>
+</ul>
+</blockquote>
+
+<h1 id="调优之前">调优之前</h1>
+
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/27800985">如何做Go的性能优化？</a></li>
+</ul>
+
+<h1 id="调优方式">调优方式</h1>
+
+<p>要监控程序性能，有下面几种方式：</p>
+
+<ul>
+<li>Timers: 计时器，用于基准测试，比较程序修改前和修改后的差异</li>
+<li>Profilers: 专业的调优工具，用于更高级的程序验证</li>
+</ul>
+
+<h1 id="分析步骤">分析步骤</h1>
+
+<p>无论使用什么工具，都有如下的通用原则：</p>
+
+<ul>
+<li><p>识别更高层面的瓶颈</p>
+
+<ul>
+<li>例如：发现了一个长时间运行的函数
+<br /></li>
+</ul></li>
+
+<li><p>减少操作量</p>
+
+<ul>
+<li>找出可替换的方法，减少时间消耗，或者调用次数</li>
+<li>找出可替换的方法，减少内存分配量
+<br /></li>
+</ul></li>
+
+<li><p>向下挖掘数据</p>
+
+<ul>
+<li>使用工具，找出更底层、更细节的数据</li>
+</ul></li>
+</ul>
+
+<p>思考性能更好的算法或者数据结构；找到更简单的处理方式；从实效角度审视你的代码</p>
+
+<h1 id="性能分析相关概要">性能分析相关概要</h1>
+
+<p>首先，性能概要的定义：</p>
+
+<p>性能概要(profile)是由多个堆栈(<a href="https://zh.wikipedia.org/wiki/%E5%A0%86%E6%A0%88" title="堆栈-Wiki">Wiki</a>&amp;<a href="https://baike.baidu.com/item/%E5%A0%86%E6%A0%88" title="堆栈-BaiKe">BaiKe</a>)跟踪组成的。堆栈跟踪能提供特殊事件(比如，内存分配)的调用顺序。包(Packages)可以创建、维护各自的性能概要信息。最常见的用途就是追踪资源的使用，而这些资源使用后必须被明确的关闭(closed)，比如文件的操作、网络连接的关闭。<a href="https://golang.org/pkg/runtime/pprof/#Profile">- pkg/runtime/pprof</a></p>
+
+<h2 id="cpu-性能分析">CPU 性能分析</h2>
+
+<p>最常用的就是CPU性能分析，当CPU性能分析启用后，Go runtime 会每 <code>10ms</code> 就暂停一下，记录当前运行的 Go runtime 的调用堆栈及相关数据。当性能分析数据保存到硬盘后，就可以分析代码中的热点了。</p>
+
+<p>一个函数如果出现在数据中的次数越多，就越说明这个函数调用栈占用了更多的运行时间。</p>
+
+<h2 id="内存性能分析">内存性能分析</h2>
+
+<p>内存性能分析则是在 <code>堆(Heap)分配</code> 的时候，记录一下调用堆栈。默认情况下，每 <code>1000</code> 次分配，取样一次，这个数值可以改变。</p>
+
+<p><code>栈(Stack)分配</code> 由于会随时释放，因此不会被内存分析所记录。</p>
+
+<p>由于内存分析是取样方式，并且因为其记录的是 <code>分配内存, 而不是使用内存</code>。因此使用内存性能分析工具来准确判断程序具体的内存使用时比较困难的</p>
+
+<h2 id="阻塞性能分析">阻塞性能分析</h2>
+
+<p>阻塞分析是一个很独特的分析。它有点类似于CPU性能分析，但是它所记录的是 goroutine 等待资源所花费的时间。</p>
+
+<p>阻塞分析对分析程序 <code>并发瓶颈</code> 非常有帮助。阻塞性能分析可以显示出什么时候出现了大批的 goroutine 被阻塞了。阻塞包括：</p>
+
+<ul>
+<li>发送，接收无缓冲的 channel</li>
+<li>发送给一个满缓冲的 channel，或者从一个空缓冲的 channel 接收</li>
+<li>试图获取已被另一个 goroutine 锁定的 sync.Mutex 的锁 🔒</li>
+</ul>
+
+<p>阻塞性能分析是特殊的分析工具，在排除CPU和内存瓶颈前，不应该用它来分析</p>
+
+<h2 id="一次只分析一个东西">一次只分析一个东西</h2>
+
+<p><code>性能分析不是没有开销的</code>。虽然性能分析对程序的影响并不严重，但是毕竟有影响，特别是内存分析的时候增加采样率的情况下。大多数工具甚至直接就不允许你同时开启多个性能分析工具。如果你同时开启了多个性能分析工具，那很有可能会出现他们互相观察对方的开销从而导致你的分析结果彻底失去意义。</p>
+
+<p>So, 一次只分析一个东西。</p>
+
+<h2 id="对函数分析">对函数分析</h2>
+
+<p>最简单的对一个函数进行性能分析的办法就是使用 <code>testing</code> 包。<code>testing</code> 包内置支持生成CPU、内存、阻塞的性能分析数据</p>
+
+<ul>
+<li><code>-cpuprofile=xxx</code>: 生成CPU性能分析数据，并写入文件 xxx</li>
+<li><code>-memprofile=xxx</code>: 生成内存性能分析数据，并写入文件 xxx
+
+<ul>
+<li><code>-memprofilerate=N</code>: 调整采样率为 1/N</li>
+</ul></li>
+<li><code>-blockprofile=xxx</code>: 生成阻塞性能分析数据，并写入文件 xxx</li>
+</ul>
+
+<p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go <span class="nb">test</span> -run<span class="o">=</span>xxx -bench<span class="o">=</span>IndexByte -cpuprofile<span class="o">=</span>/tmp/cup.p bytes
+goos: darwin
+goarch: amd64
+pkg: bytes
+BenchmarkIndexByte/10-4         <span class="m">200000000</span>                <span class="m">6</span>.44 ns/op     <span class="m">1553</span>.83 MB/s
+BenchmarkIndexByte/32-4         <span class="m">200000000</span>                <span class="m">7</span>.41 ns/op     <span class="m">4318</span>.84 MB/s
+BenchmarkIndexByte/4K-4         <span class="m">10000000</span>               <span class="m">210</span> ns/op        <span class="m">19455</span>.95 MB/s
+BenchmarkIndexByte/4M-4             <span class="m">5000</span>            <span class="m">321910</span> ns/op        <span class="m">13029</span>.39 MB/s
+BenchmarkIndexByte/64M-4             <span class="m">300</span>           <span class="m">5406798</span> ns/op        <span class="m">12411</span>.94 MB/s
+BenchmarkIndexBytePortable/10-4                 <span class="m">100000000</span>               <span class="m">13</span>.8 ns/op       <span class="m">722</span>.79 MB/s
+BenchmarkIndexBytePortable/32-4                 <span class="m">30000000</span>                <span class="m">44</span>.9 ns/op       <span class="m">712</span>.86 MB/s
+BenchmarkIndexBytePortable/4K-4                   <span class="m">500000</span>              <span class="m">2910</span> ns/op        <span class="m">1407</span>.32 MB/s
+BenchmarkIndexBytePortable/4M-4                      <span class="m">500</span>           <span class="m">2979323</span> ns/op        <span class="m">1407</span>.80 MB/s
+BenchmarkIndexBytePortable/64M-4                      <span class="m">30</span>          <span class="m">47259940</span> ns/op        <span class="m">1419</span>.99 MB/s
+PASS
+ok      bytes   <span class="m">18</span>.689s</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 这里的 <code>-run=xxx</code> 是说只运行 Benchmarks，而不要运行任何 Tests</p>
+</blockquote>
+
+<p>然后使用 <code>go tool pprof</code> 来分析</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go tool pprof bytes.test /tmp/cpu.p</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="对整个应用分析">对整个应用分析</h2>
+
+<p>testing 适用于分析具体某个函数，但是如果想要分析整个应用，则可以使用 <code>runtime/pprof</code> 包。当然，这是比较底层的，Dave Cheney 在几年前还写了个包 <a href="https://github.com/pkg/profile">github.com/pkg/profile</a>,可以简化使用。</p>
+
+<p>该包的使用时，只需要在 main 函数中加入 <code>defer profile.Start().Stop()</code> 即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="s">&#34;github.com/pkg/profile&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">defer</span> <span class="nx">profile</span><span class="p">.</span><span class="nf">Start</span><span class="p">().</span><span class="nf">Stop</span><span class="p">()</span>
+    <span class="o">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="性能分析注意事项">性能分析注意事项</h1>
+
+<p>性能分析必须在一个 <code>可重复的、稳定的环境</code> 中来进行</p>
+
+<ul>
+<li><p>机器 <code>必须闲置</code></p>
+
+<ul>
+<li>不要在共享硬件上进行性能分析</li>
+<li>不要在性能分析期间，在同一个机器上去浏览网页！！！
+<br /></li>
+</ul></li>
+
+<li><p>注意省电模式和过热保护，如果突然进入这些模式，会导致分析数据严重不准确</p></li>
+
+<li><p><code>不要使用虚拟机、共享的云主机</code>, 太多的干扰因素，分析数据会很不一致</p></li>
+
+<li><p>不要在 macOS 10.11 及以前的版本运行性能分析，有 bug，之后的版本修复了</p></li>
+</ul>
+
+<p>如果承受得起，购买专用的性能测试分析的硬件设备，上架。</p>
+
+<ul>
+<li>关闭电源管理、过热管理;</li>
+<li>绝不要升级，以保证测试的一致性，以及具有可比性。</li>
+</ul>
+
+<p>如果没有这样的环境，那就一定要在多个环境中，执行多次，以取得可参考的、具有相对一致性的测试结果。</p>
+
+<blockquote>
+<p>Note: 性能分析的采样数据尽可能保证在压测的环境下收集</p>
+</blockquote>
+
+<h1 id="性能分析工具">性能分析工具</h1>
+
+<p><a href="https://blog.lab99.org/post/golang-2017-10-20-video-seven-ways-to-profile-go-apps.html#cha-qu-yi-profiler-shi-ru-he-gong-zuo-de" title="7种 Go 程序性能分析方法 - Dave Cheney">Go 性能分析工具</a></p>
+
+<ul>
+<li>方法一：time 命令</li>
+<li>方法二：GODEBUG</li>
+<li>方法三：pprof</li>
+<li>方法四：/debug/pprof</li>
+<li>方法五：perf</li>
+<li>方法六：火焰图(Flame Graph)</li>
+<li>方法七：go tool trace</li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://colobu.com/2017/03/02/a-short-survey-of-golang-pprof/"> [译] Go 可视化性能分析工具 </a></li>
+<li><a href="https://studygolang.com/articles/12008">Go 调优技术</a></li>
+<li><a href="http://lihaoquan.me/2017/1/1/Profiling-and-Optimizing-Go-using-go-torch.html">Go代码调优利器-火焰图</a></li>
+<li><a href="https://blog.csdn.net/xcl168/article/details/49980055">Go语言HTTP测试及程序性能调优</a></li>
+<li><a href="https://my.oschina.net/xlplbo/blog/671263">go程序性能测量和分析</a></li>
+<li><a href="https://juejin.im/entry/5a487cdf6fb9a0450b66bb4a">Golang profiling and optimizing</a></li>
+<li><a href="https://github.com/campoy/go-tooling-workshop">go-tooling-workshop</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-06-05</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | Performance Optimization =&gt; pprof</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83/">
+            <span class="next-text nav-default">杭城 | 篮球</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-06-05 13:48:02 \x2b0800 CST',
+        title: 'Golang | 程序性能优化学习笔记',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

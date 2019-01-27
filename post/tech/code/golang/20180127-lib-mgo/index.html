@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | mgo - Rich MongoDB Driver for Go [译] - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="mgo-mongodb driver for go" /><meta name="keywords" content="go, golang, mongodb" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180127-lib-mgo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | mgo - Rich MongoDB Driver for Go [译]" />
+<meta property="og:description" content="mgo-mongodb driver for go" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180127-lib-mgo/" /><meta property="article:published_time" content="2018-01-27T16:07:43&#43;08:00"/>
+<meta property="article:modified_time" content="2018-05-10T16:07:43&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | mgo - Rich MongoDB Driver for Go [译]">
+<meta itemprop="description" content="mgo-mongodb driver for go">
+
+
+<meta itemprop="datePublished" content="2018-01-27T16:07:43&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-10T16:07:43&#43;00:00" />
+<meta itemprop="wordCount" content="3981">
+
+
+
+<meta itemprop="keywords" content="golang,mongodb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | mgo - Rich MongoDB Driver for Go [译]"/>
+<meta name="twitter:description" content="mgo-mongodb driver for go"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | mgo - Rich MongoDB Driver for Go [译]</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-01-27 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3981 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-highlights-强调">1. Highlights(强调)</a>
+<ul>
+<li><a href="#1-1-cluster-discovery-and-communication-集群发现和通信">1.1. Cluster discovery and communication(集群发现和通信)</a></li>
+<li><a href="#1-2-failover-management-故障转移管理">1.2. Failover management(故障转移管理)</a></li>
+<li><a href="#1-3-synchronous-and-concurrent-同步和并发">1.3. Synchronous and concurrent(同步和并发)</a></li>
+<li><a href="#1-4-result-pre-fecthing-结果预取">1.4. Result pre-fecthing(结果预取)</a></li>
+<li><a href="#1-5-flexible-serialization-灵活的序列化">1.5. Flexible serialization(灵活的序列化)</a></li>
+<li><a href="#1-6-trivial-consistency-level-management-普通的一致性级别管理">1.6. Trivial consistency-level management(普通的一致性级别管理)</a></li>
+<li><a href="#1-7-authentication-support-with-pooling-integration-身份验证支持与池集成">1.7. Authentication support with pooling integration(身份验证支持与池集成)</a></li>
+<li><a href="#1-8-gridfs-support">1.8. GridFS support</a></li>
+</ul></li>
+<li><a href="#2-api-documentation">2. API documentation</a></li>
+<li><a href="#3-example">3. Example</a></li>
+<li><a href="#4-session-and-pool">4. Session and Pool</a>
+<ul>
+<li><a href="#4-1-session-mode">4.1. Session mode</a>
+<ul>
+<li><a href="#4-1-1-strong">4.1.1. Strong</a></li>
+<li><a href="#4-1-2-monotonic-单一的">4.1.2. Monotonic(单一的)</a></li>
+<li><a href="#4-1-3-eventual">4.1.3. Eventual</a></li>
+<li><a href="#4-1-4-summary">4.1.4. Summary</a></li>
+</ul></li>
+<li><a href="#4-2-session-的拷贝和并发">4.2. Session 的拷贝和并发</a></li>
+</ul></li>
+<li><a href="#5-mgo-dialinfo">5. mgo.DialInfo</a></li>
+<li><a href="#6-index">6. Index</a>
+<ul>
+<li><a href="#6-1-关于index的一些理解">6.1. 关于Index的一些理解</a></li>
+</ul></li>
+<li><a href="#7-故障排除和性能调优">7. 故障排除和性能调优</a></li>
+<li><a href="#8-see-also">8. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p><a href="http://labix.org/mgo">译：Rich MongoDB Driver for Go</a></p>
+</blockquote>
+
+<p><span id="content"><a href="#content"><strong>目录</strong></a></span></p>
+
+<!-- TOC -->
+
+<ul>
+<li><a href="#1-highlights强调">1. Highlights(强调)</a>
+
+<ul>
+<li><a href="#11-cluster-discovery-and-communication集群发现和通信">1.1. Cluster discovery and communication(集群发现和通信)</a></li>
+<li><a href="#12-failover-management故障转移管理">1.2. Failover management(故障转移管理)</a></li>
+<li><a href="#13-synchronous-and-concurrent同步和并发">1.3. Synchronous and concurrent(同步和并发)</a></li>
+<li><a href="#14-result-pre-fecthing结果预取">1.4. Result pre-fecthing(结果预取)</a></li>
+<li><a href="#15-flexible-serialization灵活的序列化">1.5. Flexible serialization(灵活的序列化)</a></li>
+<li><a href="#16-trivial-consistency-level-management普通的一致性级别管理">1.6. Trivial consistency-level management(普通的一致性级别管理)</a></li>
+<li><a href="#17-authentication-support-with-pooling-integration身份验证支持与池集成">1.7. Authentication support with pooling integration(身份验证支持与池集成)</a></li>
+<li><a href="#18-gridfs-support">1.8. GridFS support</a></li>
+</ul></li>
+<li><a href="#2-api-documentation">2. API documentation</a></li>
+<li><a href="#3-example">3. Example</a></li>
+<li><a href="#4-session-and-pool">4. Session and Pool</a>
+
+<ul>
+<li><a href="#41-session-mode">4.1. Session mode</a></li>
+<li><a href="#411-strong">4.1.1. Strong</a></li>
+<li><a href="#412-monotonic单一的">4.1.2. Monotonic(单一的)</a></li>
+<li><a href="#413-eventual">4.1.3. Eventual</a></li>
+<li><a href="#414-summary">4.1.4. Summary</a></li>
+<li><a href="#42-session-的拷贝和并发">4.2. Session 的拷贝和并发</a></li>
+</ul></li>
+<li><a href="#5-mgodialinfo">5. mgo.DialInfo</a></li>
+<li><a href="#6-index">6. Index</a>
+
+<ul>
+<li><a href="#61-关于index的一些理解">6.1. 关于Index的一些理解</a></li>
+</ul></li>
+<li><a href="#7-故障排除和性能调优">7. 故障排除和性能调优</a></li>
+<li><a href="#8-see-also">8. See Also</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h1 id="1-highlights-强调">1. Highlights(强调)</h1>
+
+<h2 id="1-1-cluster-discovery-and-communication-集群发现和通信">1.1. Cluster discovery and communication(集群发现和通信)</h2>
+
+<p>mgo offers automated cluster topology(拓扑) discovery and maintenance(维护). Even if provided the address to a single server in the cluster, mgo will figure out(找出) the cluster topology and communicate with any of the servers as necessary.</p>
+
+<blockquote>
+<p>译：<code>mgo</code> 提供自动化的集群拓扑发现和维护。 即使将地址提供给集群中的单个服务器，mgo也会根据需要找出集群拓扑结构并于任何服务器通信。</p>
+</blockquote>
+
+<h2 id="1-2-failover-management-故障转移管理">1.2. Failover management(故障转移管理)</h2>
+
+<p>mgo will automatically failover in the event that the master server changes.</p>
+
+<h2 id="1-3-synchronous-and-concurrent-同步和并发">1.3. Synchronous and concurrent(同步和并发)</h2>
+
+<p>mgo offers a synchronous interface, with a concurrent backend. Concurrent operations on the same socket do not wait for the previous operation&rsquo;s roundtrip before being delivered. Documents may also start being processed as soon as the first document is received from the network, and will continue being received in the background so that the connection is unblocked for further requests.</p>
+
+<blockquote>
+<p>译：mgo提供了一个同步接口，并发后端。 在传递之前，同一个套接字上的并发操作不会等待上一个操作的往返。 一旦从网络接收到第一个文件，文件也可能开始处理，并且将继续在后台接收，以便这个连接对未来的请求不会阻塞掉。</p>
+</blockquote>
+
+<h2 id="1-4-result-pre-fecthing-结果预取">1.4. Result pre-fecthing(结果预取)</h2>
+
+<p>mgo offers configurable pre-fetching of documents, so that the next batch of results are requested automatically when an established percentage of the current batch has been processed.</p>
+
+<blockquote>
+<p>译：mgo 提供可配置的文档预取功能，一边当当前批已经被处理建立百分比的时候可以使下一批的结果自动被请求。</p>
+</blockquote>
+
+<h2 id="1-5-flexible-serialization-灵活的序列化">1.5. Flexible serialization(灵活的序列化)</h2>
+
+<p>mgo supports flexible marshalling and unmarshalling of documents through gobson, a brand new BSON package written specifically to support mgo.</p>
+
+<h2 id="1-6-trivial-consistency-level-management-普通的一致性级别管理">1.6. Trivial consistency-level management(普通的一致性级别管理)</h2>
+
+<p>mgo offers trivial(普通的) consistency-level selection to tweak resource usage vs. read/write ordering guarantees.(保证)</p>
+
+<p>Strong consistency uses a unique connection with the master so that all reads and writes are as up-to-date(最新) as possible and consistent with each other.</p>
+
+<p>Monotonic consistency will start reading from a slave if possible, so that the load is better distributed, and once the first write happens the connection is switched to the master. This offers consistent reads and writes, but may not show the most up-to-date data on reads which precede the first write.</p>
+
+<p>Eventual consistency offers the best resource usage, distributing reads across multiple slaves and writes across multiple connections to the master, but consistency isn&rsquo;t guaranteed.</p>
+
+<p>Note that this mechanism(机制) works both when connecting through a mongos server and when connecting directly to a replica set.</p>
+
+<blockquote>
+<p>译：</p>
+
+<ul>
+<li>mgo提供简单的一致性级别选择来调整资源使用与 读/写 顺序保证。</li>
+<li>强一致性使用与主控制器的独特连接，以便所有的读写操作都尽可能地保持最新，并且彼此保持一致。</li>
+<li>如果可能的话，单调一致性将开始从一个从机读取，这样负载分配就会更好，一旦发生第一次写入，连接就切换到主机。 这提供了一致的读取和写入，但可能不会显示第一次写入之前的最新读取到的数据。</li>
+<li>最终的一致性提供了最佳的资源利用率，将读取分布在多个从服务器上，并通过多个连接写入主服务器，但是不能保证一致性。</li>
+<li>请注意，这种机制在通过mongos服务器连接和直接连接到副本集时都起作用。</li>
+</ul>
+</blockquote>
+
+<h2 id="1-7-authentication-support-with-pooling-integration-身份验证支持与池集成">1.7. Authentication support with pooling integration(身份验证支持与池集成)</h2>
+
+<p>mgo offers authentication support, with great connection pooling integration.</p>
+
+<p>This enables mgo to talk to protected servers and replica sets in a very comfortable way. Even with a straightforward(简单的) API, the authentication is internally cached in a secure way to avoid constant(不断的) roundtrips to the database. The use of nonces is also optimized so that logins are usually performed(履行) with a single roundtrip to the database.</p>
+
+<blockquote>
+<p>译：这使得mgo能够以非常舒适的方式与受保护的服务器和副本集进行对话。 即使使用简单的API，身份验证也会以一种安全的方式进行内部缓存，以避免往返于数据库。 随机数的使用也进行了优化，以便登录通常是单向往返数据库。</p>
+</blockquote>
+
+<h2 id="1-8-gridfs-support">1.8. GridFS support</h2>
+
+<p>mgo can be used to send and receive files to MongoDB using the standard GridFS specification(规范) for file storage. This means that it may share the same database collections used for file storage with drivers for other languages, and also the command line tools provided with MongoDB itself (e.g. mongofiles).</p>
+
+<p>In addition to a selection(选择) of relevant(相应的) methods, the *mgo.GridFile type implements support for both io.Reader and io.Writer interfaces, which means it integrates nicely with the standard library.</p>
+
+<blockquote>
+<p>译：</p>
+
+<ul>
+<li>mgo可以用来发送和接收文件到MongoDB使用标准的GridFS规范的文件存储。 这意味着它可以与其他语言的驱动程序共享用于文件存储的相同数据库集合，也可以共享MongoDB本身提供的命令行工具（如mongofiles）。</li>
+<li>除了选择相关的方法之外，* mgo.GridFile类型实现了对io.Reader和io.Writer接口的支持，这意味着它与标准库很好地集成。</li>
+</ul>
+</blockquote>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h1 id="2-api-documentation">2. API documentation</h1>
+
+<ul>
+<li><a href="http://gopkg.in/mgo.v2">API docs for mgo</a></li>
+<li><a href="http://gopkg.in/mgo.v2/bson">API docs for mgo/bson</a></li>
+<li><a href="http://gopkg.in/mgo.v2/txn">API docs for mgo/txn</a></li>
+</ul>
+
+<h1 id="3-example">3. Example</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+    <span class="s">&#34;log&#34;</span>
+    <span class="s">&#34;gopkg.in/mgo.v2&#34;</span>
+    <span class="s">&#34;gopkg.in/mgo.v2/bson&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Name</span>  <span class="kt">string</span>
+    <span class="nx">Phone</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">session</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mgo</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="s">&#34;server1.example.com, server2.example.com&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">session</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+    <span class="c1">// Optional. Switch the session to a monotonic(单调的) behavior(行为).
+</span><span class="c1"></span>    <span class="nx">session</span><span class="p">.</span><span class="nf">SetMode</span><span class="p">(</span><span class="nx">mgo</span><span class="p">.</span><span class="nx">Monotonic</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">.(</span><span class="s">&#34;test&#34;</span><span class="p">).</span><span class="nf">C</span><span class="p">(</span><span class="s">&#34;people&#34;</span><span class="p">)</span>
+    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">Insert</span><span class="p">(</span>
+        <span class="o">&amp;</span><span class="nx">Person</span><span class="p">{</span><span class="s">&#34;Ale&#34;</span><span class="p">,</span> <span class="s">&#34;+55 53 8116 9639&#34;</span><span class="p">},</span>
+        <span class="o">&amp;</span><span class="nx">Person</span><span class="p">{</span><span class="s">&#34;Cla&#34;</span><span class="p">,</span> <span class="s">&#34;+55 53 8402 8510&#34;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nx">result</span> <span class="o">:=</span> <span class="nx">Person</span><span class="p">{}</span>
+    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nf">Find</span><span class="p">(</span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&#34;name&#34;</span><span class="p">:</span> <span class="s">&#34;Ale&#34;</span><span class="p">}).</span><span class="nf">One</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">result</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Phone:&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">Phone</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h1 id="4-session-and-pool">4. Session and Pool</h1>
+
+<p>Dial方法和MongoDB数据库建立了链接后会返回一个mgo.Session对象；可以用该对象管理所有的CRUD操作, 且 session 能够和 mongodb 集群中的所有Server通讯。</p>
+
+<p>Session管理MongoDB服务器群的连接池， 一个连接池是数据库链接的缓存，所以当新的请求连接数据库的操作会重用已用的连接。</p>
+
+<p>在一个独立的http请求的生命周期，New(), Copy(), Clone()方法会创建Session，会获取Dial方法创建的Session。</p>
+
+<ul>
+<li>New(): 创建新的Session对象，和已创建Session有同样的参数；</li>
+<li>Copy(): 保留原有的Session信息；</li>
+<li>Clone(): 和Copy()函数一样，但会重用原来的Session建立的Socket连接。</li>
+</ul>
+
+<h2 id="4-1-session-mode">4.1. Session mode</h2>
+
+<blockquote>
+<p>mgo 的 session.SetMode函数说明</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// SetMode changes the consistecy mode for the session.
+</span><span class="c1">// SetMode 函数用来变换 session 的一致性模式
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">Session</span><span class="p">)</span> <span class="nf">SetMode</span><span class="p">(</span><span class="nx">consistency</span> <span class="nx">mode</span><span class="p">,</span> <span class="nx">refresh</span> <span class="kt">bool</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="4-1-1-strong">4.1.1. Strong</h3>
+
+<p>In the Strong consistency mode reads and writes will always be made to
+the primary server using a unique connection so that reads and writes are
+fully consistent, ordered, and observing the most up-to-date data.
+This offers the least benefits in terms of distributing load, but the
+most guarantees.  See also Monotonic and Eventual.</p>
+
+<blockquote>
+<p>译：在强一致模式下，读写都是在主节点上通过一个唯一的连接实现，这样读写时完全一致，有序并且呈现最新的数据。这种模式在分布式负载架构下没有多少益处，但是保证了读写数据的一致性。</p>
+</blockquote>
+
+<h3 id="4-1-2-monotonic-单一的">4.1.2. Monotonic(单一的)</h3>
+
+<p>In the Monotonic consistency mode reads may not be entirely up-to-date, but they will always see the history of changes moving forward, the data read will be consistent across sequential queries in the same session, and modifications made within the session will be observed in following queries (read-your-writes).</p>
+
+<blockquote>
+<p>译：在 Monotonic 一致性模式下，读到的数据不一定时最新的，但是在同一个session中的一系列读保持着数据的一致性，而session中的修改在其后的查询中可以得到体现。</p>
+
+<p>Note: session 的读操作开始时向其他服务器发起(且通过一个唯一的连接)， 只要出现了一次写操作，session的连接就会切换至主服务器。由此可见此模式下，能够分散一些读操作到其他服务器，但是读操作不一定能够获得最新的数据。</p>
+</blockquote>
+
+<h3 id="4-1-3-eventual">4.1.3. Eventual</h3>
+
+<p>session 的读操作会向任意的其他服务器发起，多次读操作并不一定使用相同的连接，也就是读操作不一定有序。session 的写操作总是向主服务器发起，但是可能使用不同的连接，也就是写操作也不一定有序。</p>
+
+<h3 id="4-1-4-summary">4.1.4. Summary</h3>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Strong</th>
+<th>Monotonic</th>
+<th>Eventual</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>read</td>
+<td>read to primary</td>
+<td>read to arbitrary（随机的）primary</td>
+<td>read to any secondary</td>
+</tr>
+
+<tr>
+<td>write</td>
+<td>write to primary</td>
+<td>write to primary</td>
+<td>wirte to primary</td>
+</tr>
+
+<tr>
+<td>connection</td>
+<td>unique</td>
+<td>unique</td>
+<td>independent</td>
+</tr>
+
+<tr>
+<td>guarantee</td>
+<td>the most</td>
+<td>some useful</td>
+<td>the least</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h2 id="4-2-session-的拷贝和并发">4.2. Session 的拷贝和并发</h2>
+
+<h1 id="5-mgo-dialinfo">5. mgo.DialInfo</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// DialInfo holds options for establishing a session with a MongoDB cluster.
+</span><span class="c1">// To use a URL, see the Dial function.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">DialInfo</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="c1">// Addrs holds the addresses for the seed servers.
+</span><span class="c1"></span>	<span class="nx">Addrs</span> <span class="p">[]</span><span class="kt">string</span>
+
+	<span class="c1">// Direct informs whether to establish connections only with the
+</span><span class="c1"></span>	<span class="c1">// specified seed servers, or to obtain information for the whole
+</span><span class="c1"></span>	<span class="c1">// cluster and establish connections with further servers too.
+</span><span class="c1"></span>	<span class="nx">Direct</span> <span class="kt">bool</span>
+
+	<span class="c1">// Timeout is the amount of time to wait for a server to respond when
+</span><span class="c1"></span>	<span class="c1">// first connecting and on follow up operations in the session. If
+</span><span class="c1"></span>	<span class="c1">// timeout is zero, the call may block forever waiting for a connection
+</span><span class="c1"></span>	<span class="c1">// to be established. Timeout does not affect logic in DialServer.
+</span><span class="c1"></span>	<span class="nx">Timeout</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+
+	<span class="c1">// FailFast will cause connection and query attempts to fail faster when
+</span><span class="c1"></span>	<span class="c1">// the server is unavailable, instead of retrying until the configured
+</span><span class="c1"></span>	<span class="c1">// timeout period. Note that an unavailable server may silently drop
+</span><span class="c1"></span>	<span class="c1">// packets instead of rejecting them, in which case it&#39;s impossible to
+</span><span class="c1"></span>	<span class="c1">// distinguish it from a slow server, so the timeout stays relevant.
+</span><span class="c1"></span>	<span class="nx">FailFast</span> <span class="kt">bool</span>
+
+	<span class="c1">// Database is the default database name used when the Session.DB method
+</span><span class="c1"></span>	<span class="c1">// is called with an empty name, and is also used during the initial
+</span><span class="c1"></span>	<span class="c1">// authentication if Source is unset.
+</span><span class="c1"></span>	<span class="nx">Database</span> <span class="kt">string</span>
+
+	<span class="c1">// ReplicaSetName, if specified, will prevent the obtained session from
+</span><span class="c1"></span>	<span class="c1">// communicating with any server which is not part of a replica set
+</span><span class="c1"></span>	<span class="c1">// with the given name. The default is to communicate with any server
+</span><span class="c1"></span>	<span class="c1">// specified or discovered via the servers contacted.
+</span><span class="c1"></span>	<span class="nx">ReplicaSetName</span> <span class="kt">string</span>
+
+	<span class="c1">// Source is the database used to establish credentials and privileges
+</span><span class="c1"></span>	<span class="c1">// with a MongoDB server. Defaults to the value of Database, if that is
+</span><span class="c1"></span>	<span class="c1">// set, or &#34;admin&#34; otherwise.
+</span><span class="c1"></span>	<span class="nx">Source</span> <span class="kt">string</span>
+
+	<span class="c1">// Service defines the service name to use when authenticating with the GSSAPI
+</span><span class="c1"></span>	<span class="c1">// mechanism. Defaults to &#34;mongodb&#34;.
+</span><span class="c1"></span>	<span class="nx">Service</span> <span class="kt">string</span>
+
+	<span class="c1">// ServiceHost defines which hostname to use when authenticating
+</span><span class="c1"></span>	<span class="c1">// with the GSSAPI mechanism. If not specified, defaults to the MongoDB
+</span><span class="c1"></span>	<span class="c1">// server&#39;s address.
+</span><span class="c1"></span>	<span class="nx">ServiceHost</span> <span class="kt">string</span>
+
+	<span class="c1">// Mechanism defines the protocol for credential negotiation.
+</span><span class="c1"></span>	<span class="c1">// Defaults to &#34;MONGODB-CR&#34;.
+</span><span class="c1"></span>	<span class="nx">Mechanism</span> <span class="kt">string</span>
+
+	<span class="c1">// Username and Password inform the credentials for the initial authentication
+</span><span class="c1"></span>	<span class="c1">// done on the database defined by the Source field. See Session.Login.
+</span><span class="c1"></span>	<span class="nx">Username</span> <span class="kt">string</span>
+	<span class="nx">Password</span> <span class="kt">string</span>
+
+	<span class="c1">// PoolLimit defines the per-server socket pool limit. Defaults to 4096.
+</span><span class="c1"></span>	<span class="c1">// See Session.SetPoolLimit for details.
+</span><span class="c1"></span>	<span class="nx">PoolLimit</span> <span class="kt">int</span>
+
+	<span class="c1">// DialServer optionally specifies the dial function for establishing
+</span><span class="c1"></span>	<span class="c1">// connections with the MongoDB servers.
+</span><span class="c1"></span>	<span class="nx">DialServer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">addr</span> <span class="o">*</span><span class="nx">ServerAddr</span><span class="p">)</span> <span class="p">(</span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+
+	<span class="c1">// WARNING: This field is obsolete. See DialServer above.
+</span><span class="c1"></span>	<span class="nx">Dial</span> <span class="kd">func</span><span class="p">(</span><span class="nx">addr</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Addr</span><span class="p">)</span> <span class="p">(</span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="6-index">6. Index</h1>
+
+<p>索引时一种特殊的数据结构，索引存储在一个易于遍历读取的数据集合中，索引是对数据库表中一列或者多列的值进行排序的一种结构。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Index</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Key</span>        <span class="p">[]</span><span class="kt">string</span> <span class="c1">// Index key fields; prefix name with dash (-) for descending order
+</span><span class="c1"></span>	<span class="nx">Unique</span>     <span class="kt">bool</span>     <span class="c1">// Prevent two documents from having the same index key
+</span><span class="c1"></span>	<span class="nx">DropDups</span>   <span class="kt">bool</span>     <span class="c1">// Drop documents with the same index key as a previously indexed one
+</span><span class="c1"></span>	<span class="nx">Background</span> <span class="kt">bool</span>     <span class="c1">// Build index in background and return immediately
+</span><span class="c1"></span>	<span class="nx">Sparse</span>     <span class="kt">bool</span>     <span class="c1">// Only index documents containing the Key fields
+</span><span class="c1"></span>
+	<span class="c1">// If ExpireAfter is defined the server will periodically delete
+</span><span class="c1"></span>	<span class="c1">// documents with indexed time.Time older than the provided delta.
+</span><span class="c1"></span>	<span class="nx">ExpireAfter</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+
+	<span class="c1">// Name holds the stored index name. On creation if this field is unset it is
+</span><span class="c1"></span>	<span class="c1">// computed by EnsureIndex based on the index key.
+</span><span class="c1"></span>	<span class="nx">Name</span> <span class="kt">string</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li><p>Key []string: 索引字段(默认升序排序)，其前缀加 <code>-</code> 表示按降序排序</p></li>
+
+<li><p>Unique bool: 设置建立的索引是否唯一(默认为false)。</p></li>
+
+<li><p>DropDups bool: 在建立唯一索引时是否删除重复记录，指定为true则创建唯
+一索引。(默认为false)</p></li>
+
+<li><p>Backgroud bool 建立索引过程会阻塞其他数据库操作，backgroud指定在后台创建索引，完成后立即返回。(默认值为false)</p></li>
+
+<li><p>Sparse bool: 对文档中不存在的字段数据不启用索引；这个参数要特别注意，如果设置为true的话，在索引字段中不会查询出不包含对应的字段的文档。(默认值为false)</p></li>
+
+<li><p>Name string； 索引的名称，如果未指定，MongoDB通过连接索引的字段名称和排序顺序生成一个索引名称。</p></li>
+
+<li><p>ExpireAfterSeconds time.Duration: 如果定义了ExpireAfter，则服务器将定期删除索引时间早于提供的增量的文档。</p></li>
+</ul>
+
+<h2 id="6-1-关于index的一些理解">6.1. 关于Index的一些理解</h2>
+
+<ul>
+<li><a href="https://docs.mongodb.com/manual/indexes/">https://docs.mongodb.com/manual/indexes/</a></li>
+<li><a href="http://www.mongoing.com/archives/2797">http://www.mongoing.com/archives/2797</a></li>
+<li><a href="https://itbilu.com/database/mongo/E1tWQz4_e.html">https://itbilu.com/database/mongo/E1tWQz4_e.html</a></li>
+<li><a href="https://www.guru99.com/create-read-update-operations-mongodb.html">https://www.guru99.com/create-read-update-operations-mongodb.html</a></li>
+<li><a href="https://www.tutorialspoint.com/mongodb/mongodb_indexing.htm">https://www.tutorialspoint.com/mongodb/mongodb_indexing.htm</a></li>
+<li><a href="https://www.compose.com/articles/mongodb-indexing-best-practices/">https://www.compose.com/articles/mongodb-indexing-best-practices/</a></li>
+<li><a href="https://blog.haohtml.com/archives/12873">https://blog.haohtml.com/archives/12873</a></li>
+<li><a href="https://blog.laisky.com/p/mgo/">https://blog.laisky.com/p/mgo/</a></li>
+<li><a href="https://www.jianshu.com/p/ab48dd5541a8">https://www.jianshu.com/p/ab48dd5541a8</a></li>
+</ul>
+
+<h1 id="7-故障排除和性能调优">7. 故障排除和性能调优</h1>
+
+<ul>
+<li><a href="https://www.gmarik.info/blog/2017/testing-mongodb-queries-golang/">https://www.gmarik.info/blog/2017/testing-mongodb-queries-golang/</a></li>
+<li><a href="http://blog.51cto.com/xinsir/2051629">http://blog.51cto.com/xinsir/2051629</a></li>
+<li><a href="https://lamada.eu/blog/2016/11/08/troubleshooting-mongodb-queries-performance/">https://lamada.eu/blog/2016/11/08/troubleshooting-mongodb-queries-performance/</a></li>
+<li><a href="https://yq.aliyun.com/articles/226367">https://yq.aliyun.com/articles/226367</a></li>
+<li><a href="https://wangming1993.github.io/2016/01/27/the-summary-of-mongodb-index/">https://wangming1993.github.io/2016/01/27/the-summary-of-mongodb-index/</a></li>
+<li><a href="https://www.kancloud.cn/yujc/mongodb_note/383929">https://www.kancloud.cn/yujc/mongodb_note/383929</a></li>
+<li><a href="https://docs.mongodb.com/manual/reference/explain-results/">https://docs.mongodb.com/manual/reference/explain-results/</a></li>
+<li><a href="http://www.mongoing.com/eshu_explain2">http://www.mongoing.com/eshu_explain2</a></li>
+</ul>
+
+<h1 id="8-see-also">8. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://my.oschina.net/ricktian1226/blog/346207">Session Mode</a></li>
+<li><a href="https://cardinfolink.github.io/2017/05/17/mgo-session/#top">Session Pool</a></li>
+</ul>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-05-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          <a href="/tags/mongodb/">mongodb</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/essay/20180209-poetry-%E5%BD%92%E4%B9%A1%E5%8C%97%E6%96%B9/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">《归乡·北方》</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20171113-go-unit-test/">
+            <span class="next-text nav-default">Golang | 单元测试</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-01-27 16:07:43 \x2b0800 CST',
+        title: 'Golang | mgo - Rich MongoDB Driver for Go [译]',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

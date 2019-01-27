@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MongoDB | 基础学习笔记 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="mongodb" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/db/mongodb/20170612-basic-note/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="MongoDB | 基础学习笔记" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/db/mongodb/20170612-basic-note/" /><meta property="article:published_time" content="2017-06-12T15:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2018-01-24T15:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="MongoDB | 基础学习笔记">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-06-12T15:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2018-01-24T15:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="8594">
+
+
+
+<meta itemprop="keywords" content="db,mongodb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB | 基础学习笔记"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MongoDB | 基础学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-06-12 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 8594 words </span>
+          <span class="more-meta"> 18 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#特性">特性</a></li>
+<li><a href="#基础">基础</a>
+<ul>
+<li><a href="#基本概念">基本概念</a></li>
+<li><a href="#文档">文档</a></li>
+<li><a href="#集合">集合</a>
+<ul>
+<li><a href="#动态模式">动态模式</a></li>
+<li><a href="#命名">命名</a></li>
+<li><a href="#子集合">子集合</a></li>
+</ul></li>
+<li><a href="#数据库">数据库</a>
+<ul>
+<li><a href="#mongodb保留的数据库">MongoDB保留的数据库</a></li>
+</ul></li>
+<li><a href="#mongodb-shell">MongoDB Shell</a></li>
+<li><a href="#数据类型">数据类型</a>
+<ul>
+<li><a href="#基本数据类型">基本数据类型</a></li>
+<li><a href="#日期">日期</a></li>
+<li><a href="#数组">数组</a></li>
+<li><a href="#内嵌文档">内嵌文档</a></li>
+<li><a href="#id-和-objectid">_id 和 ObjectId</a></li>
+</ul></li>
+<li><a href="#使用-mongodb-shell">使用 MongoDB Shell</a>
+<ul>
+<li><a href="#使用-shell-执行脚本">使用 shell 执行脚本</a></li>
+<li><a href="#创建-mongorc-js-文件">创建 .mongorc.js 文件</a></li>
+<li><a href="#定制-shell-提示">定制 shell 提示</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#crud">CRUD</a>
+<ul>
+<li><a href="#插入">插入</a></li>
+<li><a href="#删除">删除</a></li>
+<li><a href="#更新">更新</a>
+<ul>
+<li><a href="#文档替换">文档替换</a></li>
+<li><a href="#修改器">修改器</a>
+<ul>
+<li><a href="#set-修改"><strong>$set 修改</strong></a></li>
+<li><a href="#unset-删除键"><strong>$unset 删除键</strong></a></li>
+<li><a href="#inc-增加和减少"><strong>$inc 增加和减少</strong></a></li>
+<li><a href="#mul-乘法"><strong>$mul 乘法</strong></a></li>
+<li><a href="#rename-重命名"><strong>$rename 重命名</strong></a></li>
+<li><a href="#min"><strong>$min</strong></a></li>
+<li><a href="#max"><strong>$max</strong></a></li>
+<li><a href="#setoninsert"><strong>$setOnInsert</strong></a></li>
+<li><a href="#currentdate"><strong>$currentDate</strong></a></li>
+</ul></li>
+<li><a href="#数组修改器">数组修改器</a>
+<ul>
+<li><a href="#toc_37"><strong>$</strong></a></li>
+<li><a href="#toc_38"><strong>$[]</strong></a></li>
+<li><a href="#identifier"><strong>$[&lt; identifier&gt;]</strong></a></li>
+<li><a href="#addtoset"><strong>$addToSet</strong></a></li>
+<li><a href="#pop"><strong>$pop</strong></a></li>
+<li><a href="#pull"><strong>$pull</strong></a></li>
+<li><a href="#pullall"><strong>$pullAll</strong></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#note">Note:</a>
+<ul>
+<li>
+<ul>
+<li><a href="#push-添加元素"><strong>$push 添加元素</strong></a></li>
+<li><a href="#each"><strong>$each</strong></a></li>
+<li><a href="#position"><strong>$position</strong></a></li>
+<li><a href="#slice"><strong>$slice</strong></a></li>
+<li><a href="#sort"><strong>$sort</strong></a></li>
+</ul></li>
+<li><a href="#修改器速度">修改器速度</a></li>
+</ul></li>
+<li><a href="#upsert">Upsert</a></li>
+<li><a href="#写入安全机制">写入安全机制</a></li>
+</ul></li>
+<li><a href="#查询">查询</a>
+<ul>
+<li><a href="#find-简介">find 简介</a></li>
+<li><a href="#指定需要返回的键">指定需要返回的键</a></li>
+<li><a href="#查询-1">查询</a>
+<ul>
+<li><a href="#比较操作符">比较操作符</a>
+<ul>
+<li><a href="#eq">$eq</a></li>
+<li><a href="#gt">$gt</a></li>
+<li><a href="#gte">$gte</a></li>
+<li><a href="#lt">$lt</a></li>
+<li><a href="#lte">$lte</a></li>
+<li><a href="#ne">$ne</a></li>
+<li><a href="#in">$in</a></li>
+<li><a href="#nin">$nin</a></li>
+</ul></li>
+<li><a href="#逻辑操作符">逻辑操作符</a>
+<ul>
+<li><a href="#or">$or</a></li>
+<li><a href="#and">$and</a></li>
+<li><a href="#not">$not</a></li>
+<li><a href="#nor">$nor</a></li>
+</ul></li>
+<li><a href="#元素操作符">元素操作符</a>
+<ul>
+<li><a href="#exists">$exists</a></li>
+<li><a href="#type">$type</a></li>
+</ul></li>
+<li><a href="#评估查询">评估查询</a>
+<ul>
+<li><a href="#regex-正则表达式">$regex 正则表达式</a></li>
+<li><a href="#mod">$mod</a></li>
+<li><a href="#text">$text</a></li>
+<li><a href="#where">$where</a></li>
+</ul></li>
+<li><a href="#查询数组">查询数组</a>
+<ul>
+<li><a href="#all">$all</a></li>
+<li><a href="#elemmatch">$elemMatch</a></li>
+<li><a href="#size">$size</a></li>
+</ul></li>
+<li><a href="#查询内嵌文档">查询内嵌文档</a></li>
+<li><a href="#聚合查询">聚合查询</a></li>
+</ul></li>
+<li><a href="#服务端脚本">服务端脚本</a></li>
+<li><a href="#游标">游标</a>
+<ul>
+<li><a href="#不用-skip-对结果分页">不用 skip 对结果分页</a></li>
+<li><a href="#随机选取文档">随机选取文档</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p><span id="content"><strong>目录</strong></span>
+<!-- TOC --></p>
+
+<ul>
+<li><a href="#特性">特性</a></li>
+<li><a href="#基础">基础</a>
+
+<ul>
+<li><a href="#基本概念">基本概念</a></li>
+<li><a href="#文档">文档</a></li>
+<li><a href="#集合">集合</a></li>
+<li><a href="#动态模式">动态模式</a></li>
+<li><a href="#命名">命名</a></li>
+<li><a href="#子集合">子集合</a></li>
+<li><a href="#数据库">数据库</a></li>
+<li><a href="#mongodb保留的数据库">MongoDB保留的数据库</a></li>
+<li><a href="#mongodb-shell">MongoDB Shell</a></li>
+<li><a href="#数据类型">数据类型</a></li>
+<li><a href="#基本数据类型">基本数据类型</a></li>
+<li><a href="#日期">日期</a></li>
+<li><a href="#数组">数组</a></li>
+<li><a href="#内嵌文档">内嵌文档</a></li>
+<li><a href="#_id-和-objectid">_id 和 ObjectId</a></li>
+<li><a href="#使用-mongodb-shell">使用 MongoDB Shell</a></li>
+<li><a href="#使用-shell-执行脚本">使用 shell 执行脚本</a></li>
+<li><a href="#创建-mongorcjs-文件">创建 .mongorc.js 文件</a></li>
+<li><a href="#定制-shell-提示">定制 shell 提示</a></li>
+</ul></li>
+<li><a href="#crud">CRUD</a>
+
+<ul>
+<li><a href="#插入">插入</a></li>
+<li><a href="#删除">删除</a></li>
+<li><a href="#更新">更新</a></li>
+<li><a href="#文档替换">文档替换</a></li>
+<li><a href="#修改器">修改器</a>
+
+<ul>
+<li><a href="#set-修改"><strong>$set 修改</strong></a></li>
+<li><a href="#unset-删除键"><strong>$unset 删除键</strong></a></li>
+<li><a href="#inc-增加和减少"><strong>$inc 增加和减少</strong></a></li>
+<li><a href="#mul-乘法"><strong>$mul 乘法</strong></a></li>
+<li><a href="#rename-重命名"><strong>$rename 重命名</strong></a></li>
+<li><a href="#min"><strong>$min</strong></a></li>
+<li><a href="#max"><strong>$max</strong></a></li>
+<li><a href="#setoninsert"><strong>$setOnInsert</strong></a></li>
+<li><a href="#currentdate"><strong>$currentDate</strong></a></li>
+</ul></li>
+<li><a href="#数组修改器">数组修改器</a>
+
+<ul>
+<li><a href="#"><strong>$</strong></a></li>
+<li><a href="#"><strong>$[]</strong></a></li>
+<li><a href="#-identifier"><strong>$[&lt; identifier&gt;]</strong></a></li>
+<li><a href="#addtoset"><strong>$addToSet</strong></a></li>
+<li><a href="#pop"><strong>$pop</strong></a></li>
+<li><a href="#pull"><strong>$pull</strong></a></li>
+<li><a href="#pullall"><strong>$pullAll</strong></a></li>
+<li><a href="#push-添加元素"><strong>$push 添加元素</strong></a></li>
+<li><a href="#each"><strong>$each</strong></a></li>
+<li><a href="#position"><strong>$position</strong></a></li>
+<li><a href="#slice"><strong>$slice</strong></a></li>
+<li><a href="#sort"><strong>$sort</strong></a></li>
+</ul></li>
+<li><a href="#修改器速度">修改器速度</a></li>
+<li><a href="#upsert">Upsert</a></li>
+<li><a href="#写入安全机制">写入安全机制</a></li>
+</ul></li>
+<li><a href="#查询">查询</a>
+
+<ul>
+<li><a href="#find-简介">find 简介</a></li>
+<li><a href="#指定需要返回的键">指定需要返回的键</a></li>
+<li><a href="#查询-1">查询</a></li>
+<li><a href="#比较操作符">比较操作符</a>
+
+<ul>
+<li><a href="#eq">$eq</a></li>
+<li><a href="#gt">$gt</a></li>
+<li><a href="#gte">$gte</a></li>
+<li><a href="#lt">$lt</a></li>
+<li><a href="#lte">$lte</a></li>
+<li><a href="#ne">$ne</a></li>
+<li><a href="#in">$in</a></li>
+<li><a href="#nin">$nin</a></li>
+</ul></li>
+<li><a href="#逻辑操作符">逻辑操作符</a>
+
+<ul>
+<li><a href="#or">$or</a></li>
+<li><a href="#and">$and</a></li>
+<li><a href="#not">$not</a></li>
+<li><a href="#nor">$nor</a></li>
+</ul></li>
+<li><a href="#元素操作符">元素操作符</a>
+
+<ul>
+<li><a href="#exists">$exists</a></li>
+<li><a href="#type">$type</a></li>
+</ul></li>
+<li><a href="#评估查询">评估查询</a>
+
+<ul>
+<li><a href="#regex-正则表达式">$regex 正则表达式</a></li>
+<li><a href="#mod">$mod</a></li>
+<li><a href="#text">$text</a></li>
+<li><a href="#where">$where</a></li>
+</ul></li>
+<li><a href="#查询数组">查询数组</a>
+
+<ul>
+<li><a href="#all">$all</a></li>
+<li><a href="#elemmatch">$elemMatch</a></li>
+<li><a href="#size">$size</a></li>
+</ul></li>
+<li><a href="#查询内嵌文档">查询内嵌文档</a></li>
+<li><a href="#聚合查询">聚合查询</a></li>
+<li><a href="#服务端脚本">服务端脚本</a></li>
+<li><a href="#游标">游标</a></li>
+<li><a href="#不用-skip-对结果分页">不用 skip 对结果分页</a></li>
+<li><a href="#随机选取文档">随机选取文档</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h1 id="特性">特性</h1>
+
+<ul>
+<li><strong>索引(indexing)</strong></li>
+</ul>
+
+<p>MongoDB支持通用二级索引，允许多种快速查询，且提供唯一索引、复合索引、地理空间索引以及全文索引</p>
+
+<ul>
+<li><strong>聚合(aggregation)</strong></li>
+</ul>
+
+<p>MongoDB支持 “聚合管道(aggregation pipeline)”。用户能通过简单的片段创建复杂的聚合，并通过数据库自动优化。</p>
+
+<ul>
+<li><strong>特殊的集合类型</strong></li>
+</ul>
+
+<p>MongoDB支持存在时间有限的集合，适用于那些将在某个时刻过期的数据，如会话(session)。类似的，MongoDB也支持固定大小的集合，用于保存近期数据，如日志。</p>
+
+<ul>
+<li><strong>文件存储</strong></li>
+</ul>
+
+<p>MongoDB支持一种非常易用的协议，用于存储大文件和文件元数据。</p>
+
+<ul>
+<li><strong>与关系型数据库区别</strong></li>
+</ul>
+
+<p>不具备 <code>连接(join)</code> 和 复杂的 <code>多行事务(multirow transaction)</code></p>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h1 id="基础">基础</h1>
+
+<h2 id="基本概念">基本概念</h2>
+
+<ul>
+<li><strong>文档</strong></li>
+</ul>
+
+<p>文档是MongoDB中数据的基本单元，非常类似于关系型数据库管理系统中的行，但更具表现力, 表现力。</p>
+
+<ul>
+<li><strong>集合</strong></li>
+</ul>
+
+<p>类似地，集合（collection）可以看作是一个拥有动态模式（dynamic schema）的表。</p>
+
+<ul>
+<li><strong>数据库</strong></li>
+</ul>
+
+<p>MongoDB的一个实例可以拥有多个相互独立的数据库（database），每一个数据库都拥有自己的集合。</p>
+
+<ul>
+<li><strong>特殊键</strong></li>
+</ul>
+
+<p>每一个文档都有一个特殊的键&rdquo;_id&rdquo;， 这个键在文档所属的集合中是唯一的。</p>
+
+<ul>
+<li><strong>Shell</strong></li>
+</ul>
+
+<p>MongoDB自带了一个简单但功能强大的JavaScript shell，可用于管理MongoDB的实例或数据操作。</p>
+
+<h2 id="文档">文档</h2>
+
+<p>文档就是键值对的一个有序集。</p>
+
+<p>Note:
+- 文档的键是字符串, 除了少数例外情况，键可以使用任意UTF-8字符。
+- 键不能含有\0（空字符）。这个字符用于表示键的结尾。
+- .和$具有特殊意义，只能在特定环境下使用
+- MongoDB不但区分类型，而且区分大小写
+- MongoDB的文档不能有重复的键。</p>
+
+<h2 id="集合">集合</h2>
+
+<p>集合就是一组文档。如果将MongoDB中的一个文档比喻为关系型数据库中的一行，那么一个集合就相当于一张表。</p>
+
+<h3 id="动态模式">动态模式</h3>
+
+<p>集合是动态模式的。即一个集合里面的文档可是是各式各样的。例如，下面两个文档可以存储在同一个集合里面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">&#34;book&#34;</span> <span class="p">:</span> <span class="s2">&#34;Go Programming language&#34;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&#34;price&#34;</span> <span class="p">:</span> <span class="mi">99</span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>推荐模式：将相关类型的文档组织在一起(一个集合只存放一种类型的文档，这样可有效的建立索引)</li>
+</ul>
+
+<h3 id="命名">命名</h3>
+
+<p>集合使用名称进行标识。集合名可以是满足下列条件的任意UTF-8字符串。</p>
+
+<ul>
+<li>集合名不能是空字符串（&rdquo;&ldquo;）</li>
+<li>集合名不能包含\0字符（空字符），这个字符表示集合名的结束。</li>
+<li>集合名不能以“system.”开头，这是为系统集合保留的前缀。例如，system.users这个集合保存着数据库的用户信息，而system.namespaces集合保存着所有数据库集合的信息。</li>
+<li>用户创建的集合不能在集合名中包含保留字
+符&rsquo;$&lsquo;。</li>
+</ul>
+
+<h3 id="子集合">子集合</h3>
+
+<p>组织集合的一种惯例是使用“.”分隔不同命名空间的子集合</p>
+
+<h2 id="数据库">数据库</h2>
+
+<p>数据库名可以是满足以下条件的任意UTF-8字符串</p>
+
+<p>Note:</p>
+
+<ul>
+<li>不能是空字符串（&rdquo;&ldquo;)。</li>
+<li>不得含有/、\、.、&rdquo;、*、&lt;、&gt;、:、|、?、$（一个空格）、\0（空字符）。基本上，只能使用ASCII中的字母和数字。</li>
+<li>数据库名区分大小写，即便是在不区分大小写的文件系统中也是如此。简单起见，数据库名应全部小写。</li>
+<li>数据库名最多64字节</li>
+</ul>
+
+<blockquote>
+<p>注：数据库最终会变成文件系统里的文件，而数据库名就是相应的文件名，所以数据库名有如此多的限制。</p>
+</blockquote>
+
+<h3 id="mongodb保留的数据库">MongoDB保留的数据库</h3>
+
+<blockquote>
+<p>admin</p>
+</blockquote>
+
+<p>从身份验证的角度来讲，这是“root”数据库。如果将一个用户添加到admin数据库，这个用户将
+自动获得所有数据库的权限。再者，一些特定的服务器端命令也只能从admin数据库运行，如列
+出所有数据库或关闭服务器。</p>
+
+<blockquote>
+<p>local</p>
+</blockquote>
+
+<p>这个数据库永远都不可以复制，且一台服务器上的所有本地集合都可以存储在这个数据库中。</p>
+
+<blockquote>
+<p>config</p>
+</blockquote>
+
+<p>MongoDB用于分片设置时，分片信息会存储在 <code>config</code> 数据库中</p>
+
+<p>Note:
+- 把数据库名添加到集合名前，得到集合的完全限定名，即命名空间（namespace）。例如，如果要使用cms数据库中的blog.posts集合，这个集合的命名空间就是cms.blog.posts。命名空间的长度不得超过121字节，且在实际使用中应小于100字节。</p>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h2 id="mongodb-shell">MongoDB Shell</h2>
+
+<p>基本操作(CRUD)</p>
+
+<ul>
+<li>创建</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="nx">book</span><span class="o">:</span><span class="s2">&#34;my book&#34;</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>查找，可添加查询条件</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">db.books.find()    		// Find All
+db.books.find().pretty()	// 显示格式化后的数据
+db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>更新</li>
+</ul>
+
+<p>update接受（至少）两个参数：第一个是限定条件（用于匹配待更新的文档），第二个是新的文档。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+	<span class="p">{</span><span class="nx">book</span> <span class="o">:</span> <span class="s2">&#34;my book&#34;</span><span class="p">},</span> 
+	<span class="p">{</span><span class="nx">content</span><span class="o">:</span> <span class="s2">&#34;nice book&#34;</span><span class="p">}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>删除</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">remove</span><span class="p">({</span><span class="nx">book</span> <span class="o">:</span> <span class="s2">&#34;my book&#34;</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="数据类型">数据类型</h2>
+
+<h3 id="基本数据类型">基本数据类型</h3>
+
+<p><code>String</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">字符串。存储数据常用的数据类型。在 MongoDB 中，UTF-8 编码的字符串才是合法的。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Integer</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">整型数值。用于存储数值。根据你所采用的服务器，可分为 32 位或 64 位。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Boolean</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">布尔值。用于存储布尔值（真/假）。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Double</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">双精度浮点值。用于存储浮点值。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Min/Max keys</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">将一个值与 BSON（二进制的 JSON）元素的最低值和最高值相对比。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Arrays</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">用于将数组或列表或多个值存储为一个键。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Timestamp</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">时间戳。记录文档修改或添加的具体时间。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Object</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">用于内嵌文档。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Null</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">用于表示空值或者不存在的字段</pre></td></tr></table>
+</div>
+</div>
+<p><code>Symbol</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">符号。该数据类型基本上等同于字符串类型，但不同的是，它一般用于采用特殊符号类型的语言。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Date</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">日期被存储为自新纪元以来经过的毫秒数，不存储时区：
+
+{&#34;x&#34; : new Date()}</pre></td></tr></table>
+</div>
+</div>
+<p><code>Object ID</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">对象 ID。用于创建文档的 ID。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Binary Data</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">二进制数据是一个任意字节的字符串。它不能直接在shell中使用。如果要将非UTF-8字符保存到数据库中，二进制数据是唯一的方式。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Code</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">代码类型。用于在文档中存储 JavaScript 代码。</pre></td></tr></table>
+</div>
+</div>
+<p><code>Regular expression</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">正则表达式类型。用于存储正则表达式。</pre></td></tr></table>
+</div>
+</div>
+<h3 id="日期">日期</h3>
+
+<p>在JavaScript中，Date类可以用作MongoDB的日期类型。创建日期对象时，应使用new Date（…），而非Date（…）。</p>
+
+<h3 id="数组">数组</h3>
+
+<p>数组是一组值，他既能作为有序对象(如列表、栈或队列), 也能作为无序对象(如数据集)来操作。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span> 
+    <span class="nt">&#34;things&#34;</span><span class="p">:[</span>
+        <span class="s2">&#34;apple&#34;</span><span class="p">,</span> 
+        <span class="mf">3.14</span><span class="p">,</span> 
+        <span class="kc">true</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>db.test.find({&ldquo;things&rdquo;:true})</p>
+
+<p>Note:</p>
+
+<ul>
+<li>数组可包含不同数据类型的元素</li>
+<li>MonogoDB可理解数组结构，并能“深入”其中构建索引、执行查询或者更新。</li>
+</ul>
+
+<h3 id="内嵌文档">内嵌文档</h3>
+
+<p>内嵌文档：即文档可以作为 <code>键</code> 的值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+	<span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&#34;street&#34;</span><span class="p">:</span> <span class="s2">&#34;North Software Park&#34;</span><span class="p">,</span>
+		<span class="nt">&#34;city&#34;</span><span class="p">:</span> <span class="s2">&#34;zj&#34;</span><span class="p">,</span>
+		<span class="nt">&#34;state&#34;</span><span class="p">:</span> <span class="s2">&#34;hz&#34;</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>同数组一样，MongoDB能够“理解”内嵌文档的结构，并能“深入”其中构建索引、执行查询或者更新。</li>
+</ul>
+
+<h3 id="id-和-objectid">_id 和 ObjectId</h3>
+
+<p>MongoDB中存储的文档必须有一个 <code>_id</code> 键。 这个键的值可以是任意类型，默认是 ObjectId 对象，用于唯一标识文档。</p>
+
+<p>Note:
+- MongoDB中不同集合中的 <code>_id</code> 可以相同，但同一集合必须保证唯一</p>
+
+<p><strong>ObjectId</strong></p>
+
+<p>ObjectId是&rdquo;_id&rdquo;的默认类型。全局唯一。</p>
+
+<p>Note:
+- ObjectId 采用12字节的存储空间，是一个由24个十六进制数字组成的字符串。ObjectId 的生成方式
+  - 最开始 4 字节：时间戳，单位秒
+  - 接下来 3 字节：主机的唯一标识符(机器名的散列值 hash)
+  - 接下来 2 字节：进程标识符(pid)，确保同一台机器上并发的多个进程(mongod)产生的 ObjectId 唯一
+  - 最后的 3 字节：自增的计数器, 确保相同进程同一秒产生的ObjectId也是不一样的。(1s最多允许每个进程拥有256^3=16777216)个不同的ObjectId</p>
+
+<p><strong>自动生成 _id</strong></p>
+
+<p>MongoDB的哲学：能交给客户端驱动程序来做的事情就不要交给服务器完成。</p>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h2 id="使用-mongodb-shell">使用 MongoDB Shell</h2>
+
+<blockquote>
+<p>Note: 后面用到了再来仔细研读</p>
+</blockquote>
+
+<ul>
+<li>db.help()查看数据库级别的帮助</li>
+<li>db.foo.help()查看集合级别的帮助</li>
+</ul>
+
+<h3 id="使用-shell-执行脚本">使用 shell 执行脚本</h3>
+
+<p>$ mongo script1.js scripts2.js &hellip;</p>
+
+<p>$ mongo &ndash;quiet server-1:30000/foo script1.js script2.js</p>
+
+<p>$ load(&ldquo;scripts1.js&rdquo;)</p>
+
+<h3 id="创建-mongorc-js-文件">创建 .mongorc.js 文件</h3>
+
+<p>.mongorc.js：该文件会在shell启动时自动运行，如果在启动shell时制定 <code>--norc</code> 参数，就可以禁止加载 .mongorc.js</p>
+
+<p>When starting, mongo checks the user’s HOME directory for a JavaScript file named .mongorc.js. If found, mongo interprets the content of .mongorc.js before displaying the prompt for the first time. If you use the shell to evaluate a JavaScript file or expression, either by using the &ndash;eval option on the command line or by specifying a .js file to mongo, mongo will read the .mongorc.js file after the JavaScript has finished processing. You can prevent .mongorc.js from being loaded by using the &ndash;norc option.</p>
+
+<h3 id="定制-shell-提示">定制 shell 提示</h3>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h1 id="crud">CRUD</h1>
+
+<h2 id="插入">插入</h2>
+
+<p>MongoDB 插入数据时， 只对数据进行最基本的检查：检查文档的基本结构，如果没有&rdquo;_id&rdquo;字段，就自动增加一个、检查大小，所有文档必须小于16M</p>
+
+<h2 id="删除">删除</h2>
+
+<h2 id="更新">更新</h2>
+
+<p>MongoDB 更新操作是不可分割的：若是两个更新同时发生，先到达服务器的先执行，接着执行另外一个。所以，两个需要同时进行的更新会迅速接连完成，此过程不会破坏文档，最新的更新会取得胜利</p>
+
+<h3 id="文档替换">文档替换</h3>
+
+<p>一个常见的错误是查询条件匹配到了多个文档，然后更新时由于第二个参数的存在就产生重复的 “_id” 值；数据库会抛出错误，任何文档都不会更新。</p>
+
+<p>Note:</p>
+
+<ul>
+<li>更新文档时总是要指定一个唯一的文档，推荐用 <code>_id</code> 匹配，且 _id 建立了索引，会提升效率。</li>
+</ul>
+
+<h3 id="修改器">修改器</h3>
+
+<blockquote>
+<p><a href="https://docs.mongodb.com/manual/reference/operator/update/">Update Operators</a></p>
+</blockquote>
+
+<p>文档只有一部分(字段)做修改时，可以使用原子性的更新修改器，对文档中指定的字段进行更新。</p>
+
+<h4 id="set-修改"><strong>$set 修改</strong></h4>
+
+<p><code>$set</code> 指定一个字段的值。如果这个值不存在，则创建它。应用场景：更新模式或者增加用户自定义的键时很方便。例如 <code>users</code> 集合有如下文档：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+	<span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="err">ObjectId(</span><span class="s2">&#34;4b253b067525f35f94b60a31&#34;</span><span class="err">)</span><span class="p">,</span>
+	<span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;age&#34;</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+	<span class="nt">&#34;sex&#34;</span> <span class="p">:</span> <span class="s2">&#34;male&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;location&#34;</span> <span class="p">:</span> <span class="s2">&#34;Wisconsin&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;favorite book&#34;</span> <span class="p">:</span> <span class="s2">&#34;War and Peace&#34;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>几种应用场景：</p>
+
+<ul>
+<li>更新喜欢的书：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+	<span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span> 
+	<span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;favorite_book&#34;</span><span class="o">:</span><span class="s2">&#34;84, Charing Cross Road&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">).</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">).</span><span class="nx">Update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="s2">&#34;18&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>喜欢很多本书时，可将键 <code>favorite book</code>类型改为数据。即可修改键的类型：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+	<span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span> 
+	<span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;favorite_book&#34;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;Code Complete&#34;</span><span class="p">,</span> <span class="s2">&#34;C++ Primer&#34;</span><span class="p">,</span> <span class="s2">&#34;Love Art&#34;</span><span class="p">]}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">).</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">).</span><span class="nx">Update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;favorite_book&#34;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;Code Complete&#34;</span><span class="p">,</span> <span class="s2">&#34;C++ Primer&#34;</span><span class="p">,</span> <span class="s2">&#34;Love Art&#34;</span><span class="p">]}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>不喜欢时可删除该键：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+	<span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span> 
+	<span class="p">{</span><span class="s2">&#34;$unset&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;favorite book&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">).</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">).</span><span class="nx">Update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+		<span class="s2">&#34;$unset&#34;</span><span class="o">:</span>  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;price&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;password&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">},</span>
+		<span class="s2">&#34;$rename&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;book&#34;</span><span class="o">:</span> <span class="s2">&#34;movies&#34;</span><span class="p">},</span>
+	<span class="p">}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>或者修改内嵌文档的键：key.child_key_name</li>
+</ul>
+
+<p>Note:</p>
+
+<ul>
+<li>$set 可更新键值</li>
+<li>$set 可修改键值的类型</li>
+<li>$unset 可删除键</li>
+<li>$set 可更新内嵌文档的键值</li>
+<li>增加、修改、删除键时，应该使用 <code>$</code> 修改器，否则会造成整个文档的替换</li>
+</ul>
+
+<h4 id="unset-删除键"><strong>$unset 删除键</strong></h4>
+
+<p>语法：{&ldquo;$unset&rdquo;: {&ldquo;field1&rdquo;:&ldquo;&rdquo;, &hellip;}}
+释义：删除文档中指定的字段，若字段不存在则不操作
+示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;mongodb&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&#34;$unset&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;price&#34;</span><span class="o">:</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;rating&#34;</span><span class="o">:</span><span class="s2">&#34;&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">).</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">).</span><span class="nx">Update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+		<span class="s2">&#34;$unset&#34;</span><span class="o">:</span>  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;price&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;password&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">},</span>
+		<span class="s2">&#34;$rename&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;book&#34;</span><span class="o">:</span> <span class="s2">&#34;movies&#34;</span><span class="p">},</span>
+	<span class="p">}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h4 id="inc-增加和减少"><strong>$inc 增加和减少</strong></h4>
+
+<p><code>$inc</code> 修改器用来增加已有键的值，或者该键不存在时创建它。应用场景：更新分析数据、因果关系、投票或者其他有变化的数值的地方。</p>
+
+<ul>
+<li>用户余额加 50：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+	<span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span> 
+	<span class="p">{</span><span class="s2">&#34;$inc&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;balance&#34;</span><span class="o">:</span> <span class="mi">50</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">).</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">).</span><span class="nx">Update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$inc&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">6</span><span class="p">}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>$inc 只用来增加和减少数字</li>
+<li>$inc 只用于整形、长整形或双精度浮点型的值，用于其它类型会导致失败</li>
+</ul>
+
+<h4 id="mul-乘法"><strong>$mul 乘法</strong></h4>
+
+<p>语法：{$mul: {field: <number>}}
+释义：将文档中匹配到的 field 字段的值乘以 <code>&lt;number&gt;</code>
+示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;golang&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&#34;$mul&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;price&#34;</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>The field to update must contain a numeric value.</li>
+</ul>
+
+<h4 id="rename-重命名"><strong>$rename 重命名</strong></h4>
+
+<p>语法：<code>{&quot;$rename&quot;:{&lt;field1&gt;: &lt;new_name&gt;， &lt;field1&gt;: &lt;new_name&gt;，...}}</code>
+释义：重命名文档中指定字段的名称
+示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;python&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&#34;$rename&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;price&#34;</span><span class="o">:</span> <span class="s2">&#34;prices&#34;</span><span class="p">,</span> <span class="s2">&#34;rate&#34;</span><span class="o">:</span> <span class="s2">&#34;rating&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+<span class="c1">// rate 字段在文档中并不存在，所以这次重命名会忽略掉该字段
+</span><span class="c1"></span>
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">).</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">).</span><span class="nx">Update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+		<span class="s2">&#34;$rename&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;book&#34;</span><span class="o">:</span> <span class="s2">&#34;movies&#34;</span><span class="p">},</span>
+	<span class="p">}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>The new field name must differ from the existing field name.</li>
+<li>If the field to rename does not exist in a document, $rename does nothing (i.e. no operation).</li>
+</ul>
+
+<h4 id="min"><strong>$min</strong></h4>
+
+<p>语法：{&ldquo;$min&rdquo;:{&ldquo;field&rdquo;: &lt; value&gt;, &hellip;}}
+释义：将文档中匹配到的字段的值和指定值(&lt; value&gt;)做比较，如果原值<code>小于</code>指定值，则<code>不更新</code>；若大于指定值，则更新。
+示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;mongodb&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&#34;$min&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;price&#34;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&#34;rating&#34;</span><span class="o">:</span> <span class="mi">5</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>The $min operator can compare values of different types, using the <a href="https://docs.mongodb.com/manual/reference/bson-type-comparison-order/#faq-dev-compare-order-for-bson-types">BSON comparison order</a>.</li>
+</ul>
+
+<h4 id="max"><strong>$max</strong></h4>
+
+<p>与 $min 功能相反</p>
+
+<h4 id="setoninsert"><strong>$setOnInsert</strong></h4>
+
+<p>注解：有时，需要在创建文档的同时创建字段并为它赋值，但是在之后的所有更新操作中，这个字段的值都不再改变，这就&rdquo;$setOnInsert&rdquo;的作用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{},</span>
+  <span class="p">{</span><span class="s2">&#34;$setOnInsert&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;create_at&#34;</span><span class="o">:</span> <span class="s2">&#34;2018-01-18 20:51:36&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// mgo+golang: 需要调用 Apply 函数实现
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">Query</span><span class="p">)</span> <span class="nf">Apply</span><span class="p">(</span><span class="nx">change</span> <span class="nx">Change</span><span class="p">,</span> <span class="nx">result</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">info</span> <span class="o">*</span><span class="nx">ChangeInfo</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+
+<span class="nx">change</span> <span class="o">:=</span> <span class="nx">mgo</span><span class="p">.</span><span class="nx">Change</span><span class="p">{</span>
+	<span class="nx">Update</span><span class="p">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+		<span class="s">&#34;$setOnInsert&#34;</span><span class="p">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&#34;create_at&#34;</span><span class="p">:</span> <span class="nf">Now</span><span class="p">(),</span> <span class="s">&#34;is_delete&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;delete_at&#34;</span><span class="p">:</span> <span class="s">&#34;&#34;</span><span class="p">},</span>
+	<span class="p">},</span>
+	<span class="nx">Upsert</span><span class="p">:</span>    <span class="kc">true</span><span class="p">,</span>
+	<span class="nx">ReturnNew</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>&rdquo;$setOnInsert&rdquo; 只会在文档插入时设置字段的值。</li>
+</ul>
+
+<h4 id="currentdate"><strong>$currentDate</strong></h4>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h3 id="数组修改器">数组修改器</h3>
+
+<p><a href="https://docs.mongodb.com/manual/reference/operator/update-array/">Array Update Operators</a></p>
+
+<h4 id="toc_37"><strong>$</strong></h4>
+
+<blockquote>
+<p>基于位置的数组修改器： 通过数组下标(知道具体索引值) or 通过定位操作符($)</p>
+</blockquote>
+
+<p>Acts as a placeholder(占位符) to update the first element that matches the query condition.</p>
+
+<p>Note:</p>
+
+<ul>
+<li>定位符只更新第一个匹配的数组元素。如果有多条匹配，则其他数据不会发生任何变化。</li>
+</ul>
+
+<h4 id="toc_38"><strong>$[]</strong></h4>
+
+<p>Acts as a placeholder to update all elements in an array for the documents that match the query condition.</p>
+
+<h4 id="identifier"><strong>$[&lt; identifier&gt;]</strong></h4>
+
+<p>Acts as a placeholder to update all elements that match the arrayFilters condition for the documents that match the query condition.</p>
+
+<h4 id="addtoset"><strong>$addToSet</strong></h4>
+
+<p>Adds elements to an array only if they do not already exist in the set.</p>
+
+<p>语法：{&ldquo;$addToSet&rdquo;:{&ldquo;field&rdquo;: value, &hellip;}}</p>
+
+<p>释义：向数组中添加一个元素(一般用于update), 且保证了不会与数组原有元素重复，如果将要添加的元素已存在，则 do nothing.</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&#34;$addToSet&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="s2">&#34;KB&#34;</span><span class="p">,</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span><span class="s2">&#34;YM&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">).</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">).</span><span class="nx">Update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$addToSet&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="s2">&#34;A&#34;</span><span class="p">}},</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>将&rdquo;$addToSet&rdquo;和&rdquo;$each&rdquo;组合起来，可以添加多个不同的值，</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&#34;$addToSet&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$each&#34;</span><span class="o">:</span><span class="p">[</span><span class="s2">&#34;MD&#34;</span><span class="p">,</span><span class="s2">&#34;WD&#34;</span><span class="p">,</span><span class="s2">&#34;AFS&#34;</span><span class="p">]}}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="s2">&#34;test&#34;</span><span class="p">).</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&#34;users&#34;</span><span class="p">).</span><span class="nx">Update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$addToSet&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+		<span class="s2">&#34;$each&#34;</span><span class="o">:</span>  <span class="p">[]</span><span class="nx">string</span><span class="p">{</span><span class="s2">&#34;D&#34;</span><span class="p">,</span> <span class="s2">&#34;E&#34;</span><span class="p">,</span> <span class="s2">&#34;You&#34;</span><span class="p">,</span> <span class="s2">&#34;Zhe&#34;</span><span class="p">,</span> <span class="s2">&#34;Me&#34;</span><span class="p">},</span>
+		<span class="s2">&#34;$slice&#34;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+	<span class="p">}}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>If the field is absent(缺席) in the document to update, $addToSet creates the array field with the specified value as its element.</li>
+<li>If the field is not an array, the operation will fail.</li>
+<li>If the value is an array, $addToSet appends the whole array as a single element.</li>
+</ul>
+
+<h4 id="pop"><strong>$pop</strong></h4>
+
+<p>Removes the first or last item of an array.</p>
+
+<p>语法：{$pop: {&ldquo;field&rdquo;: &lt;-1|1&gt;, &hellip;}}
+释义：
+- {&ldquo;$pop&rdquo;: &ldquo;field&rdquo;: -1}: 从数组头部删除一个元素
+- {&ldquo;$pop&rdquo;: &ldquo;field&rdquo;: 1}: 从数组末尾删除一个元素
+示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&#34;$pop&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$pop&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}}</span> <span class="c1">// 从头删除
+</span><span class="c1"></span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>The $pop operation fails if the <field> is not an array.</li>
+</ul>
+
+<h4 id="pull"><strong>$pull</strong></h4>
+
+<p>Removes all array elements that match a specified query.</p>
+
+<p>语法：{$pull: {<field1>: <value|condition>, <field2>: <value|condition>, &hellip; } }
+释义：从指定的数组中，删除满足条件的元素
+示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">
+</code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h4 id="pullall"><strong>$pullAll</strong></h4>
+
+<p>Removes all matching values from an array.</p>
+
+<p>语法：{ $pullAll: { <field1>: [ <value1>, <value2> &hellip; ], &hellip; } }
+释义：删除数组或内嵌文档字段中所有指定的元素
+示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="note">Note:</h2>
+
+<h4 id="push-添加元素"><strong>$push 添加元素</strong></h4>
+
+<p>如果数组已经存在，<code>$push</code> 会向已有的数组末尾加入一个元素, 要是没有将创建一个新的数组。例如：有 <code>user</code> 集合如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+	<span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&#34;street&#34;</span><span class="p">:</span> <span class="s2">&#34;North Software Park&#34;</span><span class="p">,</span>
+		<span class="nt">&#34;city&#34;</span><span class="p">:</span> <span class="s2">&#34;zj&#34;</span><span class="p">,</span>
+		<span class="nt">&#34;state&#34;</span><span class="p">:</span> <span class="s2">&#34;hz&#34;</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>向 zhe 添加一个好友(field: friends)：即向 friends 数组末尾添加一个元素</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+	<span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+	<span class="p">{</span><span class="s2">&#34;$push&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span><span class="s2">&#34;Joe&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$push&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="s2">&#34;You&#34;</span><span class="p">}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>使用 <code>$each</code> 子操作符可以通过一次 <code>$push</code> 操作添加多个值</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+	<span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+	<span class="p">{</span><span class="s2">&#34;$push&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;$each&#34;</span><span class="o">:</span><span class="p">[</span><span class="s2">&#34;Rose&#34;</span><span class="p">,</span><span class="s2">&#34;KoBe&#34;</span><span class="p">,</span><span class="s2">&#34;James&#34;</span><span class="p">]}}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>使用 <code>$slice</code> 和 <code>$push</code> 组合，可以限制数据的最大长度，即实际上可以得到一个包含N个元素的数组。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&#34;$push&#34;</span><span class="o">:</span><span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span><span class="p">{</span>
+    <span class="s2">&#34;$each&#34;</span><span class="o">:</span><span class="p">[</span><span class="s2">&#34;RS&#34;</span><span class="p">,</span><span class="s2">&#34;KB&#34;</span><span class="p">,</span><span class="s2">&#34;JM&#34;</span><span class="p">,</span><span class="s2">&#34;KD&#34;</span><span class="p">,</span><span class="s2">&#34;WB&#34;</span><span class="p">,</span><span class="s2">&#34;AD&#34;</span><span class="p">],</span><span class="s2">&#34;$slice&#34;</span><span class="o">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">}}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span><span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$push&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+		<span class="s2">&#34;$each&#34;</span><span class="o">:</span>  <span class="p">[]</span><span class="nx">string</span><span class="p">{</span><span class="s2">&#34;You&#34;</span><span class="p">,</span> <span class="s2">&#34;A&#34;</span><span class="p">,</span> <span class="s2">&#34;B&#34;</span><span class="p">,</span> <span class="s2">&#34;C&#34;</span><span class="p">,</span> <span class="s2">&#34;D&#34;</span><span class="p">,</span> <span class="s2">&#34;E&#34;</span><span class="p">,</span> <span class="s2">&#34;F&#34;</span><span class="p">,</span> <span class="s2">&#34;G&#34;</span><span class="p">},</span> <span class="c1">// 注：这个地方会插入重复数据：You
+</span><span class="c1"></span>		<span class="s2">&#34;$slice&#34;</span><span class="o">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>                                                 <span class="c1">// 限定数组长度;且不超过10;超过则保留最后10个
+</span><span class="c1"></span>	<span class="p">}}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>如果 $push 后数组元素小于 N, 则保留所有元素，如果大于 N, 则只保留最后N个元素(N为正数是则保留前 N 个元素)</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>$push 和 $set 同时使用会出错：<code>The dollar ($) prefixed field '$push' in '$push' is not valid for storage.</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">update</span> <span class="p">=</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&#34;$push&#34;</span><span class="p">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&#34;images&#34;</span><span class="p">:</span> <span class="s">&#34;xxx&#34;</span><span class="p">}}</span>
+<span class="nx">err</span> <span class="p">=</span> <span class="nx">co</span><span class="p">.</span><span class="nf">UpdateId</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&#34;$set&#34;</span><span class="p">:</span> <span class="nx">update</span><span class="p">})</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+  <span class="nb">println</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span> <span class="c1">// The dollar ($) prefixed field &#39;$push&#39; in &#39;$push&#39; is not valid for storage.
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="each"><strong>$each</strong></h4>
+
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span> <span class="nx">$addToSet</span><span class="o">:</span> <span class="p">{</span> <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span> <span class="nx">$each</span><span class="o">:</span> <span class="p">[</span> <span class="o">&lt;</span><span class="nx">value1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">value2</span><span class="o">&gt;</span> <span class="p">...</span> <span class="p">]</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span>  
+<span class="p">{</span> <span class="nx">$push</span><span class="o">:</span> <span class="p">{</span> <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span> <span class="nx">$each</span><span class="o">:</span> <span class="p">[</span> <span class="o">&lt;</span><span class="nx">value1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">value2</span><span class="o">&gt;</span> <span class="p">...</span> <span class="p">]</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span> 
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>释义：<code>$each</code> 与 <code>$push、$addToSet</code> 结合使用，实现向数组字段添加多个元素的作用。</p>
+
+<h4 id="position"><strong>$position</strong></h4>
+
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>  
+  <span class="nx">$push</span><span class="o">:</span> <span class="p">{</span>  
+    <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span>  
+       <span class="nx">$each</span><span class="o">:</span> <span class="p">[</span> <span class="o">&lt;</span><span class="nx">value1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">value2</span><span class="o">&gt;</span><span class="p">,</span> <span class="p">...</span> <span class="p">],</span>  
+       <span class="nx">$position</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">num</span><span class="o">&gt;</span>  
+    <span class="p">}</span>  
+  <span class="p">}</span>  
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>释义：自v2.6加，配合$push使用表示往数组元素中的指定位置插入元素</p>
+
+<h4 id="slice"><strong>$slice</strong></h4>
+
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="nx">$push</span><span class="o">:</span> <span class="p">{</span>
+     <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span>
+       <span class="nx">$each</span><span class="o">:</span> <span class="p">[</span> <span class="o">&lt;</span><span class="nx">value1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">value2</span><span class="o">&gt;</span><span class="p">,</span> <span class="p">...</span> <span class="p">],</span>
+       <span class="nx">$slice</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">num</span><span class="o">&gt;</span>
+     <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>释义：The <num> can be: Value  Description</p>
+
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Zero</td>
+<td>To update the array <field> to an empty array.</td>
+</tr>
+
+<tr>
+<td>Negative(正数)</td>
+<td>To update the array <field> to contain only the last <num> elements.</td>
+</tr>
+
+<tr>
+<td>Positive(负数)</td>
+<td>To update the array <field> contain only the first <num> elements.</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="sort"><strong>$sort</strong></h4>
+
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>  
+  <span class="nx">$push</span><span class="o">:</span> <span class="p">{</span>  
+     <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span>  
+       <span class="nx">$each</span><span class="o">:</span> <span class="p">[</span> <span class="o">&lt;</span><span class="nx">value1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">value2</span><span class="o">&gt;</span><span class="p">,</span> <span class="p">...</span> <span class="p">],</span>  
+       <span class="nx">$sort</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">sort</span> <span class="nx">specification</span><span class="o">&gt;</span>  
+     <span class="p">}</span>  
+  <span class="p">}</span>  
+<span class="p">}</span> 
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>释义：自v2.4加，配合$push使用，表示给文档中的指定数组元素排序，1是升序，-1是降序</p>
+
+<h3 id="修改器速度">修改器速度</h3>
+
+<p>填充因子(padding factor): 是MongoDB为每个新文档预留的增长空间</p>
+
+<h2 id="upsert">Upsert</h2>
+
+<p>upsert 是一种特殊的更新。要是没有找到符合更新条件的文档，就会以这个条件和更新文档为基础创建一个新的文档。如果找到了匹配的文档，则正常更新。</p>
+
+<h2 id="写入安全机制">写入安全机制</h2>
+
+<p>写入安全(Write Concern) 是一种客户端设置，用于控制写入的安全级别。默认情况下，插入、删除和更新都会一直等待数据库响应(写入是否成功)，然后才会继续执行。通常，遇到错误时，客户端会抛出一个异常。</p>
+
+<p>MongoDB两种最基本的写入安全机制是应答式写入(acknowledged write) 和 非应答式写入(unacknowledged write)
+- 应答式写入: 默认方式，数据库会给出响应
+- 非应答式写入：不会返回任何响应，so, 无法知道是否写入成功</p>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h1 id="查询">查询</h1>
+
+<ul>
+<li>使用 $ 条件查询实现范围查询、数据集包含查询、不等式查询&hellip;</li>
+<li>查询将放回一个数据库<code>游标</code>, 游标只会在你需要时才需要的文档批量返回</li>
+<li>针对游标的元操作：offset、limit、sort</li>
+</ul>
+
+<h2 id="find-简介">find 简介</h2>
+
+<p>向查询文档加入多个键值对时，将多个查询条件组合在一起会被解释成：<code>条件1 and 条件2 and 条件3 and 条件N</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">24</span><span class="p">})</span> <span class="c1">// 条件间是 and 关系
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="指定需要返回的键">指定需要返回的键</h2>
+
+<p><code>_id</code>: 默认情况下，该键总是被返回，即便是没有指定要返回这个键</p>
+
+<ul>
+<li>指定需要的键, 例如只返回 &ldquo;name&rdquo;</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">  <span class="c1">// bson.M{bson.M{}, bson.M{&#34;name&#34;:1}}
+</span><span class="c1"></span>  <span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">find</span><span class="p">({},{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>剔除不用的键, 例如不需要 &ldquo;name&rdquo;</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">  <span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">find</span><span class="p">({},{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="查询-1">查询</h2>
+
+<h3 id="比较操作符">比较操作符</h3>
+
+<h4 id="eq">$eq</h4>
+
+<h4 id="gt">$gt</h4>
+
+<h4 id="gte">$gte</h4>
+
+<h4 id="lt">$lt</h4>
+
+<h4 id="lte">$lte</h4>
+
+<h4 id="ne">$ne</h4>
+
+<h4 id="in">$in</h4>
+
+<p>语法：{ field: { $in: [<value1>, <value2>, &hellip; <valueN> ] } }</p>
+
+<p>释义：用于查询一个键与多个值进行匹配, 再加一个条件数组</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;num&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$in&#34;</span><span class="o">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">20</span><span class="p">]}}</span>
+<span class="p">)</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+  <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;num&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$in&#34;</span><span class="o">:</span> <span class="p">[]</span><span class="kr">int</span><span class="p">{</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">20</span><span class="p">}}},</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="nin">$nin</h4>
+
+<p>与 $in 相对，$nin 将返回与数组中所有条件都不匹配的文档</p>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h3 id="逻辑操作符">逻辑操作符</h3>
+
+<h4 id="or">$or</h4>
+
+<p>语法：{ $or: [ { <expression1> }, { <expression2> }, &hellip; , { <expressionN> } ] }</p>
+
+<p>释义：条件或，接收一个包含所有可能条件的数组作为参数</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> 
+    <span class="nx">$or</span><span class="o">:</span> <span class="p">[</span> 
+        <span class="p">{</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">25</span><span class="p">},</span>  
+        <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">}</span> 
+        <span class="c1">// ...
+</span><span class="c1"></span>    <span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1">// mgo+golang
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+  <span class="s2">&#34;$or&#34;</span><span class="o">:</span> <span class="p">[]</span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+		<span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">},</span>
+		<span class="p">{</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$gt&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;$lt&#34;</span><span class="o">:</span> <span class="mi">8</span><span class="p">}},</span>
+		<span class="p">{</span><span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s2">&#34;$in&#34;</span><span class="o">:</span> <span class="p">[]</span><span class="nx">string</span><span class="p">{</span><span class="s2">&#34;A&#34;</span><span class="p">,</span> <span class="s2">&#34;KD&#34;</span><span class="p">,</span> <span class="s2">&#34;KB&#34;</span><span class="p">}}},</span>
+	<span class="p">}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note: 下面是一个错误使用方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> 
+    <span class="nx">$or</span><span class="o">:</span> <span class="p">[</span> 
+        <span class="c1">// {}内的{key:value}都是 AND的关系
+</span><span class="c1"></span>        <span class="c1">// 所以这种方式查不到结果；{} 与 {} 
+</span><span class="c1"></span>        <span class="c1">// 之间才是 OR 的关系
+</span><span class="c1"></span>        <span class="p">{</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">}</span> 
+        <span class="c1">// {} ...
+</span><span class="c1"></span>    <span class="p">]</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>$or 第一个条件应该尽可能匹配更多的文档，这样才是最为高效的</li>
+</ul>
+
+<h4 id="and">$and</h4>
+
+<p>语法：{ $and: [ { <expression1> }, { <expression2> } , &hellip; , { <expressionN> } ] }</p>
+
+<p>释义：条件与</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> 
+    <span class="nx">$and</span><span class="o">:</span> <span class="p">[</span> 
+        <span class="p">{</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">25</span><span class="p">},</span>  
+        <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">}</span> 
+        <span class="c1">// ...
+</span><span class="c1"></span>    <span class="p">]</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="not">$not</h4>
+
+<p>&rdquo;$not&rdquo;是元条件句，即可以用在任何其他条件之上。就拿取模运算符&rdquo;$mod&rdquo;来说。&rdquo;$mod&rdquo;会将查询的值除以第一个给定值，若余数等于第二个给定值则匹配成功。</p>
+
+<p>&rdquo;$not&rdquo;与正则表达式联合使用时极为有用，用来查找那些与特定模式不匹配的文档</p>
+
+<p>语法：{field: {$not: {<operator-expression>}}</p>
+
+<p>释义：查询与表达式不匹配的文档</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
+  <span class="nx">$not</span><span class="o">:</span> <span class="p">{</span><span class="nx">$lt</span><span class="o">:</span> <span class="mi">24</span><span class="p">}</span> <span class="c1">// 不小于24
+</span><span class="c1"></span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="nor">$nor</h4>
+
+<p>语法：{ $nor: [ { <expression1> }, { <expression2> }, &hellip; { <expressionN> } ] }</p>
+
+<p>释义：查询与任一表达式都不匹配的文档</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
+  <span class="nx">$nor</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&#34;address&#34;</span><span class="o">:</span> <span class="s2">&#34;beijing&#34;</span><span class="p">}</span> <span class="c1">// 查询年龄不为24，且不住在北京的人
+</span><span class="c1"></span><span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="元素操作符">元素操作符</h3>
+
+<h4 id="exists">$exists</h4>
+
+<p>语法：{ field: { $exists: <boolean> } }</p>
+
+<p>释义：查询存在指定字段的文档</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 查询存在 phone 字段的文档
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;phone&#34;</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$exists</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="type">$type</h4>
+
+<p>语法：{field: {$type: <Bson type num> | <String Alias> }}</p>
+
+<p>释义：查询类型为指定类型的文档，3.2版本添加alias别名，各种类型的Number及Alias如下</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 32-bit integer 16 &#34;int&#34;
+</span><span class="c1"></span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="p">{</span><span class="nx">$type</span><span class="o">:</span> <span class="mi">16</span><span class="p">}})</span>   
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="p">{</span><span class="nx">$type</span><span class="o">:</span> <span class="s2">&#34;int&#34;</span><span class="p">}})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h3 id="评估查询">评估查询</h3>
+
+<h4 id="regex-正则表达式">$regex 正则表达式</h4>
+
+<p>MongoDB使用Perl兼容的正则表达式（PCRE）库来匹配正则表达式，任何PCRE支持的正则表达式语法都能被MongoDB接受。</p>
+
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span> <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span> <span class="nx">$regex</span><span class="o">:</span> <span class="sr">/pattern/</span><span class="p">,</span> <span class="nx">$options</span><span class="o">:</span> <span class="s1">&#39;&lt;options&gt;&#39;</span> <span class="p">}</span> <span class="p">}</span>
+<span class="p">{</span> <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span> <span class="nx">$regex</span><span class="o">:</span> <span class="s1">&#39;pattern&#39;</span><span class="p">,</span> <span class="nx">$options</span><span class="o">:</span> <span class="s1">&#39;&lt;options&gt;&#39;</span> <span class="p">}</span> <span class="p">}</span>
+<span class="p">{</span> <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span> <span class="nx">$regex</span><span class="o">:</span> <span class="sr">/pattern/</span><span class="o">&lt;</span><span class="nx">options</span><span class="o">&gt;</span> <span class="p">}</span> <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>释义：正则表达死查询</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="sr">/zhe/i</span><span class="p">})</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&#34;$regex&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">}})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>i：正则表达式标志，是否区分大小写(i存在表示不区分)</li>
+</ul>
+
+<h4 id="mod">$mod</h4>
+
+<p>语法：{ field: { $mod: [ 除数, 余数 ] } }</p>
+
+<p>释义：取余条件查询</p>
+
+<p>示例：查询 age 字段的值除以 2 余数为 0 的文档</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+  <span class="p">{</span><span class="nx">age</span><span class="o">:</span> <span class="p">{</span><span class="nx">$mod</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="text">$text</h4>
+
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="nx">$text</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">$search</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">$language</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">$caseSensitive</span><span class="o">:</span> <span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">$diacriticSensitive</span><span class="o">:</span> <span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>$search: 关键词</li>
+<li>$language: 语言，不支持中文</li>
+<li>$caseSensitive: 是否区分大小写，默认 false</li>
+<li>$diacriticSensitive: 是否区分读音，默认 false</li>
+</ul>
+
+<p>释义：文本索引查询</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="where">$where</h4>
+
+<p>语法：</p>
+
+<p>释义：把一个含有JavaScript表达式的字符串或者是整个JavaScript函数转换到查询系统中，对内嵌文档不起作用</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">myCollection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">$where</span><span class="o">:</span> <span class="s2">&#34;this.credits == this.debits&#34;</span> <span class="p">}</span> <span class="p">);</span>  
+<span class="nx">db</span><span class="p">.</span><span class="nx">myCollection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">$where</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">credits</span> <span class="o">==</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">debits</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span> <span class="p">);</span> 
+</code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="#content"><strong>返回目录</strong></a></p>
+
+<h3 id="查询数组">查询数组</h3>
+
+<h4 id="all">$all</h4>
+
+<p>语法：{field: {$all: [<value1>, <value2>, &hellip;]}}</p>
+
+<p>释义：匹配文档的数组字段中包含所有指定元素的文档</p>
+
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+  <span class="p">{</span> <span class="s2">&#34;friends&#34;</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$all</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;KD&#34;</span><span class="p">,</span><span class="s2">&#34;KB&#34;</span><span class="p">]}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="elemmatch">$elemMatch</h4>
+
+<p>语法：{filed: {$elemMatch: {<query1>, <query2>, &hellip;}}}</p>
+
+<p>释义：匹配内嵌文档或数组中的部分 field</p>
+
+<p>示例：假设有如下集合</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span> <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&#34;grades&#34;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">88</span> <span class="p">]</span> <span class="p">}</span>  
+<span class="p">{</span> <span class="nt">&#34;_id&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&#34;grades&#34;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">89</span> <span class="p">]</span> <span class="p">}</span>  </code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+  <span class="p">{</span><span class="s2">&#34;grades&#34;</span><span class="o">:</span> <span class="p">{</span><span class="nx">$elemMatch</span><span class="o">:</span> <span class="p">{</span><span class="nx">$gt</span><span class="o">:</span> <span class="mi">80</span><span class="p">,</span> <span class="nx">$lte</span><span class="o">:</span> <span class="mi">88</span><span class="p">}}}</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>&rdquo;$elemMatch&rdquo;将限定条件进行分组，仅当需要对一个内嵌文档的多个键操作时才会用到。</li>
+</ul>
+
+<h4 id="size">$size</h4>
+
+<p>语法：{field: {$size: <number>}}</p>
+
+<p>释义：匹配数组长度为指定大小的文档</p>
+
+<p>示例：查询集齐五张福卡的人</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;card&#34;</span><span class="o">:</span> <span class="p">{</span><span class="nx">$size</span><span class="o">:</span> <span class="mi">5</span><span class="p">}})</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;card&#34;</span><span class="o">:</span> <span class="p">{</span><span class="nx">$size</span><span class="o">:</span> <span class="p">{</span><span class="nx">$gt</span><span class="o">:</span> <span class="mi">5</span><span class="p">}}})</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note:</p>
+
+<ul>
+<li>$size 不能与像 $gt&hellip; 等同时使用</li>
+</ul>
+
+<h3 id="查询内嵌文档">查询内嵌文档</h3>
+
+<h3 id="聚合查询">聚合查询</h3>
+
+<h2 id="服务端脚本">服务端脚本</h2>
+
+<h2 id="游标">游标</h2>
+
+<p>使用 skip 函数略过大量文档是会变得很慢&hellip;</p>
+
+<h3 id="不用-skip-对结果分页">不用 skip 对结果分页</h3>
+
+<p>文档按 Date 降序排列，然后将第一次查询结果的最后一个文档的 Date 作为下一次的查询条件</p>
+
+<h3 id="随机选取文档">随机选取文档</h3>
+
+<p>优化算法：在插入文档时给每个文档都添加一个额外的随机键，这样，想要从集合中查找一个随机文档，只要计算一个随机数并将其作为查询条件就好了</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<p>操作符相关</p>
+
+<ul>
+<li><a href="http://www.mongodb.org.cn/manual/query-element/">Query Element</a></li>
+<li><a href="http://blog.csdn.net/qq_16313365/article/details/58599253">CSDN $操作符表达式大全及实例</a></li>
+</ul>
+
+<p>数组相关</p>
+
+<ul>
+<li><a href="https://mongodb-documentation.readthedocs.io/en/latest/reference/operator/each.html">$each</a></li>
+</ul>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-01-24</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/db/">db</a>
+          <a href="/tags/mongodb/">mongodb</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">MongoDB | 部署一个 Replica Set 集群</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/db/mongodb/20170612-cluster-note/">
+            <span class="next-text nav-default">MongoDB | 集群</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-06-12 15:53:01 \x2b0800 CST',
+        title: 'MongoDB | 基础学习笔记',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | cmd - go cgo - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="go, golang, cmd" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | cmd - go cgo" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/" /><meta property="article:published_time" content="2018-06-29T14:09:26&#43;08:00"/>
+<meta property="article:modified_time" content="2018-06-29T14:09:26&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | cmd - go cgo">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2018-06-29T14:09:26&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-29T14:09:26&#43;00:00" />
+<meta itemprop="wordCount" content="5599">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | cmd - go cgo"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | cmd - go cgo</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-29 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 5599 words </span>
+          <span class="more-meta"> 12 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#通过-go-命令使用-cgo">通过 go 命令使用 cgo</a></li>
+<li><a href="#go-引用-c-go-中使用-c-定义的函数">Go 引用 C (Go 中使用 C 定义的函数)</a></li>
+<li><a href="#c-引用-go-c-中使用-go-定义的函数">C 引用 Go (C 中使用 Go 定义的函数)</a></li>
+<li><a href="#传递指针">传递指针</a></li>
+<li><a href="#特殊场景">特殊场景</a></li>
+<li><a href="#直接使用-cgo-指令-go-tool-cgo">直接使用 cgo 指令: go tool cgo</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>Cgo 支持创建调用 C 代码的 Go 包</p>
+</blockquote>
+
+<h1 id="通过-go-命令使用-cgo">通过 go 命令使用 cgo</h1>
+
+<p>为了使用 cgo, 你需要在普通的 Go 代码中导入一个 <code>伪包 &quot;C&quot;</code>。这样 Go 代码就可以引用一些 C 的类型 (如 C.size_t)、变量 (如 C.stdout)、或函数 (如 C.putchar)。</p>
+
+<p>如果对 &ldquo;C&rdquo; 的导入语句之前紧贴着是一段<code>注释</code>，那么这段注释被称为<code>前言</code>，它被用作编译 C 部分的头文件。如下面例子所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// #include &lt;stdio.h&gt;
+</span><span class="c1">// #include &lt;errno.h&gt;
+</span><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;C&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>前言中可以包含任意 C 代码，包括函数和变量的声明和定义。虽然他们是在 &ldquo;C&rdquo; 包里定义的，但是在 Go 代码里面依然可以访问它们。所有在前言中声明的名字都可以被 Go 代码使用，即使名字的首字母是小写的。static 变量是个例外：它不能在 Go 代码中被访问。但是 static 函数可以在 Go 代码中访问。</p>
+
+<p>$GOROOT/misc/cgo/stdio 和 $GOROOT/misc/cgo/gmp 中有一些相关例子。&rdquo;C? Go? Cgo!&rdquo; 中介绍了如何使用 cgo: <a href="https://golang.org/doc/articles/c_go_cgo.html。">https://golang.org/doc/articles/c_go_cgo.html。</a></p>
+
+<p>CFLAGS, CPFLAGS, CXXFLAGS, FFLAGS 和 LDFLAGS 可以通过在上述注释中使用伪 <code>#cgo</code> 指令来定义，进而调整 C、C++ 或 Fortan 编译器的参数。多个指令定义的值会被串联到一起。这些指令可以包括一系列构建约束，并将其影响限制在满足其中一个约束条件的系统中。(<a href="https://golang.org/pkg/go/build/#hdr-Build_Constraints">https://golang.org/pkg/go/build/#hdr-Build_Constraints</a> 介绍了约束语法细节)。下面是一个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// #cgo CFLAGS: -DPNG_DEBUG=1
+</span><span class="c1">// #cgo linux CFLAGS: -DLINUX=1
+</span><span class="c1">// #cgo LDFLAGS: -lpng
+</span><span class="c1">// #include &lt;png.h&gt;
+</span><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;C&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>说明：在上面示例中，前言由 4 个注释行组成.</p>
+
+<ul>
+<li>第一个注释行：含义是预定义一个名为PNG_DEBUG的宏并将它的值设置为1</li>
+<li>第二个注释行：含义是如果在Linux操作系统下，则预定义一个名为LINUX的宏并将它的值设置为1</li>
+<li>第三个注释行：含义是告诉链接器需要用到一个库名为png的代码库文件(与链接器有关的)</li>
+<li>第四个注释行：引入了C语言的标准代码库png.h</li>
+</ul>
+</blockquote>
+
+<p>另外，CPPFLAGS 和 LDFLAGS 也可以通过 pkg-config 工具，使用 <code>#cgo pkg-config</code> 指令，后跟包名称获得。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// #cgo pkg-config: png cairo
+</span><span class="c1">// # include &lt;png.h&gt;
+</span><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;C&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>默认的 pkg-config 工具配置可以通过设置 PKG_CONFIG 环境变量来修改。</p>
+
+<p>出于安全原因，只有一部分标志(flag)允许设置，特别是 特别是 -D，-I，以及 -l. 要允许其他标志，请将 CGO_CFLAGS_ALLOW 设置为与新标志匹配的正则表达式。要禁止原本允许的标志，请将 CGO_CFLAGS_DISALLOW 设置为匹配必须禁止的参数的正则表达式。在这两种情况下，正则表达式必须与完整参数匹配：如果想允许 -mfoo=bar 指令，设置 CGO_CFLAGS_ALLOW=&lsquo;-mfoo.*&lsquo;，而不能仅仅设置 CGO_CFLAGS_ALLOW=&lsquo;-mfoo&rsquo;。类似名称的变量控制 CPPFLAGS, CXXFLAGS, FFLAGS, 以及 LDFLAGS。</p>
+
+<p>当编译时，CGO_CFLAGS，CGO_CPPFLAGS，CGO_CXXFLAGS，CGO_FFLAGS和CGO_LDFLAGS这些环境变量都会从指令中提取出来，并加入到flags中。包特定的flags需要使用指令来设置，而不是通过环境变量，所以这些构建可以在未更改的环境中也能正常运行。</p>
+
+<p>包中所有 cgo CPPFLAGS 和 CFLAGS 指令都会被连接在一起，用来编译该包中的 C 文件。包中所有的 CPPFLAGS 和 CXXFLAGS 指令都会被连接在一起，用于编译该程序包中的 C++ 文件。包中所有的 CPPFLAGS 和 FFLAGS 指令都会被连接在一起，用于编译该程序包中的 Fortran 文件。程序中的任何 package 中，所有的 LDFALGS 指令都会被连接在一起并在链接时使用。所有的pkg-config指令会被连接起来，并同时发送给pkg-config，以添加到每个适当的命令行标志集中。</p>
+
+<p>当 cgo 指令被解析的时候，任何出现 ${SRCDIR} 字符串的地方，都会被替换为当前源文件所在的绝对路劲。这就允许预编译的静态库包含在包目录中，并能够正确的链接。例如，如果包 foo 在 /go/src/foo 路径下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="o">//</span> <span class="err">#</span><span class="nx">cgo</span> <span class="nx">LDFALGS</span><span class="p">:</span> <span class="o">-</span><span class="nx">L</span><span class="err">$</span><span class="p">{</span><span class="nx">SRCDIR</span><span class="p">}</span><span class="o">/</span><span class="nx">libs</span> <span class="o">-</span><span class="nx">lfoo</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>会被扩展成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="o">//</span> <span class="err">#</span><span class="nx">cgo</span> <span class="nx">LDFALGS</span><span class="p">:</span> <span class="o">-</span><span class="nx">L</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">libs</span> <span class="o">-</span><span class="nx">lfoo</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>心得：// #cgo LDFLAGS: 可以用来链接静态库。-L 指定静态库所在的目录， -l 指定静态库的文件名，注意静态库文件名必须有 lib 前缀，但是这里不需要写，比如上面的 -lfoo 实际上找的就是 libfoo.a 文件</p>
+</blockquote>
+
+<p>当 Go tool 发现一个或多个 Go 源文件使用了特殊的 <code>import &quot;C&quot;</code> 时，他就会在当前路劲中寻找非 Go 的文件，并把这些文件编译成 Go 包的一部分。任何 <code>.c</code>、<code>.s</code>、<code>.S</code> 文件都会被 C 编译器编译。 任何 <code>.cc</code>、<code>.cpp</code>、<code>.cxx</code> 文件都会被 C++ 编译器编译。任何 <code>.f</code>, <code>.F</code>, <code>.for</code> 或者<code>.f90</code> 文件会被 fortran 编译器编译。任意 .h, .hh, .hpp 或 .hxx 文件都不会被分别编译，但是如果这些头文件被修改了，那么 C 和 C++ 文件会被重新编译。默认的 C 和 C++ 编译器都可以分别通过设置 CC 和 CXX 环境变量来修改。这些环境变量可能包括命令行选项。</p>
+
+<p>cgo tool 对于本地构建默认是启用的。而在交叉编译时默认是禁用的。你可以在运行 go tool 时，通过设置 CGO_ENABLED 环境变量来控制它：设置为 1 表示启用 cgo, 设置为 0 则关闭。如果 cgo 启用，go tool 将会设置构建约束 <code>cgo</code></p>
+
+<p>在交叉编译时，你必须为 cgo 指定一个交叉编译器。你可以在使用 make.bash 构建工具链时，设置通用的 CC_FOR_TARGET 或更明确的 CC<em>FOR</em>${GOOS}_${{GOARCH}}(比如 CC_FOR_linux_arm) 环境变量来指定，或者在你运行 go tool 的任何时候， 都可以设置 CC 环境变量</p>
+
+<p>CXX_FOR_TARGET, CXX<em>FOR</em>${GOOS}_${GOARCH} 以及 CXX 环境变量使用方式类似。</p>
+
+<h1 id="go-引用-c-go-中使用-c-定义的函数">Go 引用 C (Go 中使用 C 定义的函数)</h1>
+
+<p>在 Go 文件中，如果 C 的结构体字段名称是 Go 中的关键字，可以通过用下划线作为前缀来访问：例如，如果 C 结构体 x 有个字段名字叫 &ldquo;type&rdquo;，那么在 Go 里面可以通过 &ldquo;x._type&rdquo; 来访问它。如果 C 结构体的字段无法在 Go 里表达，比如 bit 字段或未对齐字段，那么这些字段在 Go 结构体中会被忽略，并被合适的填充所取代，以访问下一个字段或结构体的结尾。</p>
+
+<p>标准的 C 数值类型与 Go 中的访问类型对应关系如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">C</span> <span class="nx">类型名称</span>                  <span class="nx">Go</span> <span class="nx">类型名称</span>
+<span class="nx">char</span>	                    <span class="nx">C</span><span class="p">.</span><span class="nx">char</span>
+<span class="nx">signed</span> <span class="nx">char</span>	                <span class="nx">C</span><span class="p">.</span><span class="nx">schar</span>
+<span class="nx">unsigned</span> <span class="nx">char</span>	            <span class="nx">C</span><span class="p">.</span><span class="nx">uchar</span>
+<span class="nx">short</span>	                    <span class="nx">C</span><span class="p">.</span><span class="nx">short</span>
+<span class="nx">unsighed</span> <span class="nx">short</span>	            <span class="nx">C</span><span class="p">.</span><span class="nx">ushort</span>
+<span class="kt">int</span>	                        <span class="nx">C</span><span class="p">.</span><span class="kt">int</span>
+<span class="nx">unsigned</span> <span class="kt">int</span>	            <span class="nx">C</span><span class="p">.</span><span class="kt">uint</span>
+<span class="nx">long</span>	                    <span class="nx">C</span><span class="p">.</span><span class="nx">long</span>
+<span class="nx">unsigned</span> <span class="nx">long</span>	            <span class="nx">C</span><span class="p">.</span><span class="nx">ulong</span>
+<span class="nx">long</span> <span class="nx">long</span>	                <span class="nx">C</span><span class="p">.</span><span class="nx">longlong</span>
+<span class="nx">unsigned</span> <span class="nx">long</span> <span class="nx">long</span>	        <span class="nx">C</span><span class="p">.</span><span class="nx">ulonglong</span>
+<span class="kt">float</span>	                    <span class="nx">C</span><span class="p">.</span><span class="kt">float</span>
+<span class="nx">double</span>	                    <span class="nx">C</span><span class="p">.</span><span class="nx">double</span>
+<span class="nx">complex</span> <span class="kt">float</span>	            <span class="nx">C</span><span class="p">.</span><span class="nx">complexfloat</span>
+<span class="nx">complex</span> <span class="nx">double</span>	            <span class="nx">C</span><span class="p">.</span><span class="nx">complexdouble</span>
+<span class="nx">void</span><span class="o">*</span>	                    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+<span class="nx">__int128_t</span>   <span class="nx">__uint128_t</span>	<span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="kt">byte</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>C 的 void* 类型由 Go 的 unsafe.Pointer 表示。C 的 __int128_t 和 __uint128_t 由 [16]byte 表示。</p>
+
+<p>一些通常在 Go 中被表示为指针类型的特殊 C 类型会被表示成 uintptr。下面的特殊场景会对此进行介绍。</p>
+
+<p>如果想直接访问 C 中的结构体，联合体，或者枚举类型时，在其名字前面加上 struct_、union_、或 enum_、就像 <code>C.struct_stat</code> 这样。</p>
+
+<blockquote>
+<p>心得：但是如果 C 结构体用了 typedef struct 设置了别名，则就不需要加上前缀来访问，可以直接通过 C.alias 来访问该类型</p>
+</blockquote>
+
+<p>任何一个 C 类型 T 的大小，都可以通过 C.sizeof_T 获得，如获取结构体 stat 的大小：<code>C.sizeof_struct_stat</code>.</p>
+
+<p>可以在 Go 文件中声明一个带有特殊类型 <em>GoString</em> 类型的 C 函数。可以使用普通的 Go 字符串调用这个函数。可以通过调用这些 C 函数来获取字符串长度，或指向字符串的指针。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="cm">/*
+</span><span class="cm">size_t _GoStringLen(_GoString_ s);
+</span><span class="cm">const char *_GoStringPtr(_GoString_ s);
+</span><span class="cm">*/</span>
+<span class="kn">import</span> <span class="s">&#34;C&#34;</span>
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">str</span> <span class="p">=</span> <span class="s">&#34;hello, world&#34;</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;len from Go func: &#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;ptr from Go func: &#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">str</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 这些函数只能被写在 Go 文件的前言里，而不能写在其他的 C 文件中。 C 代码一定不能修改 _GoStringPtr 返回的指针的内容。注意字符串内容可能不是 NULL 结尾。</p>
+</blockquote>
+
+<p>由于Go不支持C的联合类型，所以C的联合类型被表示为具有相同长度的Go字节数组。</p>
+
+<p>Go 的结构体不能嵌入 C 的类型</p>
+
+<p>对于一个非空的 C 结构体，如果它结尾字段大小为 0，那么 Go 代码无法引用这个字段。为了获取到这样字段的地址，你只能先获取结构体的地址，然后将地址加上这个结构体的大小。这也是能获取到这个字段的唯一方式。</p>
+
+<p>cgo会将C类型转换为对应的，非导出的的Go类型。因为转换是非导出的，一个Go包就不应该在它的导出API中暴露C的类型：在一个Go包中使用的C类型，不同于在其它包中使用的同样C类型。</p>
+
+<p>可以在多个赋值语境中，调用任何C函数（甚至是void函数），来获取返回值（如果有的话），以及C errno变量作为Go error（如果方法返回void，则使用 _ 来跳过返回值）。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">C</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">C</span><span class="p">.</span><span class="nf">voidFunc</span><span class="p">()</span>
+<span class="kd">var</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">errr</span> <span class="p">=</span> <span class="nx">C</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>目前还不支持调用 C 函数指针，不过你可以声明存放 C 函数指针的 Go 变量，并在 Go 和 C 之间传递。C 函数可以调用从 Go 中获取到的函数指针， 例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="c1">// typedef int(*intFunc) ();
+</span><span class="c1">//
+</span><span class="c1">// int
+</span><span class="c1">// bridge_int_func(intFunc f)
+</span><span class="c1">// {
+</span><span class="c1">//     return f();
+</span><span class="c1">// }
+</span><span class="c1">//
+</span><span class="c1">// int fortytwo()
+</span><span class="c1">// {
+</span><span class="c1">//     return 42;
+</span><span class="c1">// }
+</span><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;C&#34;</span>
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span> <span class="o">:=</span> <span class="nx">C</span><span class="p">.</span><span class="nf">intFunc</span><span class="p">(</span><span class="nx">C</span><span class="p">.</span><span class="nx">fortytwo</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">C</span><span class="p">.</span><span class="nf">bridge_int_func</span><span class="p">(</span><span class="nx">f</span><span class="p">)))</span>
+    <span class="c1">// 输出：42
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>在 C 函数中，如果传入参数是一个固定大小的数组，那么它实际需要的是一个指向数据第一个元素的指针。C 编译器知道这个调用约定，并在调用的时候会做相应的调整。然后，Go 不能。在 Go 中，你必须显式地传递一个指向第一个元素的指针：<code>C.f(&amp;C.x[0])</code></p>
+
+<p>在Go和C类型之间，通过拷贝数据，还有一些特殊的方法转换。用Go伪代码定义如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Go 字符串转换为 C 字符串
+</span><span class="c1">// C 字符串使用 malloc 来分配到 C 堆里。
+</span><span class="c1">// 调用方需要把它释放掉，比如调用 C.free (如果需要 C.free，确保程序包含 stdlib.h)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nx">C</span><span class="p">.</span><span class="nf">CString</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">C</span><span class="p">.</span><span class="nx">char</span>
+
+<span class="c1">// Go []byte 切片转换为 C 数组
+</span><span class="c1">// C 数组使用 malloc 分配到 C 堆里。
+</span><span class="c1">// 调用方需要把它释放掉，比如调用 C.free (如果需要 C.free，确保程序包含 stdlib.h)
+</span><span class="c1"></span><span class="kd">func</span> <span class="nx">C</span><span class="p">.</span><span class="nf">CBytes</span><span class="p">([]</span><span class="kt">byte</span><span class="p">)</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+
+<span class="c1">// C 字符串转换为 Go 字符串
+</span><span class="c1"></span><span class="kd">func</span> <span class="nx">C</span><span class="p">.</span><span class="nf">GoString</span><span class="p">(</span><span class="o">*</span><span class="nx">C</span><span class="p">.</span><span class="nx">char</span><span class="p">)</span> <span class="kt">string</span>
+
+<span class="c1">// 有明确长度的 C 数据转换为 Go 字符串
+</span><span class="c1"></span><span class="kd">func</span> <span class="nx">C</span><span class="p">.</span><span class="nf">GoStringN</span><span class="p">(</span><span class="o">*</span><span class="nx">C</span><span class="p">.</span><span class="nx">char</span><span class="p">,</span> <span class="nx">C</span><span class="p">.</span><span class="kt">int</span><span class="p">)</span> <span class="kt">string</span>
+
+<span class="c1">// 有明确长度的 C 数据转换为 Go []byte
+</span><span class="c1"></span><span class="kd">func</span> <span class="nx">C</span><span class="p">.</span><span class="nf">GoBytes</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">C</span><span class="p">.</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>有一个特殊的例子，C.malloc 方法不会直接调用 C 库中的 malloc 方法，而是会调用一个 Go 的帮助函数来包装 C 库中的 malloc 方法，并保证永远不会返回空。如果 C malloc 函数显示内存不足，Go 的帮助函数会使程序崩溃，就像 Go 自己内存不足一样。因为 C.malloc 不会失败，所以它不会返回二值结果，不会把 errno 一起返回。</p>
+
+<h1 id="c-引用-go-c-中使用-go-定义的函数">C 引用 Go (C 中使用 Go 定义的函数)</h1>
+
+<p>Go 函数可以通过以下方式输出到 C 代码中使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">//export MyFunction
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">arg3</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int64</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+
+<span class="c1">//export MyFunction2
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">MyFunction2</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">arg3</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">int64</span><span class="p">,</span> <span class="o">*</span><span class="nx">C</span><span class="p">.</span><span class="nx">char</span><span class="p">)</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这两个函数可以通过以下方式被 C 代码使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="k">extern</span> <span class="n">int64</span> <span class="nf">MyFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">GoString</span> <span class="n">arg3</span><span class="p">);</span>
+<span class="k">extern</span> <span class="k">struct</span> <span class="n">MyFuction2_return</span> <span class="nf">MyFunction2</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">GoString</span> <span class="n">arg3</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这两个声明会被放在自动生成的 _cgo_export.h 头文件里，位于从 cgo 输入文件拷贝过来的前言之后。多值返回的函数会被映射为一个结构体返回。</p>
+
+<p>并不是所有的 Go 类型都能被映射成可用的 C 类型。Go 结构体就不支持，我们需要使用 C 结构体类型。Go 数组也不支持，我们需要使用 C 指针。</p>
+
+<p>使用字符串类型做入参的 Go 函数可以被 C 类型的 <em>GoString</em> 替代，正如上面的例子所描述的那样。<em>GoString</em> 会自动在前言中定义。注意 C 代码中无法创建一个这种类型的值，它只是用来把 Go 的字符串值传递给 C，然后从 C 传递给 Go。</p>
+
+<p>在文件中使用 //export 时，对前言有个限制：由于它们是被拷贝到两个不同的 C 输出文件中，它必须不能包含任何定义，而只能包含声明。如果一个文件既包含定义，有包含声明，那么两个文件将会产生重复的符号，这样链接会失败。为了避免这种情况发生，前言中的定义必须被放在其他文件的前沿中，或放在 C 文件中。</p>
+
+<h1 id="传递指针">传递指针</h1>
+
+<p>Go 是一种垃圾回收语言，垃圾回收器需要知道每个指针指向的 Go 内存地址。所以在 Go 和 C 之间传递指针时有些限制。</p>
+
+<p>在这一节，术语“Go 指针”意味着由 Go 分配的指向内存的指针 (比如使用 &amp; 操作符或调用事先定义的 new 方法)。“C 指针”意味着由 C 分配的指向内存的指针 (比如调用 C.malloc)。一个指针是 Go 指针还是 C 指针，取决于内存是如何分配的，它和指针类型无关。</p>
+
+<p>请注意，除了类型的零值外，某些 Go 类型总是包括 Go 指针。字符串、切片、接口、channel、map 和函数类型皆是如此。一个指针可能是一个 Go 指针，也可能是一个 C 指针。数组和结构体可能不会包括 Go 指针，这取决于元素类型。下面关于 Go 指针的讨论不止适用于指针类型，也适用于其他包含 Go 指针的类型。</p>
+
+<p>Go 代码可以把 Go 指针传递给 C，前提是指向 Go 内存的指针不包含任何 Go 指针。C 代码必须保留这样的属性：它不能在 Go 内存中存储任何 Go 指针，即使是临时性的。当传递一个指向结构体字段的指针时，所讨论的 Go 内存是被字段占用的内存，而不是整个结构体。当传递一个指向数组或切片元素的指针时，所讨论的 Go 内存是整个数组或切片的整个后备数组。</p>
+
+<p>在调用返回后，C 代码可能不会保存一份 Go 指针的备份。包括 <em>GoString</em> 类型。如上面讨论，这种类型包含了一个 Go 指针。<em>GoString</em> 类型的值可能不会被 C 代码保留。</p>
+
+<p>一个 C 代码调用的 Go 函数可能不会返回一个 Go 指针 (这意味着它可能不会返回一个字符串、切片、channel、等等)。一个 C 代码调用的 Go 函数可以使用 C 指针作为参数，也可以通过这些指针存储非指针或 C 指针数据，但是它不能在内存中存储被 C 指针指向的内存。一个被 C 代码调用的 Go 函数可以拿一个 Go 指针作为参数，但是它必须保存这个特性：指针指向的 Go 内存里不包含任何 Go 指针。</p>
+
+<p>这些规则会在运行时进行动态检查。检查动作由对 GODEBUG 环境变量的 cgocheck 设置来控制。默认的设置是 GODEBUG=cgocheck=1，它实现了相当简单的动态检查。这些检查可以通过设置 GODEBUG=cgocheck=0 来取消。完整的指针处理检查需要设置 GODEBUG=cgocheck=2，这种检查会对运行时造成负担。</p>
+
+<p>使用不安全包会破坏这种强制检查，当然没有什么能阻止 C 代码去做任何它想做的事情。不过破坏这些规则的程序可能会以意想不到且不可预测的方式失败。</p>
+
+<h1 id="特殊场景">特殊场景</h1>
+
+<h1 id="直接使用-cgo-指令-go-tool-cgo">直接使用 cgo 指令: go tool cgo</h1>
+
+<p>Usage:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">go tool cgo [cgo options] [-- compiler options] gofiles...</pre></td></tr></table>
+</div>
+</div>
+<p>cgo 把指定输入的 Go 源文件转换为多个 Go 和 C 源文件输出</p>
+
+<p>当调用 C 编译器编译包中的 C 部分时，编译器选项会不加解释地直接传递过去</p>
+
+<p>下面是直接运行 cgo 时的可用选项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">-V
+    打印 cgo 版本然后退出。
+-debug-define
+    debug 选项，打印 <span class="c1">#defines.</span>
+-debug-gcc
+    debug 选项，跟踪 C 编译器执行和输出。
+-dynimport file
+    写入由文件导入的符号列表。写到 -dynout 参数或标准输出。在构建 cgo 包的时候通过 go build 来使用。
+-dynlinker
+    作为 -dynimport 输出的一部分，写入动态连接器。
+-dynout file
+    把 -dynimport 输出写入文件。
+-dynpackage package
+    为 -dynimport 输出设置 Go 包。
+-exportheader file
+    如果有输出函数，把这些生成的输出声明写入文件中。C 代码可以 <span class="c1">#include 这些文件，然后就能看到输出函数了。</span>
+-importpath string
+    Go 包的导入路径。可选。用于在生成路径中有更好的评论。
+-import_runtime_cgo
+    是否在生成的输出里设置 import runtime/cgo <span class="o">(</span>默认设置此选项<span class="o">)</span>
+-import_syscall
+    是否在生成的输出里设置 import syscall <span class="o">(</span>默认设置此选项<span class="o">)</span>
+-gccgo
+    为 gccgo 编译器设置输出，而不是为 gc 编译器设置输出。
+-gccgoprefix prefix
+    在 gccgo 中使用的 -fgo-prefix 选项。
+-gccgopkgpath path
+    在 gccgo 中使用的 -fgo-pkgpath 选项。
+-godefs
+    在 Go 语法中写入输入文件，使用真实值替换 C 包名称。用来当引导一个新的目标时在生成的 syscall 包中生成文件。
+-objdir directory
+    把所有生成的文件放在指定路径下。
+-srcdir directory
+    源文件路径。</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://my.oschina.net/u/2363618/blog/1845536">cgo 命令详解</a></li>
+<li><a href="https://www.kancloud.cn/runningday/learngo/284086">cgo 命令</a></li>
+</ul>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-06-29</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | Step-by-step guide to concurrency 学习笔记</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/">
+            <span class="next-text nav-default">Golang | cmd - go install | run | clean | env | get</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-06-29 14:09:26 \x2b0800 CST',
+        title: 'Golang | cmd - go cgo',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | Stdlib - runtime - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  了解 runtime 包中的的环境变量 了解 runtime 包中的基本函数及使用  " /><meta name="keywords" content="go, golang" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20180610-stdlib-runtime/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | Stdlib - runtime" />
+<meta property="og:description" content="
+
+
+
+了解 runtime 包中的的环境变量
+了解 runtime 包中的基本函数及使用
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20180610-stdlib-runtime/" /><meta property="article:published_time" content="2018-06-10T16:07:43&#43;08:00"/>
+<meta property="article:modified_time" content="2018-06-10T16:07:43&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | Stdlib - runtime">
+<meta itemprop="description" content="
+
+
+
+了解 runtime 包中的的环境变量
+了解 runtime 包中的基本函数及使用
+
+">
+
+
+<meta itemprop="datePublished" content="2018-06-10T16:07:43&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-10T16:07:43&#43;00:00" />
+<meta itemprop="wordCount" content="2894">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | Stdlib - runtime"/>
+<meta name="twitter:description" content="
+
+
+
+了解 runtime 包中的的环境变量
+了解 runtime 包中的基本函数及使用
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | Stdlib - runtime</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-10 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2894 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-概述">1. 概述</a></li>
+<li><a href="#2-环境变量">2. 环境变量</a>
+<ul>
+<li><a href="#2-1-gogc">2.1. GOGC</a></li>
+<li><a href="#2-2-godebug">2.2. GODEBUG</a></li>
+<li><a href="#2-3-gomaxprocs">2.3. GOMAXPROCS</a></li>
+<li><a href="#2-4-gotraceback">2.4. GOTRACEBACK</a></li>
+<li><a href="#2-5-goarch-goos-gopath-goroot">2.5. GOARCH、GOOS、GOPATH、GOROOT</a></li>
+</ul></li>
+<li><a href="#3-基本函数">3. 基本函数</a></li>
+<li><a href="#4-函数使用">4. 函数使用</a>
+<ul>
+<li><a href="#4-1-go-语言的函数调用信息">4.1. Go 语言的函数调用信息</a>
+<ul>
+<li><a href="#4-1-1-runtime-caller-用法">4.1.1. runtime.Caller 用法</a></li>
+<li><a href="#4-1-2-runtime-callers-用法">4.1.2. runtime.Callers 用法</a></li>
+<li><a href="#4-1-3-runtime-funcforpc-用法">4.1.3. runtime.FuncForPC 用法</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#5-see-also">5. See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>了解 runtime 包中的的环境变量</li>
+<li>了解 runtime 包中的基本函数及使用</li>
+</ul>
+</blockquote>
+
+<p><span id="content"><a href="#content"><strong>目录</strong></a></span>
+<!-- TOC --></p>
+
+<ul>
+<li><a href="#1-概述">1. 概述</a></li>
+<li><a href="#2-环境变量">2. 环境变量</a>
+
+<ul>
+<li><a href="#21-gogc">2.1. GOGC</a></li>
+<li><a href="#22-godebug">2.2. GODEBUG</a></li>
+<li><a href="#23-gomaxprocs">2.3. GOMAXPROCS</a></li>
+<li><a href="#24-gotraceback">2.4. GOTRACEBACK</a></li>
+<li><a href="#25-goarchgoosgopathgoroot">2.5. GOARCH、GOOS、GOPATH、GOROOT</a></li>
+</ul></li>
+<li><a href="#3-基本函数">3. 基本函数</a></li>
+<li><a href="#4-函数使用">4. 函数使用</a>
+
+<ul>
+<li><a href="#41-go-语言的函数调用信息">4.1. Go 语言的函数调用信息</a></li>
+<li><a href="#411-runtimecaller-用法">4.1.1. runtime.Caller 用法</a></li>
+<li><a href="#412-runtimecallers-用法">4.1.2. runtime.Callers 用法</a></li>
+<li><a href="#413-runtimefuncforpc-用法">4.1.3. runtime.FuncForPC 用法</a></li>
+</ul></li>
+<li><a href="#5-see-also">5. See Also</a></li>
+</ul>
+
+<!-- /TOC -->
+
+<h1 id="1-概述">1. 概述</h1>
+
+<blockquote>
+<p><a href="https://golang.org/pkg/runtime/">pkg runtime</a></p>
+</blockquote>
+
+<p>Packages <code>runtime</code> conatins operations that interact(相互影响、相互作用) with Go&rsquo;s runtime system, such as functions to control goroutines. It also includes the low-level type information used by the reflect package.</p>
+
+<p>包 runtime 包含了和 Go 的<code>运行时系统</code>进行交互的一些操作，例如<code>控制 go 程</code>的功能。它也包含了被反射包使用的<code>低级别类型</code>信息。</p>
+
+<p>Q: 何为 low-level type？</p>
+
+<h1 id="2-环境变量">2. 环境变量</h1>
+
+<p>The following environment variables ($name or %name%, depending on the host operating system) control the run-time behavior of Go programs. The meanings and use may change from release to release.</p>
+
+<p>以下环境变量决定了Go程序的具体运行时的表现。</p>
+
+<h2 id="2-1-gogc">2.1. GOGC</h2>
+
+<p>The GOGC variable sets the initial garbage collection target percentage. A collection is triggered(触发) when the ratio(比率) of freshly(新鲜的、新近的) allocated(分配) data to live(v. 活着) data remaining after the previous collection reaches this percentage. The default is GOGC=100. Setting GOGC=off disables(禁用) the garbage collector entirely. The runtime/debug package&rsquo;s SetGCPercent function allows changing this percentage at run time. See <a href="https://golang.org/pkg/runtime/debug/#SetGCPercent">https://golang.org/pkg/runtime/debug/#SetGCPercent</a>.</p>
+
+<p><code>GOGC</code> 变量用于设置初始的垃圾收集目标的百分比。当新分配的数据与先前收集后剩余数据的实时比率达到此百分比时，会触发收集。</p>
+
+<h2 id="2-2-godebug">2.2. GODEBUG</h2>
+
+<p>The GODEBUG variable controls debugging variables within the runtime. It is a comma-separated(逗号分隔) list of name=val pairs setting these named variables:</p>
+
+<p><code>GODEBUG</code> 变量用于控制runtime内的调试变量。它是一个以逗号分隔的 name=val 对列表，用于设置这些命名变量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="o">//</span> <span class="nx">some</span> <span class="nx">name</span><span class="p">=</span><span class="nx">val</span> <span class="nx">pairs</span> <span class="o">...</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="2-3-gomaxprocs">2.3. GOMAXPROCS</h2>
+
+<p>The GOMAXPROCS variable limits the number of operating system threads that can execute user-level Go code simultaneously(同时). There is no limit to the number of threads that can be blocked in system calls on behalf(代表) of Go code; those do not count against the GOMAXPROCS limit. This package&rsquo;s GOMAXPROCS function queries and changes the limit.</p>
+
+<p><code>GOMAXPROCS</code> 变量用于<code>限制可以同时执行用户级Go代码的操作系统线程的数量</code></p>
+
+<h2 id="2-4-gotraceback">2.4. GOTRACEBACK</h2>
+
+<p>The GOTRACEBACK variable controls the amount of output generated when a Go program fails due to an unrecovered panic or an unexpected runtime condition.</p>
+
+<p><code>GOTRACEBACK</code> 变量控制错误导致的输出数量</p>
+
+<h2 id="2-5-goarch-goos-gopath-goroot">2.5. GOARCH、GOOS、GOPATH、GOROOT</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">GOARCH</span><span class="p">:</span> <span class="nx">系统架构</span><span class="err">：</span><span class="mi">386</span>   <span class="p">|</span> <span class="nx">amd64</span>
+<span class="nx">GOOS</span><span class="p">:</span>   <span class="nx">系统类型</span><span class="err">：</span><span class="nx">linux</span> <span class="p">|</span> <span class="nx">windows</span>
+<span class="nx">GOPATH</span><span class="p">:</span> <span class="nx">开发目录</span>
+<span class="nx">GOROOT</span><span class="p">:</span> <span class="nx">安装目录</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="3-基本函数">3. 基本函数</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// NumCPU() 返回本地主机得逻辑CPU数量
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NumCPU</span><span class="p">()</span> <span class="kt">int</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// GOROOT returns the root of the Go tree
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">GOROOT</span><span class="p">()</span> <span class="kt">string</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// GOOS() 查看目标操作系统; 很多时候，我们会根据平台的不同实现不同的操作，就需要用GOOS了
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">GOOS</span><span class="p">()</span> <span class="kt">string</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 设置可以同时进行运算的 CPU 数量；如果 n&lt;1, 则不改变当前的值; 可以通过上面的 NumCPU 获的参数 n 
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">GOMAXPROCS</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">n</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// GC 运行垃圾回收
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">GC</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 终止调用它的 goroutine, 其他 goroutine 不受影响
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Goexit</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Gosched 函数的作用是让当前的 goroutine 让出 CPU，当一个 goroutine 发生阻塞，
+</span><span class="c1">// Go 会自动的把与该 goroutine 处于同一系统线程线程下的其他 goroutine 转移到另
+</span><span class="c1">// 外一个系统线程上去执行，使得这些 goroutine 不会被阻塞
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Gosched</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// NumGoroutine 返回当前存在的 go 程数量
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NumGoroutine</span><span class="p">()</span> <span class="kt">int</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// type Func
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Func</span> <span class="kd">struct</span> <span class="p">{</span> <span class="cm">/* contains filtered or unexported fields */</span> <span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Entry 返回函数的入口地址
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Func</span><span class="p">)</span> <span class="nf">Entry</span><span class="p">()</span> <span class="kt">uintptr</span> </code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// FileLine 根据函数的入口地址，返回文件名及源代码行数
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Func</span><span class="p">)</span> <span class="nf">FileLine</span><span class="p">(</span><span class="nx">pc</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="p">(</span><span class="nx">file</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">line</span> <span class="kt">int</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Name 返回函数名
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Func</span><span class="p">)</span> <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="4-函数使用">4. 函数使用</h1>
+
+<h2 id="4-1-go-语言的函数调用信息">4.1. Go 语言的函数调用信息</h2>
+
+<p>函数的调用信息是程序中比较重要运行期信息, 在很多场合都会用到(比如调试或日志)</p>
+
+<ul>
+<li>runtime 包的 runtime.Caller、runtime.Callers、runtime.FuncForPc 等几个函数提供了获取函数掉用者信息的方法. (Note: 获取函数调用信息都是从子节点到父节点追踪的一个过程)</li>
+</ul>
+
+<h3 id="4-1-1-runtime-caller-用法">4.1.1. runtime.Caller 用法</h3>
+
+<p>函数签名及释义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Caller 返回当前 goroutine 的栈上的函数调用信息, 包括当前的pc值，调用的文件及行号。若无法获得信息，返回的 ok 将会是 false.
+</span><span class="c1">// 
+</span><span class="c1">// skip 表示要跳过的栈帧数，skip=0 表示 runtime.Caller 的调用者
+</span><span class="c1">// 
+</span><span class="c1">// Note: 由于历史原因, runtime.Caller 和 runtime.Callers 中的 skip 含义并不相同
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Caller</span><span class="p">(</span><span class="nx">skip</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">pc</span> <span class="kt">uintptr</span><span class="p">,</span> <span class="nx">file</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">line</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">ok</span> <span class="kt">bool</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>关于 runtime.Caller 的 demo: 输出函数的栈帧调用信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">funcCallerInfo</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">funcCallerInfo</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">skip</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">;</span> <span class="nx">skip</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">pc</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">line</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">Caller</span><span class="p">(</span><span class="nx">skip</span><span class="p">)</span>
+		<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;skip: %v, pc: %v, file: %v, line: %v\n&#34;</span><span class="p">,</span> <span class="nx">skip</span><span class="p">,</span> <span class="nx">pc</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">line</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 10:11:24 skip: 0, pc: 4812470, file: D:/code/Go_Path/src/instance.golang.com/base-lib/runtime.go, line: 77
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 10:11:24 skip: 1, pc: 4812054, file: D:/code/Go_Path/src/instance.golang.com/base-lib/runtime.go, line: 16
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 10:11:24 skip: 2, pc: 4366477, file: D:/Go/src/runtime/proc.go, line: 198
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 10:11:24 skip: 3, pc: 4516640, file: D:/Go/src/runtime/asm_amd64.s, line: 2361
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>skip=0 时，runtime.Caller 返回的调用信息为：当前文件(runtime.go)里的 main.funcCallerInfo 函数，以及所在的行号</li>
+<li>skip=1 时，runtime.Caller 返回的调用信息为：跳过 skip=0 时的调用，向上一级查找父节点的调用堆栈信息，即：当前文件(runtime.go)里的 main.main 函数，以及调用funcCallerInfo 函数所在的行号</li>
+<li>skip=2 时，调用函数是：proc.go 里的 runtime.main 函数</li>
+<li>skip=3 时，调用函数是：asm_amd64.s 里的 runtime.goexit (TEXT runtime·goexit(SB),NOSPLIT,$0-0)</li>
+</ul>
+</blockquote>
+
+<p>由此可知：Go 的普通程序启动顺序如下：</p>
+
+<ul>
+<li>runtime.goexit 为真正的函数入口(并不是 runtime.main)</li>
+<li>然后 runtime.goexit 调用 runtime.main 函数</li>
+<li>最后 runtime.main 函数调用用户编写 main.main 函数</li>
+</ul>
+
+<h3 id="4-1-2-runtime-callers-用法">4.1.2. runtime.Callers 用法</h3>
+
+<p>函数签名及释义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Callers 把调用它的函数在 goroutine 的栈上的程序计数器填入切片 pc 中.
+</span><span class="c1">// 
+</span><span class="c1">// skip 表示在开始往 pc 切片中记录栈帧数之前所要跳过的栈帧数. 若为0,则表示从
+</span><span class="c1">// runtime.Callers 自身的栈帧开始记录。若为1，则表示从调用者的栈帧开始记录. 
+</span><span class="c1">// 
+</span><span class="c1">// 该函数返回写入到 pc 切片中的项数(受切片的容量限制) 
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Callers</span><span class="p">(</span><span class="nx">skip</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">pc</span> <span class="p">[]</span><span class="kt">uintptr</span><span class="p">)</span> <span class="kt">int</span> </code></pre></td></tr></table>
+</div>
+</div>
+<p>关于 runtime.Callers 的 demo: 用于输出每个栈帧的 pc 信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// funcCallersDemo 输出每个栈帧的 pc(program counters) 信息
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">funcCallersDemo</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">pc</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">uintptr</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">skip</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">;</span> <span class="nx">skip</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">i</span> <span class="o">:=</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">Callers</span><span class="p">(</span><span class="nx">skip</span><span class="p">,</span> <span class="nx">pc</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;skip: %v, pc: %v\n&#34;</span><span class="p">,</span> <span class="nx">skip</span><span class="p">,</span> <span class="nx">pc</span><span class="p">[:</span><span class="nx">i</span><span class="p">])</span>
+	<span class="p">}</span>
+
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 14:33:30 skip: 0, pc: [4219048 4812589 4812199 4366622 4516785]
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 14:33:30 skip: 1, pc: [4812589 4812199 4366622 4516785]
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 14:33:30 skip: 2, pc: [4812199 4366622 4516785]
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 14:33:30 skip: 3, pc: [4366622 4516785]
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 14:33:30 skip: 4, pc: [4516785]
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>输出新的 pc 长度和 skip 大小有逆相关性. skip = 0 为 runtime.Callers 自身的信息.</li>
+<li>这个例子比前一个例子多输出了一个栈帧, 就是因为多了一个runtime.Callers栈帧的信息(前一个例子是没有runtime.Caller信息的(注意:没有s后缀)).</li>
+</ul>
+</blockquote>
+
+<h3 id="4-1-3-runtime-funcforpc-用法">4.1.3. runtime.FuncForPC 用法</h3>
+
+<p>函数签名如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// runtime.FuncForPC 返回给定地址 pc 的函数信息，如果 pc 无效，则返回 nil;
+</span><span class="c1"></span><span class="kd">func</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">FuncForPC</span><span class="p">(</span><span class="nx">pc</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="o">*</span><span class="nx">runtime</span><span class="p">.</span><span class="nx">Func</span> 
+
+<span class="c1">// runtime.Func.Name 返回该函数的名称
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">runtime</span><span class="p">.</span><span class="nx">Func</span><span class="p">)</span> <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span>
+
+<span class="c1">// runtime.Func.Entry 对应函数的地址
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">runtime</span><span class="p">.</span><span class="nx">Func</span><span class="p">)</span> <span class="nf">Entry</span><span class="p">()</span> <span class="kt">uintptr</span>
+
+<span class="c1">// runtime.Func.FileLine 返回与 pc 对应的源码文件名和行号. 按照文档的说明, 如果pc不在函数帧范围内, 则结果是不确定的.
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">runtime</span><span class="p">.</span><span class="nx">Func</span><span class="p">)</span> <span class="nf">FileLine</span><span class="p">(</span><span class="nx">pc</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="p">(</span><span class="nx">file</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">line</span> <span class="kt">int</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>关于 runtime.FuncForPC 的 demo:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">funcForPCDemo</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="nx">skip</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">;</span> <span class="nx">skip</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">pc</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">Caller</span><span class="p">(</span><span class="nx">skip</span><span class="p">)</span>
+		<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+			<span class="c1">// 无法获得信息
+</span><span class="c1"></span>			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="nx">f</span> <span class="o">:=</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">FuncForPC</span><span class="p">(</span><span class="nx">pc</span><span class="p">)</span>
+		<span class="nx">file</span><span class="p">,</span> <span class="nx">line</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nf">FileLine</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;skip: %v, pc: %v\n&#34;</span><span class="p">,</span> <span class="nx">skip</span><span class="p">,</span> <span class="nx">pc</span><span class="p">)</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t file: %v, line: %v\n&#34;</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">line</span><span class="p">)</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t entry: %v\n&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Entry</span><span class="p">())</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t name: %v\n&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Name</span><span class="p">())</span>
+	<span class="p">}</span>
+	<span class="nb">println</span><span class="p">()</span>
+
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 0, pc: 4813275
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/code/Go_Path/src/instance.golang.com/base-lib/runtime.go, line: 113
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4812368
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: main.funcForPCDemo
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 1, pc: 4812342
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/code/Go_Path/src/instance.golang.com/base-lib/runtime.go, line: 15
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4812304
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: main.main
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 2, pc: 4366621
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/Go/src/runtime/proc.go, line: 109
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4366096
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: runtime.main
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 3, pc: 4516928
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/Go/src/runtime/asm_amd64.s, line: 2361
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4516928
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: runtime.goexit
+</span><span class="c1"></span>
+	<span class="nx">pc</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">uintptr</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">skip</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">;</span> <span class="nx">skip</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">i</span> <span class="o">:=</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">Callers</span><span class="p">(</span><span class="nx">skip</span><span class="p">,</span> <span class="nx">pc</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;skip: %v, pc: %v\n&#34;</span><span class="p">,</span> <span class="nx">skip</span><span class="p">,</span> <span class="nx">pc</span><span class="p">[:</span><span class="nx">i</span><span class="p">])</span>
+
+		<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">f</span> <span class="o">:=</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">FuncForPC</span><span class="p">(</span><span class="nx">pc</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span>
+			<span class="nx">file</span><span class="p">,</span> <span class="nx">line</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nf">FileLine</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;skip: %v, pc: %v\n&#34;</span><span class="p">,</span> <span class="nx">skip</span><span class="p">,</span> <span class="nx">pc</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t file: %v, line: %v\n&#34;</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">line</span><span class="p">)</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t entry: %v\n&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Entry</span><span class="p">())</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t name: %v\n&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Name</span><span class="p">())</span>
+		<span class="p">}</span>
+		<span class="k">break</span>
+	<span class="p">}</span>
+
+	<span class="c1">// output:
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 0, pc: [4219048 4813404 4812343 4366622 4516929]
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 0, pc: 4219048
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/Go/src/runtime/extern.go, line: 205
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4218944
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: runtime.Callers
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 0, pc: 4813404
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/code/Go_Path/src/instance.golang.com/base-lib/runtime.go, line: 113
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4812368
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: main.funcForPCDemo
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 0, pc: 4812343
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/code/Go_Path/src/instance.golang.com/base-lib/runtime.go, line: 15
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4812304
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: main.main
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 0, pc: 4366622
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/Go/src/runtime/proc.go, line: 109
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4366096
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: runtime.main
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25 skip: 0, pc: 4516929
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      file: D:/Go/src/runtime/asm_amd64.s, line: 2361
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      entry: 4516928
+</span><span class="c1"></span>	<span class="c1">// 2018/06/14 15:42:25      name: runtime.goexit
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 根据测试, 如果是无效 pc (比如0), runtime.Func.FileLine 一般会输出当前函数的开始行号. 不过在实践中, 一般会用 runtime.Caller 获取文件名和行号信息, runtime.Func.FileLine 很少用到(如何独立获取pc参数?).</p>
+</blockquote>
+
+<h1 id="5-see-also">5. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://sabhiram.com/go/2015/01/21/golang_trace_fns_part_1.html">Go Function Tracing</a></li>
+<li><a href="https://my.oschina.net/chai2010/blog/190030">Go语言的函数调用信息</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27328476">说说Golang的runtime</a></li>
+</ul>
+
+<p><a href="#content"><strong>返回目录</strong></a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-06-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | Performance Optimization =&gt; pprof practice</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/">
+            <span class="next-text nav-default">Golang | Performance Optimization =&gt; pprof</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-06-10 16:07:43 \x2b0800 CST',
+        title: 'Golang | Stdlib - runtime',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

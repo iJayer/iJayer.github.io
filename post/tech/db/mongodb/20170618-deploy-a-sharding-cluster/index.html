@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MongoDB | 部署一个 Sharding 集群 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="mongodb" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="MongoDB | 部署一个 Sharding 集群" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/" /><meta property="article:published_time" content="2017-06-18T15:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-06-23T15:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="MongoDB | 部署一个 Sharding 集群">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-06-18T15:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-06-23T15:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="1630">
+
+
+
+<meta itemprop="keywords" content="db,mongodb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB | 部署一个 Sharding 集群"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MongoDB | 部署一个 Sharding 集群</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-06-18 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1630 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#环境说明">环境说明</a></li>
+<li><a href="#集群规划">集群规划</a>
+<ul>
+<li><a href="#shard节点">shard节点</a></li>
+<li><a href="#config-server节点">Config Server节点</a></li>
+<li><a href="#mongos-server节点">Mongos Server节点</a></li>
+</ul></li>
+<li><a href="#创建数据文件夹">创建数据文件夹</a>
+<ul>
+<li><a href="#shard-server">shard server</a></li>
+<li><a href="#config-server">config server</a></li>
+<li><a href="#mongos">mongos</a></li>
+</ul></li>
+<li><a href="#配置shard-server">配置shard server</a>
+<ul>
+<li><a href="#配置mongod-conf">配置mongod.conf</a></li>
+<li><a href="#配置mongod服务脚本">配置mongod服务脚本</a></li>
+<li><a href="#开启服务">开启服务</a></li>
+<li><a href="#配置replica-set">配置Replica Set</a></li>
+<li><a href="#初始化replica-set">初始化Replica Set</a></li>
+<li><a href="#检查shard节点的replica-set是否部署成功">检查shard节点的Replica Set是否部署成功</a></li>
+</ul></li>
+<li><a href="#配置config-server">配置config server</a>
+<ul>
+<li><a href="#配置mongod-conf-1">配置mongod.conf</a></li>
+<li><a href="#配置mongod服务脚本-1">配置mongod服务脚本</a></li>
+<li><a href="#开启服务-1">开启服务</a></li>
+<li><a href="#配置replica-set-1">配置Replica Set</a></li>
+<li><a href="#初始化replica-set-1">初始化Replica Set</a></li>
+<li><a href="#检查config节点的replica-set是否部署成功">检查config节点的Replica Set是否部署成功</a></li>
+</ul></li>
+<li><a href="#启动mongos服务">启动mongos服务</a>
+<ul>
+<li><a href="#配置mongod-conf-2">配置mongod.conf</a></li>
+<li><a href="#配置mongod服务脚本-2">配置mongod服务脚本</a></li>
+<li><a href="#启动mongos服务-1">启动mongos服务</a>
+<ul>
+<li><a href="#mongos服务的另一种运行方式">mongos服务的另一种运行方式</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#向集群中添加分片">向集群中添加分片</a>
+<ul>
+<li><a href="#连接到-mongos-server">连接到 mongos server</a></li>
+<li><a href="#添加shard节点">添加shard节点</a></li>
+<li><a href="#为集群数据库开启分片">为集群数据库开启分片</a></li>
+<li><a href="#对一个集合开启分片">对一个集合开启分片</a></li>
+</ul></li>
+<li><a href="#测试分片">测试分片</a></li>
+<li><a href="#faq">FAQ</a>
+<ul>
+<li><a href="#issue-confidb-option">Issue: confiDB option</a></li>
+<li><a href="#issue-no-primary-detected-for-set-configsvr">Issue: No primary detected for set configsvr</a></li>
+<li><a href="#issue-sh-addshard-192-168-1-167-27001">Issue: sh.addShard(&ldquo;192.168.1.167:27001&rdquo;)</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="环境说明">环境说明</h1>
+
+<p>由于是实验环境，故在一台主机上开设不同的端口来启动mongodb服务进行sharding集群部署。</p>
+
+<blockquote>
+<p>ENV:</p>
+
+<ul>
+<li>MongoDB shell version v3.4.5</li>
+<li>MongoDB server version: 3.4.5</li>
+<li>Centos 7 x86_64<br /></li>
+</ul>
+</blockquote>
+
+<h1 id="集群规划">集群规划</h1>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548319535/blog/images/sharding.png" alt="Sharding集群架构图" /></p>
+
+<h2 id="shard节点">shard节点</h2>
+
+<p>shard要配置成Replica Set模式</p>
+
+<table>
+<thead>
+<tr>
+<th>ip</th>
+<th>port</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>192.168.1.167</td>
+<td>27001</td>
+<td>primary(主节点)</td>
+</tr>
+
+<tr>
+<td>192.168.1.167</td>
+<td>27002</td>
+<td>secondary(从节点)</td>
+</tr>
+
+<tr>
+<td>192.168.1.167</td>
+<td>27003</td>
+<td>secondary(从节点)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="config-server节点">Config Server节点</h2>
+
+<p>config要配置成Replica Set模式</p>
+
+<table>
+<thead>
+<tr>
+<th>ip</th>
+<th>port</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>192.168.1.167</td>
+<td>27010</td>
+<td>primary(主节点)</td>
+</tr>
+
+<tr>
+<td>192.168.1.167</td>
+<td>27011</td>
+<td>secondary(从节点)</td>
+</tr>
+
+<tr>
+<td>192.168.1.167</td>
+<td>27012</td>
+<td>secondary(从节点)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="mongos-server节点">Mongos Server节点</h2>
+
+<p>mongos服务不需要存储数据，开启单实例mongos</p>
+
+<table>
+<thead>
+<tr>
+<th>ip</th>
+<th>port</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>192.168.1.167</td>
+<td>27017</td>
+<td>mongos路由</td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="创建数据文件夹">创建数据文件夹</h1>
+
+<h2 id="shard-server">shard server</h2>
+
+<p>以shard-1为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mkdir -p /home/shard/sh1/db &amp;&amp; mkdir -p /home/shard/sh1/log
+
+cd /home/shard/sh1
+touch mongod.conf
+
+cd /usr/lib/systemd/system/
+touch mongodsh1.service</pre></td></tr></table>
+</div>
+</div>
+<h2 id="config-server">config server</h2>
+
+<p>以config-1为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mkdir -p /home/shard/conf1/db &amp;&amp; mkdir -p /home/shard/conf1/log
+
+cd /home/shard/conf1
+touch mongod.conf
+
+cd /usr/lib/systemd/system/
+touch mongodconf1.service</pre></td></tr></table>
+</div>
+</div>
+<h2 id="mongos">mongos</h2>
+
+<p>mongos服务不需要存储数据，故不需要创建数据目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mkdir -p /home/shard/mongos/log
+
+cd /home/shard/mongos
+touch mongos.conf
+
+cd /usr/lib/systemd/system/
+touch mongos.service</pre></td></tr></table>
+</div>
+</div>
+<h1 id="配置shard-server">配置shard server</h1>
+
+<blockquote>
+<p>sharding要求shard server必须是replica set集群方式部署</p>
+</blockquote>
+
+<p>启动前确保所有的mongod服务都已关闭：<code>killall mongod</code></p>
+
+<h2 id="配置mongod-conf">配置mongod.conf</h2>
+
+<p>mongod.conf</p>
+
+<ul>
+<li>replication选项</li>
+<li>sharding选项</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># replica set</span><span class="w">
+</span><span class="w"></span>replication<span class="p">:</span><span class="w">
+</span><span class="w">   </span>replSetName<span class="p">:</span><span class="w"> </span>rs<span class="w">       </span><span class="c"># 指定副本集集群名称</span><span class="w">
+</span><span class="w"></span><span class="c"># shard</span><span class="w">
+</span><span class="w"></span>sharding<span class="p">:</span><span class="w">
+</span><span class="w">   </span>clusterRole<span class="p">:</span><span class="w"> </span>shardsvr<span class="w"> </span><span class="c"># 指定sharding集群中mongod服务的角色:有两种选择(configsvr | shardsvr)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="配置mongod服务脚本">配置mongod服务脚本</h2>
+
+<p>mongod.service
+- 修改文件(夹)的所有者</p>
+
+<p>需要修改的部分如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf">User=root
+Group=root
+Environment=&#34;OPTIONS=--quiet -f /home/shard/sh1/mongod.conf&#34;
+ExecStart=/usr/bin/mongod $OPTIONS run
+ExecStartPre=/usr/bin/mkdir -p /var/run/mongodbsh1
+ExecStartPre=/usr/bin/chown root:root /var/run/mongodbsh1
+ExecStartPre=/usr/bin/chmod 0755 /var/run/mongodbsh1
+PermissionsStartOnly=true
+PIDFile=/var/run/mongodbsh1/mongod.pid</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="开启服务">开启服务</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">systemctl start mongodsh1   
+systemctl start mognodsh2   
+systemctl start mongodsh3   </pre></td></tr></table>
+</div>
+</div>
+<h2 id="配置replica-set">配置Replica Set</h2>
+
+<h2 id="初始化replica-set">初始化Replica Set</h2>
+
+<h2 id="检查shard节点的replica-set是否部署成功">检查shard节点的Replica Set是否部署成功</h2>
+
+<h1 id="配置config-server">配置config server</h1>
+
+<blockquote>
+<p>sharding要求config server必须是replica set集群方式部署</p>
+</blockquote>
+
+<h2 id="配置mongod-conf-1">配置mongod.conf</h2>
+
+<p>mongod.conf</p>
+
+<ul>
+<li>replication选项</li>
+<li>sharding选项</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># replica set</span><span class="w">
+</span><span class="w"></span>replication<span class="p">:</span><span class="w">
+</span><span class="w">   </span>replSetName<span class="p">:</span><span class="w"> </span>rs<span class="w">       </span><span class="c"># 指定副本集集群名称</span><span class="w">
+</span><span class="w"></span><span class="c"># shard</span><span class="w">
+</span><span class="w"></span>sharding<span class="p">:</span><span class="w">
+</span><span class="w">   </span>clusterRole<span class="p">:</span><span class="w"> </span>configsvr<span class="w"> </span><span class="c"># 指定sharding集群中mongod服务的角色:有两种选择(configsvr | shardsvr)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="配置mongod服务脚本-1">配置mongod服务脚本</h2>
+
+<p>mongod.service</p>
+
+<ul>
+<li>修改文件(夹)的所有者</li>
+</ul>
+
+<p>需要修改的部分如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-conf" data-lang="conf">User=root
+Group=root
+Environment=&#34;OPTIONS=--quiet -f /home/shard/sh1/mongod.conf&#34;
+ExecStart=/usr/bin/mongod $OPTIONS run
+ExecStartPre=/usr/bin/mkdir -p /var/run/mongodbsh1
+ExecStartPre=/usr/bin/chown root:root /var/run/mongodbsh1
+ExecStartPre=/usr/bin/chmod 0755 /var/run/mongodbsh1
+PermissionsStartOnly=true
+PIDFile=/var/run/mongodbsh1/mongod.pid</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="开启服务-1">开启服务</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">systemctl start mongodconf1   
+systemctl start mognodconf2  
+systemctl start mongodconf3   </pre></td></tr></table>
+</div>
+</div>
+<h2 id="配置replica-set-1">配置Replica Set</h2>
+
+<h2 id="初始化replica-set-1">初始化Replica Set</h2>
+
+<h2 id="检查config节点的replica-set是否部署成功">检查config节点的Replica Set是否部署成功</h2>
+
+<h1 id="启动mongos服务">启动mongos服务</h1>
+
+<h2 id="配置mongod-conf-2">配置mongod.conf</h2>
+
+<p>mongod.conf</p>
+
+<ul>
+<li>storage选项</li>
+<li>sharding选项</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># where to write logging data.</span><span class="w">
+</span><span class="w"></span>systemLog<span class="p">:</span><span class="w">
+</span><span class="w">  </span>destination<span class="p">:</span><span class="w"> </span>file<span class="w">
+</span><span class="w">  </span>logAppend<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>path<span class="p">:</span><span class="w"> </span>/home/shard/mongos/log/mongod.log<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># Where and how to store data.</span><span class="w">
+</span><span class="w"></span><span class="c">#storage:</span><span class="w">
+</span><span class="w"></span><span class="c">#  dbPath: /home/shard/mongos/db</span><span class="w">
+</span><span class="w"></span><span class="c">#  journal:</span><span class="w">
+</span><span class="w"></span><span class="c">#    enabled: true</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># how the process runs</span><span class="w">
+</span><span class="w"></span>processManagement<span class="p">:</span><span class="w">
+</span><span class="w">  </span>fork<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c"># fork and run in background</span><span class="w">
+</span><span class="w">  </span>pidFilePath<span class="p">:</span><span class="w"> </span>/var/run/mongodbos/mongod.pid<span class="w">  </span><span class="c"># location of pidfile</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># network interfaces</span><span class="w">
+</span><span class="w"></span>net<span class="p">:</span><span class="w">
+</span><span class="w">  </span>port<span class="p">:</span><span class="w"> </span><span class="m">27017</span><span class="w">
+</span><span class="w">  </span>bindIp<span class="p">:</span><span class="w"> </span><span class="m">192.168</span>.<span class="m">1.167</span><span class="w">  </span><span class="c"># Listen to local interface only, comment to listen on all interfaces.</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># authorization</span><span class="w">
+</span><span class="w"></span><span class="c">#security:</span><span class="w">
+</span><span class="w">  </span><span class="c">#authorization: enabled</span><span class="w">
+</span><span class="w"></span><span class="c">#  authorization: disabled</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># shard</span><span class="w">
+</span><span class="w"></span>sharding<span class="p">:</span><span class="w">
+</span><span class="w">  </span>configDB<span class="p">:</span><span class="w"> </span>cf/<span class="m">192.168</span>.<span class="m">1.167</span><span class="p">:</span><span class="m">27010</span><span class="p">,</span><span class="m">192.168</span>.<span class="m">1.167</span><span class="p">:</span><span class="m">27011</span><span class="p">,</span><span class="m">192.168</span>.<span class="m">1.167</span><span class="p">:</span><span class="m">27012</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>注：</p>
+
+<ul>
+<li>mongos服务不需要存储数据, 故不用配置storage选项</li>
+<li>configDB选项的config server地址列表必须用一下格式：<code>&lt;setname&gt;/&lt;server_addr&gt;, &lt;server_addr&gt;</code>
+
+<ul>
+<li>PS：cf/192.168.1.167:27010,192.168.1.167:27011,192.168.1.167:27012</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<h2 id="配置mongod服务脚本-2">配置mongod服务脚本</h2>
+
+<p>mongod.service</p>
+
+<ul>
+<li>修改文件(夹)的所有者
+<br /></li>
+</ul>
+
+<blockquote>
+<p>注：mongos服务脚本的服务实例改为 <code>mongos</code></p>
+</blockquote>
+
+<h2 id="启动mongos服务-1">启动mongos服务</h2>
+
+<p>启动mongos服务前， 确保config server &amp; shard server均已运行</p>
+
+<ul>
+<li><p>查看所有的config &amp; shard server均已开启：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ps -aux | grep mongod</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>开启服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">systemctl start mongos  </pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<blockquote>
+<p>注：经测试mongos服务，通过mongos.service脚本开启失败，具体原因尚未可知&hellip;</p>
+</blockquote>
+
+<h3 id="mongos服务的另一种运行方式">mongos服务的另一种运行方式</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mongos -f /home/shard/mongos/mongos.conf</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Over here, all server has been running.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+
+<h1 id="向集群中添加分片">向集群中添加分片</h1>
+
+<h2 id="连接到-mongos-server">连接到 mongos server</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">mongo 192.168.1.167:27017
+mongos&gt; </pre></td></tr></table>
+</div>
+</div>
+<h2 id="添加shard节点">添加shard节点</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sh.addShard(&#34;192.168.1.167:27001&#34;)
+sh.addShard(&#34;192.168.1.167:27002&#34;)
+sh.addShard(&#34;192.168.1.167:27003&#34;)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="为集群数据库开启分片">为集群数据库开启分片</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sh.enableSharding(&#34;shtest&#34;)</pre></td></tr></table>
+</div>
+</div>
+<h2 id="对一个集合开启分片">对一个集合开启分片</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sh.shardCollection(&#34;shtest.user&#34;, {userid: &#34;hashed&#34;})</pre></td></tr></table>
+</div>
+</div>
+<h1 id="测试分片">测试分片</h1>
+
+<h1 id="faq">FAQ</h1>
+
+<h2 id="issue-confidb-option">Issue: confiDB option</h2>
+
+<ul>
+<li><p>mongos &ndash;port 27017 &ndash;configdb 192.168.1.167:27010,192.168.1.167:27011,192.168.1.167:27012 &ndash;logpath /home/shard/mongos/log/mongod.log  &ndash;fork</p>
+
+<ul>
+<li>BadValue: configdb supports only replica set connection string</li>
+</ul></li>
+</ul>
+
+<h2 id="issue-no-primary-detected-for-set-configsvr">Issue: No primary detected for set configsvr</h2>
+
+<ul>
+<li>Shard 必须是复制集</li>
+</ul>
+
+<h2 id="issue-sh-addshard-192-168-1-167-27001">Issue: sh.addShard(&ldquo;192.168.1.167:27001&rdquo;)</h2>
+
+<ul>
+<li><p>error:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">{
+    &#34;code&#34; : 96,
+    &#34;ok&#34; : 0,
+    &#34;errmsg&#34; : &#34;host is part of set rs; use replica set url format &lt;setname&gt;/&lt;server1&gt;,&lt;server2&gt;, ...&#34;
+}</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>success:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">sh.addShard(&#34;rs/192.168.1.167:27001&#34;)
+{ &#34;shardAdded&#34; : &#34;rs&#34;, &#34;ok&#34; : 1 }</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://www.ywnds.com/?p=3493">MongoDB分片集群部署实例</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-06-23</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/db/">db</a>
+          <a href="/tags/mongodb/">mongodb</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/">
+            <span class="next-text nav-default">MongoDB | 部署一个 Replica Set 集群</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-06-18 15:53:01 \x2b0800 CST',
+        title: 'MongoDB | 部署一个 Sharding 集群',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

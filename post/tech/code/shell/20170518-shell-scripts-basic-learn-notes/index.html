@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Shell | 基础学习笔记 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="linux, shell" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Shell | 基础学习笔记" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/" /><meta property="article:published_time" content="2017-05-18T17:53:01&#43;08:00"/>
+<meta property="article:modified_time" content="2017-05-19T19:53:01&#43;00:00"/>
+
+<meta itemprop="name" content="Shell | 基础学习笔记">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-05-18T17:53:01&#43;08:00" />
+<meta itemprop="dateModified" content="2017-05-19T19:53:01&#43;00:00" />
+<meta itemprop="wordCount" content="1605">
+
+
+
+<meta itemprop="keywords" content="shell," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Shell | 基础学习笔记"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Shell | 基础学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-18 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1605 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#shell-scripts-变量">Shell Scripts 变量</a></li>
+<li><a href="#shell-scripts-字符串">Shell Scripts 字符串</a></li>
+<li><a href="#shell-script数组">Shell Script数组</a></li>
+<li><a href="#shell-scripts-参数">Shell Scripts 参数</a></li>
+<li><a href="#shell-scripts-运算">Shell Scripts 运算</a>
+<ul>
+<li><a href="#算数运算符">算数运算符</a></li>
+<li><a href="#关系运算符">关系运算符</a></li>
+<li><a href="#逻辑运算符">逻辑运算符</a></li>
+<li><a href="#布尔运算符">布尔运算符</a></li>
+<li><a href="#字符串运算符">字符串运算符</a></li>
+<li><a href="#文件测试运算符">文件测试运算符</a></li>
+</ul></li>
+<li><a href="#shell-scripts-条件">Shell Scripts 条件</a>
+<ul>
+<li><a href="#if-then-fi"><code>if ... then ... fi</code></a></li>
+<li><a href="#case-in-esac"><code>case ... in ... esac</code></a></li>
+</ul></li>
+<li><a href="#shell-scripts-循环">Shell Scripts 循环</a>
+<ul>
+<li><a href="#for-do-done"><code>for...do...done</code></a></li>
+<li><a href="#while-do-done"><code>while...do...done</code></a></li>
+<li><a href="#until-do-done"><code>until...do...done</code></a></li>
+<li><a href="#dead-loop"><code>dead loop</code></a></li>
+<li><a href="#jump-loop"><code>jump loop</code></a></li>
+</ul></li>
+<li><a href="#shell-scripts-函数">Shell Scripts 函数</a></li>
+<li><a href="#shell-scripts-文件包含">Shell Scripts 文件包含</a></li>
+<li><a href="#shell-scripts-追踪与调试">Shell Scripts 追踪与调试</a></li>
+<li><a href="#shell-scripts-常用用法">Shell Scripts 常用用法</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="shell-scripts-变量">Shell Scripts 变量</h1>
+
+<ul>
+<li>定义 - <code>$ myname=zhe</code></li>
+<li>使用 - <code>$ echo $myname</code></li>
+<li>只读 - <code>$ readonly修饰变量</code></li>
+<li>删除 - <code>$ unset myname</code></li>
+<li>变量类型：
+
+<ul>
+<li>局部变量</li>
+<li>环境变量</li>
+<li>Shell变量</li>
+</ul></li>
+</ul>
+
+<h1 id="shell-scripts-字符串">Shell Scripts 字符串</h1>
+
+<ul>
+<li><p><code>' '</code> 单引号</p>
+
+<ul>
+<li><code>$ str='this is a string'</code></li>
+<li>单引号里内容原样输出，且不能获取变量值</li>
+<li>单引号里不能出现<code>'</code>，对单引号进行转义也不行</li>
+</ul></li>
+
+<li><p><code>&quot; &quot;</code> 双引号</p>
+
+<ul>
+<li><code>$ str=&quot;this is a string&quot;</code></li>
+<li>双引号中可获取变量的值</li>
+<li>双引号中允许转义</li>
+</ul></li>
+
+<li><p>字符串处理</p>
+
+<ul>
+<li><code>$ echo ${#str}</code> - 获取str长度</li>
+<li><code>$ echo ${str:1:4}</code> - 获取子字符串(索引1-4)</li>
+</ul></li>
+</ul>
+
+<h1 id="shell-script数组">Shell Script数组</h1>
+
+<ul>
+<li><p>定义数组</p>
+
+<ul>
+<li>数组表示：<code>()</code>, 数组元素用 <code>空格</code> 隔开</li>
+<li><code>$ array_test=(v1 v2 v3)</code></li>
+<li>亦可定义数组各个分量: <code>$ array_test[0]=lalala</code></li>
+</ul></li>
+
+<li><p>读取数组</p>
+
+<ul>
+<li>Usage： <code>${array_name[index]}</code>
+
+<ul>
+<li><code>$ ${array_test[1]}</code>- 输出v2</li>
+</ul></li>
+<li>获取所有元素： <code>@</code>
+
+<ul>
+<li><code>$ ${array_test[@]}</code></li>
+</ul></li>
+<li>获取数组长度：
+
+<ul>
+<li><code>$ ${#array_test[@]}</code> | <code>$ ${#array_test[*]}</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h1 id="shell-scripts-参数">Shell Scripts 参数</h1>
+
+<p>脚本获取参数格式： <code>$n</code>，n 为整数</p>
+
+<ul>
+<li><code>$0</code> —获取脚本执行的文件名</li>
+<li><code>$1</code> —获取脚本执行的第一个参数</li>
+
+<li><p><code>$2</code> —获取脚本执行的第二个参数</p></li>
+
+<li><p>Options</p>
+
+<ul>
+<li><code>$#</code> - 获取传递参数个数</li>
+<li><code>$*</code> - 以一个单字符串显示所有传入给脚本的参数</li>
+<li><code>$@</code> - 使用时加引号，且在引号中显示所有参数(&ldquo;$1&rdquo;,&ldquo;$2&rdquo;,&ldquo;$3&rdquo;)</li>
+<li><code>$*</code> &amp; <code>$@</code> 的区别
+
+<ul>
+<li>都是引用所有参数</li>
+<li>在双引号中的显示结果不同</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h1 id="shell-scripts-运算">Shell Scripts 运算</h1>
+
+<h2 id="算数运算符">算数运算符</h2>
+
+<p>原生bash不支持数学运算，通过使用 <code>expr</code> 表达式工具完成</p>
+
+<blockquote>
+<p>注：</p>
+
+<ul>
+<li>表达式和运算符之间有空格：`<code>val=expr 2 + 2</code>`</li>
+<li>完整的表达式要被 <code>(反引号)</code>包含</li>
+<li><code>*</code>　必须加 \ 才能实现运算</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>a=10; b=20</li>
+<li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>=</code>
+
+<ul>
+<li>`expr $a + $b` = 30</li>
+</ul></li>
+<li><code>==</code>, <code>!=</code>
+
+<ul>
+<li>条件表达式必须用 []-方括号,　且要有空格</li>
+<li><code>[ $a == $b ]</code></li>
+</ul></li>
+</ul>
+
+<h2 id="关系运算符">关系运算符</h2>
+
+<p>关系运算符只支持数字，不支持字符串，除非字符串是数字；　结果为bool型</p>
+
+<ul>
+<li>a=10; b=20</li>
+<li><code>eq 相等</code>
+
+<ul>
+<li><code>[ $a -eq $b ]</code>, return false</li>
+</ul></li>
+<li><code>nq 不相等</code></li>
+<li><code>gt 大于</code></li>
+<li><code>lt 小于</code></li>
+<li><code>ge 大于等于</code></li>
+<li><code>le 小于等于</code></li>
+</ul>
+
+<h2 id="逻辑运算符">逻辑运算符</h2>
+
+<ul>
+<li><code>&amp;&amp; 逻辑 And</code></li>
+<li><code>|| 逻辑 Or</code></li>
+</ul>
+
+<h2 id="布尔运算符">布尔运算符</h2>
+
+<ul>
+<li><code>-a 与</code></li>
+<li><code>-o　或</code></li>
+<li><code>!　非</code></li>
+</ul>
+
+<h2 id="字符串运算符">字符串运算符</h2>
+
+<p>a=&ldquo;www&rdquo;; b=&ldquo;google&rdquo;</p>
+
+<ul>
+<li><code>=</code> 检测两个字符串是否相等，相等返回 true
+
+<ul>
+<li><code>==</code> 　一般用两个等号来判断，其结果和一个等号的相同</li>
+<li><code>[ $a = $b ]</code>, return false</li>
+<li><code>[ $a == $b ]</code>, return false</li>
+</ul></li>
+<li><code>!=</code> 检测两个字符串是否相等，不相等返回 true</li>
+<li><code>-z</code> 检测字符串长度是否为０，为０返回 true
+
+<ul>
+<li><code>[ -z $a ]</code>, return false</li>
+</ul></li>
+<li><code>-n</code> 检测字符串长度是否为０，不为０返回 true</li>
+<li><code>str</code> 检测字符串是否为空，不为空返回　true
+
+<ul>
+<li><code>[ $a ]</code>, return true</li>
+</ul></li>
+</ul>
+
+<h2 id="文件测试运算符">文件测试运算符</h2>
+
+<p>检测unix文件的各种属性</p>
+
+<ul>
+<li><code>-b .块</code></li>
+<li><code>-c .字符</code></li>
+<li><code>-d .目录</code></li>
+<li><code>-f .普通</code></li>
+<li><code>-r .可读</code></li>
+<li><code>-w .可写</code></li>
+<li><code>-x .可执行</code></li>
+<li><code>-s .文件为空</code></li>
+<li><code>-e .文件或目录是否存在</code></li>
+<li><code>-g, -k, -p, -u</code></li>
+</ul>
+
+<h1 id="shell-scripts-条件">Shell Scripts 条件</h1>
+
+<h2 id="if-then-fi"><code>if ... then ... fi</code></h2>
+
+<ul>
+<li><p>单层</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">if [condition]; then    
+    command1     
+    command2     
+fi  </pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>多重</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">if [condition]; then
+    command1
+else
+    command2
+fi</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>多重复杂</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">if [condition1]; then
+    command1
+elif [condition2]; then
+    command2
+else
+    command3
+fi</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="case-in-esac"><code>case ... in ... esac</code></h2>
+
+<ul>
+<li><p>语法格式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">case $variable_1 in     # 关键字case, 变量前有$
+    &#34;variable_value&#34;)   # 变量_1_值
+        command1        # 变量_1 的程序段
+        command2
+    ;;                  # 该类别结束
+
+    &#34;variable_value&#34;)   # 变量_2_值
+        command3        # 变量_2 的程序段
+    ;;                  # 该类别结束
+
+    *)                  # 用 * 代替其他所有值
+        command4
+    ;;
+esac</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="shell-scripts-循环">Shell Scripts 循环</h1>
+
+<h2 id="for-do-done"><code>for...do...done</code></h2>
+
+<ul>
+<li><p>语法格式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">for var in item1 item2 ... itemn
+do
+    command1
+    command2
+done</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="while-do-done"><code>while...do...done</code></h2>
+
+<ul>
+<li><p>当 condition 条件为真时，开始循环</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">while [condition]   # 中括号为测试条件
+do                  # 循环开始
+    command1        # 循环执行体
+    command2
+    ...
+done                # 循环结束</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="until-do-done"><code>until...do...done</code></h2>
+
+<ul>
+<li><p>当 condition 条件为真时，停止循环，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">1. until [condition]
+2. do 
+    1. command1
+    2. command2
+    3. ...
+3. done</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<blockquote>
+<p>说明：</p>
+
+<ul>
+<li>测试发生在循环末尾，因此 until 循环体至少执行一次</li>
+</ul>
+</blockquote>
+
+<h2 id="dead-loop"><code>dead loop</code></h2>
+
+<ul>
+<li><p>First</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">while :
+do 
+    command1
+    command2
+done</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Second</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">while true
+do
+    command
+done</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Third</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">for (( ; ; ))</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="jump-loop"><code>jump loop</code></h2>
+
+<ul>
+<li><code>break</code>
+
+<ul>
+<li>终止所有循环</li>
+</ul></li>
+<li><code>continue</code>
+
+<ul>
+<li>终止当前循环，进入下一次循环</li>
+</ul></li>
+</ul>
+
+<h1 id="shell-scripts-函数">Shell Scripts 函数</h1>
+
+<ul>
+<li><p>函数语法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">function func_name () {
+    command1
+    command2
+    ...
+    return int  # 返回可以不加，也可以显示的添加
+}</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>说明：</p>
+
+<ul>
+<li>函数必须在使用前定义，即放在脚本最开始；　使用函数名来调用函数</li>
+<li>参数返回可以显示加 <code>return int</code>(int取值 0-255 ) 返回; 如果不加将以最后一条命令运行结果作为返回值</li>
+<li>函数返回值通过 <code>$?</code> 来获取</li>
+</ul>
+</blockquote></li>
+
+<li><p>函数参数</p>
+
+<p>函数参数和脚本参数获取方式一样：即在函数内部通过 <code>$n</code> 的形式获取参数值, $1-第一个参数，　$2-第二个参数</p>
+
+<blockquote>
+<p>说明：<code>$0</code> —依旧获取脚本执行的文件名</p>
+</blockquote></li>
+</ul>
+
+<h1 id="shell-scripts-文件包含">Shell Scripts 文件包含</h1>
+
+<p>语法格式</p>
+
+<ul>
+<li>格式一
+
+<ul>
+<li><code>. filename</code><br /></li>
+<li>点号 . 和文件名间有空格</li>
+</ul></li>
+<li>格式二<br />
+
+<ul>
+<li><code>source filename</code></li>
+</ul></li>
+</ul>
+
+<h1 id="shell-scripts-追踪与调试">Shell Scripts 追踪与调试</h1>
+
+<ul>
+<li><p><code>sh -[nvx] scripts.sh</code></p>
+
+<ul>
+<li><code>n</code> - 不执行script,只检查语法错误</li>
+<li><code>v</code> - 在执行script前，先将script内容输出到屏幕上</li>
+<li><code>x</code> - 将使用到的script内容输出到屏幕上</li>
+</ul></li>
+</ul>
+
+<h1 id="shell-scripts-常用用法">Shell Scripts 常用用法</h1>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://wizardforcel.gitbooks.io/vbird-linux-basic-4e/content/104.html">鸟哥的linux私房菜·第四版·Bash学习</a></li>
+<li><a href="http://www.runoob.com/linux/linux-shell.html">菜鸟教程</a></li>
+<li><a href="https://tinylab.gitbooks.io/shellbook/content/zh/chapters/01-chapter2.html">Shell Scripts编程范例</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-05-19</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/shell/">shell</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/os/linux/20170525-linux.centos-notes/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux | Centos 系统优化</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/os/linux/20170515-bash-basic-notes/">
+            <span class="next-text nav-default">Linux | Bash 基础</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-05-18 17:53:01 \x2b0800 CST',
+        title: 'Shell | 基础学习笔记',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

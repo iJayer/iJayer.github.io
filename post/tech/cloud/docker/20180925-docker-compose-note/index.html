@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | Docker Compose 基础 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" 平时启动容器的时候，一般会使用 docker run 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，docker run 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 Compose, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。
+" /><meta name="keywords" content="docker, compose" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/cloud/docker/20180925-docker-compose-note/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | Docker Compose 基础" />
+<meta property="og:description" content="
+
+
+平时启动容器的时候，一般会使用 docker run 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，docker run 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 Compose, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/cloud/docker/20180925-docker-compose-note/" /><meta property="article:published_time" content="2018-09-25T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-09-25T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | Docker Compose 基础">
+<meta itemprop="description" content="
+
+
+平时启动容器的时候，一般会使用 docker run 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，docker run 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 Compose, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。
+">
+
+
+<meta itemprop="datePublished" content="2018-09-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3281">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | Docker Compose 基础"/>
+<meta name="twitter:description" content="
+
+
+平时启动容器的时候，一般会使用 docker run 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，docker run 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 Compose, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | Docker Compose 基础</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-25 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 3281 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#使用">使用</a>
+<ul>
+<li><a href="#几个术语">几个术语</a></li>
+</ul></li>
+<li><a href="#cli">CLI</a>
+<ul>
+<li><a href="#格式">格式</a></li>
+<li><a href="#选项">选项</a></li>
+<li><a href="#命令">命令</a>
+<ul>
+<li><a href="#build">build</a></li>
+<li><a href="#config">config</a></li>
+<li><a href="#down">down</a></li>
+<li><a href="#kill">kill</a></li>
+<li><a href="#logs">logs</a></li>
+<li><a href="#pause">pause</a></li>
+<li><a href="#port">port</a></li>
+<li><a href="#ps">ps</a></li>
+<li><a href="#pull">pull</a></li>
+<li><a href="#push">push</a></li>
+<li><a href="#restart">restart</a></li>
+<li><a href="#rm">rm</a></li>
+<li><a href="#run">run</a></li>
+<li><a href="#scale">scale</a></li>
+<li><a href="#start">start</a></li>
+<li><a href="#stop">stop</a></li>
+<li><a href="#top">top</a></li>
+<li><a href="#unpause">unpause</a></li>
+<li><a href="#up">up</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#模板文件">模板文件</a>
+<ul>
+<li><a href="#image">image</a></li>
+<li><a href="#build-1">build</a></li>
+<li><a href="#command">command</a></li>
+<li><a href="#container-name">container_name</a></li>
+<li><a href="#depends-on">depends_on</a></li>
+<li><a href="#env-file">env_file</a></li>
+<li><a href="#environment">environment</a></li>
+<li><a href="#expose">expose</a></li>
+<li><a href="#network-mode">network_mode</a></li>
+<li><a href="#networks">networks</a></li>
+<li><a href="#ports">ports</a></li>
+<li><a href="#secrets">secrets</a></li>
+<li><a href="#volumes">volumes</a></li>
+<li><a href="#others">Others</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>平时启动容器的时候，一般会使用 <code>docker run</code> 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，<code>docker run</code> 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 <a href="https://docs.docker.com/compose/overview/">Compose</a>, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。</p>
+</blockquote>
+
+<h1 id="简介">简介</h1>
+
+<p><a href="https://docs.docker.com/compose/overview/">Compose</a> 是 Docker 公司推出的一个工具软件，可以管理多个 Docker 容器组成一个应用。你需要定义一个 YAML 格式的配置文件 <code>docker-compose.yml</code>，写好多个容器之间的调用关系。然后，只要一个命令，就能同时启动/关闭这些容器。 例如一个 Web 服务容器再加上后端的数据库服务容器等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动所有服务</span>
+$ docker-compose up
+
+<span class="c1"># 关闭所有服务</span>
+$ docker-compose stop</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>Dockerfile: 允许用户管理一个单独的</li>
+<li>docker-compose.yml: 允许用户管理一组相互关联的应用容器</li>
+</ul>
+</blockquote>
+
+<p>其他更加详细的信息可以前往官网查看：View Docker Compose On <a href="https://github.com/docker/compose">GitHub</a> | <a href="https://docs.docker.com/compose/overview/">Overview</a></p>
+
+<h1 id="安装">安装</h1>
+
+<p>完全参考 <a href="https://docs.docker.com/compose/install/">官方文档</a> 安装即可</p>
+
+<p>安装完成后，运行下面命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker-compose --version
+docker-compose version <span class="m">1</span>.22.0, build f46880fe</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="使用">使用</h1>
+
+<p>先熟悉一下 Docker Compose 基本用法：<a href="https://docs.docker.com/compose/gettingstarted/">官方 Docker Compose 使用文档</a></p>
+
+<h2 id="几个术语">几个术语</h2>
+
+<p>项目：由一组关联的应用容器组成的一个完整业务单元。</p>
+
+<blockquote>
+<p>可见，一个项目可以由多个服务（容器）关联而成，Compose 面向项目进行管理。</p>
+</blockquote>
+
+<h1 id="cli">CLI</h1>
+
+<p>输入 <code>$ docker-compose -h</code> 可以查看该命令的详细信息，下面对部分内容做简要说明</p>
+
+<h2 id="格式">格式</h2>
+
+<p>Compose 大部分命令都可以运行在一个或多个服务上，如果没有特别的说明，命令则应用在项目的所有服务上，即 <code>docker-compose.yml</code> 中定义的所有内容。</p>
+
+<p>Usage:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker-compose <span class="o">[</span>-f &lt;arg&gt;...<span class="o">]</span> <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>COMMAND<span class="o">]</span> <span class="o">[</span>ARGS...<span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="选项">选项</h2>
+
+<ul>
+<li><p>-f, &ndash;file FILE 指定使用的 Compose 模板文件，默认为 docker-compose.yml，可以多次指定。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker-compose -f docker-compose.yml docker-compose.admin.yml </code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 关于 -f 的具体处理逻辑可以查看 <a href="https://docs.docker.com/compose/reference/overview/#use--f-to-specify-name-and-path-of-one-or-more-compose-files">Here</a></p>
+</blockquote></li>
+
+<li><p>-p, &ndash;project-name NAME 指定项目名称，默认将使用所在目录名称作为项目名。</p></li>
+
+<li><p>&ndash;x-networking 使用 Docker 的可拔插网络后端特性</p></li>
+
+<li><p>&ndash;x-network-driver DRIVER 指定网络后端的驱动，默认为 bridge</p></li>
+
+<li><p>&ndash;verbose 输出更多调试信息</p></li>
+</ul>
+
+<h2 id="命令">命令</h2>
+
+<p>部分命令说明</p>
+
+<h3 id="build">build</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Usage: build <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>--build-arg <span class="nv">key</span><span class="o">=</span>val...<span class="o">]</span> <span class="o">[</span>SERVICE...<span class="o">]</span>
+
+Options:
+    --force-rm  删除构建过程中的临时容器
+    --no-cache  构建镜像过程中不使用 cache（这将加长构建过程）
+    --pull      始终尝试通过 pull 来获取更新版本的镜像</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>构建或重新构建服务容器</li>
+<li>服务容器一旦构建后，将会带上一个标记名，例如对于 web 项目中的一个 db 容器，可能是 web_db</li>
+<li>当服务的 Dockerfile 有改动或构建的目录内容有变化时，可以运行 <code>docker-compose build</code> 来重新构建</li>
+</ul>
+
+<h3 id="config">config</h3>
+
+<p>验证 Compose 文件格式是否正确，若正确则显示配置，若格式错误显示错误原因</p>
+
+<h3 id="down">down</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Stops containers and removes containers, networks, volumes, and images
+created by <span class="sb">`</span>up<span class="sb">`</span>.
+
+By default, the only things removed are:
+
+- Containers <span class="k">for</span> services defined in the Compose file
+- Networks defined in the <span class="sb">`</span>networks<span class="sb">`</span> section of the Compose file
+- The default network, <span class="k">if</span> one is used
+
+Networks and volumes defined as <span class="sb">`</span>external<span class="sb">`</span> are never removed.</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="kill">kill</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Force stop service containers.
+
+Usage: <span class="nb">kill</span> <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>SERVICE...<span class="o">]</span>
+
+Options:
+    -s SIGNAL         SIGNAL to send to the container.
+                      Default signal is SIGKILL.</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>通过发送 SIGKILL 信号来强制停止服务容器。</li>
+<li>支持通过 -s 参数来指定发送的信号，例如通过如下指令发送 SIGINT 信号。
+
+<ul>
+<li>$ docker-compose kill -s SIGINT</li>
+</ul></li>
+</ul>
+
+<h3 id="logs">logs</h3>
+
+<ul>
+<li><p>查看服务容器的输出。默认情况下，docker-compose 将对不同的服务输出使用不同的颜色来区分。可以通过 &ndash;no-color 来关闭颜色。</p></li>
+
+<li><p>该命令在调试问题的时候十分有用。</p></li>
+</ul>
+
+<h3 id="pause">pause</h3>
+
+<ul>
+<li>Pauses running containers of a service. They can be unpaused with docker-compose unpause.</li>
+</ul>
+
+<h3 id="port">port</h3>
+
+<ul>
+<li>打印某个容器端口所映射的公共端口。</li>
+</ul>
+
+<h3 id="ps">ps</h3>
+
+<ul>
+<li>列出项目中目前的所有容器</li>
+</ul>
+
+<h3 id="pull">pull</h3>
+
+<ul>
+<li>拉取服务依赖的镜像</li>
+</ul>
+
+<h3 id="push">push</h3>
+
+<ul>
+<li>推送服务依赖的镜像到 registry/repository</li>
+</ul>
+
+<h3 id="restart">restart</h3>
+
+<ul>
+<li>重启项目中的服务</li>
+</ul>
+
+<h3 id="rm">rm</h3>
+
+<ul>
+<li><p>删除所有（停止状态的）服务容器。推荐先执行 docker-compose stop 命令来停止容器。</p></li>
+
+<li><p>选项：</p>
+
+<ul>
+<li>-f, &ndash;force 强制直接删除，包括非停止状态的容器。一般尽量不要使用该选项。</li>
+<li>-v 删除容器所挂载的数据卷。</li>
+</ul></li>
+</ul>
+
+<h3 id="run">run</h3>
+
+<ul>
+<li>在指定服务上执行一个命令</li>
+
+<li><ul>
+<li>默认情况下，如果存在关联，则所有关联的服务将会自动被启动，除非这些服务已经在运行中。</li>
+</ul></li>
+
+<li><p>两个不同点：</p>
+
+<ul>
+<li>给定命令将会覆盖原有的自动运行命令；</li>
+<li>不会自动创建端口，以避免冲突。</li>
+</ul></li>
+
+<li><p>如果不希望自动启动关联的容器，可以使用 &ndash;no-deps 选项</p></li>
+</ul>
+
+<h3 id="scale">scale</h3>
+
+<ul>
+<li>设置指定服务运行的容器个数
+
+<ul>
+<li>通过 service=num 的参数来设置数量, 例如：<code>$ docker-compose scale web=3 db=2</code></li>
+</ul></li>
+</ul>
+
+<h3 id="start">start</h3>
+
+<ul>
+<li>启动已经存在的服务容器</li>
+</ul>
+
+<h3 id="stop">stop</h3>
+
+<ul>
+<li>停止已经处于运行状态的容器，但不删除它。通过 docker-compose start 可以再次启动这些容器</li>
+</ul>
+
+<h3 id="top">top</h3>
+
+<ul>
+<li>查看项目中，各个服务容器内运行的进程</li>
+</ul>
+
+<h3 id="unpause">unpause</h3>
+
+<ul>
+<li>恢复处于暂停状态中的服务。</li>
+</ul>
+
+<h3 id="up">up</h3>
+
+<ul>
+<li>该命令十分强大，它将尝试自动完成包括构建镜像，（重新）创建服务，启动服务，并关联服务相关容器的一系列操作。</li>
+<li>链接的服务都将会被自动启动，除非已经处于运行状态。</li>
+<li>可以说，大部分时候都可以直接通过该命令来启动一个项目。</li>
+<li>默认情况，<code>docker-compose up</code> 启动的容器都在前台，控制台将会同时打印所有容器的输出信息，可以很方便进行调试。</li>
+<li>当通过 Ctrl-C 停止命令时，所有容器将会停止。</li>
+<li>如果使用 <code>docker-compose up -d</code>，将会在后台启动并运行所有的容器。一般推荐生产环境下使用该选项。</li>
+
+<li><p>默认情况，如果服务容器已经存在，docker-compose up 将会尝试停止容器，然后重新创建（保持使用 volumes-from 挂载的卷），以保证新启动的服务匹配 docker-compose.yml 文件的最新内容。如果用户不希望容器被停止并重新创建，可以使用 docker-compose up &ndash;no-recreate。这样将只会启动处于停止状态的容器，而忽略已经运行的服务。如果用户只想重新部署某个服务，可以使用 docker-compose up &ndash;no-deps -d <SERVICE_NAME> 来重新创建服务并后台停止旧服务，启动新服务，并不会影响到其所依赖的服务。</p></li>
+
+<li><p>选项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">-d                      在后台运行服务容器。
+--no-color              不使用颜色来区分不同的服务的控制台输出。
+--no-deps               不启动服务所链接的容器。
+--force-recreate        强制重新创建容器，不能与 --no-recreate 同时使用。
+--no-recreate           如果容器已经存在了，则不重新创建，不能与 --force-recreate 同时使用。
+--no-build              不自动构建缺失的服务镜像。
+-t, --timeout TIMEOUT   停止容器时候的超时（默认为 <span class="m">10</span> 秒）。</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="模板文件">模板文件</h1>
+
+<ul>
+<li><p>模板文件是 Docker Compose 的核心，默认文件名为 <code>docker-compose.yml</code>, 格式 <code>YAML</code>。 其中大部分指令和 <code>docker run</code> 是类似的</p>
+
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>定义的每个服务都必须通过 <code>image</code> 指令指定镜像或通过 <code>build</code> 指令(需要 Dockerfile) 来自动构建镜像</li>
+<li>如果使用 build 指令，在 Dockerfile 中设置的选项(例如：CMD, EXPOSE, VOLUME, ENV 等) 将会自动被获取，无需在 docker-compose.yml 中再次设置。</li>
+</ul>
+</blockquote></li>
+</ul>
+
+<p>下面简单介绍定义 Docker Compose 模板文件的指令集</p>
+
+<h2 id="image">image</h2>
+
+<ul>
+<li><p>指定为镜像名称或镜像 ID。如果镜像在本地不存在，Compose 将会尝试拉去这个镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">image: ubuntu
+image: orchardup/postgresql
+image: a4bc65fd</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="build-1">build</h2>
+
+<ul>
+<li><p>指定 <code>Dockerfile</code> 所在文件夹的路径(可以是绝对路径，或者相对 <code>docker-compose.yml</code> 文件的路径)。 Compose 将会利用它自动构建这个镜像，然后使用这个镜像。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">build: /path/to/build/dir</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>也可以使用 <code>context</code> 指令指定 Dockerfile 所在文件夹的路径, 然后使用 <code>dockerfile</code> 指令指定 Dockerfile 文件名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">version: <span class="s1">&#39;3&#39;</span>
+services:
+
+webapp:
+    build:
+    context: ./dir
+    dockerfile: Dockerfile-alternate
+    args:
+        buildno: <span class="m">1</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>上面实例中，使用了 <code>args</code> 指令指定构建镜像时的变量</p></li>
+</ul>
+
+<h2 id="command">command</h2>
+
+<ul>
+<li><p>覆盖容器启动后默认执行的命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">command: <span class="nb">echo</span> <span class="s2">&#34;hello world&#34;</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="container-name">container_name</h2>
+
+<ul>
+<li><p>指定容器名称。默认将会使用 <code>项目名称_服务名称_序号</code> 这样的格式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">container_name: docker-web-container</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 指定容器名称后，该服务将无法进行扩展（scale），因为 Docker 不允许多个容器具有相同的名称。</p>
+</blockquote></li>
+</ul>
+
+<h2 id="depends-on">depends_on</h2>
+
+<ul>
+<li><p>解决容器的依赖、启动先后的问题。以下例子中会先启动 redis db 再启动 web</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">    </span>web<span class="p">:</span><span class="w">
+</span><span class="w">        </span>build<span class="p">:</span><span class="w"> </span>.<span class="w">
+</span><span class="w">        </span>depends_on<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>db<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>redis<span class="w">
+</span><span class="w">
+</span><span class="w">    </span>redis<span class="p">:</span><span class="w">
+</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span>redis<span class="w">
+</span><span class="w">
+</span><span class="w">    </span>db<span class="p">:</span><span class="w">
+</span><span class="w">        </span>image<span class="p">:</span><span class="w"> </span>postgres</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: web 服务不会等待 redis db 「完全启动」之后才启动。</p>
+</blockquote></li>
+</ul>
+
+<h2 id="env-file">env_file</h2>
+
+<ul>
+<li>从文件中获取环境变量，可以为单独的文件路径或列表</li>
+<li>如果通过 docker-compose -f FILE 方式来指定 Compose 模板文件，则 env_file 中变量的路径会基于模板文件路径</li>
+<li>如果有变量名称与 environment 指令冲突，则按照惯例，以后者为准</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">env_file<span class="p">:</span><span class="w"> </span>.env<span class="w">
+</span><span class="w">
+</span><span class="w"></span>env_file<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>./common.env<span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>./apps/web.env<span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>./opt/secrets.env</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>环境变量文件中每一行必须符合格式，支持 # 开头的注释行</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># common.env: Set development environment</span><span class="w">
+</span><span class="w"></span>PROG_ENV=development</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="environment">environment</h2>
+
+<ul>
+<li>设置环境变量。你可以使用数组或字典两种格式</li>
+
+<li><p>只给定名称的变量会自动获取运行 Compose 主机上对应变量的值，可以用来防止泄露不必要的数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">environment<span class="p">:</span><span class="w">
+</span><span class="w">    </span>RACK_ENV<span class="p">:</span><span class="w"> </span>development<span class="w">
+</span><span class="w">    </span>SESSION_SECRET<span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>environment<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>RACK_ENV=development<span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>SESSION_SECRET</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 如果变量名称或者值中用到 true|false，yes|no 等表达 布尔 含义的词汇，最好放到引号里，避免 YAML 自动解析某些内容为对应的布尔语义。这些特定词汇，包括:</p>
+
+<p><code>y|Y|yes|Yes|YES|n|N|no|No|NO|true|True|TRUE|false|False|FALSE|on|On|ON|off|Off|OFF</code></p>
+</blockquote></li>
+</ul>
+
+<h2 id="expose">expose</h2>
+
+<ul>
+<li>暴露端口，但不映射到宿主机，只被连接的服务访问。</li>
+
+<li><p>仅可以指定内部端口为参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">expose<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;3000&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;8000&#34;</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="network-mode">network_mode</h2>
+
+<ul>
+<li>设置网络模式。使用和 docker run 的 &ndash;network 参数一样的值。</li>
+</ul>
+
+<h2 id="networks">networks</h2>
+
+<ul>
+<li><p>配置容器连接的网络</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3&#34;</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>some-service<span class="p">:</span><span class="w">
+</span><span class="w">    </span>networks<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>some-network<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>other-network<span class="w">
+</span><span class="w">
+</span><span class="w"></span>networks<span class="p">:</span><span class="w">
+</span><span class="w">    </span>some-network<span class="p">:</span><span class="w">
+</span><span class="w">    </span>other-network<span class="p">:</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="ports">ports</h2>
+
+<ul>
+<li>暴露端口信息。</li>
+
+<li><p>使用宿主端口：容器端口 (HOST:CONTAINER) 格式，或者仅仅指定容器的端口（宿主将会随机选择端口）都可以。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">ports<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;3000&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;8000:8000&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;49100:22&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;127.0.0.1:8001:8001&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 注意：当使用 HOST:CONTAINER 格式来映射端口时，如果你使用的容器端口小于 60 并且没放到引号里，可能会得到错误结果，因为 YAML 会自动解析 xx:yy 这种数字格式为 60 进制。为避免出现这种问题，建议数字串都采用引号包括起来的字符串格式。</p>
+</blockquote></li>
+</ul>
+
+<h2 id="secrets">secrets</h2>
+
+<ul>
+<li>存储敏感数据，例如 mysql 服务密码</li>
+</ul>
+
+<h2 id="volumes">volumes</h2>
+
+<ul>
+<li>数据卷所挂载路径设置。可以设置宿主机路径 （HOST:CONTAINER） 或加上访问模式 （HOST:CONTAINER:ro）。</li>
+
+<li><p>该指令中路径支持相对路径。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">volumes<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>/var/lib/mysql<span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>cache/<span class="p">:</span>/tmp/cache<span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>~/configs<span class="p">:</span>/etc/configs/<span class="p">:</span>ro</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="others">Others</h2>
+
+<p>此外，还有包括 domainname, entrypoint, hostname, ipc, mac_address, privileged, read_only, shm_size, restart, stdin_open, tty, user, working_dir 等指令，基本跟 docker run 中对应参数的功能一致。</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://docs.docker.com/compose/overview/">Overview of Docker Compose</a></li>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/compose/">Docker从入门到实践：Docker Compose 项目</a></li>
+<li><a href="http://www.dockerinfo.net/docker-compose-%E9%A1%B9%E7%9B%AE">Docker中文文档：Docker Compose 项目</a><br /></li>
+<li><a href="http://dockone.io/article/834">使用Docker Compose管理多个容器</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-25</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/cloud/devops/20180925-cicd-03-drone-01-basic/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DevOps | Drone 的基本概念</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/os/win/cmd-usage-keep/">
+            <span class="next-text nav-default">Win | 命令行集合</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-09-25 00:00:00 \x2b0000 UTC',
+        title: 'Docker | Docker Compose 基础',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

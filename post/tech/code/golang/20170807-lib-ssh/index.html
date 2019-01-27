@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang | SSH - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="go, golang, ssh" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/20170807-lib-ssh/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang | SSH" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/20170807-lib-ssh/" /><meta property="article:published_time" content="2017-08-07T16:07:43&#43;08:00"/>
+<meta property="article:modified_time" content="2017-08-07T16:07:43&#43;00:00"/>
+
+<meta itemprop="name" content="Golang | SSH">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-08-07T16:07:43&#43;08:00" />
+<meta itemprop="dateModified" content="2017-08-07T16:07:43&#43;00:00" />
+<meta itemprop="wordCount" content="832">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang | SSH"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang | SSH</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-08-07 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 832 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#ssh-简介">SSH 简介</a></li>
+<li><a href="#ssh-客户端">SSH 客户端</a>
+<ul>
+<li><a href="#工作流程">工作流程</a></li>
+<li><a href="#获取标准输入">获取标准输入</a></li>
+<li><a href="#建立ssh连接">建立SSH连接</a></li>
+<li><a href="#发送数据">发送数据</a></li>
+</ul></li>
+<li><a href="#远程执行命令">远程执行命令</a>
+<ul>
+<li><a href="#连接">连接</a></li>
+<li><a href="#执行">执行</a></li>
+<li><a href="#获取结果">获取结果</a></li>
+<li><a href="#交互式命令">交互式命令</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="ssh-简介">SSH 简介</h1>
+
+<p><a href="https://godoc.org/golang.org/x/crypto/ssh">https://godoc.org/golang.org/x/crypto/ssh</a></p>
+
+<h1 id="ssh-客户端">SSH 客户端</h1>
+
+<h2 id="工作流程">工作流程</h2>
+
+<ul>
+<li><p>Linux SSH Work Flow:</p>
+
+<ul>
+<li>execute: ssh root@host:ip</li>
+<li>input: pwd</li>
+<li>hosted remote shell: execute command</li>
+</ul></li>
+
+<li><p>同理，通过 Golang 的 SSH 包提供的函数也要实现上述流程：</p>
+
+<ul>
+<li>Input command by keyboard</li>
+<li>Obtain user&rsquo;s input from os.Stdin</li>
+<li>Establish a ssh connect</li>
+<li>Send data|cmd by ssh</li>
+</ul></li>
+</ul>
+
+<h2 id="获取标准输入">获取标准输入</h2>
+
+<p>关键代码：os &amp; bufio 包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">reader</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
+<span class="nx">str</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">reader</span><span class="p">.</span><span class="nf">ReadString</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="建立ssh连接">建立SSH连接</h2>
+
+<p>关键代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">SSH</span><span class="p">)</span> <span class="nf">connect</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">Session</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="p">(</span>
+		<span class="nx">auth</span>         <span class="p">[]</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">AuthMethod</span>
+		<span class="nx">addr</span>         <span class="kt">string</span>
+		<span class="nx">clientConfig</span> <span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ClientConfig</span>
+		<span class="nx">client</span>       <span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">Client</span>
+		<span class="nx">session</span>      <span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">Session</span>
+		<span class="nx">err</span>          <span class="kt">error</span>
+	<span class="p">)</span>
+
+	<span class="c1">// get auth method
+</span><span class="c1"></span>	<span class="nx">auth</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">AuthMethod</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="nx">auth</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">auth</span><span class="p">,</span> <span class="nx">ssh</span><span class="p">.</span><span class="nf">Password</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">Password</span><span class="p">))</span>
+	<span class="nx">clientConfig</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ClientConfig</span><span class="p">{</span><span class="nx">User</span><span class="p">:</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Username</span><span class="p">,</span> <span class="nx">Auth</span><span class="p">:</span> <span class="nx">auth</span><span class="p">,</span> <span class="nx">Timeout</span><span class="p">:</span> <span class="mi">30</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">}</span>
+
+	<span class="c1">// connect to ssh
+</span><span class="c1"></span>	<span class="nx">addr</span> <span class="p">=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s:%s&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Host</span><span class="p">,</span> <span class="nx">Port</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">client</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">ssh</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">,</span> <span class="nx">clientConfig</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="c1">// create session
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">session</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">NewSession</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">session</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="发送数据">发送数据</h2>
+
+<p>有好几种方式可实现数据发送或命令执行</p>
+
+<ul>
+<li><p>调用Run()方法</p>
+
+<ul>
+<li>session.Run(cmd)</li>
+</ul></li>
+
+<li><p><span id="senddata"> Hosted Shell(托管远程Shell)，关键代码：</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// execute command
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nx">Stdout</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span>
+<span class="nx">session</span><span class="p">.</span><span class="nx">Stderr</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span>
+<span class="nx">session</span><span class="p">.</span><span class="nx">Stdin</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span>
+    
+<span class="c1">// set up terminal modes
+</span><span class="c1"></span><span class="nx">modes</span> <span class="o">:=</span> <span class="nx">ssh</span><span class="p">.</span><span class="nx">TerminalModels</span> <span class="p">{</span>
+    <span class="nx">ssh</span><span class="p">.</span><span class="nx">ECHO</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>            <span class="c1">// enable echoing
+</span><span class="c1"></span>    <span class="nx">ssh</span><span class="p">.</span><span class="nx">OP_ISPEED</span><span class="p">:</span> <span class="mi">14400</span><span class="p">,</span>   <span class="c1">// input speed = 14.4kbaud
+</span><span class="c1"></span>    <span class="nx">ssh</span><span class="p">.</span><span class="nx">OP_OSPEED</span><span class="p">:</span> <span class="mi">14400</span><span class="p">,</span>   <span class="c1">// output speed = 14.4kbaud
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// request pseudo terminal(伪终端)
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">session</span><span class="p">.</span><span class="nf">RequestPty</span><span class="p">(</span><span class="s">&#34;xterm-256color&#34;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="nx">modes</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="c1">// hosted shell
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nf">Shell</span><span class="p">()</span>
+<span class="nx">session</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="远程执行命令">远程执行命令</h1>
+
+<h2 id="连接">连接</h2>
+
+<ul>
+<li><p>认证方式：</p>
+
+<ul>
+<li>By Password： 提供Host, Username, Password</li>
+<li>By sshkey：
+<br /></li>
+</ul></li>
+
+<li><p>连接成功后会获取到该连接的 <code>session</code></p></li>
+
+<li><p>Session实现了如下常用方法</p>
+
+<ul>
+<li>(s *Session) RequestPty(term string, h, w int, termmodes TerminalModes) error</li>
+<li>(s *Session) Start(cmd string) error</li>
+<li>(s *Session) Run(cmd string) error</li>
+<li>(s *Session) Shell() error</li>
+<li>(s *Session) start() error</li>
+<li>(s *Session) Wait() error
+<br /></li>
+</ul></li>
+</ul>
+
+<h2 id="执行">执行</h2>
+
+<ul>
+<li><p>连接成功后调用 session.Run() 即可在远程主机执行命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">session</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;ls /; ls /home/&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>注：此时命令虽然正常执行了，但没有 正常|异常 结果输出，因为没有将session的 stdout, stderr 绑定到系统的 stdout, stderr上</li>
+</ul></li>
+</ul>
+
+<h2 id="获取结果">获取结果</h2>
+
+<ul>
+<li><p>执行如下代码即可获取输出信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">session</span><span class="p">.</span><span class="nx">Stdout</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span>
+<span class="nx">session</span><span class="p">.</span><span class="nx">Stderr</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stder</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="交互式命令">交互式命令</h2>
+
+<p>上述方式虽然可以在远程主机执行命令，但无法完成交互式命令，比如执行top，vim等。 如果要支持交互式命令就要当前的terminal接管远程的PTY</p>
+
+<ul>
+<li><a href="#senddata">关键代码可参考: 发送数据之托管shell</a></li>
+</ul>
+
+<p>需要将最后的两行代码进行替换：</p>
+
+<p>old:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// hosted shell
+</span><span class="c1"></span><span class="nx">session</span><span class="p">.</span><span class="nf">Shell</span><span class="p">()</span>
+<span class="nx">session</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>new:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">session</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="s">&#34;vim /etc/mongod.conf&#34;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="https://github.com/zhezh09/go-practice/blob/master/lib-third-demo/ssh/ssh.go">Click here to check out the repo</a></p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://www.cnblogs.com/tianyajuanke/p/5355756.html" title="托管远程shell实例">golang的ssh包</a></li>
+<li><a href="http://blog.bbzhh.com/index.php/archives/130.html" title="文件传输处理方式借鉴">golang执行远程ssh命令，以及scp文件</a></li>
+<li><a href="http://www.chongchonggou.com/g_819592082.html">golang远程执行命令</a></li>
+<li><a href="http://www.nljb.net/default/Go-SSH-%E4%BD%BF%E7%94%A8/">Go-SSH-使用</a></li>
+<li><a href="https://zhengheng.me/2016/12/05/go-sh-tools/" title="多服务器处理">用go写一个简单的ssh并发执行小工具</a></li>
+<li><a href="http://studygolang.com/articles/7359">使用go的ssh包快速打造一个本地命令行ssh客户端</a></li>
+<li><a href="https://github.com/scottkiss/gosshtool">go-ssh-tool. 可以借鉴其代码封装方式</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-08-07</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/20170808-lib-sftp/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Golang | SFTP</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180912-stdlib-flag/">
+            <span class="next-text nav-default">Golang | Stdlib: Flag 学习笔记</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-08-07 16:07:43 \x2b0800 CST',
+        title: 'Golang | SSH',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
