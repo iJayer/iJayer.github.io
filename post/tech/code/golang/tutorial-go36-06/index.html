@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>『Go核心36讲』| 06 - go语句以及执行规则（上） - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="  进程、线程(系统级) goroutine(用户级) 调度器  专栏：16 | go语句及其执行规则（上）
+ " /><meta name="keywords" content="go" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-06/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="『Go核心36讲』| 06 - go语句以及执行规则（上）" />
+<meta property="og:description" content="
+
+
+
+进程、线程(系统级)
+goroutine(用户级)
+调度器
+
+
+
+  专栏：16 | go语句及其执行规则（上）
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-06/" /><meta property="article:published_time" content="2019-01-12T14:51:10&#43;08:00"/>
+<meta property="article:modified_time" content="2019-01-12T14:51:10&#43;00:00"/>
+
+<meta itemprop="name" content="『Go核心36讲』| 06 - go语句以及执行规则（上）">
+<meta itemprop="description" content="
+
+
+
+进程、线程(系统级)
+goroutine(用户级)
+调度器
+
+
+
+  专栏：16 | go语句及其执行规则（上）
+
+
+">
+
+
+<meta itemprop="datePublished" content="2019-01-12T14:51:10&#43;08:00" />
+<meta itemprop="dateModified" content="2019-01-12T14:51:10&#43;00:00" />
+<meta itemprop="wordCount" content="2186">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="『Go核心36讲』| 06 - go语句以及执行规则（上）"/>
+<meta name="twitter:description" content="
+
+
+
+进程、线程(系统级)
+goroutine(用户级)
+调度器
+
+
+
+  专栏：16 | go语句及其执行规则（上）
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">『Go核心36讲』| 06 - go语句以及执行规则（上）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-12 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2186 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#前导内容-进程与线程">前导内容：进程与线程</a></li>
+<li><a href="#调度器">调度器</a>
+<ul>
+<li><a href="#一个问题">一个问题</a></li>
+</ul></li>
+<li><a href="#扩展知识">扩展知识</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<ul>
+<li>进程、线程(系统级)</li>
+<li>goroutine(用户级)</li>
+<li>调度器</li>
+</ul>
+
+<div class='align-right'>
+  <p><a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：16 | go语句及其执行规则（上）</a></p>
+
+</div>
+</blockquote>
+
+<div class='align-center'>
+  <p><img src="https://images.unsplash.com/photo-1547139371-4b4a9ef45205?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="" /></p>
+
+<p>— <a href="https://unsplash.com/photos/5NTu77sRSbQ">Malcolm Lightbody @mlightbody</a></p>
+
+</div>
+
+<h1 id="前导内容-进程与线程">前导内容：进程与线程</h1>
+
+<p>进程：描述的就是程序的执行过程，是运行着的程序的代表。 换句话说，一个进程其实就是某个程序运行时的一个产物。</p>
+
+<p>线程：一个进程至少会包含一个线程。如果一个进程只包含了一个线程，那么它里面的所有代码都只会被串行的执行。每个进程的第一个线程都会随着该进程的启动而被创建，即为其所属进程的主线程。</p>
+
+<ul>
+<li>相对应的，如果一个进程中包含了多个线程，那么其中的代码就可以被并发的执行。除了进程的第一个线程外，其他的线程都是由进程中已存在的线程创建出来的(即，由代码显式的创建和销毁)。</li>
+</ul>
+
+<blockquote>
+<p>Note: 在 Go 程序中，Go 语言的运行时 (runtime) 系统会帮助我们自动地创建和销毁 <code>系统级的线程</code>。这里的系统级线程指的就是我们刚刚说过的操作系统提供的线程。</p>
+</blockquote>
+
+<p>用户级线程：指架设在系统级线程之上的，由用户(或者说我们编写的程序)完全控制的代码执行流程。用户级线程的创建、销毁、调度、状态变更以及其中代码和数据都完全需要我们的程序自己去实现和处理。</p>
+
+<ul>
+<li>优势：创建、销毁、调度不用通过操作系统去做，所以速度快，灵活</li>
+<li>劣势：复杂，我们必须全权负责与用户级线程有关的所有具体实现，而且还要实现与操作系统的对接工作</li>
+</ul>
+
+<blockquote>
+<p>Go 语言不但有着独特的并发编程模型，以及用户级线程 <code>goroutine</code>，还拥有强大的用于调度 goroutine、对接系统级线程的调度器。</p>
+</blockquote>
+
+<h1 id="调度器">调度器</h1>
+
+<p>这个调度器是 Go 语言运行时系统的重要组成部分，它主要负责统筹调配 Go 并发编程模型中的三个主要元素，即：G (goroutine 的缩写)、P (processor 的缩写) 和 M (machine 的缩写)。</p>
+
+<p>其中，</p>
+
+<ul>
+<li>M 指代的就是系统级线程</li>
+<li>P 指的是一种可以承载若干个 G, 而且能够使这些 G 适时地与 M 进行对接，并得到真正运行的中介。</li>
+</ul>
+
+<p>从宏观上说，G 和 M 由于 P 的存在可以呈现出多对多的关系。当一个正在与某个 M 对接并运行着的 G，需要因某个事件 (比如等待 I/O 或 🔒 的解除) 而暂停运行的时候，调度器总会及时的发现，并把这个 G 与那个 M 分离开，以释放计算资源供那些等待运行的 G 使用。</p>
+
+<p>而当一个 G 需要恢复运行的时候，调度器又会尽快地为它寻找空闲的计算资源（包括 M）并安排运行。另外，当 M 不够用时，调度器会帮我们向操作系统申请新的系统级线程，而当某个 M 已无用时，调度器又会负责把它及时的销毁掉。</p>
+
+<p>正因为调度器帮助我梦做了很多事，所以我们的 Go 程序才总是能高效的利用操作系统和计算机资源。程序中的所有 goroutine 也都会被充分地调度，其中的代码也都会被并发的运行，即使这样的 goroutine 有数以十万计，也仍然可以如此。</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1547286060/blog/images/9ea14f68ffbcde373ddb61e186695d7d.png" alt="" /></p>
+
+<div class='align-center'>
+  M、P、G 之间的关系(简化版)
+</div>
+
+<h2 id="一个问题">一个问题</h2>
+
+<p><strong>Q：什么是主 goroutine, 它与我们启用的其他 goroutine 有什么不同？</strong></p>
+
+<p>与一个进程总会有一个主线程类似，每一个独立的 Go 程序在运行时也总会有一个主 goroutine。这个主 goroutine 会在 Go 程序的运行准备工作完成后被自动的启用，并不需要我们做任何手动的操作。</p>
+
+<p>一般，每条 go 语句都会携带一个函数调用，这个被调用的函数常常被称为 <code>go 函数</code>。 而主 goroutine 的 go 函数就是那个作为程序入口的 main 函数。</p>
+
+<blockquote>
+<p>Note: 一定要注意，<code>go 函数</code> 真正被执行的时间，总会与其所属的 <code>go 语句</code> 被执行的时间不同。当程序执行到一条 go 语句的时候，Go 语言的运行时系统会先试图从某个存放空闲的 G 的队列中获取一个 G (也就是 goroutine)，它只有在找不到空闲 G 的情况下才会去创建一个新的 G 。</p>
+</blockquote>
+
+<p>这也是为什么会总说：<code>启用</code> 一个 goroutine , 而不是 <code>创建</code> 一个 goroutine 的原因。已经存在的 goroutine 总是会被优先复用。</p>
+
+<p>然而，创建 G 的成本也是非常低的。创建一个 G 并不会像创建一个进程或者一个系统级线程那样，必须通过操作系统的系统调用来完成，在 Go 语言的运行时系统内部就可以完全做到了，更何况一个 G 仅相当于为需要并发执行代码片段服务的上下文环境而已。</p>
+
+<p>在拿到一个空闲的 G 之后，Go 语言运行时系统会用这个 G 去包装当前的那个 go 函数（或者说该函数中的那些代码），然后再把这个 G 追加到某个存放可运行的 G 的队列中。</p>
+
+<p>这类队列中的 G 总是会按照先入先出的顺序，很快地由运行时系统内部的调度器安排运行。虽然这回很快，但是由于上面所说的那些准备工作还是可不避免的，所有耗时还是存在的。</p>
+
+<p>因此，<code>go 函数</code> 的执行时间总是会明显滞后于它所属的 <code>go语句</code> 的执行时间。当然了，这里所说的 <code>明显滞后</code> 是对于计算机的 CPU 时钟和 Go 程序来说的。我们在大多数时候都不会有明显的感觉。</p>
+
+<blockquote>
+<p>Note: 请记住，只要 go 语句本身执行完毕，Go 程序完全不会等待 go 函数的执行，它会立刻去执行后面的语句。这就是所谓的异步并发地执行。</p>
+
+<p>Note: 还需要注意一个与主 goroutine 有关的重要特性，即：一旦主 goroutine 中的代码（也就是 main 函数中的那些代码） 执行完毕，当前的 Go 程序就会结束运行。</p>
+</blockquote>
+
+<p>如此一来，如果在 Go 程序结束的那一刻，还有 goroutine 未得到运行机会，那么它们就真的没有机会运行了，它们中的代码也就不会执行了。</p>
+
+<p>严谨地讲，Go 语言并不会去保证这些 goroutine 会以怎样的顺序运行。由于主 goroutine 会与我们手动启用的其他 goroutine 一起接受调度，又因为调度器很可能会在 goroutine 中的代码只执行力一部分的时候暂停，以期所有的 goroutine 有更公平的运行机会。</p>
+
+<p>所以哪个 goroutine 先执行完、哪个 goroutine 后执行完往往是不可预知的，除非我们使用了某种 Go 语言提供的方式进行了人为的干预。</p>
+
+<h1 id="扩展知识">扩展知识</h1>
+
+<blockquote>
+<p>以三个问题来展开</p>
+</blockquote>
+
+<ul>
+<li><p><strong>Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?</strong></p></li>
+
+<li><p><strong>Q2：怎样才能让主 goroutine 等待其他 goroutine ?</strong></p></li>
+
+<li><p><strong>Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?</strong></p></li>
+</ul>
+
+<p>问题的分析和解答放在下一篇 <a href="https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/">文章</a> 中.</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://time.geekbang.org/column/article/39844?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%253D">16 | go语句及其执行规则（上）</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-01-12</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/code/golang/tutorial-go36-07/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">『Go核心36讲』| 07 - go语句以及执行规则（下）</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/tutorial-go36-05/">
+            <span class="next-text nav-default">『Go核心36讲』| 05 - 使用函数的正确姿势</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-01-12 14:51:10 \x2b0800 CST',
+        title: '『Go核心36讲』| 06 - go语句以及执行规则（上）',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

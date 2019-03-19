@@ -13,10 +13,10 @@
     
     <item>
       <title>『Go核心36讲』| 07 - go语句以及执行规则（下）</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/</link>
+      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-07/</link>
       <pubDate>Sun, 13 Jan 2019 11:57:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/</guid>
+      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-07/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -35,10 +35,10 @@
     
     <item>
       <title>『Go核心36讲』| 06 - go语句以及执行规则（上）</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20190112-tutorial-go36-06/</link>
+      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-06/</link>
       <pubDate>Sat, 12 Jan 2019 14:51:10 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20190112-tutorial-go36-06/</guid>
+      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-06/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -57,10 +57,10 @@
     
     <item>
       <title>『Go核心36讲』| 05 - 使用函数的正确姿势</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20190107-tutorial-go36-05/</link>
+      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-05/</link>
       <pubDate>Mon, 07 Jan 2019 11:37:08 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20190107-tutorial-go36-05/</guid>
+      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-05/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -79,10 +79,10 @@
     
     <item>
       <title>『Go核心36讲』| 04 - 程序性能分析基础</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20181218-tutorial-go36-04/</link>
+      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-04/</link>
       <pubDate>Tue, 18 Dec 2018 21:45:30 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20181218-tutorial-go36-04/</guid>
+      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-04/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -192,10 +192,10 @@
     
     <item>
       <title>『Go核心36讲』| 03 - Container 包中的那些容器</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20181120-tutorial-go36-03/</link>
+      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-03/</link>
       <pubDate>Mon, 03 Dec 2018 14:02:03 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20181120-tutorial-go36-03/</guid>
+      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-03/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -248,10 +248,10 @@
     
     <item>
       <title>『Go核心36讲』| 02-数组与切片</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180913-tutorial-go36-02/</link>
+      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-02/</link>
       <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180913-tutorial-go36-02/</guid>
+      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-02/</guid>
       <description>&lt;!-- 摘要 --&gt;   
 
 &lt;blockquote&gt;
@@ -602,10 +602,10 @@
     
     <item>
       <title>『Go核心36讲』| 01-基础概念补漏</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/</link>
+      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-01/</link>
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/</guid>
+      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-01/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -639,10 +639,10 @@
     
     <item>
       <title>『Go核心36讲』| 学习笔记集</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-00/</link>
+      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-00/</link>
       <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-00/</guid>
+      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-00/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/intro/112&#34;&gt;《Go语言核心36讲》&lt;/a&gt; 是郝林老师发布的一则专栏教程(付费)，以音频+文稿的方式系统的讲述了 Go 的知识。&lt;/p&gt;
@@ -992,9 +992,7 @@
       <pubDate>Sun, 24 Jun 2018 14:07:26 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;写点摘要？&lt;/p&gt;</description>
+      <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
@@ -1249,7 +1247,7 @@
     </item>
     
     <item>
-      <title>古城 | 我不是归人，是过客</title>
+      <title>古城 | 过客</title>
       <link>https://zhezh09.github.io/post/life/20180224-%E5%8F%A4%E5%9F%8E-%E5%8C%86%E5%8C%86/</link>
       <pubDate>Sat, 24 Feb 2018 16:59:10 +0000</pubDate>
       

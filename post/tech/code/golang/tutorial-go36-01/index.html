@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>『Go核心36讲』| 01-基础概念补漏 - Zher</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="『Go核心36讲』| 01-基础概念补漏" /><meta name="keywords" content="go, tutorial" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-01/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="『Go核心36讲』| 01-基础概念补漏" />
+<meta property="og:description" content="『Go核心36讲』| 01-基础概念补漏" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-01/" /><meta property="article:published_time" content="2018-09-03T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-11-16T11:12:12&#43;00:00"/>
+
+<meta itemprop="name" content="『Go核心36讲』| 01-基础概念补漏">
+<meta itemprop="description" content="『Go核心36讲』| 01-基础概念补漏">
+
+
+<meta itemprop="datePublished" content="2018-09-03T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-11-16T11:12:12&#43;00:00" />
+<meta itemprop="wordCount" content="4951">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="『Go核心36讲』| 01-基础概念补漏"/>
+<meta name="twitter:description" content="『Go核心36讲』| 01-基础概念补漏"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zher</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zher</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">『Go核心36讲』| 01-基础概念补漏</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-03 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 4951 words </span>
+          <span class="more-meta"> 10 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#源码文件">源码文件</a>
+<ul>
+<li><a href="#命令源码文件">命令源码文件</a>
+<ul>
+<li><a href="#知识精讲-命令源码文件接收参数">知识精讲：命令源码文件接收参数</a></li>
+</ul></li>
+<li><a href="#库源码文件">库源码文件</a>
+<ul>
+<li><a href="#思考题">思考题</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+<li><a href="#测试源码文件">测试源码文件</a></li>
+</ul></li>
+<li><a href="#程序实体">程序实体</a>
+<ul>
+<li><a href="#程序实体那些事儿-一">程序实体那些事儿(一)</a></li>
+<li><a href="#程序实体那些事儿-二">程序实体那些事儿(二)</a>
+<ul>
+<li><a href="#总结-1">总结：</a></li>
+</ul></li>
+<li><a href="#程序实体那些事儿-三">程序实体那些事儿(三)</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>这一节，主要跟着专栏第一章补漏一些必备的基础概念，内容概览：</p>
+
+<ul>
+<li>Go 中的源码文件分类</li>
+<li>关于命令源码文件、库源码文件你漏掉了那些知识点？</li>
+<li>程序实体那些事儿</li>
+</ul>
+
+<div class='align-right'>
+  <p><a href="https://time.geekbang.org/column/article/13159">专栏：02 | 命令源码文件</a><br />
+<a href="https://time.geekbang.org/column/article/13176">专栏：03 | 库源码文件</a><br />
+<a href="https://time.geekbang.org/column/article/13178">专栏：04 | 程序实体的那些事儿（上）</a><br />
+<a href="https://time.geekbang.org/column/article/13562">专栏：05 | 程序实体的那些事儿（中）</a><br />
+<a href="https://time.geekbang.org/column/article/13601">专栏：06 | 程序实体的那些事儿（下）</a></p>
+
+</div>
+</blockquote>
+
+<h1 id="源码文件">源码文件</h1>
+
+<p>Go 中源码文件分为三种：命令源码文件、库源码文件和测试源码文件，它们都有着不同的用途和编写规则。</p>
+
+<h2 id="命令源码文件">命令源码文件</h2>
+
+<ul>
+<li><p>命令源码文件的用途是什么，怎样编写他？</p>
+
+<p>命令源码文件是程序的运行入口，是每个可独立运行的程序必须拥有的。</p>
+
+<p>如果一个源码文件声明属于 <code>main</code> 包，并且包含一个无参数声明、无返回值声明的 <code>main</code> 函数，那么就是 <code>命令源码文件</code>，就像这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello world&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>命令源码文件运行：</p>
+
+<ul>
+<li>可以通过 <code>go run</code> 命令直接启动</li>
+<li>通过构建 <code>go build</code> 或 安装 <code>go install</code> 生成与其对应的可执行文件来运行，可执行文件名一般会与该命令源码文件的直接父目录同名。</li>
+</ul>
+
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>对于一个独立的程序来说，命令源码文件永远只会也只能有一个</li>
+<li>如果有与命令源码文件同包的源码文件，那么它们也应该声明属于 main 包</li>
+</ul>
+</blockquote></li>
+</ul>
+
+<h3 id="知识精讲-命令源码文件接收参数">知识精讲：命令源码文件接收参数</h3>
+
+<ul>
+<li>命令源码文件接收参数主要使用：标准库 <code>flag</code> 包完成，有关 flag 包的详细用法请点击 <a href="https://chendehao.gitbooks.io/c-language-programming/05/03-%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E6%A6%82%E5%BF%B5%E5%8F%8A%E8%BD%AC%E6%8D%A2.html">Here</a></li>
+</ul>
+
+<h2 id="库源码文件">库源码文件</h2>
+
+<p>库源码文件不能直接被运行，它仅用于存放程序实体。</p>
+
+<p>程序实体是什么呢？ Go 语言中，它是变量、常量、函数、结构体和接口的统称。程序实体的名字被统称为标识符。</p>
+
+<p>关于代码包导入的几个思考题？</p>
+
+<ul>
+<li><p>代码包的导入路径总会与其所在目录的相当路径一致吗？</p>
+
+<p>答案：自己编码一试便知</p>
+
+<p>总结：请记住，源码文件所在的目录相对于 src 目录的相对路径就是它的代码包导入路径，而实际使用其程序实体时给定的 <code>限定符</code> 要与它声明所属的代码包名称对应</p></li>
+
+<li><p>对于程序实体，除了 <code>包级私有</code> 和 <code>公开</code>，还有其他的访问权限规则吗？</p>
+
+<p>答案：是肯定的，不然作者问题干啥哩&hellip; 那么，这个访问规则是什么呢？</p>
+
+<p>在 Go 1.5 及后续版本中，我们可以通过创建 <code>internal</code> 代码包让一些程序实体仅仅能被当前模块中的其他代码引用。这被称为 Go 程序实体的第三种访问权限：<code>模块级私有</code>。</p>
+
+<p>具体规则是，<code>internal</code> 代码包中声明的公开程序实体仅能被该代码包的直接父级包及其子包中的代码引用。 当然，引用前需要先导入这个 <code>internal</code> 包，对于其他代码包，导入该 <code>internal</code> 包都是非法的，无法通过编译。</p>
+
+<p>具体规则是怎么样的可以自己编码测试。</p></li>
+</ul>
+
+<h3 id="思考题">思考题</h3>
+
+<p>这次的思考题都是关于代码包导入的，如下。</p>
+
+<blockquote>
+<ol>
+<li>如果你需要导入两个代码包，而这两个代码包的导入路径的最后一级是相同的，比如：<code>deb/lib/flag</code> 和 <code>flag</code>，那会产生冲突吗？</li>
+<li>如果会产生冲突，那么怎么解决这种冲突，有几种方式？</li>
+</ol>
+</blockquote>
+
+<p>先来看问题1：</p>
+
+<ul>
+<li><p>import 后路径最后一级相同，不一定会冲突，分为两种情况：</p>
+
+<ul>
+<li>如果文件夹下文件声明的包名相同，则肯定冲突，会报错 <code>redeclared</code></li>
+<li>如果文件夹下文件声明的包名不同，也不会冲突。</li>
+</ul></li>
+</ul>
+
+<p>再来看问题2：</p>
+
+<ul>
+<li><p>如果冲突，可能采用的解决方式：</p>
+
+<ul>
+<li><p>给包设置别名,调用的时候来区分开不同的 package, 比如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;flag&#34;</span>
+    <span class="nx">lflag</span> <span class="s">&#34;lib/flag&#34;</span>
+<span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>导入的点操作，import(. &ldquo;lib/flag&rdquo;)。这样就可以直接调用 &ldquo;lib/flag&rdquo; 下面的函数而不用再 flag.funcname 的方式调用。</p></li>
+
+<li><p>如果只是想引入某包并没有在代码中实际调用则可以这么处理来避免冲突: import(_ &ldquo;lib/flag&rdquo;)</p></li>
+
+<li><p>像第一问一样采取不同的包名声明，毕竟包名不一定要和文件夹名一样</p></li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>Note: 推荐给包设定别名的方式</p>
+</blockquote>
+
+<h3 id="总结">总结</h3>
+
+<ul>
+<li>同一个文件夹下，包的声明语句需要相同，代表同一个包。</li>
+<li>包名可以同目录名，也可以自定义(推荐同目录名)，调用包内的程序实体所用的限定符始终为：包声明语句所定义的名称，而包导入路径为该目录的相对路径</li>
+<li>模块级私有新姿势：定义为 internal 包</li>
+</ul>
+
+<h2 id="测试源码文件">测试源码文件</h2>
+
+<p>&hellip;&hellip;</p>
+
+<h1 id="程序实体">程序实体</h1>
+
+<h2 id="程序实体那些事儿-一">程序实体那些事儿(一)</h2>
+
+<p>关键点：</p>
+
+<ul>
+<li>※ 变量重声明</li>
+</ul>
+
+<p>知识扩展：</p>
+
+<blockquote>
+<p>Go 语言的类型推断可以带来哪些好处？</p>
+</blockquote>
+
+<ul>
+<li>使得程序更加灵活，使得代码重构更加容易。 (PS: 比如这段代码 <code>var v = getV() | v := getV()</code> 声明的变量 <code>v</code> 的类型可以在初始化时由其他程序动态的确定, 这里由 getV() 函数的返回值类型来推导 v 的类型)。</li>
+<li>还有一个就是少敲几次键盘哇</li>
+</ul>
+
+<blockquote>
+<p>变量的重声明是什么意思？</p>
+</blockquote>
+
+<ul>
+<li>先明确一下：变量重声明涉及的是 <code>短变量声明</code>。 代码块指的是：由花括号 <code>{ }</code> 括起来的区域</li>
+<li>变量重声明的前提条件：
+
+<ul>
+<li>由于变量的类型在其初始化时就已经确定了，所以对它再次声明时赋予的类型必须与其原本的类型相同，否则会产生编译错误。</li>
+<li>变量的重声明只可能发生在某一个代码块中。如果与当前的变量重名的是外层代码块中的变量，那么就是另外一种含义了，我在下一篇文章中会讲到。</li>
+<li>变量的重声明只有在使用短变量声明时才会发生，否则也无法通过编译。如果要在此处声明全新的变量，那么就应该使用包含关键字 var 的声明语句，但是这时就不能与同一个代码块中的任何变量有重名了。</li>
+<li>被“声明并赋值”的变量必须是多个，并且其中至少有一个是新的变量。这时我们才可以说对其中的旧变量进行了重声明。</li>
+</ul></li>
+</ul>
+
+<p>思考题：</p>
+
+<blockquote>
+<p>如果与当前的变量重名的是外层代码块中的变量，那么这意味着什么&hellip;</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/zhezh09/go-practice/go36/04/demo.go">直接看 Demo: go36</a></li>
+</ul>
+
+<h2 id="程序实体那些事儿-二">程序实体那些事儿(二)</h2>
+
+<p>关键点：</p>
+
+<ul>
+<li>※ 可重名变量</li>
+<li>代码块：<code>{ }</code></li>
+<li>作用域：一个程序实体的作用域总是会被限制在某个代码块中，而这个作用域最大的用处，就是对程序实体的访问权限的控制</li>
+<li>Go 程序实体的访问权限：包级私有、模块级私有和公开</li>
+</ul>
+
+<p>思考题：</p>
+
+<blockquote>
+<p>如果一个变量与其外层代码块中的变量重名会出现什么状况？ Demo 如下：</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="kd">var</span> <span class="nx">block</span> <span class="p">=</span> <span class="s">&#34;package&#34;</span>       <span class="c1">// 作用域：main 包
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">block</span> <span class="o">:=</span> <span class="s">&#34;function&#34;</span>     <span class="c1">// 作用域：main 函数
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="nx">block</span> <span class="o">:=</span> <span class="s">&#34;inner&#34;</span>    <span class="c1">// 作用域：{} 内
+</span><span class="c1"></span>        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The block is %s.\n&#34;</span><span class="p">,</span> <span class="nx">block</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The block is %s.\n&#34;</span><span class="p">,</span> <span class="nx">block</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>问题一：该源码文件中的代码能通过编译吗？如果不能，原因是什么？如果能，运行它后会打印出什么内容？</p>
+
+<ul>
+<li>首先是能通过编译, 自己跑一下这个 Demo 即可知道输出什么</li>
+</ul></li>
+
+<li><p>问题二：Demo 中有三处声明了 block，那么我引用变量的时候到底用的是哪一个？ —— 即 Go 语言查找（代表了程序实体的）标识符的过程</p>
+
+<ul>
+<li>首先，代码引用变量的时候总会最优先查找当前代码块中的那个变量。注意，这里的“当前代码块”仅仅是引用变量的代码所在的那个代码块，并不包含任何子代码块。</li>
+<li>其次，如果当前代码块中没有声明以此为名的变量，那么程序会沿着代码块的嵌套关系，从直接包含当前代码块的那个代码块开始（向上查找：查找过程从小作用域查到大作用域），一层一层地查找。</li>
+<li>一般情况下，程序会一直查到当前代码包代表的那层代码块。如果仍然找不到，那么 Go 语言的编译器就会报错了。</li>
+</ul>
+
+<p>小结：</p>
+
+<ul>
+<li>如果代码包导入语句写为 <code>import . xxx</code> 的形式，那么就会导致该 <code>xxx</code> 包中公开的程序实体被当作当前源码文件中的代码，视为当前代码包中的程序实体。(Note: 如果当前代码包有与 <code>xxx</code> 包重名的变量，则会报错：<code>redeclared</code>)</li>
+</ul></li>
+</ul>
+
+<p>知识扩展：</p>
+
+<blockquote>
+<p>思考问题：不同代码块中的 <code>重名变量</code> 与 <code>变量重声明</code> 中的变量区别到底在哪儿？</p>
+</blockquote>
+
+<ul>
+<li>变量重声明中的变量一定是在某一个代码块内的。注意，这里的“某一个代码块内”并不包含它的任何子代码块，否则就变成了“多个代码块之间”。而可重名变量指的正是在多个代码块之间的由相同的标识符代表的变量。</li>
+<li>变量重声明是对同一个变量的多次声明，这里的变量只有一个。而可重名变量中涉及的变量肯定是有多个的。</li>
+<li>※ 不论对变量重声明多少次，其类型必须始终一致，具体遵从它第一次被声明时给定的类型。而可重名变量之间不存在类似的限制，它们的类型可以是任意的。</li>
+<li>如果可重名变量所在的代码块之间存在直接或间接的嵌套关系，那么它们之间一定会存在“屏蔽”的现象。但是这种现象绝对不会在变量重声明的场景下出现。</li>
+</ul>
+
+<h3 id="总结-1">总结：</h3>
+
+<ul>
+<li>通过代码块和作用域可以更精细化的控制 Go 程序实体(变量、常量、函数、结构体和接口的统称)的访问权限</li>
+<li>在具有嵌套关系的不同代码块中存在重名的变量时，可能会发生“屏蔽”的现象。这样你在不同代码块中引用到变量很可能是不同的。具体的鉴别方式需要参考 Go 语言查找（代表了程序实体的）标识符的过程。</li>
+<li>可重名变量在不同代码块中会出现屏蔽现象 ——即作用域不一样，会出现屏蔽现象。</li>
+<li>可重名变量可以各有各的类型 ——即在使用前应该做好类型检查</li>
+<li>变量重声明时的类型必须和原类型保持一致</li>
+</ul>
+
+<h2 id="程序实体那些事儿-三">程序实体那些事儿(三)</h2>
+
+<p>关键点：</p>
+
+<ul>
+<li>※ 判断变量的类型</li>
+<li>※ 别名类型声明和类型再定义</li>
+</ul>
+
+<p>知识扩展：</p>
+
+<blockquote>
+<p>你认为类型转化规则中有哪些值得注意的地方？</p>
+</blockquote>
+
+<ul>
+<li><p>首先，对于整数类型值、整数常量之间的类型转化，原则上只要源值在目标类型的可表示范围内就是合法的。</p>
+
+<ul>
+<li><p>需要注意：源整数类型的可表示范围较大，而目标类型的可表示范围较小的情况</p>
+
+<ul>
+<li>当整数值得类型的有效范围由宽变窄是，只需要在补码形式下截掉一定数量的高位二进制数即可。</li>
+<li>当把一个浮点数类型的值转化为整数类型值时，前者的小数部分会被全部截掉。</li>
+</ul></li>
+
+<li><p><a href="https://chendehao.gitbooks.io/c-language-programming/05/03-%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E6%A6%82%E5%BF%B5%E5%8F%8A%E8%BD%AC%E6%8D%A2.html">关于原码、反码、补码的基本概念补充</a></p>
+
+<ul>
+<li><p>数据在计算机内部是以补码的形式存储的</p></li>
+
+<li><p>数据分为有符号数和无符号数：无符号数都是正数，由十进制直接转换到二进制直接存储(其实也是该十进制的补码)即可。 有符号数用在计算机内部是以补码的形式储存的。( 正数的最高位是符号位0, 负数的最高位是符号位1。 对于正数: 反码==补码==原码。 对于负数: 反码==除符号位以外的各位取反。补码=反码+1)</p></li>
+
+<li><p>原码：原码就是符号位加上真值的绝对值, 即用最左边第一位表示符号, 其余位表示值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">原码: [+1]0000 0001 
+原码：[-1]1000 0001</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>反码：正数的反码就是其本身；负数的反码就是在原码的基础上保持符号位不变，其余各位取反</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">原码:[+1]0000 0001 反码:0000 0001
+原码:[-1]1000 0001 反码:1111 1110</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>补码：正数的补码就是其本身；负数的补码就是在原码的基础上保持符号为不变，其余各位取反再加 1 ——即 <code>反码 +1</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">原码:[+1]0000 0001 反码:0000 0001 补码:0000 0001
+原码:[-1]1000 0001 反码:1111 1110 补码:1111 1111</pre></td></tr></table>
+</div>
+</div></li>
+</ul></li>
+</ul></li>
+
+<li><p>第二，虽然直接把一个 <code>整数值</code> 转换为一个 <code>string 类型</code> 的值是可行的，但值得关注的是，被转化的整数值应该可以代表一个有效的 <code>Unicode</code> 代码点，否则转化的结果将会是 <code>&quot;�&quot;</code> (仅由高亮的问号组成的字符串值)。</p>
+
+<ul>
+<li><p>字符 <code>&quot;�&quot;</code> 的 Unicode 代码点是 U+FFFD。它是 Unicode 标准中定义的 Replacement Character，专用于替换那些未知的、不被认可的以及无法展示的字符。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="nb">println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
+    <span class="c1">// output:
+</span><span class="c1"></span>    <span class="c1">// �
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>关于 Unicode 的扩展阅读</p>
+
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/Unicode">Wiki: Unicode</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/Unicode%E5%AD%97%E7%AC%A6%E5%88%97%E8%A1%A8">Wiki: Unicode 字符列表</a></li>
+<li><a href="https://coolshell.cn/articles/1331.html">酷壳：UNICODE字符预览表</a></li>
+<li><a href="https://www.cnblogs.com/csguo/p/7401874.html">Unicode编码表/0000-0FFF</a></li>
+<li><a href="https://www.toptal.com/designers/htmlarrows/">常用符号的 Unicode 码点、HTML 代码和 HTML 实体写法</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+<li><p>第三，是关于 <code>string</code> 类型与各种切片类型之间的相互转化</p>
+
+<blockquote>
+<p>你先要了解的是，一个值在从 string 类型向 []byte 类型转换时代表着以 UTF-8 编码的字符串会被拆分成零散、独立的字节</p>
+</blockquote></li>
+</ul>
+
+<blockquote>
+<p>什么是别名类型，什么是潜在类型？</p>
+</blockquote>
+
+<p>我们可以用关键字 <code>type</code> 声明自定义的各种类型。当然了，这些类型必须在 Go 语言基本类型和高级类型的范畴之内。</p>
+
+<ul>
+<li><p>别名类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">MyString</span> <span class="p">=</span> <span class="kt">string</span>
+    
+<span class="c1">// Note：
+</span><span class="c1">// 
+</span><span class="c1">//  - MyString 是 string 类型的别名类型。顾名思义，别名类型与其源类型的区别恐怕只在名称上，它们是完全相同的
+</span><span class="c1">//  - 源类型与别名类型是一对概念，是两个对立的称呼。别名类型主要是为了代码重构而存在的。
+</span><span class="c1"></span><span class="o">//</span>  <span class="o">-</span> <span class="nx">Go</span> <span class="nx">语言内建的基本类型就存在两个别名类型</span><span class="err">。</span><span class="kt">byte</span> <span class="nx">是</span> <span class="nx">unit8</span> <span class="nx">的别名类型</span><span class="err">；</span><span class="kt">rune</span> <span class="nx">是</span> <span class="kt">int32</span> <span class="nx">的别名类型</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>类型再定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">MyString</span> <span class="kt">string</span> <span class="c1">// 注意：这里没有等号
+</span><span class="c1"></span>
+<span class="c1">// Note:
+</span><span class="c1"></span><span class="o">//</span>  <span class="o">-</span> <span class="nx">MyString2</span> <span class="nx">和</span> <span class="kt">string</span> <span class="nx">这里属于两个不同的类型</span><span class="err">，</span><span class="nx">MyString2</span> <span class="nx">是一个新的类型</span><span class="err">，</span><span class="nx">不同于其他任何类型</span><span class="err">，</span><span class="nx">属于类型再定义</span><span class="err">，</span><span class="nx">而</span> <span class="kt">string</span> <span class="nx">类型就被称为</span> <span class="nx">MyString2</span> <span class="nx">类型的潜在类型</span><span class="p">(</span><span class="nx">潜在类型的含义是某个类型在本质上是哪个类型或者那个类型的集合</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Demo 说明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;reflect&#34;</span>
+
+<span class="c1">// MyString 定义为 string 类型的别名
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">MyString</span> <span class="p">=</span> <span class="kt">string</span>
+
+<span class="c1">// MyString2 属于类型再定义，其潜在类型为 string 类型
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">MyString2</span> <span class="kt">string</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">printInvalidUnicode</span><span class="p">()</span>
+    <span class="nf">testTypeAlias</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">printInvalidUnicode</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="nb">println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
+    <span class="c1">// output:
+</span><span class="c1"></span>    <span class="c1">// �
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">testTypeAlias</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="nx">MyString</span>
+    <span class="kd">var</span> <span class="nx">ss</span> <span class="nx">MyString2</span>
+
+    <span class="nb">println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">s</span><span class="p">).</span><span class="nf">String</span><span class="p">())</span>
+    <span class="nb">println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">ss</span><span class="p">).</span><span class="nf">String</span><span class="p">())</span>
+
+    <span class="c1">// output:
+</span><span class="c1"></span>    <span class="c1">// string
+</span><span class="c1"></span>    <span class="c1">// main.MyString2
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 即使两个类型的潜在类型相同，它们的值之间也不能进行判等或比较，它们的变量之间也不能赋值。</p>
+</blockquote></li>
+</ul>
+
+<p>总结：</p>
+
+<ul>
+<li><p>请记住，一对不包裹任何东西的花括号，除了可以代表空的代码块之外，还可以用于表示不包含任何内容的数据结构（或者说数据类型）：</p>
+
+<ul>
+<li>interface{}：即不包含任何方法定义的空的接口类型</li>
+<li>struct{}: 即不包含任何字段和方法的，空的结构体类型</li>
+<li>[]string{}: 即空的切片类型</li>
+<li>map[int]string{}: 空的字典类型
+<br /></li>
+</ul></li>
+
+<li><p>类型断言的时候，结果最好赋值给两个变量 ——即带 ok 变量的写法：<code>v, ok := interface{}(x).(T)</code> 。另外还要保证被判断的变量是接口类型且不能为 <code>nil</code></p></li>
+
+<li><p>Go 中，不同类型之间不能相互赋值，不存在隐式的类型转化，必须显示强转</p></li>
+
+<li><p>type newType = Type 定义类型 Type 的别名 newType； type newType Type 定义新类型 newType</p></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-11-16</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Tools | Make &amp; Makefile 学习笔记 （一）</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/os/linux/common-cmd/">
+            <span class="next-text nav-default">Linux | Common Cmd</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-09-03 00:00:00 \x2b0000 UTC',
+        title: '『Go核心36讲』| 01-基础概念补漏',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">zher</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -3,28 +3,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20190113-tutorial-go36-07/</loc>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-07/</loc>
     <lastmod>2019-01-17T11:57:26+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20190112-tutorial-go36-06/</loc>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-06/</loc>
     <lastmod>2019-01-12T14:51:10+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20190107-tutorial-go36-05/</loc>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-05/</loc>
     <lastmod>2019-01-11T10:37:08+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20181218-tutorial-go36-04/</loc>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-04/</loc>
     <lastmod>2019-01-07T12:45:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -59,7 +59,7 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20181120-tutorial-go36-03/</loc>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-03/</loc>
     <lastmod>2018-12-05T14:02:03+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -80,7 +80,7 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20180913-tutorial-go36-02/</loc>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-02/</loc>
     <lastmod>2018-11-17T21:12:12+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -248,7 +248,7 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/</loc>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-01/</loc>
     <lastmod>2018-11-16T11:12:12+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -262,7 +262,7 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-00/</loc>
+    <loc>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-00/</loc>
     <lastmod>2019-01-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
