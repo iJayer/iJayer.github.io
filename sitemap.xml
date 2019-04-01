@@ -1030,15 +1030,8 @@
   </url>
   
   <url>
-    <loc>https://zhezh09.github.io/tags/go/</loc>
-    <lastmod>2019-04-01T11:13:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://zhezh09.github.io/tags/golang/</loc>
-    <lastmod>2019-01-17T11:57:26+00:00</lastmod>
+    <lastmod>2019-04-01T11:13:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
