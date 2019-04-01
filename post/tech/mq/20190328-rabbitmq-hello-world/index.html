@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Rabbitmq | 01 - Hello World - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" RabbitMQ 是一个开源的、使用最广的消息队列。
+ Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。 支持的协议：AMQP，XMPP, SMTP, STOMP 支持集群部署（私有云或公有云） 可使用 HTTP-API、命令行工具和 UI 界面以便于管理和监控  " /><meta name="keywords" content="zher, blog, tech, essay, life, footprint" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/mq/20190328-rabbitmq-hello-world/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Rabbitmq | 01 - Hello World" />
+<meta property="og:description" content="
+
+
+RabbitMQ 是一个开源的、使用最广的消息队列。
+
+
+Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。
+支持的协议：AMQP，XMPP, SMTP, STOMP
+支持集群部署（私有云或公有云）
+可使用 HTTP-API、命令行工具和 UI 界面以便于管理和监控
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/mq/20190328-rabbitmq-hello-world/" /><meta property="article:published_time" content="2019-03-29T16:05:39&#43;08:00"/>
+<meta property="article:modified_time" content="2019-03-29T22:05:39&#43;00:00"/>
+
+<meta itemprop="name" content="Rabbitmq | 01 - Hello World">
+<meta itemprop="description" content="
+
+
+RabbitMQ 是一个开源的、使用最广的消息队列。
+
+
+Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。
+支持的协议：AMQP，XMPP, SMTP, STOMP
+支持集群部署（私有云或公有云）
+可使用 HTTP-API、命令行工具和 UI 界面以便于管理和监控
+
+">
+
+
+<meta itemprop="datePublished" content="2019-03-29T16:05:39&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-29T22:05:39&#43;00:00" />
+<meta itemprop="wordCount" content="1950">
+
+
+
+<meta itemprop="keywords" content="mq,rabbitmq,go," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rabbitmq | 01 - Hello World"/>
+<meta name="twitter:description" content="
+
+
+RabbitMQ 是一个开源的、使用最广的消息队列。
+
+
+Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。
+支持的协议：AMQP，XMPP, SMTP, STOMP
+支持集群部署（私有云或公有云）
+可使用 HTTP-API、命令行工具和 UI 界面以便于管理和监控
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Rabbitmq | 01 - Hello World</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-29 </span>
+        <div class="post-category">
+            <a href="/categories/mq/"> mq </a>
+            </div>
+          <span class="more-meta"> 1950 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#rabbitmq">RabbitMQ</a></li>
+<li><a href="#running-rabbitmq">Running RabbitMQ</a></li>
+<li><a href="#using-the-go-rabbitmq-client">Using the Go RabbitMQ client</a>
+<ul>
+<li><a href="#hello-world">Hello World</a>
+<ul>
+<li><a href="#发送">发送</a></li>
+<li><a href="#接收">接收</a></li>
+<li><a href="#运行">运行</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>RabbitMQ 是一个开源的、使用最广的消息队列。</p>
+
+<ul>
+<li>Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。</li>
+<li>支持的协议：AMQP，XMPP, SMTP, STOMP</li>
+<li>支持集群部署（私有云或公有云）</li>
+<li>可使用 HTTP-API、命令行工具和 UI 界面以便于管理和监控</li>
+</ul>
+</blockquote>
+
+<blockquote>
+<ul>
+<li><a href="https://godoc.org/github.com/streadway/amqp">RabbitMQ API(golang)</a></li>
+<li><a href="https://www.rabbitmq.com/getstarted.html">RabbitMQ Tutorials</a></li>
+</ul>
+</blockquote>
+
+<h1 id="rabbitmq">RabbitMQ</h1>
+
+<blockquote>
+<p>RabbitMQ 消息转发器：可用来接收、存储和转发消息（binary blobs of data ‒ messages）</p>
+</blockquote>
+
+<p>RabbitMQ 中的几个术语：</p>
+
+<ul>
+<li><p>生产者：只负责发送消息的程序</p>
+
+<p><img src="https://www.rabbitmq.com/img/tutorials/producer.png" alt="" /></p></li>
+
+<li><p>队列：一个很大的消息缓存池，大小取决于宿主机的内存和磁盘容量；多个生产者可同时发消息给一个队列，多个消费者也可以同时从一个队列中取消息</p>
+
+<p><img src="https://www.rabbitmq.com/img/tutorials/queue.png" alt="" /></p></li>
+
+<li><p>消费者：只负责接收消息的程序</p>
+
+<p><img src="https://www.rabbitmq.com/img/tutorials/consumer.png" alt="" /></p></li>
+</ul>
+
+<blockquote>
+<p>生产者、队列及消费者通常会运行在不同机器上；而且同一个应用程序即可包含生产者也可包含消费者</p>
+</blockquote>
+
+<h1 id="running-rabbitmq">Running RabbitMQ</h1>
+
+<p><a href="https://hub.docker.com/_/rabbitmq/?tab=description">Ref: Running RabbitMQ With Management Plugin</a></p>
+
+<blockquote>
+<p>? Note:</p>
+
+<ul>
+<li>RabbitMQ 会使用容器的主机名称(Hostname) 生成数据存储目录，因此我们需要在运行容器服务时指定一个具体的名称(<code>--hostname my-rabbit</code>)以便后续查看数据, 如果不指定则会使用一个随机名称。</li>
+<li>RabbitMQ server addr for connecting: <code>amqp://guest:guest@host_ip:5672/</code></li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># This will start a RabbitMQ container listening on the default port of 5672
+
+$ docker run -d --hostname my-rabbit -p 5672:5672 --name rabbitmq rabbitmq:3
+# - -p: 做端口转发，让宿主机外的机器可以通过 ip:port 方式访问 
+
+$ docker logs rabbitmq
+...
+              Starting broker...
+2019-03-28 13:14:38.489 [info] &lt;0.216.0&gt;
+ node           : rabbit@my-rabbit
+ home dir       : /var/lib/rabbitmq
+ config file(s) : /etc/rabbitmq/rabbitmq.conf
+ cookie hash    : rWhct608elv6zt7P4yeo0A==
+ log(s)         : &lt;stdout&gt;
+ database dir   : /var/lib/rabbitmq/mnesia/rabbit@my-rabbit # 数据存放目录 -&gt; Queue Buffer
+ 
+# 开启带管理插件的 RabbitMQ Server
+
+$ docker run -d --hostname my-rabbit --name rabbitmq-m -p 5672:5672 -p 15672:15672 rabbitmq:3-management</pre></td></tr></table>
+</div>
+</div>
+<h1 id="using-the-go-rabbitmq-client">Using the Go RabbitMQ client</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-" data-lang=""><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-" data-lang="">Design 
+
+&gt; 客户端协议实现说明
+
+Most other broker clients publish to queues, but in AMQP, clients publish
+Exchanges(交易中心) instead.  AMQP is programmable, meaning that both the producers and
+consumers agree on（达成一致） the configuration of the broker, instead requiring an
+operator or system configuration that declares the logical topology in the
+broker.  The routing between producers and consumer queues is via Bindings.
+These bindings form the logical topology（拓扑） of the broker.
+
+&gt; Hello World Example Routing
+
+                       +---------------------------------+
+           Publishing  +                                 + Delivery
+Publisher ------------&gt;+--Exchange --&gt; Routes --&gt; Queue--+----------&gt; Consumer
+                       +                                 +
+                       +---------------------------------+
+
+In this library, a message sent from publisher is called a &#34;Publishing&#34; and a
+message received to a consumer is called a &#34;Delivery&#34;.  The fields of
+Publishings and Deliveries are close（接近） but not exact mappings to the underlying
+wire format to maintain stronger types.  Many other libraries will combine
+message properties with message headers.  In this library, the message well
+known properties are strongly typed fields on the Publishings and Deliveries,
+whereas the user defined headers are in the Headers field.
+
+&gt; Publishings 和 Deliveries 类型定义相关说明
+
+The method naming closely matches the protocol&#39;s method name with positional
+parameters mapping(映射) to named protocol message fields.  The motivation here is to
+present a comprehensive(全面的) view over all possible interactions with the server.
+
+Generally, methods that map to protocol methods of the &#34;basic&#34; class will be
+elided（消隐） in this interface, and &#34;select&#34; methods of various channel mode selectors
+will be elided(隐藏) for example Channel.Confirm and Channel.Tx.
+
+&gt; 接口命名尽量和 AMQP 协议保持了一致 
+
+The library is intentionally（有意的） designed to be synchronous, where responses for
+each protocol message are required to be received in an RPC manner.  Some
+methods have a noWait parameter like Channel.QueueDeclare, and some methods are
+asynchronous like Channel.Publish.  The error values should still be checked for
+these methods as they will indicate IO failures like when the underlying
+connection closes.
+
+&gt; 同步通信；但也有例外，如 Channel.Publish 属于异步，也需要检查 err 是否是 IO 错误（在底层连接关闭时就会抛出） 
+
+Asynchronous Events
+
+&gt; 异步事件机制相关说明
+
+Clients of this library may be interested in receiving some of the protocol
+messages other than Deliveries like basic.ack methods while a channel is in
+confirm mode（确认模式）.
+
+The Notify* methods with Connection and Channel receivers model（模拟） the pattern of
+asynchronous events like closes due to exceptions, or messages that are sent out
+of band from an RPC call like basic.ack or basic.flow.
+
+Any asynchronous events, including Deliveries and Publishings must always have
+a receiver until the corresponding chans are closed.  Without asynchronous
+receivers, the sychronous methods will block.
+
+&gt; 异步事件必须有接收者，等待 chan 被关闭；同步方法会阻塞
+
+Use Case
+
+It&#39;s important as a client to an AMQP topology to ensure the state of the
+broker matches your expectations.  For both publish and consume use cases,
+make sure you declare the queues, exchanges and bindings you expect to exist
+prior to calling Channel.Publish or Channel.Consume.</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="hello-world">Hello World</h2>
+
+<ul>
+<li>send.go: 实现生产者代码，发送一条 <code>hello</code> 然后退出.<br /></li>
+
+<li><p>recv.go: 实现消费者代码，从队列中持续取数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">hello world data flow diagram
+
+p -&gt; [][][][][][] -&gt; c
+        queue</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h3 id="发送">发送</h3>
+
+<blockquote>
+<p>send.go：连接到RabbitMQ后，发送一条消息后，退出。</p>
+</blockquote>
+
+<ul>
+<li><p>连接到 RabbitMQ 服务器：即：建立 Socket 连接，处理协议转换、版本对接以及一些登陆授权问题 For Us.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">amqp</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+<span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>打开通道，然后通过这个 ch 来实现我们生产者业务相关的 API</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">ch</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Channel</span><span class="p">()</span>
+<span class="k">defer</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>创建队列，用于接收、存储生产者消息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">q</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ch</span><span class="p">.</span> <span class="nf">QueueDeclare</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">durable</span><span class="p">,</span> <span class="nx">autoDelete</span><span class="p">,</span> <span class="nx">exclusive</span><span class="p">,</span> <span class="nx">noWait</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">args</span> <span class="nx">Table</span><span class="p">)</span> <span class="p">(</span><span class="nx">Queue</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 声明队列的操作幂等，即多次创建只会返回一个名为 &lsquo;name&rsquo; 的 queue，不存在时则会创建。</p>
+</blockquote></li>
+
+<li><p>发布消息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">err</span> <span class="p">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">Publish</span><span class="p">(</span><span class="nx">exchange</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">mandatory</span><span class="p">,</span> <span class="nx">immediate</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">msg</span> <span class="nx">Publishing</span><span class="p">)</span> <span class="kt">error</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 消息的内容是字节数组，因此可以按照业务需求进行编码。</p>
+</blockquote></li>
+</ul>
+
+<h3 id="接收">接收</h3>
+
+<blockquote>
+<p>recv.go: 连接到 RabbitMQ 服务器，然后从 queue 中不断地读取消息</p>
+</blockquote>
+
+<ul>
+<li><p>连接到 RabbitMQ 服务器：即：建立 Socket 连接，处理协议转换、版本对接以及一些登陆授权问题 For Us.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">amqp</span><span class="p">.</span><span class="nf">Dial</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+<span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>打开通道，然后通过这个 ch 来实现我们消费者业务相关的 API</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">ch</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Channel</span><span class="p">()</span>
+<span class="k">defer</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>创建队列，用于存储、转发消息给消费者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">q</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ch</span><span class="p">.</span> <span class="nf">QueueDeclare</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">durable</span><span class="p">,</span> <span class="nx">autoDelete</span><span class="p">,</span> <span class="nx">exclusive</span><span class="p">,</span> <span class="nx">noWait</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">args</span> <span class="nx">Table</span><span class="p">)</span> <span class="p">(</span><span class="nx">Queue</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 这里创建的队列名称必须和生产者程序 <code>(send.go)</code> 中的队列名一致, 否则无法完成 <code>发送/接收</code> 绑定。</p>
+</blockquote></li>
+
+<li><p>将消费者程序中的 queue 注册到 RabbitMQ 服务器中，然后准备接收来自 RabbitMQ 转发的消息；消息发送时异步通信，在 Go 中消息将被发送到 <code>chan amqp.Delivery</code> 通道中, 因此我们需要通过 <code>range</code> 从这个通道来持续取消息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">consumeCh</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">Consume</span><span class="p">(</span><span class="nx">q</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="k">for</span> <span class="nx">d</span> <span class="p">=</span> <span class="k">range</span> <span class="nx">consumeCh</span> <span class="p">{</span>
+    <span class="c1">// do something with msg
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h3 id="运行">运行</h3>
+
+<ul>
+<li><p>Run Consumer</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Open terminal A</span>
+$ go run recv.go</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Run Producer</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Open terminal B
+$ go run send.go</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Result</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1553843154/blog/images/rabbitmq-helloworld.png" alt="" /></p></li>
+</ul>
+
+<blockquote>
+<p>Note：如果运行了带 <code>管理插件</code> 的 RabbitMQ Docker Container, 可以访问 <code>http://host_ip:15672</code> 查看队列中的详细信息. 如下图：</p>
+</blockquote>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1553842308/blog/images/rabbitmq-manager-1.png" alt="" /></p>
+
+<blockquote>
+<p><a href="https://github.com/zhezh09/mq-practice/tree/master/rabbitmq/golang-intro/01-hello-world">Hello World Code Click Here</a></p>
+</blockquote>
+
+<h1 id="see-also">See Also</h1>
+
+<ul>
+<li><a href="https://www.rabbitmq.com/tutorials/tutorial-one-go.html">using the Go RabbitMQ client: hello world</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-03-29</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mq/">mq</a>
+          <a href="/tags/rabbitmq/">rabbitmq</a>
+          <a href="/tags/go/">go</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/mq/20190401-rabbitmq-work-queues/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Rabbitmq | 02 - Work Queues</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/mq/20190327-message-queue-compare/">
+            <span class="next-text nav-default">Message Queue Compares</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-03-29 16:05:39 \x2b0800 CST',
+        title: 'Rabbitmq | 01 - Hello World',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

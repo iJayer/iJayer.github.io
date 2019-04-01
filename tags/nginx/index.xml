@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nginx on iJayer</title>
+    <link>https://zhezh09.github.io/tags/nginx/</link>
+    <description>Recent content in nginx on iJayer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 24 Apr 2018 17:53:01 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhezh09.github.io/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nginx | 学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</link>
+      <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</guid>
+      <description>&lt;!-- 摘要 --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

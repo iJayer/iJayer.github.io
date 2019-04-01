@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Message Queue Compares - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" 几种常见的消息队列比较：
+ RabbitMQ ActiveMQ ZeroMQ Redis RocketMQ Kafaka  " /><meta name="keywords" content="zher, blog, tech, essay, life, footprint" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/mq/20190327-message-queue-compare/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Message Queue Compares" />
+<meta property="og:description" content="
+
+
+几种常见的消息队列比较：
+
+
+RabbitMQ
+ActiveMQ
+ZeroMQ
+Redis
+RocketMQ
+Kafaka
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/mq/20190327-message-queue-compare/" /><meta property="article:published_time" content="2019-03-27T21:37:23&#43;08:00"/>
+<meta property="article:modified_time" content="2019-03-28T10:37:23&#43;00:00"/>
+
+<meta itemprop="name" content="Message Queue Compares">
+<meta itemprop="description" content="
+
+
+几种常见的消息队列比较：
+
+
+RabbitMQ
+ActiveMQ
+ZeroMQ
+Redis
+RocketMQ
+Kafaka
+
+">
+
+
+<meta itemprop="datePublished" content="2019-03-27T21:37:23&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-28T10:37:23&#43;00:00" />
+<meta itemprop="wordCount" content="1370">
+
+
+
+<meta itemprop="keywords" content="mq," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Message Queue Compares"/>
+<meta name="twitter:description" content="
+
+
+几种常见的消息队列比较：
+
+
+RabbitMQ
+ActiveMQ
+ZeroMQ
+Redis
+RocketMQ
+Kafaka
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Message Queue Compares</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-27 </span>
+        <div class="post-category">
+            <a href="/categories/mq/"> mq </a>
+            </div>
+          <span class="more-meta"> 1370 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#message-queue">Message Queue</a></li>
+<li><a href="#什么时候需要-message-queue">什么时候需要 Message Queue</a>
+<ul>
+<li><a href="#解耦和可扩展性">解耦和可扩展性</a></li>
+</ul></li>
+<li><a href="#有哪些-message-queues-可供选择">有哪些 Message Queues 可供选择</a>
+<ul>
+<li><a href="#rabbitmq">RabbitMQ</a></li>
+<li><a href="#activemq">ActiveMQ</a></li>
+<li><a href="#zeromq">ZeroMQ</a></li>
+<li><a href="#redis">Redis</a></li>
+<li><a href="#rocketmq">RocketMQ</a></li>
+<li><a href="#kafaka">Kafaka</a></li>
+</ul></li>
+<li><a href="#amqp">AMQP</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>几种常见的消息队列比较：</p>
+
+<ul>
+<li><a href="https://www.rabbitmq.com/">RabbitMQ</a></li>
+<li><a href="http://activemq.apache.org/">ActiveMQ</a></li>
+<li><a href="http://zeromq.org/">ZeroMQ</a></li>
+<li><a href="https://redis.io/">Redis</a></li>
+<li><a href="https://rocketmq.apache.org/">RocketMQ</a></li>
+<li><a href="https://kafka.apache.org/">Kafaka</a></li>
+</ul>
+</blockquote>
+
+<h1 id="message-queue">Message Queue</h1>
+
+<p><a href="https://en.wikipedia.org/wiki/Message_queue">Wiki: Message Queue</a></p>
+
+<p>Message queues provide an <a href="https://en.wikipedia.org/wiki/Asynchronous_communication">asynchronous</a> <a href="https://en.wikipedia.org/wiki/Communications_protocol">communications protocol</a>, meaning that then <code>sender</code> and <code>receiver</code> of the message do not need to interact with the <code>message queue</code> at the same time. Message placed onto the queue are stored <code>until the recipient(接收者) retrieves them</code>.</p>
+
+<p>消息队列使用 <code>异步通信</code> 方式, 即消息发送者和接受者都不必等待彼此就绪就可完成消息发送和接收，也没有必要同时和消息队列进行交互。发送的消息会被临时存储起来，等待接收者来拿走。</p>
+
+<blockquote>
+<p>Message queuing allows applications to communicate by sending messages to each other. The message queue providers a temporary message storage when the destination program is busy or not connected.</p>
+</blockquote>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1553752554/blog/images/mq.png" alt="" /></p>
+
+<p>A queue is a line of things waiting to be handled - in sequential order starting at the beginning of the line. A message queue is a queue of messages sent between applications. It includes a sequence of work objects that are waiting to be processed.</p>
+
+<p>一个队列就是一系列等待被处理的事情——会从队头按顺序开始处理。一个消息队列就在应用程序间发送的消息的队列，这个队列就包含了一系列等待被处理的工作对象。</p>
+
+<p>A message is the data transported between the sender and the receiver application; it&rsquo;s essentially a byte array with some headers on top. An example of a message could be something that tells one system to start processing a task, it could contains information about a finished task or just be a plain message.</p>
+
+<p>消息就是在发送者和接收者(通常指引用程序)传输的数据，数据格式为字节数组，包含头部信息。</p>
+
+<p>最简单的消息队列架构组成：</p>
+
+<ul>
+<li>Producer：Client Applications -&gt; Create Message</li>
+<li>Broker：Message queue -&gt; Stored Msg</li>
+<li>Consumer: Another Applications -&gt; Get Message</li>
+</ul>
+
+<blockquote>
+<p><a href="https://github.com/jasonGeng88/blog/blob/master/201705/MQ.md">Ref：一个故事告诉你什么是消息队列</a></p>
+</blockquote>
+
+<h1 id="什么时候需要-message-queue">什么时候需要 Message Queue</h1>
+
+<p>Message Queue 主要用来解决：应用解耦、异步消息、流量削峰等问题，实现高可用，可伸缩和最终一致性架构。</p>
+
+<blockquote>
+<ul>
+<li><a href="https://blog.csdn.net/HD243608836/article/details/80217591">Ref：消息队列应用场景</a><br /></li>
+<li><a href="http://youzhixueyuan.com/message-queue-mq-comparison-and-application-scenario.html">Ref：阿里P8架构师谈：主流的消息队列MQ比较，详解MQ的4类应用场景</a></li>
+</ul>
+</blockquote>
+
+<h2 id="解耦和可扩展性">解耦和可扩展性</h2>
+
+<p>解耦：</p>
+
+<p>解耦描述的是：一个系统的某一部分有多少是依赖于另一个系统的一部分的。解耦——就是将具有依赖关系的部分进行拆分的过程，让拆分后的部分功能更加独立。</p>
+
+<p>解耦系统：</p>
+
+<p>当两个系统，没有进行连接(connected) 的情况下依然能够进行通讯时，说明实现了 <code>解耦系统</code>。解析系统仍然保持独立和完整，并且彼此之间不会有影响。</p>
+
+<p>当解耦系统中的某个进程无法处理来自队列中的消息时，其他消息依然可以被添加进队列，且在系统恢复运行后会继续处理之前没有完成的任务。</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1553758083/blog/images/message-queue-example.png" alt="" />
+（<a href="https://www.cloudamqp.com/img/blog/message-queue-example.png">图片地址</a>）</p>
+
+<p>可扩展性：</p>
+
+<p>开发应用程序的时候，将其拆分为不同的部分比构建一个大型的应用更好，而拆分的部分可以使用异步消息进行通信。采用这种方式就可以使得应用部分彼此独立，且可以交付给不同的开发团队完成。</p>
+
+<p>消息队列保证了应用程序进程间相互隔离和彼此独立。一个进程从来不会去调用另一个进程或者发送通知给其他进程，或者按其他进程的流程进行处理。一个 Application 就是将消息发送给队列，然后继续处理。其他程序也是独立的处理他们的工作。当可以处理任务的时候他们就会从队列中拿去消息。通过这种处理消息的方式，就可以创建一个易于扩展和维护的系统了。</p>
+
+<h1 id="有哪些-message-queues-可供选择">有哪些 Message Queues 可供选择</h1>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1553759238/blog/images/20160506134211236.png" alt="" /> （<a href="https://img-blog.csdn.net/20160506134211236">图片地址</a>）</p>
+
+<h2 id="rabbitmq">RabbitMQ</h2>
+
+<p><a href="https://www.rabbitmq.com/">RabbitMQ</a>: Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。支持的协议：AMQP，XMPP, SMTP, STOMP</p>
+
+<h2 id="activemq">ActiveMQ</h2>
+
+<p><a href="http://activemq.apache.org/">ActiveMQ</a>：Java开发，支持持久化，性能相对较差。</p>
+
+<h2 id="zeromq">ZeroMQ</h2>
+
+<p><a href="http://zeromq.org/">ZeroMQ</a>：C语言开发，引入库即可使用，不需要服务器，速度快，但不支持持久化（宕机数据丢失）。</p>
+
+<h2 id="redis">Redis</h2>
+
+<p><a href="https://redis.io/">Redis</a>：C语言开发，基于内存的 K-V 数据库，速度快，支持持久化，但不可靠。</p>
+
+<h2 id="rocketmq">RocketMQ</h2>
+
+<p><a href="https://rocketmq.apache.org/">RocketMQ</a>：Java开发，性能略低于kafka，但支持严格的顺序，失败重试，更多队列等。</p>
+
+<h2 id="kafaka">Kafaka</h2>
+
+<p><a href="https://kafka.apache.org/">Kafaka</a>：高性能跨语言分布式发布/订阅消息队列系统，支持快速持久化、高吞吐、支持 Hadoop 数据并行加载。</p>
+
+<h1 id="amqp">AMQP</h1>
+
+<p><a href="https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol">AMQP(Advanced Message Queuing Protocol)</a>: 高级消息队列协议</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://www.cloudamqp.com/blog/2014-12-03-what-is-message-queuing.html">What is message queuing?</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-03-28</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mq/">mq</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/mq/20190328-rabbitmq-hello-world/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Rabbitmq | 01 - Hello World</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/tutorial-go36-07/">
+            <span class="next-text nav-default">『Go核心36讲』| 07 - go语句以及执行规则（下）</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2019-03-27 21:37:23 \x2b0800 CST',
+        title: 'Message Queue Compares',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

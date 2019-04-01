@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署 - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Devops | CI/CD 实践" /><meta name="keywords" content="devops, docker, cicd" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署" />
+<meta property="og:description" content="Devops | CI/CD 实践" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/" /><meta property="article:published_time" content="2018-09-26T23:40:06&#43;00:00"/>
+<meta property="article:modified_time" content="2018-11-02T23:40:06&#43;00:00"/>
+
+<meta itemprop="name" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署">
+<meta itemprop="description" content="Devops | CI/CD 实践">
+
+
+<meta itemprop="datePublished" content="2018-09-26T23:40:06&#43;00:00" />
+<meta itemprop="dateModified" content="2018-11-02T23:40:06&#43;00:00" />
+<meta itemprop="wordCount" content="2819">
+
+
+
+<meta itemprop="keywords" content="devops,cicd,docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署"/>
+<meta name="twitter:description" content="Devops | CI/CD 实践"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-26 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 2819 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#说明">说明</a>
+<ul>
+<li><a href="#实践环境">实践环境</a></li>
+<li><a href="#拉取镜像">拉取镜像</a></li>
+<li><a href="#实践步骤">实践步骤</a></li>
+</ul></li>
+<li><a href="#部署-bitbucket-server">部署 Bitbucket Server</a></li>
+<li><a href="#创建-application-links-oauth-app-with-bitbucket-server">创建 Application Links(OAuth App) with Bitbucket Server</a></li>
+<li><a href="#部署-drone-ci-service">部署 Drone CI Service</a></li>
+<li><a href="#创建-demo-project-golang">创建 Demo-Project(Golang)</a></li>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p>经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及：</p>
+
+<ul>
+<li>怎么用 Docker 搭建 Bitbucket Server</li>
+<li>怎么启动 Drone Service</li>
+<li>实践过程中踩过那些坑</li>
+<li>&hellip;&hellip;</li>
+</ul>
+
+<h1 id="说明">说明</h1>
+
+<blockquote>
+<p>开始之前先了解一下实践环境及需要的一些准备工作</p>
+</blockquote>
+
+<h2 id="实践环境">实践环境</h2>
+
+<blockquote>
+<p>实践环境下，Bitbucket Server 采用 Docker 自行搭建，避免影响内网开发。</p>
+</blockquote>
+
+<ul>
+<li>OS: CentOS Linux release 7.5.1804 (Core)</li>
+<li>Docker：18.06.0-ce</li>
+<li>Drone: Docker image
+
+<ul>
+<li>drone/server:0.8.6</li>
+<li>drone/agent:0.8.6</li>
+</ul></li>
+<li>Bitbucket: Docker image
+
+<ul>
+<li>atlassian/bitbucket-server:5.10.2 (与内网 Bitbucket Server 版本保持一致)</li>
+<li>postgres:9.6 (Bitbucket Server 的数据库)</li>
+</ul></li>
+</ul>
+
+<h2 id="拉取镜像">拉取镜像</h2>
+
+<blockquote>
+<p>提前 <code>pull</code> 好相关镜像(假设 Docker 已安装 OK)，加快构建过程：</p>
+</blockquote>
+
+<p>Drone:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker pull drone/server:0.8.6
+$ docker pull drone/agent:0.8.6</code></pre></td></tr></table>
+</div>
+</div>
+<p>Bitbucket:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker pull atlassian/bitbucket-server:5.10.2
+$ docker pull postgres:9.6</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="实践步骤">实践步骤</h2>
+
+<ul>
+<li>Step1: 部署 Bitbucket Server</li>
+<li>Step2: 创建 <code>Application Link(OAuth App)</code> with Bitbucket Server</li>
+<li>Step3: 部署 Drone CI Service</li>
+<li>Step4: 创建 Demo-Project(Golang App) for testing Drone CI</li>
+</ul>
+
+<h1 id="部署-bitbucket-server">部署 Bitbucket Server</h1>
+
+<ul>
+<li><a href="https://zhezh09.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/">Turn to Here: Dockerizing Bitbucket Server</a></li>
+</ul>
+
+<h1 id="创建-application-links-oauth-app-with-bitbucket-server">创建 Application Links(OAuth App) with Bitbucket Server</h1>
+
+<ul>
+<li><p>从 <a href="http://docs.drone.io/zh/install-for-bitbucket-server/">官方文档</a> 可知, 开启支持 Bitbucket Server 的 Drone CI Service 需要设置如下环境变量：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538183688/blog/images/drone-bitbucket-server-1.png" alt="" /></p></li>
+
+<li><p>Configuration:</p>
+
+<table>
+<thead>
+<tr>
+<th>ENV Name</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>DRONE_STASH_URL</td>
+<td>bitbucket server address</td>
+</tr>
+
+<tr>
+<td>DRONE_STASH_CONSUMER_KEY</td>
+<td>oauth1 consumer key</td>
+</tr>
+
+<tr>
+<td>DRONE_STASH_CONSUMER_RSA</td>
+<td>oauth1 private key file path</td>
+</tr>
+
+<tr>
+<td>DRONE_STASH_GIT_USERNAME</td>
+<td>service account username</td>
+</tr>
+
+<tr>
+<td>DRONE_STASH_GIT_PASSWORD</td>
+<td>service account password</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+
+<blockquote>
+<p>Note: <code>但是</code>, 在配置的过程中发现我们现在使用的 Bitbucket Server(5.10.2) 并不支持创建 OAuth App, 官方文档也没给出详细的说明&hellip; 所以呢，只能去找找看有没有可代替的解决方案了 ==&gt; Google。</p>
+</blockquote>
+
+<ul>
+<li><p>Google 过程：</p>
+
+<ul>
+<li><p>找找 Drone 的 <a href="https://discourse.drone.io/">Issues</a> &amp; Docs，看看有没有相似的问题提出</p>
+
+<ul>
+<li><a href="https://discourse.drone.io/t/bitbucket-server-documentation/176">https://discourse.drone.io/t/bitbucket-server-documentation/176</a></li>
+</ul></li>
+
+<li><p>找找 Atlassian 的开发文档, 看看相关说明</p>
+
+<ul>
+<li><a href="https://developer.atlassian.com/server/jira/platform/oauth/">https://developer.atlassian.com/server/jira/platform/oauth/</a></li>
+</ul></li>
+</ul></li>
+
+<li><p>最终，了解到 Bitbucket Server 中可以通过创建 Application Links 来替代 OAuth，但是这个整合过程中也踩了很多的坑&hellip; 故，新写了一篇文章总结创建 Application Links with Bitbucket Server 的过程.</p>
+
+<ul>
+<li><a href="https://zhezh09.github.io/post/tech//devops/cicd/20180929-cicd-05-create-oauth-app-on-bitbucket-server">Add an OAuth consumer(Application Links) to Bitbucket Server</a></li>
+</ul></li>
+</ul>
+
+<h1 id="部署-drone-ci-service">部署 Drone CI Service</h1>
+
+<p>在上面两部分已经搭建好了 Bitbucket Server 和 Application Links, 并取得了配置 Drone Server 的必要参数，接下来就可以部署 Drone CI Service 了。</p>
+
+<blockquote>
+<p>Note: 建议先通读以下文档内容，然后再去配置启动文件。 这样会避免踩坑哇。</p>
+
+<ul>
+<li><a href="http://docs.drone.io/install-for-bitbucket-server/">Drone Docs: install-for-bitbucket-server</a></li>
+<li><a href="http://docs.drone.io/release-0.8.0#upgrade-instructions">Drone Docs: upgrade-instructions</a></li>
+</ul>
+</blockquote>
+
+<p>Drone 本身分为了 Server 和  Agent 两个服务：</p>
+
+<ul>
+<li>drone-server：Drone 服务器端，用来处理任务分发。可以通过 environment 指定环境变量来使用不同的版本控制系统。</li>
+<li>drone-agent：Drone 代理客户端，用来执行自动化构建任务。</li>
+</ul>
+
+<p>为了方便测试这里将 Agent 与 Server 端都放在一个 docker compose 中启动。</p>
+
+<ul>
+<li><p>创建部署 Drone Server 的数据目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p /home/docker/drone <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /home/docker/drone
+        
+<span class="c1"># 创建需要挂载的 Volumes 数据目录</span>
+$ mkdir drone-server-data
+
+<span class="c1"># 创建密钥文件存放目录</span>
+$ mkdir bitbucket
+
+<span class="c1"># 把上面生成的 key.pem、key.pub 文件拷贝到该目录下</span>
+$ tree bitbucket
+bitbucket
+<span class="p">|</span>-- key.pem
+<span class="p">|</span>-- key.pub
+
+<span class="m">0</span> directories, <span class="m">2</span> files</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>创建 docker-compose.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ touch docker-compose.yml</code></pre></td></tr></table>
+</div>
+</div>
+<p>内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">   
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">  </span>drone-server<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>drone/drone<span class="p">:</span><span class="m">0.8</span>.<span class="m">6</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>drone-server<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="m">8000</span><span class="p">:</span><span class="m">8000</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="m">9000</span><span class="p">:</span><span class="m">9000</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./bitbucket/key.pem<span class="p">:</span>/home/drone/bitbucket/key.pem<span class="w">           </span><span class="c"># 需自己配置</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./drone-server-data<span class="p">:</span>/var/lib/drone<span class="w">                          </span><span class="c"># 需自己配置</span><span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_OPEN=<span class="kc">true</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_HOST=&lt;http<span class="p">:</span>//your-domain.com<span class="sd">&gt;                         # 需自己配置</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_STASH=<span class="kc">true</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_STASH_GIT_USERNAME=&lt;set_by_yourself<span class="sd">&gt;                  # 需自己配置</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_STASH_GIT_PASSWORD=&lt;set_by_yourself<span class="sd">&gt;                  # 需自己配置</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_STASH_CONSUMER_KEY=&lt;set_by_yourself<span class="sd">&gt;                  # 需自己配置(注意：和设置 Bitbucket Server&#39;s Application Links 时的 Consumer Key 字段一致)</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_STASH_CONSUMER_RSA=/home/drone/bitbucket/key.pem<span class="w">      </span><span class="c"># 需自己配置</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_STASH_URL=http<span class="p">:</span>//&lt;bitbucket_host&gt;<span class="p">:</span><span class="m">7990</span><span class="w">                </span><span class="c"># 需自己配置</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_SECRET=&lt;set_by_yourself<span class="sd">&gt;                              # 需自己配置(注意：drone-server &amp; drone-agent 需一致)</span><span class="w">
+</span><span class="w">   
+</span><span class="w">  </span>drone-agent<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>drone/agent<span class="p">:</span><span class="m">0.8</span>.<span class="m">6</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>drone-agent<span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span>agent<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>depends_on<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>drone-server<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/var/run/docker.sock<span class="p">:</span>/var/run/docker.sock<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_SERVER=drone-server<span class="p">:</span><span class="m">9000</span><span class="w">                      
+</span><span class="w">      </span>-<span class="w"> </span>DRONE_SECRET=&lt;set_by_yourself<span class="sd">&gt;                              # 需自己配置(注意：drone-server &amp; drone-agent 需一致)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">    </span>drone-server-data<span class="p">:</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>DRONE_HOST 的格式一定要注意：<code>&lt;scheme&gt;://&lt;host&gt;</code>, scheme: http | https</li>
+</ul>
+</blockquote></li>
+
+<li><p>启动 Drone 服务</p>
+
+<p>这里启动时加 <code>--verbose</code> 参数从前台启动，可获取更多的日志信息，方便测试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker-compose --verbose up</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>访问 <code>http(s)://&lt;_drone_host_&gt;:8000</code>，进入到 Drone 的管理系统</p>
+
+<ul>
+<li>在 Drone 的控制面板中开启需要执行构建(构建按钮开启)的项目, 如果没有项目，需要现在 Bitbucket Server 创建，然后同步过来即可。</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538275913/blog/images/drone-ui-1.png" alt="" /></p>
+
+<ul>
+<li>然后跳转到该项目的设置页面，配置一下构建选项</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538276974/blog/images/drone-ui-2.png" alt="" /></p></li>
+</ul>
+
+<blockquote>
+<p>至此，所有的服务部署 OK。接下来就通过一个简单的 Demo Project 测试一下工作流能否正常触发执行。 😄</p>
+</blockquote>
+
+<h1 id="创建-demo-project-golang">创建 Demo-Project(Golang)</h1>
+
+<blockquote>
+<p>这里通过 Golang 编写一个简单的测试项目</p>
+</blockquote>
+
+<ul>
+<li>目录结构</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ tree cicd-project
+cicd-project/
+<span class="p">|</span>-- .drone.yml
+<span class="p">|</span>-- go.mod
+<span class="sb">`</span>-- main.go</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>源码内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入项目根目录，初始化 Go Modules</span>
+$ go mod init cicd</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// main.go
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">println</span><span class="p">(</span><span class="s">&#34;CI/CD Test Project&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>创建 <code>.drone.yml</code> 文件</p>
+
+<ul>
+<li>Drone CI 对一个项目进行 CI 构建取决于两个因素，第一必须保证该项目在 Drone 控制面板中开启了构建(构建按钮开启)，第二保证项目根目录下存在 <code>.drone.yml</code>；满足这两点后每次提交 Drone 就会根据 .drone.yml 中配置进行按步骤构建；本示例中 .drone.yml 配置如下</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">pipeline<span class="p">:</span><span class="w">
+</span><span class="w">  </span>backend<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>go<span class="w"> </span>get<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>.<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>go<span class="w"> </span>test</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 关于 .drone.yml 的说明随后会单独写一篇总结文档，这里先走通整个流程，体验一下。</p>
+</blockquote></li>
+
+<li><p>提交代码</p>
+
+<p>将此项目推送到 Bitbucket Server 就会触发 Drone CI 自动构建</p>
+
+<p>❓ ❓ ❓ 但是，我在这里遇到了问题，项目 <code>push</code> 成功后，Drone CI 并没有触发自动构建，是什么原因呢？ 结果如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538277859/blog/images/drone-ui-3.png" alt="" /></p>
+
+<p>看来是没触发自动构建，猜测应该问题处在 Webhook 上了，即 Bitbucket Server 接收完 <code>push</code> 请求后并没有发送回调请求给 Drone Server, 所以它当然不会做什么呀！ 嗯，<a href="https://google.com">Google</a> 一下。</p>
+
+<blockquote>
+<p>Note: 问题的原因和解决办法在下面的 FAQ 中。</p>
+</blockquote></li>
+
+<li><p>Drone CI 执行结果</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1539517379/blog/images/drone-ci-success.png" alt="" /></p></li>
+</ul>
+
+<p>至此，完。</p>
+
+<h1 id="faq">FAQ</h1>
+
+<ol>
+<li><p>提交代码到 Bitbucket Server 时，Drone CI 没有出发自动构建</p>
+
+<ul>
+<li><p>Google 到的与该问题相关的链接：</p>
+
+<ul>
+<li><a href="https://github.com/drone/docs/issues/223">Bitbucket Server requires webhooks addon installed/enabled</a></li>
+<li><a href="https://stackoverflow.com/questions/39140091/repository-not-building-when-connected-to-bitbucker-server-on-drone">repository not building when connected to bitbucker server on drone</a></li>
+<li><a href="https://discourse.drone.io/t/solved-bitbucket-server-no-webhooks-are-created-and-no-builds-are-starting/1969">[SOLVED] Bitbucket Server: no webhooks are created and no builds are starting</a></li>
+<li><a href="https://discourse.drone.io/t/drone-does-not-support-bitbucket-server-stash-pull-requests/1999">Drone does not support Bitbucket Server (Stash) Pull Requests</a></li>
+<li><a href="https://discourse.drone.io/t/solved-drone-fails-to-add-webhook-to-bitbucket-server/1556">(solved) Drone fails to add webhook to bitbucket server</a></li>
+<li><a href="https://github.com/drone/drone/issues/2109">Does not create web hooks with Bitbucket Server v4.13.0</a></li>
+</ul></li>
+
+<li><p>问题原因：Bitbucket Server 接收到 Push 等请求后，并没有发送 webhook 请求到 Drone Server，所以没有触发自动构建；需要安装 <a href="https://marketplace.atlassian.com/apps/1211539/web-post-hooks-for-bitbucket-server?hosting=server&amp;tab=overview">Web Post Hooks for Bitbucket Server</a> 插件解决。</p></li>
+
+<li><p>安装插件步骤：下载插件 =&gt; 转到 Bitbucket Server Settings =&gt; 找到 Manage add-ons =&gt; 选择 Upload add-ons (Note: 安装成功后需要在：Repository settings =&gt; Hooks =&gt; Post receive 栏启用该插件)，启用步骤如下：</p>
+
+<ul>
+<li><p>插件安装成功后，需要从 Drone Server 的管理界面 <code>注销</code> 重新登陆。Drone 通过 OAuth 认证或账号密码登陆代码仓库后，获得完整的控制权。在 Drone 的 web 后台管理页面激活 Repo 后，Drone 调用代码仓库的 API 给 Repository 增加一个 webhook, 即设置 <code>Post-Receive WebHooks</code> 的 URL (<a href="http://your_domain:8000/hook?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZXh0IjoiU09GL2NpY2QtcHJvamVjdCIsInR5cGUiOiJob29rIn0.ijkTBJo8dmNvQTYUju2MmjBgQcJrHW6qy878shLtaM8)(Note:">http://your_domain:8000/hook?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZXh0IjoiU09GL2NpY2QtcHJvamVjdCIsInR5cGUiOiJob29rIn0.ijkTBJo8dmNvQTYUju2MmjBgQcJrHW6qy878shLtaM8)(Note:</a> 设置 webhooks 需要管理员权限)</p></li>
+
+<li><p>图示如下：</p>
+
+<ul>
+<li><img src="https://res.cloudinary.com/zher-files/image/upload/v1540086460/blog/images/bitbucket-hooks.png" alt="" /></li>
+<li><img src="https://res.cloudinary.com/zher-files/image/upload/v1540086460/blog/images/bitbucket-hooks-edit.png" alt="" />
+<br /></li>
+</ul></li>
+
+<li><p><a href="http://docs.drone.io/hooks/">Ref Links: docs.drone.io/hooks</a></p></li>
+</ul></li>
+
+<li><p>Push 代码测试，如果仍然失败，尝试重启 Bitbucket Server &amp; Drone Service, 重启 Drone Service 时记得清除下容器的数据卷数据(删除 drone.sqlite)</p></li>
+</ul></li>
+</ol>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://cloud.tencent.com/developer/article/1180481">如何在Ubuntu上安装Drone持续集成环境</a></li>
+<li><a href="https://medium.com/@sergey.kolodyazhnyy/continuous-delivery-with-drone-ci-3a3fea5aa83">Medium: Continuous Delivery with Drone CI</a></li>
+<li><a href="https://medium.com/asiayo-engineering/%E7%94%A8-drone-%E6%89%93%E9%80%A0-ci-cd-flow-36b9d14c7620">Medium: 用 Drone 打造 CI/CD flow</a></li>
+<li><a href="https://github.com/appleboy/docs/blob/6b887d48eedf62c4122de486ddee58a655a93a3b/content/installation/services/bitbucket_server.md">docs/content/installation/services/bitbucket_server.md</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-11-02</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/devops/">devops</a>
+          <a href="/tags/cicd/">cicd</a>
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/">
+            <span class="next-text nav-default">DevOps | Drone 的基本概念</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-09-26 23:40:06 \x2b0000 UTC',
+        title: 'DevOps | CI\/CD 实践: Drone \x2b Docker \x2b Bitbucket Server 服务部署',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

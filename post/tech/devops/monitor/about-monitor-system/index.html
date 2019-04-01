@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Monitor | 关于监控系统的相关知识 - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="monitor" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/monitor/about-monitor-system/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Monitor | 关于监控系统的相关知识" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/monitor/about-monitor-system/" /><meta property="article:published_time" content="2018-07-18T18:57:08&#43;00:00"/>
+<meta property="article:modified_time" content="2018-07-19T18:57:08&#43;00:00"/>
+
+<meta itemprop="name" content="Monitor | 关于监控系统的相关知识">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2018-07-18T18:57:08&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-19T18:57:08&#43;00:00" />
+<meta itemprop="wordCount" content="1406">
+
+
+
+<meta itemprop="keywords" content="devops," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monitor | 关于监控系统的相关知识"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Monitor | 关于监控系统的相关知识</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-18 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1406 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-关于监控">1. 关于监控</a>
+<ul>
+<li><a href="#1-1-监控的目的">1.1. 监控的目的</a></li>
+<li><a href="#1-2-监控的层次">1.2. 监控的层次</a></li>
+<li><a href="#1-3-监控系统-体系-的设计">1.3. 监控系统(体系)的设计</a></li>
+<li><a href="#1-4-监控数据采集">1.4. 监控数据采集</a>
+<ul>
+<li><a href="#1-4-1-数据采集需要注意以下三点">1.4.1. 数据采集需要注意以下三点</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="1-关于监控">1. 关于监控</h1>
+
+<p>监控就是要把一切尽在掌控</p>
+
+<h2 id="1-1-监控的目的">1.1. 监控的目的</h2>
+
+<p>通过监控可以：</p>
+
+<ul>
+<li>实时掌握系统的运行状态</li>
+<li>减少宕机时间</li>
+<li>对故障的提前预警</li>
+<li>历史状态的回放、故障排除、分析</li>
+<li>扩展和性能管理</li>
+<li>资源计划</li>
+</ul>
+
+<h2 id="1-2-监控的层次">1.2. 监控的层次</h2>
+
+<ul>
+<li>硬件</li>
+<li>OS、中间件(MySQL、Tomcat)</li>
+<li>应用程序</li>
+<li>RUM(Real User Monitor, 用户数据监控): 是一种客户端的监控技术，它通过记录下用户访问网站的真实行为数据，来进行对网站的监控。<br /></li>
+</ul>
+
+<h2 id="1-3-监控系统-体系-的设计">1.3. 监控系统(体系)的设计</h2>
+
+<p>一个好的监控系统需要做到以下几点: 如图, 引用自 <a href="http://img.dockerinfo.net/2016/08/20160819091237.png">Here</a></p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1537786878/blog/images/monitor-os.png" alt="" /></p>
+
+<p>一个完整的监控体系包括以下几个组成部分：</p>
+
+<ul>
+<li>监控数据采集：时效与精确</li>
+<li>监控数据采集：存储与归档</li>
+<li>监控数据的自动化展示</li>
+<li>监控数据的自动化分析与联动处理</li>
+<li>监控告警及自动化处理</li>
+<li>监控工具自身的安全控制</li>
+<li>监控告警的响应及追踪</li>
+</ul>
+
+<p>监控体系架构图：如图，引用自 <a href="http://img.dockerinfo.net/2016/08/20160819091253.png">Here</a></p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1537786878/blog/images/monitor-arch.png" alt="" /></p>
+
+<blockquote>
+<p>从上图可以看出，一个完整的监控系统是从监控数据的采集开始、再将数据进行存储, 处理从而产生价值。 比如，智能生成分析报告、可视化展示、通过联动完成高可用, 伸缩，限流等事件处理, 监控告警等。</p>
+</blockquote>
+
+<h2 id="1-4-监控数据采集">1.4. 监控数据采集</h2>
+
+<p>目前监控数据的采集方式主要有以下几种：</p>
+
+<ul>
+<li><p>主动输出</p>
+
+<p>提前在应用中埋点，应用<code>主动上报</code>。比如一些应用系统的业务状态，可以通过在日志中主动输出状态用于采集</p></li>
+
+<li><p>远程接入</p>
+
+<p>通过对应用进程接口调用获取应用状态。比如使用JMX的方式连接到java进程中，对进程的状态进行采集。</p></li>
+
+<li><p>嵌入式</p>
+
+<p>通过在进程中运行 agent 的方式获取应用状态。如目前的 APM(App Performance Manage) 产品都是通过将监控工具嵌入到应用内部进行数据采集。</p></li>
+
+<li><p>旁路式</p>
+
+<p>通过外部获取的方式采集数据。比如对网站url的探测，模拟业务的报文 ，对服务器的ping，流量的监控。可以通过在交换机上将流量进行端口复制，将源始流量复制到另一个端口后再进行处理，这样这业务系统是完全没有侵入。</p></li>
+
+<li><p>入侵式</p>
+
+<p>不同于嵌入式，入侵式的 agent 是独立运行的进程，而不是运行在进程中。这个是目前监控工具比较常用的形式，比如：zabbix, 在主机上独立运行一个进程进行相关数据采集</p></li>
+
+<li><p>CLI 方式</p>
+
+<p>命令行的方式是最基本的方式，比如在linux系统上使用top，vmstat，netstat写一些shell脚本进行数据的采集，再把数据存储在文本文件中进行处理。</p></li>
+</ul>
+
+<h3 id="1-4-1-数据采集需要注意以下三点">1.4.1. 数据采集需要注意以下三点</h3>
+
+<ul>
+<li><p>采集的时间间隔</p>
+
+<p>对应用平台的监控数据采集的频率非常重要，关系到数据的及时性，有效性。在做监控数据采集时，也是根据不同的监控对象设定不同的时间间隔。比如对日志的监控是实时的，对实例的状态也是实时的，而对于一些后期用来分析的状态性数据则采集的时间间隔会长一些，3-5分钟的样子。</p></li>
+
+<li><p>监控工具自身的安全控制</p>
+
+<p>有些监控工具可能是时时运行，特别是侵入式监控，如果运行不当，自身就可能造成故障，比如执行过程异常不释放资源，造成高CPU占用；比如进程结束异常，不停的重启相同的进程；比如日志级别设置过低，大量日志输出，影响进程性能和占用大量磁盘空间。所以做监控时一定要遵循有自我安全控制的能力。监控工具在拿到生产环境中运行前，一定要先在测试环境中进行一段时间的试运行 。</p></li>
+
+<li><p>触发式的数据采集</p>
+
+<p>需要关注异常点的现场数据采集，比如threaddump，heapdump，主机的性能数据等。这些故障点的数据重启后就会失去，有些故障不能重现时，相关的分析数据就很重要了，所以对于这些数据，需要进行触发式的数据采集。当满足某些条件时触发采集，而在平常不运行。</p></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/liubin/presentations/tree/master/docker-monitoring">如何选择Docker监控方案</a></li>
+<li><a href="http://www.dockerinfo.net/1718.html">分享Docker监控体系（Kubernetes Mesos监控）</a></li>
+<li><a href="https://juejin.im/post/5ad589dc5188253edd4d8f5e">Docker容器的自动化监控实现</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-07-19</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/devops/">devops</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/monitor/cadvisor-01-basic-concepts/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Monitor | cAdvisor 基础</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/code/golang/20180718-concurrent-access-map-pits/">
+            <span class="next-text nav-default">Golang | Pits =&gt; Concurrent access map</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-07-18 18:57:08 \x2b0000 UTC',
+        title: 'Monitor | 关于监控系统的相关知识',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

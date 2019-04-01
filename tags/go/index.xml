@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on iJayer</title>
+    <link>https://zhezh09.github.io/tags/go/</link>
+    <description>Recent content in go on iJayer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 01 Apr 2019 11:13:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhezh09.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rabbitmq | 02 - Work Queues</title>
+      <link>https://zhezh09.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
+      <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;实现一个用来在多个 Workers 之间分发 &lt;code&gt;耗时任务&lt;/code&gt; 的工作队列&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rabbitmq | 01 - Hello World</title>
+      <link>https://zhezh09.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
+      <pubDate>Fri, 29 Mar 2019 16:05:39 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;RabbitMQ 是一个开源的、使用最广的消息队列。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。&lt;/li&gt;
+&lt;li&gt;支持的协议：AMQP，XMPP, SMTP, STOMP&lt;/li&gt;
+&lt;li&gt;支持集群部署（私有云或公有云）&lt;/li&gt;
+&lt;li&gt;可使用 HTTP-API、命令行工具和 UI 界面以便于管理和监控&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

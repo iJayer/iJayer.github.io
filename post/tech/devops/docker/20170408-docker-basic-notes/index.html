@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | 基础知识学习笔记 - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" Docker要求64bit系统(x86 or arm)
+Docker要求Linux内核：3.10&#43;
+" /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/docker/20170408-docker-basic-notes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | 基础知识学习笔记" />
+<meta property="og:description" content="
+
+
+Docker要求64bit系统(x86 or arm)
+Docker要求Linux内核：3.10&#43;
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/docker/20170408-docker-basic-notes/" /><meta property="article:published_time" content="2017-04-08T16:39:25&#43;08:00"/>
+<meta property="article:modified_time" content="2017-04-08T18:39:25&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | 基础知识学习笔记">
+<meta itemprop="description" content="
+
+
+Docker要求64bit系统(x86 or arm)
+Docker要求Linux内核：3.10&#43;
+">
+
+
+<meta itemprop="datePublished" content="2017-04-08T16:39:25&#43;08:00" />
+<meta itemprop="dateModified" content="2017-04-08T18:39:25&#43;00:00" />
+<meta itemprop="wordCount" content="1950">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | 基础知识学习笔记"/>
+<meta name="twitter:description" content="
+
+
+Docker要求64bit系统(x86 or arm)
+Docker要求Linux内核：3.10&#43;
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | 基础知识学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-08 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1950 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#docker简介">Docker简介</a></li>
+<li><a href="#docker基本概念">Docker基本概念</a>
+<ul>
+<li><a href="#engine">Engine</a></li>
+<li><a href="#image">Image</a></li>
+<li><a href="#container">Container</a></li>
+<li><a href="#repository">Repository</a></li>
+</ul></li>
+<li><a href="#docker核心元件">Docker核心元件</a>
+<ul>
+<li><a href="#linux核心">Linux核心</a></li>
+<li><a href="#docker核心">Docker核心</a></li>
+<li><a href="#docker执行">Docker执行</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>Docker要求64bit系统(x86 or arm)<br />
+Docker要求Linux内核：3.10+</p>
+</blockquote>
+
+<h1 id="docker简介">Docker简介</h1>
+
+<blockquote>
+<p><code>Docker</code>：Go 实现，对进程进行封装隔离，操作系统层面的虚拟化技术。<br />
+<code>Docker虚拟技术</code>：容器内的应用进程直接运行在宿主的内核, 容器没有自己的内核，也没有虚拟硬件资源。<br />
+<code>传统虚拟技术</code>：Hypervisor: 虚拟一套硬件—&gt;运行一个操作系统—&gt;运行应用进程</p>
+</blockquote>
+
+<p><code>Dcoker &amp; VM Compare</code></p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548403942/blog/images/Docker-VM%E5%AF%B9%E6%AF%94%E5%9B%BE.png" alt="Docker &amp; VM Compare" /></p>
+
+<h1 id="docker基本概念">Docker基本概念</h1>
+
+<h2 id="engine">Engine</h2>
+
+<p>Docker Engine是Docker的主程序，主要包含Docker Client和Docker Server，可以创建Docker镜像并运行Docker容器。Docker Engine里最主要的命令是 Docker Cli（docker） 和 Docker Daemon（dockerd）</p>
+
+<h2 id="image">Image</h2>
+
+<ul>
+<li><p>Docker镜像(Image)，特殊的<code>文件系统</code>, 提供容器运行时所需的程序、库、资源、配置文件等外, 还包括运行时的一些配置文件(匿名卷、环境变量、用户)；镜像不包含任何动态数据，其内容构建好后不会发生变化。</p></li>
+
+<li><p>分层存储，Docker Image采用分层存储架构，其实体由多层文件系统联合组成。</p></li>
+
+<li><p>相关技术介绍：</p>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/UnionFS">Union FS、</a><br /></li>
+<li><a href="https://yq.aliyun.com/articles/65034">Linux UnionFS</a><br /></li>
+</ul></li>
+</ul>
+
+<h2 id="container">Container</h2>
+
+<ul>
+<li><p>Docker容器：镜像运行的实体(类&amp;类的实例)，其实质是<code>进程</code>——运行在自己独立的命名空间<code>Namespace</code>，拥有自己的root文件系统，网络配置，进程空间，用户空间等；该进程运行在一个与宿主机环境隔离的空间内，不受宿主影响。</p></li>
+
+<li><p>容器存储层：容器以镜像为基础，在其上创建的一个为容器运行时进行读写而准备的存储层。</p></li>
+
+<li><p>容器生命周期：容器消亡，容器存储层也消亡；故容器存储层要求保持无状态化——即在其上不存储任何数据。</p></li>
+
+<li><p>数据卷生命周期：独立于容器，不会随容器消亡而消亡；推荐文件写入使用数据卷或绑定宿主机目录，这些位置的读写会跳过容器存储层。</p></li>
+</ul>
+
+<h2 id="repository">Repository</h2>
+
+<ul>
+<li><p>Docker Registry</p>
+
+<p>Docker Registry：集中存储，分发镜像的服务。    一个<code>Docker Registry</code>可包含多个<code>仓库</code>(Repository)，一个Repository可包含多个<code>标签</code>(Tag)，每个标签对应一个镜像。</p>
+
+<p>仓库命名：<code>&lt;用户名&gt;/&lt;软件名&gt;</code>——<code>boyzhe/ubuntu</code>，boyzhe——Docker Registry用户名，ubuntu——软件名</p>
+
+<p>镜像命名：<code>&lt;仓库名&gt;:&lt;标签&gt;</code>，指定哪个软件哪个版本的镜像，如果Tag未给出则表示latest(ubuntu:14.04 | ubuntu:16.04 | ubuntu:latest)</p></li>
+
+<li><p>Docker Registry 公开服务</p>
+
+<p><a href="https://hub.docker.com/">Docker Hub</a><br />
+<a href="https://quay.io/repository/">CoreOS Quary.io</a><br />
+<a href="https://cloud.google.com/container-registry/">Google Container</a><br />
+<a href="https://cr.console.aliyun.com/#/accelerator">阿里云加速器</a></p></li>
+
+<li><p>Docker Registry 私有服务</p>
+
+<p><a href="https://hub.docker.com/_/registry/">Docker Registry</a><br />
+<a href="http://vmware.github.io/harbor/index_cn.html">VMWare Harbor</a></p></li>
+</ul>
+
+<h1 id="docker核心元件">Docker核心元件</h1>
+
+<h2 id="linux核心">Linux核心</h2>
+
+<ul>
+<li>Namespace - 隔离不同Container的执行空间</li>
+<li>Cgroup - 分配硬件资源</li>
+<li>AUFS(chroot) - 建立不同Container的档案系统</li>
+<li>SELinux - 确保Container网络安全</li>
+<li>Netlink - 确保Container间的进程通信</li>
+<li>Netfilter - 网络防火墙封包过滤</li>
+<li>AppArmor - 保护Container的网络及执行安全</li>
+<li>Linux Bridge - 让不同主机上的不同Container通信</li>
+</ul>
+
+<h2 id="docker核心">Docker核心</h2>
+
+<ul>
+<li>Docker Client - 调用Docker Daemon(运行在本机或其他客户端)</li>
+<li>Docker Daemon - Docker守护进程，执行Docker功能(本机)</li>
+<li>Libcontainer - 和Linux核心通信的library(本机)</li>
+<li>Docker image - 建立容器的镜像库(本机或云端)</li>
+</ul>
+
+<p><code>Docker+Linux核心系统架构图</code></p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548403941/blog/images/Docker-Linux%E6%A0%B8%E5%BF%83.png" alt="Docker+Linux核心系统架构图" /></p>
+
+<h2 id="docker执行">Docker执行</h2>
+
+<p>Docker执行过程</p>
+
+<ol>
+<li>安装了Docker的Linux及硬件</li>
+<li>执行Docker Client, 呼叫Docker Daemon(unix:///var/run/docker.sock)</li>
+<li>Docker Daemon响应Client, 通过Libcontainer要求Linu核心建立Container</li>
+<li>Linux核心响应请求，启动核心namespace建立独立空间(pid, network, IPC, UTS, mount等)；Daemon根据client参义分配CPU,记忆体或磁盘IO等。<code>注：此时Container没有任何东西</code></li>
+<li>Daemon检查本机现有镜像列表，看是否有符合要求的本地镜下载使用过</li>
+<li>如果step-5有，Daemon则直接载入本地镜像到step-4的建空Container，至此Container启动完成</li>
+<li>如果step-5没有，Daemon则到Docker Registry下载Client参数要求的Image</li>
+<li>填入step-7下载的Image到step-4建立的空Container，Container启动完成</li>
+</ol>
+
+<p>从以上流程可知，Docker Container执行的调度方式就是Client的参数；事实上，执行Docker时的参数就是决定Linux核心建立Namespace以及设定网络，存储的方法。</p>
+
+<p>*注*：Docker Client和另一台主机的Daemon连接可以用<code>https</code>取代<code>unix</code>, 但十分危险，要确保安全性后才可以这样做！</p>
+
+<p><code>Docker执行过程图</code></p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548403942/blog/images/Docker%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.png" alt="Docker执行过程图" /></p>
+
+<ul>
+<li><p>Docker执行实例</p>
+
+<p><a href="https://joshhu.gitbooks.io/docker_theory_install/content/DockerBible/dockerbibleanexample.html" title="Docker执行实例">Docker执行实例</a></p></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html" title="Docker从入门到实战">Docker从入门到实战</a></li>
+<li><a href="https://github.com/widuu/chinese_docker/blob/master/installation/ubuntu.md" title="Ubuntu Docker Insall">Ubuntu Docker Install</a></li>
+<li><a href="https://joshhu.gitbooks.io/docker_theory_install/content/DockerBible/story.html">Docker的故事及原理</a></li>
+<li><a href="https://yuedu.baidu.com/ebook/d817967416fc700abb68fca1?pn=1&amp;rf=http%3A%2F%2Fdockone.io%2Farticle%2F233%3Fspm%3D5176.100239.blogcont40494.64.y83oRn###" title="主要对Docker技术方面的介绍">Docker入门实战</a></li>
+<li><a href="https://blog.csphere.cn/archives/22">一小时Docker</a>
+<br /></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-04-08</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/docker/20170409-common-cmd/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Docker | 常用命令</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/devops/docker/20170408-docker-01-install/">
+            <span class="next-text nav-default">Docker | Install</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-04-08 16:39:25 \x2b0800 CST',
+        title: 'Docker | 基础知识学习笔记',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

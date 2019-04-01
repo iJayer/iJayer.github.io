@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DevOps | CI/CD 概念学习笔记 - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Devops | CI/CD 概念学习" /><meta name="keywords" content="devops, docker, cicd" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="DevOps | CI/CD 概念学习笔记" />
+<meta property="og:description" content="Devops | CI/CD 概念学习" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/" /><meta property="article:published_time" content="2018-09-19T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-09-19T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="DevOps | CI/CD 概念学习笔记">
+<meta itemprop="description" content="Devops | CI/CD 概念学习">
+
+
+<meta itemprop="datePublished" content="2018-09-19T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-19T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1379">
+
+
+
+<meta itemprop="keywords" content="devops,cicd," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DevOps | CI/CD 概念学习笔记"/>
+<meta name="twitter:description" content="Devops | CI/CD 概念学习"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DevOps | CI/CD 概念学习笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-19 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1379 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#1-概念">1. 概念</a>
+<ul>
+<li><a href="#1-1-持续集成">1.1. 持续集成</a></li>
+<li><a href="#1-2-持续交付">1.2. 持续交付</a></li>
+<li><a href="#1-3-持续部署">1.3. 持续部署</a></li>
+</ul></li>
+<li><a href="#2-流程">2. 流程</a>
+<ul>
+<li><a href="#2-1-提交">2.1. 提交</a></li>
+<li><a href="#2-2-测试-第一轮">2.2. 测试(第一轮)</a></li>
+<li><a href="#2-3-构建">2.3. 构建</a></li>
+<li><a href="#2-4-测试-第二轮">2.4. 测试(第二轮)</a></li>
+<li><a href="#2-5-部署">2.5. 部署</a></li>
+<li><a href="#2-6-回滚">2.6. 回滚</a></li>
+</ul></li>
+<li><a href="#3-see-also">3. See Also</a>
+<ul>
+<li><a href="#3-1-others-recommended-reading-list">3.1. Others, recommended reading list</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<ul>
+<li>持续集成</li>
+<li>持续交付</li>
+<li>持续部署</li>
+</ul>
+
+<blockquote>
+<p>[转] <a href="http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html">阮一峰：持续集成是什么？</a></p>
+</blockquote>
+
+<h1 id="1-概念">1. 概念</h1>
+
+<h2 id="1-1-持续集成">1.1. 持续集成</h2>
+
+<p><code>持续集成(CI, Continuous Intergation)</code>: 指频繁的，一天多次将代码集成到主干。</p>
+
+<p>它的好处主要有两个：</p>
+
+<ul>
+<li>快速发现错误。没完成一点更新，就集成到主干，可以快速发现错误，定位错误也比较容易。</li>
+<li>防止分支大幅度偏离主干。如果不是经常集成，，主干又在不断更新，会导致以后集成的难度变大，甚至难以集成。</li>
+</ul>
+
+<p>持续集成的目录，就是让产品可以快速迭代，同时还能保持高质量。它的核心措施是，代码继承到主干之前，必须通过自动化测试。只要有一个测试用例失败，就不能集成。</p>
+
+<p>Martin Fowler说过，&rdquo;持续集成并不能消除Bug，而是让它们非常容易发现和改正。&rdquo;</p>
+
+<p>与持续集成相关的，还有两个概念，分别是持续交付和持续部署。</p>
+
+<h2 id="1-2-持续交付">1.2. 持续交付</h2>
+
+<p><code>持续交付(CD, Continuous Delivery)</code>: 指的是，频繁的将软件的新版本，交付给质量团队或者用户，以供评审。如果评审通过，代码就进入生产阶段。</p>
+
+<p>持续交付可以看作是持续集成的下一步。它强调的是，不管怎么更新，软件是随时随地可以交付的。</p>
+
+<h2 id="1-3-持续部署">1.3. 持续部署</h2>
+
+<p><code>持续部署(CD, Continuous Deployment)</code>: 是持续交付的下一步，指的是代码通过评审以后，自动部署到生产环境。</p>
+
+<p>持续部署的目标是，代码在任何时刻都是可部署的，可以进入生产阶段。</p>
+
+<p>持续部署的前提是能自动化完成测试、构建、部署等步骤。它与持续交付的区别，可以参考下图 (<a href="https://blog.crisp.se/wp-content/uploads/2013/02/continuous-delivery-deployment-sm.jpg">图片来源</a>)。</p>
+
+<p><img src="https://blog.crisp.se/wp-content/uploads/2013/02/continuous-delivery-deployment-sm.jpg" alt="" /></p>
+
+<h1 id="2-流程">2. 流程</h1>
+
+<p>根据持续集成的设计，代码从提交到生产，整个过程有以下几步：</p>
+
+<h2 id="2-1-提交">2.1. 提交</h2>
+
+<p>流程的第一步，是开发者向代码仓库提交代码。所有后面的步骤都始于本地代码的一次提交（commit）。</p>
+
+<h2 id="2-2-测试-第一轮">2.2. 测试(第一轮)</h2>
+
+<p>代码仓库对 commit 操作配置了钩子 (hook), 只要提交代码或者合并进主干，就会跑自动化测试。</p>
+
+<p>测试有好几种：</p>
+
+<ul>
+<li>单元测试：针对函数或模块测试</li>
+<li>集成测试：针对整体产品的某个功能的测试，又称功能测试</li>
+<li>端对端测试：从用户界面直达数据库的全链路测试</li>
+</ul>
+
+<p>第一轮至少要跑单元测试</p>
+
+<h2 id="2-3-构建">2.3. 构建</h2>
+
+<p>通过第一轮测试，代码就可以合并进主干，就算可以交付了。</p>
+
+<p>交付后，就先进行构建(build)，再进入第二轮测试。所谓构建，指的是将源码转换成可以运行的实际代码，比如安装依赖，配置各种资源(样式表，JS脚本，图片)等等。</p>
+
+<p>常用的构建工具如下：</p>
+
+<ul>
+<li><a href="http://jenkins-ci.org/">Jenkins</a></li>
+<li><a href="https://travis-ci.com/">Travis</a></li>
+<li><a href="https://www.codeship.io/">Codeship</a></li>
+<li><a href="http://stridercd.com/">Strider</a></li>
+</ul>
+
+<p>Jenkins 和Strider 是开源软件，Travis 和Codeship 对于开源项目可以免费使用。它们都会将构建和测试，在一次运行中执行完成。</p>
+
+<h2 id="2-4-测试-第二轮">2.4. 测试(第二轮)</h2>
+
+<p>构建完成，就要进行第二轮测试。如果第一轮已经涵盖了所有测试内容，第二轮可以省略，当然，这时构建步骤也要移到第一轮测试前面。</p>
+
+<p>第二轮是全面测试，单元测试和集成测试都会跑，有条件的话，也要做端对端测试。所有测试以自动化为主，少数无法自动化的测试用例，就要人工跑。</p>
+
+<p>需要强调的是，新版本的每一个更新点都必须测试到。如果测试的覆盖率不高，进入后面的部署阶段后，很可能会出现严重的问题。</p>
+
+<h2 id="2-5-部署">2.5. 部署</h2>
+
+<p>通过了第二轮测试，当前代码就是一个可以直接部署的版本。将这个版本的所有文件打包(tar filename.tar *) 存档，发到生产服务器。</p>
+
+<p>生产服务器将打包文件，解包成一个本地的目录，再将运行路径的符号链接(symlink) 指向这个目录，然后重新启动引用。这方面的部署工具有：</p>
+
+<ul>
+<li><a href="http://www.ansible.com/">Ansible</a></li>
+<li><a href="https://www.chef.io/chef/">Chef</a></li>
+<li><a href="https://puppetlabs.com/">Puppet</a></li>
+</ul>
+
+<h2 id="2-6-回滚">2.6. 回滚</h2>
+
+<p>一旦当前版本发生问题，就要回滚到上一个版本的构建结果。最简单的做法就是修改一下符号链接，指向上一个版本的目录。</p>
+
+<h1 id="3-see-also">3. See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html">阮一峰：持续集成是什么？</a>
+<br /></li>
+</ul>
+
+<h2 id="3-1-others-recommended-reading-list">3.1. Others, recommended reading list</h2>
+
+<ul>
+<li><a href="https://opensource.com/article/18/8/what-cicd">What is CI/CD?</a></li>
+<li><a href="https://linux.cn/article-9926-1.html">What is CI/CD? 译文</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-continuous-integration-delivery-and-deployment">An Introduction to Continuous Integration, Delivery, and Deployment</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-19</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/devops/">devops</a>
+          <a href="/tags/cicd/">cicd</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/cicd/20180919-cicd-02-search/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DevOps | CI/CD 方案调研笔记</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/career/be-worthy-to-read/">
+            <span class="next-text nav-default">Reading | Be worthy to read about career and work</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-09-19 00:00:00 \x2b0000 UTC',
+        title: 'DevOps | CI\/CD 概念学习笔记',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

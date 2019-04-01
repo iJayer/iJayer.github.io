@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Zher</title>
+    <title>Tags on iJayer</title>
     <link>https://zhezh09.github.io/tags/</link>
-    <description>Recent content in Tags on Zher</description>
+    <description>Recent content in Tags on iJayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     
@@ -11,11 +11,29 @@
     
     
     <item>
+      <title>caddy</title>
+      <link>https://zhezh09.github.io/tags/caddy/</link>
+      <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/caddy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>career</title>
       <link>https://zhezh09.github.io/tags/career/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://zhezh09.github.io/tags/career/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cicd</title>
+      <link>https://zhezh09.github.io/tags/cicd/</link>
+      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/cicd/</guid>
       <description></description>
     </item>
     
@@ -40,7 +58,7 @@
     <item>
       <title>docker</title>
       <link>https://zhezh09.github.io/tags/docker/</link>
-      <pubDate>Fri, 26 Oct 2018 09:48:45 +0800</pubDate>
+      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/tags/docker/</guid>
       <description></description>
@@ -52,6 +70,15 @@
       <pubDate>Tue, 02 Oct 2018 21:18:24 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/tags/essay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://zhezh09.github.io/tags/go/</link>
+      <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/go/</guid>
       <description></description>
     </item>
     
@@ -70,6 +97,15 @@
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://zhezh09.github.io/tags/grpc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>influxdb</title>
+      <link>https://zhezh09.github.io/tags/influxdb/</link>
+      <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/influxdb/</guid>
       <description></description>
     </item>
     
@@ -101,6 +137,15 @@
     </item>
     
     <item>
+      <title>mq</title>
+      <link>https://zhezh09.github.io/tags/mq/</link>
+      <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/mq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>network</title>
       <link>https://zhezh09.github.io/tags/network/</link>
       <pubDate>Tue, 26 Sep 2017 17:53:01 +0800</pubDate>
@@ -110,11 +155,38 @@
     </item>
     
     <item>
+      <title>nginx</title>
+      <link>https://zhezh09.github.io/tags/nginx/</link>
+      <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>others</title>
       <link>https://zhezh09.github.io/tags/others/</link>
       <pubDate>Tue, 14 Aug 2018 13:38:03 +0800</pubDate>
       
       <guid>https://zhezh09.github.io/tags/others/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rabbitmq</title>
+      <link>https://zhezh09.github.io/tags/rabbitmq/</link>
+      <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/rabbitmq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reading</title>
+      <link>https://zhezh09.github.io/tags/reading/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/reading/</guid>
       <description></description>
     </item>
     
@@ -151,6 +223,15 @@
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://zhezh09.github.io/tags/win/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>work</title>
+      <link>https://zhezh09.github.io/tags/work/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/tags/work/</guid>
       <description></description>
     </item>
     

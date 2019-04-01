@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cicd on iJayer</title>
+    <link>https://zhezh09.github.io/tags/cicd/</link>
+    <description>Recent content in cicd on iJayer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 29 Oct 2018 16:58:16 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhezh09.github.io/tags/cicd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server</title>
+      <link>https://zhezh09.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</link>
+      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/devops/cicd/20180925-drone-01-basic/&#34;&gt;Drone 的基本概念&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/&#34;&gt;Drone 服务部署&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/devops/docker/docker-compose-note/&#34;&gt;Docker-Compose 基础&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/devops/docker/registry-and-webui/&#34;&gt;Docker Registry 服务部署&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署</title>
+      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</link>
+      <pubDate>Wed, 26 Sep 2018 23:40:06 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;怎么用 Docker 搭建 Bitbucket Server&lt;/li&gt;
+&lt;li&gt;怎么启动 Drone Service&lt;/li&gt;
+&lt;li&gt;实践过程中踩过那些坑&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>DevOps | Drone 的基本概念</title>
+      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Drone&lt;/code&gt; 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Drone 的核心概念&lt;/li&gt;
+&lt;li&gt;Drone 的运作原理(架构)&lt;/li&gt;
+&lt;li&gt;Drone 的基本术语&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>DevOps | CI/CD 方案调研笔记</title>
+      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;了解当下主流的 CI/CD 方案&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>DevOps | CI/CD 概念学习笔记</title>
+      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;持续集成&lt;/li&gt;
+&lt;li&gt;持续交付&lt;/li&gt;
+&lt;li&gt;持续部署&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

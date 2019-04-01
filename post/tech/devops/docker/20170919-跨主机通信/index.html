@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | 跨主机通信 - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | 跨主机通信" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/" /><meta property="article:published_time" content="2017-09-19T16:39:25&#43;08:00"/>
+<meta property="article:modified_time" content="2017-09-19T18:39:25&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | 跨主机通信">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-09-19T16:39:25&#43;08:00" />
+<meta itemprop="dateModified" content="2017-09-19T18:39:25&#43;00:00" />
+<meta itemprop="wordCount" content="5095">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | 跨主机通信"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | 跨主机通信</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-09-19 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 5095 words </span>
+          <span class="more-meta"> 11 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#相关知识">相关知识</a>
+<ul>
+<li><a href="#overlay-network">Overlay Network？</a></li>
+<li><a href="#overlay的主要技术标准-vxlan">Overlay的主要技术标准：VXLAN</a></li>
+<li><a href="#docker网络架构和libnetwork">Docker网络架构和libnetwork</a></li>
+</ul></li>
+<li><a href="#相关方案简介">相关方案简介</a>
+<ul>
+<li><a href="#基于桥接的跨主机通信">基于桥接的跨主机通信</a></li>
+<li><a href="#基于overlay的跨主机通信">基于Overlay的跨主机通信</a></li>
+</ul></li>
+<li><a href="#基于overlay网络和一个外部key-value存储数据库搭建docker跨主机通信">基于Overlay网络和一个外部Key-Value存储数据库搭建Docker跨主机通信</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#实验环境说明">实验环境说明</a></li>
+<li><a href="#启动consul数据库">启动Consul数据库</a></li>
+<li><a href="#配置docker服务">配置Docker服务</a></li>
+</ul></li>
+<li><a href="#修改-docekr-service">修改 docekr.service</a></li>
+<li><a href="#修改-execstart-选项如下">修改 ExecStart 选项如下</a>
+<ul>
+<li><a href="#创建overlay网络">创建Overlay网络</a></li>
+<li><a href="#创建容器并接入overlay网络">创建容器并接入Overlay网络</a></li>
+<li><a href="#测试连通性">测试连通性</a></li>
+<li><a href="#该方案存在的问题">该方案存在的问题</a>
+<ul>
+<li><a href="#宿主机如何简单高效的访问docker自带的overlay网络中的所有容器-包括其他宿主机上的">宿主机如何简单高效的访问Docker自带的Overlay网络中的所有容器（包括其他宿主机上的）</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#overlay网络实现原理">Overlay网络实现原理</a>
+<ul>
+<li><a href="#总结overlay网络">总结Overlay网络</a></li>
+</ul></li>
+<li><a href="#issue">Issue</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="相关知识">相关知识</h1>
+
+<h2 id="overlay-network">Overlay Network？</h2>
+
+<p>An overlay network is a computer network that is built on top of another network. 覆盖网络，是一个建立在另一个网络上的计算机网络。覆盖网络中的节点被认为是通过虚拟或逻辑链接相连的，其中每一条链接对应一条路径(PATH)。<a href="https://zh.wikipedia.org/wiki/%E8%A6%86%E7%9B%96%E7%BD%91%E7%BB%9C">Wikipedia</a> 、<a href="http://www.h3c.com/cn/d_201309/796466_30008_0.htm">基于多租户的云计算Overlay网络</a></p>
+
+<h2 id="overlay的主要技术标准-vxlan">Overlay的主要技术标准：VXLAN</h2>
+
+<ul>
+<li>VXLAN(Virtual Extensible LAN: 虚拟可扩展局域网)：是一种Overlay网络(在网络之上构建的一层网络)，基于隧道技术实现。</li>
+<li>Linux Bridge默认支持VXLAN, OpenVSwitch也支持VXLAN</li>
+<li>VxLan 类似于 VLan技术，最大的不同点是，VxLan可以拥有更多的网段，远远大于VLan的网段。 VLan只支持4094个网段。</li>
+<li>VXLAN 的数据包是封装到UDP通过三层网络转发，可使用所有的网络路径; VXLAN的传输协议是 IP+UDP</li>
+</ul>
+
+<h2 id="docker网络架构和libnetwork">Docker网络架构和libnetwork</h2>
+
+<p>libnetwork 是Docker容器网络库，最核心的内容是其定义的 Container Network Model(CNM), 这个模型对容器网络进行了抽象</p>
+
+<p>CNM 主要由以下三类组件构成：</p>
+
+<blockquote>
+<ul>
+<li><p>Sandbox(沙箱)：容器的网络栈，包含容器的Interface、路由表和DNS设置。Linux Network Namespace 是sandbox的标准实现。sandbox可以包含来自不同Network的Endpoint</p></li>
+
+<li><p>Endpoint(端点)：用于将sandbox接入Network。Endpoint的典型实现是 veth pair。一个 Endpoint只能属于一个网络，也只能属于一个sandbox</p></li>
+
+<li><p>Network(网络)：Network包含一组Endpoint，同一Network的Endpoint可以直接通信。</p></li>
+</ul>
+</blockquote>
+
+<p>架构示意图:</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548403941/blog/images/docker-net-00.png" alt="Docker-CNM" /></p>
+
+<p>libnetwork中的5种内置驱动：</p>
+
+<ul>
+<li><p>bridge 驱动：Docker默认的设置，使用这个驱动的时候，libnetwork将创建出来的Docker容器链接到Docker网桥上。</p></li>
+
+<li><p>host 驱动：使用这种驱动的时候，libnetwork将不会为Docker容器创建网络协议栈，也就是不会创建独立的network namespace。Docker容器中的进程处于宿主机的网络环境中。</p></li>
+
+<li><p>overlay 驱动：该驱动采用标准的VxLANFANGSHI, 并且VxLan被普遍认为是最适合大规模的云计算虚拟化环境的SDN controller模式。在使用过程中，需要一个<code>额外的配置存储服务</code>。</p></li>
+
+<li><p>remote 驱动：这个驱动并没有做真正的网络实现，而是调用了用户自行实现的网络驱动插件，使libnetwork实现了驱动的可插件化。</p></li>
+
+<li><p>null 驱动：使用这种驱动的时候，Docker容器拥有自己的network namespace，但是不会进行任何网络配置。</p></li>
+</ul>
+
+<h1 id="相关方案简介">相关方案简介</h1>
+
+<h2 id="基于桥接的跨主机通信">基于桥接的跨主机通信</h2>
+
+<blockquote>
+<p><a href="http://ibash.cc/frontend/article/54/">基于桥接的跨主机通信</a></p>
+</blockquote>
+
+<p>目前, Docker默认网络模式(bridge)下，单台主机上的Docker容器间可通过docker0网桥通信, 而不同主机上的Docker容器间只能通过在主机上做端口映射的方法通信。这种方案在Docker集群应用时很不方便, 如果可以直接使用容器IP跨主机通信则会简便很多。</p>
+
+<h2 id="基于overlay的跨主机通信">基于Overlay的跨主机通信</h2>
+
+<blockquote>
+<p>Docker支持使用Overlay网络驱动实现跨主机网络通信</p>
+</blockquote>
+
+<p>不同于 <code>bridge</code> 网络，使用overlay网络需要满足一下条件中的任意一个：</p>
+
+<ul>
+<li>Docker运行在 swarm 模式</li>
+<li>一个键值存储集群(ZooKeeper | etcd | consul)</li>
+</ul>
+
+<p>Note: 官方文档中Docker overlay网络是和Swarm共存的</p>
+
+<h1 id="基于overlay网络和一个外部key-value存储数据库搭建docker跨主机通信">基于Overlay网络和一个外部Key-Value存储数据库搭建Docker跨主机通信</h1>
+
+<blockquote>
+<p><a href="http://ibash.cc/frontend/article/57/">参考方案·Docker Overlay跨主机通信</a></p>
+</blockquote>
+
+<h2 id="overview">Overview</h2>
+
+<p>使用Docker Overlay网络，需要注意一下几点：</p>
+
+<ul>
+<li><p>一个可访问的键值存储系统：Docker支持 <code>Consul</code> 、<code>Etcd</code>、<code>ZooKeeper(分布式)</code>键值存储。</p></li>
+
+<li><p>一个Docker Host集群，他们要链接到键值存储，并且集群内每个Docker Host的主机名必须要唯一。因为Docker守护进程与consul通信时，会以主机名相互区分。</p></li>
+
+<li><p>配置正确的Docker Daemon启动参数。让所有的Docker Host都可以访问集群key-value的服务端口</p></li>
+</ul>
+
+<p>通过官网给出的需求，可以知道：</p>
+
+<ul>
+<li><p>Docker Daemon要开启远程管理的端口(tcp xxx)，这个端口可以用来远程给Docker(极度危险)</p></li>
+
+<li><p>Docker Daemon还要开启一个tcp/udp的7946端口，Docker通过这个端口，用gossip协议学习各个宿主机上运行了那些容器。</p></li>
+
+<li><p>VxLan本身也需要一个UDP的4789端口</p></li>
+</ul>
+
+<blockquote>
+<p>Note：要在防火墙开启这些端口</p>
+</blockquote>
+
+<h2 id="实验环境说明">实验环境说明</h2>
+
+<p>实验主机：</p>
+
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>OS</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>192.168.1.180</td>
+<td>Centos7 Kernel 3.10.0</td>
+<td>Docker主机_A(搭建consul数据库)</td>
+</tr>
+
+<tr>
+<td>192.168.1.181</td>
+<td>Centos7 Kernel 3.10.0</td>
+<td>Docker主机_B</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="启动consul数据库">启动Consul数据库</h2>
+
+<blockquote>
+<p><a href="https://www.consul.io/intro/index.html">Consul 的相关介绍</a></p>
+</blockquote>
+
+<p>Consul：一个用于服务发现和配置共享的服务软件，由HashiCorp公司用Go开发；Consul支持健康检查、并允许HTTP和DNS协议调用API存储键值对</p>
+
+<p>在这里，我们使用Consul来保存Overlay的网络状态信息，包括Endpoint、Network &amp; IP等；当然，我们不需要写代码，只需要安装Consul, 之后Docker会自动进行状态存储等。</p>
+
+<blockquote>
+<p><a href="https://blog.coding.net/blog/intro-consul">https://blog.coding.net/blog/intro-consul</a></p>
+</blockquote>
+
+<ul>
+<li>安装Consul<br /></li>
+</ul>
+
+<p>最简单的安装方式即运行Docker.Consul容器哦, 这里 consul 服务搭建在主机：<code>192.168.1.180</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 拉取镜像</span>
+$ docker pull progrium/consul
+
+<span class="c1"># 启动consul服务</span>
+$ docker run --resatrt<span class="o">=</span>always -d -p <span class="m">8500</span>:8500 -h consul --name consul progrium/consul -server -bootstrap
+
+<span class="c1"># 查看consul容器是否运行成功</span>
+docker ps </code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>启动后，可在浏览器输入 <code>host:port</code> 可以看到Nodes节点已经添加了Consul；这里host:port=192.168.1.180:8500</p>
+</blockquote>
+
+<h2 id="配置docker服务">配置Docker服务</h2>
+
+<blockquote>
+<p>Note: 所有加入Overlay网络的Docker Host都需要完成如下配置，且所有Docker Host主机名必须唯一</p>
+</blockquote>
+
+<ul>
+<li><p>修改Docker启动参数
+```bash</p>
+
+<h1 id="修改-docekr-service">修改 docekr.service</h1>
+
+<p>$ vim /usr/lib/systemd/system/docker.service</p></li>
+</ul>
+
+<h1 id="修改-execstart-选项如下">修改 ExecStart 选项如下</h1>
+
+<p>ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock &ndash;cluster-store=consul://192.168.1.180:8500 &ndash;cluster-advertise=ens33:2376</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">&gt; Note: 
+&gt; 
+&gt; - --cluster-store: 指定键值存储的地址(Consul节点IP)
+&gt; - --cluster-advertise: 告诉存储服务自己的连接地址(ens33为docker节点IP地址所在的网卡名)
+
+- 重启Docker服务
+
+```bash
+$ systemctl daemon-reload
+$ systemctl restart docker.service</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>查看存储的键值对结果<br />
+<a href="http://192.168.1.180:8500/ui/#/dc1/kv/docker/nodes/">http://192.168.1.180:8500/ui/#/dc1/kv/docker/nodes/</a></li>
+</ul>
+
+<blockquote>
+<p>Note: 可以看到 docker/nodes下已经有两个节点</p>
+</blockquote>
+
+<h2 id="创建overlay网络">创建Overlay网络</h2>
+
+<ul>
+<li>在HostA(192.168.1.180)上创建Overlay网络</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建 Overlay 网络 ovnet1, -d 指定网络模式</span>
+$ docker network create -d overlay ovnet1
+
+<span class="c1"># 创建 Overlay 网络时， 指定其子网和网关</span>
+$ docker network create -d overlay ovnet2 --subnet <span class="m">172</span>.19.0.0/24 --gateway <span class="m">172</span>.19.0.1</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 在之后运行容器时指定 &ndash;network=ovnet1即可使Overlay网络内的Docker主机实现通信</p>
+</blockquote>
+
+<ul>
+<li>在HostA(192.168.180)上查看网络</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Lookup HostA Docker Network</span>
+$ docker network ls 
+NETWORK ID          NAME                DRIVER              SCOPE
+2315b20ebe40        bridge              bridge              <span class="nb">local</span>
+45fcb93505c0        docker_gwbridge     bridge              <span class="nb">local</span>
+9ccf08201f10        host                host                <span class="nb">local</span>
+e15bf8515ecd        none                null                <span class="nb">local</span>
+0c7ad0717a77        ovnet1              overlay             global</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 刚才创建的ovnet1网络作用域(SCOPE)是global, 而其他为local</p>
+</blockquote>
+
+<ul>
+<li>在HostB(192.168.1.181)上查看网络</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Lookup HostB Docker Network</span>
+$ docker network ls 
+NETWORK ID          NAME                DRIVER              SCOPE
+2315b20ebe40        bridge              bridge              <span class="nb">local</span>
+45fcb93505c0        docker_gwbridge     bridge              <span class="nb">local</span>
+9ccf08201f10        host                host                <span class="nb">local</span>
+e15bf8515ecd        none                null                <span class="nb">local</span>
+0c7ad0717a77        ovnet1              overlay             global</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>我们没有在HostB上创建网络，而这里可以发现HostA上创建的网络 ovnet1；这是因为创建ovnet1时HostA将overlay的网络信息写入了consul，而HostB从consul中读取到了网络数据完成了配置; 之后ovnet1的任何变化都会同步到HostA和HostB</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>查看网络详细配置</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker inspect ovnet1
+
+<span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">&#34;Name&#34;</span>: <span class="s2">&#34;ovnet1&#34;</span>,
+        <span class="s2">&#34;Id&#34;</span>: <span class="s2">&#34;0c7ad0717a77b329357a251f79f43f8889be819313334249be45a4f04677a0de&#34;</span>,
+        <span class="s2">&#34;Created&#34;</span>: <span class="s2">&#34;2017-09-21T08:51:50.324849876+08:00&#34;</span>,
+        <span class="s2">&#34;Scope&#34;</span>: <span class="s2">&#34;global&#34;</span>,
+        <span class="s2">&#34;Driver&#34;</span>: <span class="s2">&#34;overlay&#34;</span>,
+        <span class="s2">&#34;EnableIPv6&#34;</span>: false,
+        <span class="s2">&#34;IPAM&#34;</span>: <span class="o">{</span>
+            <span class="s2">&#34;Driver&#34;</span>: <span class="s2">&#34;default&#34;</span>,
+            <span class="s2">&#34;Options&#34;</span>: <span class="o">{}</span>,
+            <span class="s2">&#34;Config&#34;</span>: <span class="o">[</span>
+                <span class="o">{</span>
+                    <span class="s2">&#34;Subnet&#34;</span>: <span class="s2">&#34;10.0.0.0/24&#34;</span>,
+                    <span class="s2">&#34;Gateway&#34;</span>: <span class="s2">&#34;10.0.0.1&#34;</span>
+                <span class="o">}</span>
+            <span class="o">]</span>
+        <span class="o">}</span>,
+        <span class="s2">&#34;Internal&#34;</span>: false,
+        <span class="s2">&#34;Attachable&#34;</span>: false,
+        <span class="s2">&#34;Ingress&#34;</span>: false,
+        <span class="s2">&#34;ConfigFrom&#34;</span>: <span class="o">{</span>
+            <span class="s2">&#34;Network&#34;</span>: <span class="s2">&#34;&#34;</span>
+        <span class="o">}</span>,
+        <span class="s2">&#34;ConfigOnly&#34;</span>: false,
+        <span class="s2">&#34;Containers&#34;</span>: <span class="o">{}</span>,
+        <span class="s2">&#34;Options&#34;</span>: <span class="o">{}</span>,
+        <span class="s2">&#34;Labels&#34;</span>: <span class="o">{}</span>
+    <span class="o">}</span>
+<span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: IPAM, 表示IP Address Management</p>
+</blockquote>
+
+<h2 id="创建容器并接入overlay网络">创建容器并接入Overlay网络</h2>
+
+<ul>
+<li>创建容器</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker run --name cotan1 --network ovnet1 -itd busybox</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>查看容器内部网络</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker <span class="nb">exec</span> -it cotan1 sh
+$ ip address
+
+<span class="m">1</span>: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN qlen <span class="m">1</span>
+    link/loopback <span class="m">00</span>:00:00:00:00:00 brd <span class="m">00</span>:00:00:00:00:00
+    inet <span class="m">127</span>.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+<span class="m">16</span>: eth0@if17: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu <span class="m">1450</span> qdisc noqueue state UP 
+    link/ether <span class="m">02</span>:42:0a:00:00:05 brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">10</span>.0.0.5/24 scope global eth0
+       valid_lft forever preferred_lft forever
+<span class="m">26</span>: eth1@if27: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu <span class="m">1500</span> qdisc noqueue state UP 
+    link/ether <span class="m">02</span>:42:ac:12:00:05 brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">172</span>.18.0.5/16 scope global eth1
+       valid_lft forever preferred_lft forever
+
+$ ip route 
+
+default via <span class="m">172</span>.18.0.1 dev eth1 
+<span class="m">10</span>.0.0.0/24 dev eth0  src <span class="m">10</span>.0.0.5 
+<span class="m">172</span>.18.0.0/16 dev eth1  src <span class="m">172</span>.18.0.5</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: 可以看到容器内部有两块网卡， eth0连接overlay网络，eth1连接172.18.0.5; 且默认路由是从eth1网卡出去的</p>
+</blockquote>
+
+<ul>
+<li>查看宿主机网桥信息</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 在HostA执行</span>
+$ ip address
+
+<span class="m">1</span>: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN qlen <span class="m">1</span>
+    link/loopback <span class="m">00</span>:00:00:00:00:00 brd <span class="m">00</span>:00:00:00:00:00
+    inet <span class="m">127</span>.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+<span class="m">2</span>: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc pfifo_fast state UP qlen <span class="m">1000</span>
+    link/ether <span class="m">00</span>:0c:29:c5:85:c4 brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">192</span>.168.1.180/24 brd <span class="m">192</span>.168.1.255 scope global ens33
+       valid_lft forever preferred_lft forever
+    inet6 fe80::c517:b883:c99a:290c/64 scope link 
+       valid_lft forever preferred_lft forever
+<span class="m">3</span>: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu <span class="m">1500</span> qdisc noqueue state DOWN qlen <span class="m">1000</span>
+    link/ether <span class="m">52</span>:54:00:9e:02:43 brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">192</span>.168.122.1/24 brd <span class="m">192</span>.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+<span class="m">4</span>: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu <span class="m">1500</span> qdisc pfifo_fast master virbr0 state DOWN qlen <span class="m">1000</span>
+    link/ether <span class="m">52</span>:54:00:9e:02:43 brd ff:ff:ff:ff:ff:ff
+<span class="m">5</span>: docker_gwbridge: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc noqueue state UP 
+    link/ether <span class="m">02</span>:42:31:81:ce:4e brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">172</span>.18.0.1/16 scope global docker_gwbridge
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:31ff:fe81:ce4e/64 scope link 
+       valid_lft forever preferred_lft forever
+<span class="m">6</span>: docker0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc noqueue state UP 
+    link/ether <span class="m">02</span>:42:a8:41:f3:9e brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">172</span>.17.0.1/16 scope global docker0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:a8ff:fe41:f39e/64 scope link 
+       valid_lft forever preferred_lft forever
+<span class="m">8</span>: veth7f764b0@if7: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc noqueue master docker0 state UP 
+    link/ether <span class="m">66</span>:03:b1:8f:c2:af brd ff:ff:ff:ff:ff:ff link-netnsid <span class="m">0</span>
+    inet6 fe80::6403:b1ff:fe8f:c2af/64 scope link 
+       valid_lft forever preferred_lft forever</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>可以看到多了 docker_gwbridge 网卡; 且Docker容器的eth1网卡连接的是docker_gwbridge网桥</p>
+</blockquote>
+
+<h2 id="测试连通性">测试连通性</h2>
+
+<ul>
+<li>在HostB创建容器</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker run --name cotan2 --network ovnet1 -itd busybox</pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>查看容器IP地址并测试连接</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker <span class="nb">exec</span> -it cotan2 sh
+$ ip address 
+
+<span class="m">1</span>: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue qlen <span class="m">1</span>
+    link/loopback <span class="m">00</span>:00:00:00:00:00 brd <span class="m">00</span>:00:00:00:00:00
+    inet <span class="m">127</span>.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+<span class="m">9</span>: eth0@if10: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu <span class="m">1450</span> qdisc noqueue 
+    link/ether <span class="m">02</span>:42:0a:00:00:02 brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">10</span>.0.0.2/24 scope global eth0
+       valid_lft forever preferred_lft forever
+<span class="m">13</span>: eth1@if14: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu <span class="m">1500</span> qdisc noqueue 
+    link/ether <span class="m">02</span>:42:ac:12:00:02 brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">172</span>.18.0.2/16 scope global eth1
+       valid_lft forever preferred_lft forever
+
+$ ping <span class="m">10</span>.0.0.5
+
+<span class="m">64</span> bytes from <span class="m">10</span>.0.0.2: <span class="nv">seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">0</span>.588 ms
+<span class="m">64</span> bytes from <span class="m">10</span>.0.0.2: <span class="nv">seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span><span class="m">0</span>.417 ms
+ 
+--- container1 ping statistics ---
+<span class="m">2</span> packets transmitted, <span class="m">2</span> packets received, <span class="m">0</span>% packet loss
+round-trip min/avg/max <span class="o">=</span> <span class="m">0</span>.417/0.502/0.588 ms</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>可见overlay网络中的容器可以直接通信，同时Docker也实现了DNS服务</p>
+</blockquote>
+
+<h2 id="该方案存在的问题">该方案存在的问题</h2>
+
+<blockquote>
+<p><a href="http://www.chongchonggou.com/g_6115686.html">http://www.chongchonggou.com/g_6115686.html</a></p>
+</blockquote>
+
+<h3 id="宿主机如何简单高效的访问docker自带的overlay网络中的所有容器-包括其他宿主机上的">宿主机如何简单高效的访问Docker自带的Overlay网络中的所有容器（包括其他宿主机上的）</h3>
+
+<p>在Docker自带的Overlay网络中，容器内部访问外网使用的是自动创建的docker_gwbridge桥，那么 docker 宿主机如何访问overlay网络内部呢（比如其他宿主机上同时加入该overlay网络的容器）？</p>
+
+<blockquote>
+<p>解决方法有如下几种：</p>
+
+<ul>
+<li>尝试把到overlay路由指到docker_gwbridge，但是无法访问其他宿主机上加入到这个overlay的容器，因为没有回程路由，给每台启动的容器加回程路由也是很不现实的。</li>
+<li>宿主机上，容器内都开反向代理。</li>
+<li>容器内开启iptables，做nat。</li>
+<li>传统模式给容器做nat映射宿主机端口。</li>
+<li>如果能指定overlay中的某个容器为整个overlay的默认路由的话，一切都好办了，奈何目前到1.10.2，gateway都会被自动指到某个网桥上，只能每台容器去修改，但是给每台容器赋予这么高的权限，个人是不愿意的。</li>
+</ul>
+</blockquote>
+
+<h1 id="overlay网络实现原理">Overlay网络实现原理</h1>
+
+<h2 id="总结overlay网络">总结Overlay网络</h2>
+
+<ul>
+<li>Overlay网络会自动创建一个docker_gwbridge网卡，作用是为Docker容器提供上外网需求</li>
+<li>Docker容器不能通过docker_gwbridge网卡互相通信，即使在同一台Docker主机, 同一个Overlay网络也不行</li>
+<li>Docker容器间通信只能通过overlay网络</li>
+<li>Overlay网络间是相互隔离的，通过VXLan隔离</li>
+<li>Docker容器的网络命名空间与Overlay网络的命名空间通过一对veth pair连接起来</li>
+<li>Docker容器的veth pair对端veth0与vxlan0设备通过br0这个Linux bridge桥接在一起， br0在同一宿主机上起到虚拟交换机的作用，如果目标地址在同一宿主机上，则直接通信，如果不在则通过设置vxlan0这个VXLan设备进行跨主机通信</li>
+<li>Overlay网络独立的命名空间里面会有一个网桥br0</li>
+<li>VXLan0设备会在创建时，由Docker daemon 为其分配vxlan隧道ID，起到网络隔离的作用</li>
+<li>Docker Host集群会通过key/value存储共享数据，在7496端口上，互相之间通过gossip协议学习各个宿主机上运行了那些容器。守护进程根据这些数据在vxlan0设备上生成静态MAC转发表</li>
+<li>根据静态MAC转发表的设置，通过UDP端口4789，将流量转发到对端宿主机网卡上</li>
+<li>根据流量包中的VxLan隧道ID，将流量转发到对端宿主机的overlay网络的网络命名空间中。</li>
+<li>对端宿主机的overlay网络的网络命名空间中br0网桥，起到虚拟交换机的作用，将流量根据MAC地址转发到对应容器内部。</li>
+</ul>
+
+<h1 id="issue">Issue</h1>
+
+<ul>
+<li>Issue1</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@zhe0 ~<span class="o">]</span><span class="c1"># docker run --name cotan1 --network ovnet1 --ip 10.0.0.10 -d busybox</span>
+402fb4295afa1fcf9ba7cc5493c9dedecf50edee1983fbbad376e8b93e560d20
+docker: Error response from daemon: user specified IP address is supported only when connecting to networks with user configured subnets.</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>Issue2<br />
+<br /></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">在 ExecStart 最后添加: --cluster-store<span class="o">=</span>consul://&lt;consul_ip&gt;:8500 --cluster-advertise<span class="o">=</span>ens3:2376
+其中 表示运行 consul 容器的节点IP。ens3为当前节点的ip地址对应的网卡</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>注意： ens3换成IP地址可能导致容器跨主机通信失败</p>
+</blockquote>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+
+<ul>
+<li><a href="https://docs.docker.com/engine/userguide/networking/get-started-overlay/">Official.Docs.Docker-跨主机通信</a></li>
+<li><a href="http://www.dockone.io/article/2717">docker overlay网络实现</a></li>
+<li><a href="http://www.w2bc.com/article/261659">Docker跨主机网络——overlay</a></li>
+<li><a href="http://int32bit.me/2016/05/10/Docker%E5%AE%9E%E7%8E%B0%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/">Docker跨主机通信实现与分析</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/1611491">docker高级应用之多台主机网络互联</a></li>
+<li><a href="http://tonybai.com/2016/02/15/understanding-docker-multi-host-networking/">理解Docker跨多主机容器网络</a></li>
+</ul>
+</blockquote>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-09-19</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/network/20170926-net-basic/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Network | 计算机网络基础</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/os/linux/20170915-linux.fedora-notes/">
+            <span class="next-text nav-default">Linux | Fedora 系统优化</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-09-19 16:39:25 \x2b0800 CST',
+        title: 'Docker | 跨主机通信',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | 常用命令 - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/docker/20170409-common-cmd/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | 常用命令" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/docker/20170409-common-cmd/" /><meta property="article:published_time" content="2017-04-09T16:39:25&#43;08:00"/>
+<meta property="article:modified_time" content="2017-04-09T18:39:25&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | 常用命令">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-04-09T16:39:25&#43;08:00" />
+<meta itemprop="dateModified" content="2017-04-09T18:39:25&#43;00:00" />
+<meta itemprop="wordCount" content="1227">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | 常用命令"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | 常用命令</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-09 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1227 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#获取镜像-docker-pull">获取镜像：docker pull</a></li>
+<li><a href="#列出镜像-docker-images">列出镜像：docker images</a></li>
+<li><a href="#重命名镜像-docker-tag">重命名镜像：docker tag</a></li>
+<li><a href="#移除镜像-docker-rmi">移除镜像：docker rmi</a></li>
+<li><a href="#保存镜像-docker-commit">保存镜像：docker commit</a></li>
+<li><a href="#运行容器-docker-run">运行容器：docker run</a></li>
+<li><a href="#查看容器列表-运行中-docker-ps">查看容器列表(运行中)：docker ps</a></li>
+<li><a href="#进入容器-运行中-docker-exec">进入容器(运行中)：docker exec</a></li>
+<li><a href="#移除容器-docker-rm">移除容器：docker rm</a></li>
+<li><a href="#清理日志-docker-inspect-pipe-组合">清理日志 docker inspect + pipe 组合</a></li>
+<li><a href="#简单练习-配置nginx服务器">简单练习——配置nginx服务器</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="获取镜像-docker-pull">获取镜像：docker pull</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Usage
+$ docker pull [选项] [Docker Registry地址]&lt;仓库名&gt;:&lt;标签&gt;  
+$ docker pull ubuntu:14.04</pre></td></tr></table>
+</div>
+</div>
+<h1 id="列出镜像-docker-images">列出镜像：docker images</h1>
+
+<ul>
+<li><p>列出顶层镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker images      
+# 说明：列表包含：仓库名(REPOSITORY)、标签(TAG)、镜像ID、创建时间、占用空间</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>列出部分镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 根据仓库名显示   
+$ docker images ubuntu
+
+# 根据仓库名和标签显示    
+$ docker images ubuntu:14.04
+
+# 根据过滤参数显示: --filter简写-f    
+# 显示mongo:3.2之后的所有镜像
+$ docker images -f since=mongo:3.2
+
+# 显示mongo:3.2之前的所有镜像
+$ docker images -f before=mongo:3.2 </pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>虚悬镜像：仓库名和标签都为<code>&lt;none&gt;</code>, 可删除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 列出
+$ docker images -f dangling=true         
+# 删除               
+$ docker rmi $(docker images -q -f dangling=true) </pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>中间层镜像：标签为<code>&lt;none&gt;</code>，其他镜像的依赖的镜像，不应独立删除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker images -a</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>以特定格式显示(Go模板语法)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 列出镜像ID
+$ docker images -q      
+# --filter配合-q列出指定范围的Image ID列表，然后作为另一个docker命令的参数
+
+# 列出镜像ID和仓库名
+$ docker images --format &#34;{{.ID}}: {{.Repository}}&#34; 
+
+# 按自定义语法显示
+$ docker images --format &#34;table {{.ID}}\t{{.Repository}}\t{{.Tag}}&#34;</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="重命名镜像-docker-tag">重命名镜像：docker tag</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">docker tag image_name:image_tag new_image_name:new_image_tag</pre></td></tr></table>
+</div>
+</div>
+<h1 id="移除镜像-docker-rmi">移除镜像：docker rmi</h1>
+
+<ul>
+<li><p>使用中的镜像不能移除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Usage
+$ docker rmi [OPTIONS] IMAGE [IMAGE...]
+# 强制移除ubuntu:14.04
+$ docker rmi -f ubuntu:14.04
+
+# docker rmi 输出信息
+# Untagged: 取消某个标签
+# Deleted: 删除镜像</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="保存镜像-docker-commit">保存镜像：docker commit</h1>
+
+<ul>
+<li><p>在原有镜像基础上，叠加上容器的存储层并构成新的镜像，该镜像保存原有容器最后的文件修改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;:&lt;标签&gt;]</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>查看容器存储层的修改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker diff container</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>查看镜像内的历史修改记录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker history [&lt;仓库名&gt;:&lt;标签&gt;]</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="运行容器-docker-run">运行容器：docker run</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    $ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+    $ docker run -it --rm ubuntu:14.04 bash
+    $ docker run --name web2 -d -p 81:80 nginx:v2
+
+    参数说明：
+        -it:            -i, 交互式操作；-t, 终端
+        --rm:           容器退出后将其删除
+        ubuntu:14.04:   以ubuntu:14.04为基础启动容器
+        bash:           命令，启动交互式shell</pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/ea4a00c6c21c">https://www.jianshu.com/p/ea4a00c6c21c</a></p>
+</blockquote>
+
+<h1 id="查看容器列表-运行中-docker-ps">查看容器列表(运行中)：docker ps</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    # Usage
+    $ docker ps [OPTIONS]
+    # 查看所有容器
+    $ docker ps -a</pre></td></tr></table>
+</div>
+</div>
+<h1 id="进入容器-运行中-docker-exec">进入容器(运行中)：docker exec</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    # Usage
+    $ docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+    # 示例
+    $ docker exec -it hello /bin/bash
+    # 容器未运行报错
+    # Error response from daemon: Container 9e7644 is not running
+
+    # 进入alphine容器
+    $ docker exec -it apiv0.1 sh</pre></td></tr></table>
+</div>
+</div>
+<h1 id="移除容器-docker-rm">移除容器：docker rm</h1>
+
+<ul>
+<li><p>移除一个或多个容器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># Usage
+$ docker rm [OPTIONS] CONTAINER [CONTAINER...]
+# 强制移除容器web
+$ docker rm -f web</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="清理日志-docker-inspect-pipe-组合">清理日志 docker inspect + pipe 组合</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    docker inspect [name] | grep LogPath | cut -d &#39;:&#39; -f 2 | cut -d &#39;,&#39; -f 1 | xargs echo | xargs truncate -s 0</pre></td></tr></table>
+</div>
+</div>
+<h1 id="简单练习-配置nginx服务器">简单练习——配置nginx服务器</h1>
+
+<ul>
+<li><p>获取nginx镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker pull nginx</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>在 /home/docker/nginx下创建index.html</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ mkdir /home/docker/nginx -p &amp;&amp; cd /home/docker/ngnix
+$ echo &#39;&lt;h1&gt;Hello, Docker!&lt;/h1&gt;&#39; &gt; index.html</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>基于nginx镜像创建一个容器，并运行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker run --name web -d -v $(pwd):/usr/share/nginx/html -p 80:80 nginx
+# --name新容器名称web
+# -d    后台执行容器
+# -v    指定当前目录为数据卷, 提供nginx文件目录
+# -p    映射主机80端口到容器80端口
+# nginx 基础镜像</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://segmentfault.com/a/1190000008876540">docker命令详解</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-04-09</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/docker/20170410-build-image/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Docker | 构建镜像</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/devops/docker/20170408-docker-basic-notes/">
+            <span class="next-text nav-default">Docker | 基础知识学习笔记</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-04-09 16:39:25 \x2b0800 CST',
+        title: 'Docker | 常用命令',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

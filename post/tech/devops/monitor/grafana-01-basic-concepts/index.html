@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Monitor | Grafana 基础 - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" Grafana 能干什么？ Grafana 有什么特性？ 用好 Grafana, 需要了解什么，即-基本概念 " /><meta name="keywords" content="monitor, grafana" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/monitor/grafana-01-basic-concepts/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Monitor | Grafana 基础" />
+<meta property="og:description" content="
+
+
+Grafana 能干什么？
+Grafana 有什么特性？
+用好 Grafana, 需要了解什么，即-基本概念
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/monitor/grafana-01-basic-concepts/" /><meta property="article:published_time" content="2018-07-22T17:02:38&#43;00:00"/>
+<meta property="article:modified_time" content="2018-07-22T17:02:38&#43;00:00"/>
+
+<meta itemprop="name" content="Monitor | Grafana 基础">
+<meta itemprop="description" content="
+
+
+Grafana 能干什么？
+Grafana 有什么特性？
+用好 Grafana, 需要了解什么，即-基本概念
+">
+
+
+<meta itemprop="datePublished" content="2018-07-22T17:02:38&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-22T17:02:38&#43;00:00" />
+<meta itemprop="wordCount" content="1555">
+
+
+
+<meta itemprop="keywords" content="devops," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monitor | Grafana 基础"/>
+<meta name="twitter:description" content="
+
+
+Grafana 能干什么？
+Grafana 有什么特性？
+用好 Grafana, 需要了解什么，即-基本概念
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Monitor | Grafana 基础</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-22 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1555 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#grafana">Grafana</a></li>
+<li><a href="#install-grafana">Install Grafana</a></li>
+<li><a href="#基本概念">基本概念</a>
+<ul>
+<li><a href="#data-source-数据源">Data Source 数据源</a></li>
+<li><a href="#organization-组织">Organization 组织</a></li>
+<li><a href="#user-用户">User 用户</a></li>
+<li><a href="#row-行">Row 行</a></li>
+<li><a href="#panel-面板">Panel 面板</a></li>
+<li><a href="#query-editor-查询编辑器">Query Editor 查询编辑器</a></li>
+<li><a href="#dashboard-仪表盘">Dashboard 仪表盘</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<ul>
+<li>Grafana 能干什么？</li>
+<li>Grafana 有什么特性？</li>
+<li>用好 Grafana, 需要了解什么，即-基本概念</li>
+</ul>
+
+<h1 id="grafana">Grafana</h1>
+
+<p><code>Grafana</code> 是一款采用 Go 语言编写的开源应用，主要用于大规模指标数据的可视化展示。有着非常漂亮的图标和页面布局，功能齐全的度量仪表盘和图形编辑器，支持 Graphite、Zabbix、InfluxDB、Prometheus 和 OpenTSDB 作为数据源。</p>
+
+<p>Grafana 主要特性：</p>
+
+<ul>
+<li>在 dashboard 中，可以显示不同 metric 数据源中的数据(丰富灵活的图形化选项)。</li>
+<li>支持多个数据源</li>
+<li>拥有丰富的插件扩展</li>
+<li>支持用户权限管理</li>
+</ul>
+
+<p>Grafana 的权限分为三个等级：Viewer、Editor、Admin</p>
+
+<ul>
+<li>Viewer：只能查看 Grafana 中已经存在的面板，而不能编辑</li>
+<li>Editor：可以编辑面板</li>
+<li>Admin：拥有全部控制权限，例如：添加数据源、添加插件以及添加 API KEY</li>
+</ul>
+
+<h1 id="install-grafana">Install Grafana</h1>
+
+<blockquote>
+<p>Grafana Version: v5.2 ：<a href="http://docs.grafana.org/installation/">http://docs.grafana.org/installation/</a></p>
+</blockquote>
+
+<ul>
+<li><p><a href="https://github.com/grafana/grafana-docker">Install from Docker</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker pull grafana/grafana</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Run grafana with docker</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker run --name=grafana --restart=always -p 3000:3000 -d grafana/grafana</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Open web page on: <a href="http://localhost:3000">http://localhost:3000</a></p></li>
+</ul>
+
+<h1 id="基本概念">基本概念</h1>
+
+<blockquote>
+<p><a href="http://docs.grafana.org/guides/basic_concepts/">http://docs.grafana.org/guides/basic_concepts/</a></p>
+</blockquote>
+
+<h2 id="data-source-数据源">Data Source 数据源</h2>
+
+<p>Grafana 为你的时序数据支持许多种不同的数据源。每个数据源都有一个特定的查询编辑器，该编辑器针对特定数据源公开的特性和功能进行了自定义。</p>
+
+<p>官方支持的数据源：Graphite, InfluxDB, OpenTSDB, Prometheus, Elasticsearch, CloudWatch</p>
+
+<p>你可以将多个数据源的数据合并到一个单独的仪表盘上，但每个面板都绑定到特定的数据源。</p>
+
+<h2 id="organization-组织">Organization 组织</h2>
+
+<p>Grafana 支持多个组织，以便支持各种部署模型，包括使用一个单独的Grafana 实例为多个潜在的不受信任的组织提供服务。</p>
+
+<p>在许多情况下，Grafana 都部署在一个组织中。 一个组织可以有一个或多个数据源。</p>
+
+<p>所有的Dashboard只被一个特定的组织拥有。</p>
+
+<h2 id="user-用户">User 用户</h2>
+
+<p>用户就是 Grafana 中的指定账户. 一个用户可以属于一个或多个组织, 可以使用角色来分配不同级别的权限。</p>
+
+<p>Grafana 支持各种内部和外部方式，供用户进行身份验证。这些包括来自其自己的集成数据库，来自外部SQL服务器或来自外部LDAP服务器。</p>
+
+<h2 id="row-行">Row 行</h2>
+
+<p>行是Grafana在仪表盘界面的逻辑分区器，用于将多个面板连接在一起。</p>
+
+<p>行一般是12个单位宽度。</p>
+
+<p>单位宽度是Grafana为了支持不同分辨率的屏幕所采取的一种策略，这样Grafana可以在不同分辨率的显示器上拥有良好的展示效果。</p>
+
+<h2 id="panel-面板">Panel 面板</h2>
+
+<p>面板是 Grafana 中可视化的基本单元，每个面板都提供了一个查询编辑器(依赖于面板中选择的数据源), 允许您利用查询编辑器来编辑出一个完美的展示图像。</p>
+
+<p>面板提供了各种各样的样式和格式选项，而且支持拖拽来在仪表盘上重排，并且可以调整大小。</p>
+
+<p>目前有四个面板类型：图像，状态，面板列表，表格等类型，而且也支持文本类型。</p>
+
+<p>通过在面板配置中使用 Dashboard Templating 变量字符串，可以使面板展示更具动态性（包括通过查询编辑器配置的对你的数据源的查询）</p>
+
+<p>利用“重复面板”功能，根据所选的模板变量动态创建或删除面板。</p>
+
+<p>面板（或整个仪表板）可以以多种方式轻松共享，既可以通过链接分享，也可以导出JSON等文本文件。</p>
+
+<h2 id="query-editor-查询编辑器">Query Editor 查询编辑器</h2>
+
+<p>查询编辑器公开了数据源的功能，并且允许你查询其所包含的一些指标</p>
+
+<p>使用查询编辑器可以在你的时序数据库中构建一条或多条查询。该面板将立即更新，允许您实时有效地探索您的数据，并为该特定面板构建一个完美的查询。</p>
+
+<p>Grafana 允许您通过查询编辑器中的行来引用查询， 如果向图表添加第二个查询，则只需键入 <code>#A</code> 即可引用第一个查询。这为构建复合查询提供了一种简单方便的方法。</p>
+
+<h2 id="dashboard-仪表盘">Dashboard 仪表盘</h2>
+
+<p>仪表盘是 Grafana 中最重要的展示部分。</p>
+
+<p>仪表盘可以视为一组，由一个或多个面板组成的一个集合，来展示各种各样的面板。</p>
+
+<p>仪表板的时间段可以通过仪表板右上角的仪表板时间选择器进行控制。</p>
+
+<p>仪表盘还可以使用 <code>模板</code> 来允许用户交互式的选择数据来展示。</p>
+
+<p>仪表盘也可以通过 <code>注释</code> 来标记出各种各样的事件。</p>
+
+<p>仪表盘也支持通过多种不同的方式来共享，支持通过链接的方式共享或者导出JSON等格式的文件。</p>
+
+<p>仪表板可以被标记，仪表板选择器提供对特定组织中所有仪表板的快速，可搜索的访问。</p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/grafana/grafana">Grafana on Github</a></li>
+<li><a href="https://grafana.com/">Grafana Official Site</a></li>
+<li><a href="https://my.oschina.net/guol/blog/515126">Grafana 配置详解</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-07-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/devops/">devops</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/monitor/grafana-02-config/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Monitor | Grafana 配置</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/devops/monitor/cadvisor-02-measurements/">
+            <span class="next-text nav-default">Monitor | cAdvisor 采集的 Measurements</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-07-22 17:02:38 \x2b0000 UTC',
+        title: 'Monitor | Grafana 基础',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

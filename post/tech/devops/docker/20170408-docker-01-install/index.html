@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker | Install - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/docker/20170408-docker-01-install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Docker | Install" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/docker/20170408-docker-01-install/" /><meta property="article:published_time" content="2017-04-08T15:39:25&#43;08:00"/>
+<meta property="article:modified_time" content="2017-04-08T15:39:25&#43;00:00"/>
+
+<meta itemprop="name" content="Docker | Install">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2017-04-08T15:39:25&#43;08:00" />
+<meta itemprop="dateModified" content="2017-04-08T15:39:25&#43;00:00" />
+<meta itemprop="wordCount" content="996">
+
+
+
+<meta itemprop="keywords" content="docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker | Install"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker | Install</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-08 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 996 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#安装前准备">安装前准备</a>
+<ul>
+<li><a href="#ubuntu">Ubuntu</a></li>
+<li><a href="#centos">Centos</a></li>
+</ul></li>
+<li><a href="#安装docker">安装Docker</a>
+<ul>
+<li><a href="#docker自动安装脚本">Docker自动安装脚本</a>
+<ul>
+<li><a href="#下载安装">下载安装</a></li>
+<li><a href="#查看安装版本">查看安装版本</a></li>
+<li><a href="#建立docker用户组">建立Docker用户组</a></li>
+<li><a href="#调整内存和交换空间-grub">调整内存和交换空间(GRUB)</a></li>
+</ul></li>
+<li><a href="#阿里云安装脚本">阿里云安装脚本</a></li>
+<li><a href="#daocloud安装脚本">DaoCloud安装脚本</a></li>
+</ul></li>
+<li><a href="#faq">FAQ</a>
+<ul>
+<li><a href="#docker守护进程启动失败">Docker守护进程启动失败</a></li>
+<li><a href="#没有开启内存和交换空间">没有开启内存和交换空间</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="简介">简介</h1>
+
+<p>本文基于Ubuntu16.04_64bit_OS 和 CentOS7_64bit_OS</p>
+
+<ul>
+<li><p>查看系统信息</p>
+
+<ul>
+<li>$ uname -a<br />
+Linux device_name 4.4.0-31-generic #50~14.04.1-Ubuntu SMP Wed Jul 13 01:07:32 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+<br /></li>
+</ul></li>
+
+<li><p>使用root账号进行安装</p></li>
+</ul>
+
+<h1 id="安装前准备">安装前准备</h1>
+
+<h2 id="ubuntu">Ubuntu</h2>
+
+<ul>
+<li><p>升级包管理器</p>
+
+<p><code>$ apt-get update</code><br />
+<code>$ apt-get upgrade</code></p></li>
+
+<li><p>安装其他包</p></li>
+</ul>
+
+<p>基本Linux内核镜像,内置了AUFS</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    $ apt-get install linux-image-generic-lts-trusty
+    $ apt-get install -y --install-recommends linux-generic-lts-xenial
+    $ reboot </pre></td></tr></table>
+</div>
+</div>
+<h2 id="centos">Centos</h2>
+
+<ul>
+<li><p>更新系统</p>
+
+<p><code>$ yum upgrade -y</code></p></li>
+</ul>
+
+<h1 id="安装docker">安装Docker</h1>
+
+<h2 id="docker自动安装脚本">Docker自动安装脚本</h2>
+
+<h3 id="下载安装">下载安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ curl -sSL https://get.docker.com/ | sh   // 官方
+$ wget -qO- https://get.docker.com/ | sh   // 获取最新版
+
+# If you would like to use Docker as a non-root user, you # should now consider
+# adding your user to the &#34;docker&#34; group with something # # like:
+#        `$ sudo usermod -aG docker your-user`
+# Remember that you will have to log out and back in for # this to take effect!
+# 安装完成后执行如下命令
+
+$ usermod -aG docker $USER</pre></td></tr></table>
+</div>
+</div>
+<h3 id="查看安装版本">查看安装版本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ docker version
+Client:
+Version:      17.03.1-ce
+API version:  1.27
+Go version:   go1.7.5
+Git commit:   c6d412e
+Built:        Fri Mar 24 00:40:33 2017
+OS/Arch:      linux/amd64
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+
+* 此问题是因为没有建立docker用户组而导致的，解决方法参考·建立Docker用户组</pre></td></tr></table>
+</div>
+</div>
+<h3 id="建立docker用户组">建立Docker用户组</h3>
+
+<blockquote>
+<p><em>注意:</em></p>
+
+<ul>
+<li>docker群组相当于root用户<br /></li>
+<li><code>docker</code>默认使Unix Socket与Docker引擎通信，而只有root和docker组的用户才可以访问Docker引擎的Unix Socket<br /></li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 建立docker用户组
+$ groupadd docker
+
+# 将当前账号加入docker组
+$ usermod -aG docker $USER</pre></td></tr></table>
+</div>
+</div>
+<p><a href="#41-docker守护进程启动失败">Issue &amp; Solution</a></p>
+
+<h3 id="调整内存和交换空间-grub">调整内存和交换空间(GRUB)</h3>
+
+<blockquote>
+<p>centos不需要配置这一步</p>
+</blockquote>
+
+<ul>
+<li><p>在Docker使用过程中可能出现下面信息<code>WARNING</code>：原因是没有开启内存和交换空间，即要修改系统的GUN GRUB(GUN Grand Unified Bootloader)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">WARNING: Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>开启GRUB步骤如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># 编辑GRUB配置文件
+$ gedit /etc/default/grub
+
+# 设置GRUB_CMDLINE_LINUX的值如下
+$ GRUB_CMDLINE_LINUX=&#34;cgroup_enable=memory swapaccount=1&#34; //配置后的结果见下图
+
+# 更新GRUB
+$ update-grub
+$ reboot</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>GRUB Config File</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548403714/blog/images/GRUB_Config.png" alt="GRUB Config File" /></p></li>
+
+<li><p>没有开启内存和交换空间 <a href="#没有开启内存和交换空间">Issue &amp; Solution</a></p></li>
+</ul>
+
+<h2 id="阿里云安装脚本">阿里云安装脚本</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -
+$ docker version</pre></td></tr></table>
+</div>
+</div>
+<h2 id="daocloud安装脚本">DaoCloud安装脚本</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">$ curl -sSL https://get.daocloud.io/docker | sh
+$ docker version</pre></td></tr></table>
+</div>
+</div>
+<h1 id="faq">FAQ</h1>
+
+<h2 id="docker守护进程启动失败">Docker守护进程启动失败</h2>
+
+<p>只有root和docker组的用户才可以访问Docker引擎的Unix Socket，出现如下错误则是当前用户没有添加到docker用户组导致</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    Q:  docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.
+
+    A:  root@boyzhe:~# usermod -aG docker $USER
+        root@boyzhe:~# reboot
+        root@boyzhe:~# docker version
+
+        Client:
+        Version:      17.03.1-ce
+        API version:  1.27
+        Go version:   go1.7.5
+        Git commit:   c6d412e
+        Built:        Fri Mar 24 00:40:33 2017
+        OS/Arch:      linux/amd64
+
+        Server:
+        Version:      17.03.1-ce
+        API version:  1.27 (minimum version 1.12)
+        Go version:   go1.7.5
+        Git commit:   c6d412e
+        Built:        Fri Mar 24 00:40:33 2017
+        OS/Arch:      linux/amd64
+        Experimental: false</pre></td></tr></table>
+</div>
+</div>
+<h2 id="没有开启内存和交换空间">没有开启内存和交换空间</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    Q:  root@boyzhe:~# docker run -d --name web -m 512m -p 8080:80 joshhu/webdemo
+        Status: Downloaded newer image for joshhu/webdemo:latest
+    WARNING: Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.
+
+    A:  参考上文：调整内存和交换空间(GRUB)</pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2017-04-08</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/docker/20170408-docker-basic-notes/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Docker | 基础知识学习笔记</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/network/20170307-net-pits/">
+            <span class="next-text nav-default">Network | 理论填坑</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2017-04-08 15:39:25 \x2b0800 CST',
+        title: 'Docker | Install',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

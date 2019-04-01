@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统 - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="monitor" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/" /><meta property="article:published_time" content="2018-07-29T18:57:08&#43;00:00"/>
+<meta property="article:modified_time" content="2018-07-30T18:57:08&#43;00:00"/>
+
+<meta itemprop="name" content="Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统">
+<meta itemprop="description" content="">
+
+
+<meta itemprop="datePublished" content="2018-07-29T18:57:08&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-30T18:57:08&#43;00:00" />
+<meta itemprop="wordCount" content="1508">
+
+
+
+<meta itemprop="keywords" content="devops,docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-29 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1508 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#docker-监控系统说明">Docker 监控系统说明</a>
+<ul>
+<li><a href="#系统说明">系统说明</a></li>
+<li><a href="#docker-监控组件">Docker 监控组件</a></li>
+</ul></li>
+<li><a href="#docker-监控系统部署过程">Docker 监控系统部署过程</a></li>
+<li><a href="#开始部署">开始部署</a>
+<ul>
+<li><a href="#创建自定义网络">创建自定义网络</a></li>
+<li><a href="#准备-docker-镜像">准备 docker 镜像</a></li>
+<li><a href="#创建-influxdb-容器">创建 influxdb 容器</a>
+<ul>
+<li><a href="#创建数据库用户">创建数据库用户</a></li>
+<li><a href="#创建数据库">创建数据库</a></li>
+</ul></li>
+<li><a href="#创建-cadvisor-容器">创建 cadvisor 容器</a>
+<ul>
+<li><a href="#验证-cadvisor-是否已经向-influxdb-存入数据">验证 cAdvisor 是否已经向 InfluxDB 存入数据</a></li>
+</ul></li>
+<li><a href="#创建-grafana-容器">创建 grafana 容器</a></li>
+<li><a href="#grafana-平台配置及展示">Grafana 平台配置及展示</a>
+<ul>
+<li><a href="#添加数据源-add-data-source">添加数据源 Add data source</a></li>
+<li><a href="#新建面板-new-dashboard">新建面板 New dashboard</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<h1 id="docker-监控系统说明">Docker 监控系统说明</h1>
+
+<h2 id="系统说明">系统说明</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">CentOS:  <span class="m">7</span>.4 <span class="p">|</span> X86_64    
+Docker:  <span class="m">18</span>.06 <span class="p">|</span> CE
+Monitor: 基于 docker 容器搭建监控系统</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="docker-监控组件">Docker 监控组件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cAdvisor: 用于数据采集, 对应镜像：google/cadvisor 
+InfluxDB: 用于数据存储, 对应镜像：tutum/influxdb <span class="o">(</span>带有 web 管理界面<span class="o">)</span>
+Grafana:  用于数据展示, 对应镜像：grafana/grafana</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="docker-监控系统部署过程">Docker 监控系统部署过程</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="m">1</span>. 创建自定义网络 <span class="sb">`</span>monitor<span class="sb">`</span><span class="o">(</span>自定义网络名称<span class="o">)</span>, 用于将后期容器加入此网络中, 即实现容器互联
+    &gt; Note: 推荐使用自定义网络实现容器互联，而不是使用 --link 参数
+<span class="m">2</span>. 准备 docker 镜像
+<span class="m">3</span>. 创建 influxdb 容器, 创建数据库用户和数据库
+<span class="m">4</span>. 创建 cadvisor 容器
+<span class="m">5</span>. 创建 grafana 容器，配置 grafana 监控页面<span class="o">(</span>Dashboard<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="开始部署">开始部署</h1>
+
+<h2 id="创建自定义网络">创建自定义网络</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 默认创建 bridge 网络</span>
+$ docker network create monitor
+ccbb8f8e0b0f28cc9039104ee2a55f9eb2cd4451c1446946b5d11386e4dd6a0c
+
+$ docker network ls
+ccbb8f8e0b0f        monitor             bridge              local</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="准备-docker-镜像">准备 docker 镜像</h2>
+
+<blockquote>
+<p>拉去镜像前先配置加速器，否则 pull 过程会及其缓慢且容易中断&hellip; 233333~~~ (Note: 这里给出中科大的镜像加速站点：<a href="https://docker.mirrors.ustc.edu.cn/">https://docker.mirrors.ustc.edu.cn/</a>)</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Step1: 配置加速[optional]</span>
+
+$ vim /lib/systemd/system/docker.service
+<span class="c1"># 找到 ExecStart=/usr/bin/dockerd</span>
+<span class="c1"># 添加 --registry-mirror=&lt;加速地址&gt;</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/dockerd --registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn/
+
+$ systemctl daemon-reload
+$ systemctl restart docker
+
+<span class="c1"># Step2: 拉去镜像</span>
+$ docker pull google/cadvisor
+$ docker pull tutum/influxdb
+$ docker pull grafana/grafana</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="创建-influxdb-容器">创建 influxdb 容器</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动容器，基镜像采用 tutum/influxdb</span>
+$ docker run --name influxdb --net monitor --restart always -p <span class="m">8083</span>:8083 -p <span class="m">8086</span>:8086 -d tutum/influxdb
+
+<span class="c1"># 参数说明：</span>
+<span class="c1">#   --name      启运容器分配名字influxdb</span>
+<span class="c1">#   --net       把容器加入到新的网络 monitor</span>
+<span class="c1">#   --restart   保证容器实例挂掉或者服务器重启后能够自动重启</span>
+<span class="c1">#   -p          映射端口，8083端口为infuxdb的webd端控制端口，8086端口是infuxdb的数据端口</span>
+<span class="c1">#   -d          后台运行此容器</span>
+
+<span class="c1"># 查看运行结果</span>
+$ docker ps 
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                  PORTS                                            NAMES
+26e4aa121715        tutum/influxdb      <span class="s2">&#34;/run.sh&#34;</span>                <span class="m">1</span> second ago        Up Less than a second   <span class="m">0</span>.0.0.0:8083-&gt;8083/tcp, <span class="m">0</span>.0.0.0:8086-&gt;8086/tcp   influxdb</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="创建数据库用户">创建数据库用户</h3>
+
+<blockquote>
+<p>open host:8083</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建 cadvisor 数据库：cadvisor; 用户 root; 密码 &lt;xxx&gt;(写入自己的密码)</span>
+Query: CREATE USER <span class="s2">&#34;root&#34;</span> WITH PASSWORD <span class="s2">&#34;&lt;xxx&gt;&#34;</span> WITH ALL PRIVILEGES
+
+<span class="c1"># 输入完成，回车，即可完成操作</span>
+<span class="c1"># Note：All PRIVILEGES 指给 root 给与所有特权</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="创建数据库">创建数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建用于存储 cadvisor 采集到的数据的数据库：cadvisor</span>
+
+Query: CREATE DATABASE <span class="s2">&#34;cadvisor&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="创建-cadvisor-容器">创建 cadvisor 容器</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动容器，基镜像采用 google/cadvisor</span>
+$ docker run --name cadvisor --net monitor --restart always -p <span class="m">8080</span>:8080 --volume<span class="o">=</span>/:/rootfs:ro --volume<span class="o">=</span>/var/run:/var/run:rw --volume<span class="o">=</span>/sys:/sys:ro --volume<span class="o">=</span>/var/lib/docker/:/var/lib/docker:ro --volume<span class="o">=</span>/cgroup:/cgroup:ro --privileged<span class="o">=</span><span class="nb">true</span> --userns<span class="o">=</span>host -d google/cadvisor -storage_driver<span class="o">=</span>influxdb -storage_driver_db<span class="o">=</span>cadvisor -storage_driver_host<span class="o">=</span>influxdb:8086
+
+<span class="c1"># 参数说明：</span>
+<span class="c1">#   --volume    把宿主机目录挂载到容器中，这些目录都是cadvisor需要采集的目录文件和监控内容 [:ro 表示只读权限]</span>
+<span class="c1">#   -storage_driver         指定 cadvisor 的存储驱动</span>
+<span class="c1">#   -storage_driver_db      数据库名称</span>
+<span class="c1">#   -storage_driver_host    数据库主机地址</span>
+<span class="c1"># [可选用的参数]</span>
+<span class="c1">#   -storage_driver_user        指定用户名, 默认是root</span>
+<span class="c1">#   -storage_driver_password    指定指定密码, 默认是root</span>
+
+<span class="c1"># 查看运行结果</span>
+$ docker ps 
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                  PORTS                                            NAMES
+430ec6291596        google/cadvisor     <span class="s2">&#34;/usr/bin/cadvisor -…&#34;</span>   <span class="m">1</span> second ago        Up Less than a second   <span class="m">0</span>.0.0.0:8080-&gt;8080/tcp                           cadvisor</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>cAdvisor 应用容器启动成功后，通过 Web 浏览器访问地址 <a href="http://docker-host-ip:8080，便可以查看cAdvisor监控工具所收集到的Docker主机和容器的资源统计信息">http://docker-host-ip:8080，便可以查看cAdvisor监控工具所收集到的Docker主机和容器的资源统计信息</a></p>
+</blockquote>
+
+<h3 id="验证-cadvisor-是否已经向-influxdb-存入数据">验证 cAdvisor 是否已经向 InfluxDB 存入数据</h3>
+
+<ul>
+<li>打开 <a href="http://host:8083/">http://host:8083/</a> 的 InfluxDB 管理界面</li>
+<li>点击右上角 Database 切换到 cadvisor 数据库</li>
+<li>然后在输入框输入 SHOW MEASUREMENTS 可以看到已经创建了很多个表</li>
+</ul>
+
+<h2 id="创建-grafana-容器">创建 grafana 容器</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动容器，基镜像采用 grafana/grafana</span>
+$ docker run --name grafana --net monitor --restart always -p <span class="m">3000</span>:3000 -d grafana/grafana
+
+<span class="c1"># 查看运行结果</span>
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                  PORTS                                            NAMES
+6fcd1a9da386        grafana/grafana     <span class="s2">&#34;/run.sh&#34;</span>                <span class="m">1</span> second ago        Up Less than a second   <span class="m">0</span>.0.0.0:3000-&gt;3000/tcp                           grafana</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="grafana-平台配置及展示">Grafana 平台配置及展示</h2>
+
+<blockquote>
+<p>通过 Web 浏览器访问地址 <code>http://docker-host-ip:3000</code>, 登录 Grafana 管理平台. 默认账户密码（admin/admin）</p>
+</blockquote>
+
+<h3 id="添加数据源-add-data-source">添加数据源 Add data source</h3>
+
+<h3 id="新建面板-new-dashboard">新建面板 New dashboard</h3>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://docker_practice.gitee.io/network/linking.html">容器互联</a></li>
+<li><a href="http://blog.51cto.com/ganbing/2083389">docker：快速构建容器监控系统cAdvisor+InfluxDB+Grafana</a></li>
+<li><a href="https://www.jianshu.com/p/d078d353d12f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">使用InfluxDB+cAdvisor+Grafana配置Docker监控</a></li>
+<li><a href="https://blog.csdn.net/zxf_668899/article/details/53931314">Docker 集群监控平台&mdash;cAdvisor-InfluxDB-Grafana</a></li>
+<li><a href="https://blog.csdn.net/liyingke112/article/details/74923178">cAdvisor、InfluxDB、Grafana搭建Docker1.12性能监控平台</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-07-30</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/devops/">devops</a>
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/monitor/grafana-03-practice/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Monitor | Grafana 使用</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/db/influxdb/02-getting-started/">
+            <span class="next-text nav-default">InfluxDB | 入门指南</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-07-29 18:57:08 \x2b0000 UTC',
+        title: 'Monitor | 基于 cAdvisor\x2bInfluxDB\x2bGrafana 搭建监控系统',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content="Devops | CI/CD 实践" /><meta name="keywords" content="devops, docker, cicd" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server" />
+<meta property="og:description" content="Devops | CI/CD 实践" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/" /><meta property="article:published_time" content="2018-10-29T16:58:16&#43;08:00"/>
+<meta property="article:modified_time" content="2018-11-02T16:58:16&#43;00:00"/>
+
+<meta itemprop="name" content="DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server">
+<meta itemprop="description" content="Devops | CI/CD 实践">
+
+
+<meta itemprop="datePublished" content="2018-10-29T16:58:16&#43;08:00" />
+<meta itemprop="dateModified" content="2018-11-02T16:58:16&#43;00:00" />
+<meta itemprop="wordCount" content="5360">
+
+
+
+<meta itemprop="keywords" content="devops,cicd,docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server"/>
+<meta name="twitter:description" content="Devops | CI/CD 实践"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-29 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 5360 words </span>
+          <span class="more-meta"> 11 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#准备-go-web-app-演示项目">准备 Go-Web-App 演示项目</a></li>
+<li><a href="#配置-drone-ci-cd-服务">配置 Drone CI/CD 服务</a>
+<ul>
+<li><a href="#drone-pipeline-单元测试-test">Drone Pipeline: 单元测试(test)</a></li>
+<li><a href="#drone-pipeline-构建-go-web-app-build">Drone Pipeline: 构建 Go-Web-App(build)</a></li>
+<li><a href="#drone-pipeline-发布-docker-镜像-image">Drone Pipeline: 发布 Docker 镜像(image)</a></li>
+<li><a href="#drone-pipeline-上传静态资源和部署脚本-scp">Drone Pipeline: 上传静态资源和部署脚本(scp)</a>
+<ul>
+<li><a href="#配置-docker-compose-yml">配置 docker-compose.yml</a></li>
+</ul></li>
+<li><a href="#drone-pipeline-服务部署-deploy">Drone Pipeline: 服务部署(deploy)</a></li>
+<li><a href="#drone-pipeline-结果通知-notify-hipchat">Drone Pipeline: 结果通知(notify:hipchat)</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<blockquote>
+<p>前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有：</p>
+
+<ul>
+<li><a href="https://zhezh09.github.io/post/tech/devops/cicd/20180925-drone-01-basic/">Drone 的基本概念</a></li>
+<li><a href="https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/">Drone 服务部署</a></li>
+<li><a href="https://zhezh09.github.io/post/tech/devops/docker/docker-compose-note/">Docker-Compose 基础</a></li>
+<li><a href="https://zhezh09.github.io/post/tech/devops/docker/registry-and-webui/">Docker Registry 服务部署</a></li>
+</ul>
+</blockquote>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1540883528/20181030-drone-cicd-pipeline-graph.png" alt="" /></p>
+
+<h1 id="简介">简介</h1>
+
+<p>这里以一个 Golang 项目(Go-Web-App)为例，基于 Drone CI 服务完成其自动化部署工作流的配置和演示：主要步骤包含：</p>
+
+<blockquote>
+<p>clone =&gt; test =&gt; build =&gt; image =&gt; deploy =&gt; notify</p>
+</blockquote>
+
+<p>包含开发的完成流程说明：</p>
+
+<ul>
+<li>开发项目代码, 包括源码文件，<code>.drone.yml</code> 文件、Dockerfile 文件等配置文件和一系列执行脚本(*.sh)</li>
+<li>提交代码：<code>push</code>、<code>pull request</code>、<code>tag</code> 到代码仓库(Bitbucket Server), 通过 Webhook 触发 Drone 的 Pipeline</li>
+<li>Drone 开始 Pipeline 的执行
+
+<ul>
+<li>Clone 代码至容器(Drone 默认执行)</li>
+<li>执行单元测试</li>
+<li>编译代码，构建生成可执行程序</li>
+<li>构建 Docker 镜像，并发布到 Docker Registry</li>
+<li>打包资源文件、执行脚本、配置文件等到远程测试服务器</li>
+<li>部署应用容器到测试环境</li>
+<li>结果通知</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>Note: Drone 引入了 pipeline 的概念，上述整个构建过程由多个 stage 组成，每一个 stage 都是在一个 Docker 容器内执行:</p>
+
+<ul>
+<li>各 stage 间可以通过共享宿主机的磁盘目录, 实现 build 阶段的数据共享和缓存基础数据, 实现加速下次 build 的目标</li>
+<li>各 stage 也可以共享宿主机的 docker 环境，实现共享宿主机的 docker image, 不用每次 build 都重新拉取 base image，减少 build 时间</li>
+<li>可以并发运行。多个 build 可以并发运行，单机并发数量由服务器 cpu 数决定</li>
+</ul>
+</blockquote>
+
+<h1 id="准备-go-web-app-演示项目">准备 Go-Web-App 演示项目</h1>
+
+<p>Go-Web-App Demo Project 简介：</p>
+
+<ul>
+<li>由 Golang 实现一组 RESTFul API</li>
+<li>由 Gorilla Mux 提供路由</li>
+<li>由 MongoDB 提供数据存储服务</li>
+</ul>
+
+<p>准备 Go-Web-App 项目：</p>
+
+<ul>
+<li><p>创建源码根目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> /home/workspace/code/bitbucket/
+$ mkdir goweb-app <span class="o">&amp;&amp;</span> <span class="nb">cd</span> goweb-app</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>初始化工程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git init
+$ touch .gitignore README.md
+$ <span class="nb">echo</span> .idea &gt;&gt; .gitignore
+$ git add --all
+$ git commit -m <span class="s2">&#34;Initial Commit&#34;</span>
+$ git remote add origin http://admin@&lt;_bitbucket_server_&gt;.com:7990/scm/sof/goweb-app.git
+$ git push -u origin master</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>添加源码文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir api cicd www 
+<span class="c1">#   - cicd：存放 Drone CI 服务的相关配置文件和脚本</span>
+<span class="c1">#   - www： 存放网站资源</span>
+$ touch api/app.go api/model.go main.go main_test.go</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>源码内容可以 <a href="https://github.com/zhezh09/go-practice/tree/master/go-web/restapi">Click Here</a> 进行拷贝。</li>
+</ul></li>
+
+<li><p>初始化 go module 并运行项目</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go mod init go-web
+$ go run .
+go: finding github.com/gedex/inflector latest
+go: finding gopkg.in/mgo.v2 latest
+<span class="m">2018</span>/10/31 <span class="m">16</span>:03:14 mgo listen and serve on <span class="o">[</span>mgo, localhost:27017<span class="o">]</span>
+<span class="m">2018</span>/10/31 <span class="m">16</span>:03:14 api listen and serve on <span class="o">[</span>:8090<span class="o">]</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>项目创建完成后先提交代码到源码库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add -A <span class="o">&amp;&amp;</span> git commit -m <span class="s2">&#34;initial project&#34;</span> <span class="o">&amp;&amp;</span> git push</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<p>此时的项目结构为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">goweb-app/
+<span class="p">|</span>-- README.md
+<span class="p">|</span>-- api
+<span class="p">|</span>   <span class="p">|</span>-- app.go
+<span class="p">|</span>   <span class="sb">`</span>-- model.go
+<span class="p">|</span>-- go.mod
+<span class="p">|</span>-- go.sum
+<span class="p">|</span>-- main.go
+<span class="sb">`</span>-- main_test.go
+
+<span class="m">1</span> directory, <span class="m">7</span> files</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="配置-drone-ci-cd-服务">配置 Drone CI/CD 服务</h1>
+
+<p>需要提前阅读的相关文档：</p>
+
+<ul>
+<li><a href="http://docs.drone.io/getting-started/">http://docs.drone.io/getting-started/</a></li>
+<li><a href="https://zhezh09.github.io/post/tech/devops/cicd/20180925-drone-01-basic/">Drone 的基本概念</a></li>
+</ul>
+
+<p>在项目 <code>根目录</code> 创建 Drone CI/CD 的配置文件：<code>.drone.yml</code>；然后跳转到 Drone Web UI：<a href="http://your_company_domain.com:8000">http://your_company_domain.com:8000</a>，完成登陆后 Drone Server 会自动同步你的账号下面的项目列表(或者手动同步)。然后选择需要启用 Drone CI 的项目，点击右侧开关选项即可启用。如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1540976956/blog/images/drone-enable-repo.png" alt="Drone UI: Repositories" /></p>
+
+<p>最后，需要在 Drone Web UI 管理界面，找到 goweb-app 的设置选项，开启 Repo Hooks，如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1540977802/blog/images/drone-goweb-app-settings.png" alt="" /></p>
+
+<h2 id="drone-pipeline-单元测试-test">Drone Pipeline: 单元测试(test)</h2>
+
+<p>Go-Web-App 的接口单元测试依赖于 MongoDB 数据库服务，因此在配置 <code>pipeline: test</code> 前需要先配置好 <code>services</code></p>
+
+<ul>
+<li><p>需要提前阅读的相关文档：</p>
+
+<ul>
+<li><a href="http://docs.drone.io/workspace/">Drone Docs: workspace 介绍</a></li>
+<li><a href="http://docs.drone.io/services/">Drone Docs: services 介绍</a></li>
+<li><a href="http://docs.drone.io/pipelines/">Drone Docs: pipelines 介绍</a></li>
+<li><a href="http://docs.drone.io/mongodb-example/">Drone Docs: services mongodb 使用实例</a></li>
+<li><a href="http://docs.drone.io/pipeline-conditions/">Drone Docs: 如何对 pipeline 做条件限制</a></li>
+<li><a href="http://docs.drone.io/substitution/">Drone Docs: 使用预设的变量动态配置 pipelines</a></li>
+</ul></li>
+
+<li><p>此时 <code>.drone.yml</code> 配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">workspace<span class="p">:</span><span class="w">
+</span><span class="w"></span>base<span class="p">:</span><span class="w"> </span>/go<span class="w">
+</span><span class="w"></span>path<span class="p">:</span><span class="w"> </span>src/repo/goweb-app<span class="w">
+</span><span class="w">
+</span><span class="w"></span>clone<span class="p">:</span><span class="w">    </span><span class="c"># Clone code from bitbucket</span><span class="w">
+</span><span class="w">  </span>git<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/git<span class="w">
+</span><span class="w">    </span>depth<span class="p">:</span><span class="w"> </span><span class="m">50</span><span class="w">
+</span><span class="w">    </span>tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>pipeline<span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>ping<span class="p">:</span><span class="w">   </span><span class="c"># Mgo-server for testing restful api</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>sleep<span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>mongo<span class="w"> </span>--host<span class="w"> </span>mgo<span class="w"> </span>--eval<span class="w"> </span><span class="s2">&#34;{ping:1}&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>test<span class="p">:</span><span class="w">   </span><span class="c"># Golang unit testing</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BRC=${DRONE_COMMIT_BRANCH}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>SHA=${DRONE_COMMIT_SHA<span class="p">:</span><span class="m">0</span><span class="p">:</span><span class="m">8</span>}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>EVN=${DRONE_BUILD_EVENT}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MSG=${DRONE_COMMIT_MESSAGE}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>TAG=${DRONE_TAG}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MGO=mgo<span class="p">:</span><span class="m">27017</span><span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>test_api.sh<span class="w"> </span>$MGO<span class="w"> </span>$BRC<span class="w"> </span>$SHA<span class="w"> </span>$EVN<span class="w"> </span>$MSG<span class="w"> </span>$TAG<span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">  </span><span class="c"># Dependent service</span><span class="w">
+</span><span class="w">  </span>mgo<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">
+</span><span class="w"></span>branches<span class="p">:</span><span class="w">  </span><span class="c"># Enable Drone CICD on: master &amp; release/* branches</span><span class="w">
+</span><span class="w">  </span>include<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>master<span class="p">,</span><span class="w"> </span>release/*<span class="w"> </span><span class="p">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>workspace 定义了所有工作流步骤共享的容器空间和目录</li>
+<li>clone 部分是默认配置, 也可以自定义</li>
+<li>Pipeline：<code>ping</code> stage 放在第一步是用来验证 mgo services 已经可以正常提供服务了</li>
+<li>命令 <code>mongo --host mgo --eval &quot;{ping:1}</code> 的选项 <code>--host</code> 的值填写 <code>services</code> 部分配置的名称，即：<code>mgo</code></li>
+<li>官网的 <code>--eval &quot;{ ping: 1 }&quot;</code> 会导致错误，需改成 <code>--eval &quot;{ping:1}&quot;</code></li>
+<li><code>${DRONE_COMMIT_BRANCH}</code> 等一系列预设变量可用来动态配置 pipelines</li>
+<li>commands 部分如果内容过多或想让 <code>.drone.yml</code> 配置变得简洁时，可用脚本实现</li>
+<li>services 部分用来定义服务应用容器，例如：database、cache、redis等</li>
+<li>branches 部分可以用来限定 Drone CI 作用在那些分支上(这里只作用在：master 和 release/* 开头的所有分支上)</li>
+</ul>
+</blockquote></li>
+
+<li><p>添加脚本 <code>test_api.sh</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入项目根目录，创建 cicd 目录用来存放 Drone 执行时的一些脚本和配置文件</span>
+$ <span class="nb">cd</span> goweb-app <span class="o">&amp;&amp;</span> mkdir cicd
+
+<span class="c1"># 创建 test_api.sh</span>
+$ touch test_api.sh 
+
+<span class="c1"># 脚本内容如下：</span>
+
+<span class="cp">#!/bin/sh
+</span><span class="cp"></span>#
+<span class="c1"># Program: API 单元测试脚本</span>
+<span class="c1"># Authors: zhangzhe</span>
+<span class="c1"># History:</span>
+<span class="c1">#   2018-10-24：编写脚本实现</span>
+#
+
+<span class="c1"># Pre Set</span>
+<span class="nb">set</span> -x
+
+<span class="c1"># Set ENV</span>
+<span class="nb">export</span> <span class="nv">GO111MODULE</span><span class="o">=</span>on                               <span class="c1"># Go1.11.x 版本需要开启</span>
+<span class="nb">export</span> <span class="nv">http_proxy</span><span class="o">=</span>http://10.0.0.121:1080
+<span class="nb">export</span> <span class="nv">https_proxy</span><span class="o">=</span><span class="si">${</span><span class="nv">http_proxy</span><span class="si">}</span>
+
+<span class="c1"># Set Var</span>
+<span class="nv">Src</span><span class="o">=</span>../                                             <span class="c1"># 程序源码</span>
+<span class="nv">DB</span><span class="o">=</span><span class="nv">$1</span>                                               <span class="c1"># Database Server Address</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="nv">$1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nv">DB</span><span class="o">=</span>mgo:27017
+<span class="k">fi</span>
+
+<span class="c1"># Golang Test</span>
+<span class="nb">echo</span> Test Info: <span class="nv">$@</span>                                  <span class="c1"># 打印构建信息, 脚本执行参数</span>
+                                                    <span class="c1"># ${DRONE_COMMIT_BRANCH}</span>
+                                                    <span class="c1"># ${DRONE_COMMIT_SHA:0:8}</span>
+                                                    <span class="c1"># ${DRONE_BUILD_EVENT}</span>
+                                                    <span class="c1"># ${DRONE_COMMIT_MESSAGE}</span>
+                                                    <span class="c1"># ${DRONE_TAG}</span>
+<span class="nb">echo</span> <span class="nv">$PWD</span>
+
+go mod tidy                                         <span class="c1"># 解决依赖包</span>
+go <span class="nb">test</span> -v --cover <span class="si">${</span><span class="nv">Src</span><span class="si">}</span> --db_addr<span class="o">=</span><span class="si">${</span><span class="nv">DB</span><span class="si">}</span>           <span class="c1"># &#39;mgo:27017&#39; Drone 提供的数据库服务</span>
+                                                    <span class="c1"># &#39;localhost:27017&#39; 宿主机提供的数据库服务</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Now, 提交代码进行测试(备注：Drone CI/CD 设定只在 master 和 以 release/ 开头的分支起作用)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add -A <span class="o">&amp;&amp;</span> git commit -m <span class="s2">&#34;test drone cicd pipeline -&gt; test stage&#34;</span> <span class="o">&amp;&amp;</span> git push</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>构建结果如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1540979214/blog/images/drone-goweb-app-pipeline-test-stage.png" alt="" /></p></li>
+</ul>
+
+<h2 id="drone-pipeline-构建-go-web-app-build">Drone Pipeline: 构建 Go-Web-App(build)</h2>
+
+<p>单元测试执行完成后，就可以进入 <code>build</code> 阶段来构建可执行程序了。</p>
+
+<ul>
+<li><p>此时的 <code>.drone.yml</code> 配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">workspace<span class="p">:</span><span class="w">
+</span><span class="w">  </span>base<span class="p">:</span><span class="w"> </span>/go<span class="w">
+</span><span class="w">  </span>path<span class="p">:</span><span class="w"> </span>src/repo/goweb-app<span class="w">
+</span><span class="w">    
+</span><span class="w"></span>clone<span class="p">:</span><span class="w">    </span><span class="c"># Clone code from bitbucket</span><span class="w">
+</span><span class="w">  </span>git<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/git<span class="w">
+</span><span class="w">    </span>depth<span class="p">:</span><span class="w"> </span><span class="m">50</span><span class="w">
+</span><span class="w">    </span>tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    
+</span><span class="w"></span>pipeline<span class="p">:</span><span class="w">
+</span><span class="w">  </span>ping<span class="p">:</span><span class="w">   </span><span class="c"># Mgo-server for testing restful api</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>sleep<span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>mongo<span class="w"> </span>--host<span class="w"> </span>mgo<span class="w"> </span>--eval<span class="w"> </span><span class="s2">&#34;{ping:1}&#34;</span><span class="w">
+</span><span class="w">      
+</span><span class="w">  </span>test<span class="p">:</span><span class="w">   </span><span class="c"># Golang unit testing</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BRC=${DRONE_COMMIT_BRANCH}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>SHA=${DRONE_COMMIT_SHA<span class="p">:</span><span class="m">0</span><span class="p">:</span><span class="m">8</span>}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>EVN=${DRONE_BUILD_EVENT}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MSG=${DRONE_COMMIT_MESSAGE}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>TAG=${DRONE_TAG}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MGO=mgo<span class="p">:</span><span class="m">27017</span><span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>test_api.sh<span class="w"> </span>$MGO<span class="w"> </span>$BRC<span class="w"> </span>$SHA<span class="w"> </span>$EVN<span class="w"> </span>$MSG<span class="w"> </span>$TAG<span class="w">
+</span><span class="w">    
+</span><span class="w">    </span>+<span class="w"> </span>build<span class="p">:</span><span class="w">  </span><span class="c"># Build go app and package source files</span><span class="w">
+</span><span class="w">    </span>+<span class="w">   </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>+<span class="w">   </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">    </span>+<span class="w">     </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">    </span>+<span class="w">     </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>build_app.sh<span class="w">
+</span><span class="w">    
+</span><span class="w"></span>services<span class="p">:</span><span class="w">  </span><span class="c"># Dependent service</span><span class="w">
+</span><span class="w">  </span>mgo<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    
+</span><span class="w"></span>branches<span class="p">:</span><span class="w">  </span><span class="c"># Enable Drone CICD on: master &amp; release/* branches</span><span class="w">
+</span><span class="w">  </span>include<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>master<span class="p">,</span><span class="w"> </span>release/*<span class="w"> </span><span class="p">]</span></code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>构建可执行程序的具体步骤由脚本：build_app.sh 定义，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入项目根目录，创建 cicd 目录用来存放 Drone 执行时的一些脚本和配置文件</span>
+$ <span class="nb">cd</span> cicd
+
+<span class="c1"># 创建 build_app.sh</span>
+$ touch build_app.sh 
+
+<span class="c1"># 脚本内容如下：</span>
+
+<span class="cp">#!/bin/sh
+</span><span class="cp"></span>#
+<span class="c1"># Program: 构建 Go-App &amp; 打包资源文件</span>
+<span class="c1"># Authors: zhangzhe</span>
+<span class="c1"># History:</span>
+<span class="c1">#   2018-10-24：编写脚本实现</span>
+#
+
+<span class="c1"># Pre Set</span>
+<span class="nb">set</span> -x
+
+<span class="c1"># Set ENV</span>
+<span class="nb">export</span> <span class="nv">GO111MODULE</span><span class="o">=</span>on                               <span class="c1"># Go1.11.x 版本需要开启</span>
+<span class="nb">export</span> <span class="nv">http_proxy</span><span class="o">=</span>http://10.0.0.121:1080
+<span class="nb">export</span> <span class="nv">https_proxy</span><span class="o">=</span><span class="si">${</span><span class="nv">http_proxy</span><span class="si">}</span>
+
+<span class="c1"># Set Var</span>
+<span class="nv">Src</span><span class="o">=</span>../                                             <span class="c1"># 程序源码</span>
+<span class="nv">Out</span><span class="o">=</span><span class="s2">&#34;app&#34;</span>
+<span class="nv">Options</span><span class="o">=</span><span class="s2">&#34;-a -installsuffix cgo -o&#34;</span>
+<span class="c1"># PreSet=&#39;GOOS=linux GOARCH=amd64&#39;                  # 构建变量设置</span>
+
+<span class="c1"># Build</span>
+go version
+go env
+
+<span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span> go build -o <span class="si">${</span><span class="nv">Out</span><span class="si">}</span> <span class="si">${</span><span class="nv">Src</span><span class="si">}</span>             <span class="c1"># build</span>
+
+<span class="c1"># Package</span>
+tar -zcvf release.tar.gz ../www ./*</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>build_app.sh 脚本的最后一行用来打包资源文件(网站资源、配置文件和脚本等)，该资源文件最终需要上传到远程服务器</li>
+</ul>
+</blockquote></li>
+
+<li><p>最后，在创建 <code>www</code> 目录用来测试静态页面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入项目根目录，创建 www 目录</span>
+$ <span class="nb">cd</span> goweb-app <span class="o">&amp;&amp;</span> mkdir www
+
+<span class="c1"># 创建 index.html 静态页面</span>
+$ touch www/index.html
+
+<span class="c1"># 填入如下内容：</span>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1&gt;I<span class="err">&#39;</span>m zher.&lt;/h1&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Now, 提交代码进行测试(备注：Drone CI/CD 设定只在 master 和 以 release/ 开头的分支起作用)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add -A <span class="o">&amp;&amp;</span> git commit -m <span class="s2">&#34;test drone cicd pipeline -&gt; build stage&#34;</span> <span class="o">&amp;&amp;</span> git push</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>构建结果如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1541037152/blog/images/drone-goweb-app-pipeline-build-stage.png" alt="" /></p></li>
+</ul>
+
+<h2 id="drone-pipeline-发布-docker-镜像-image">Drone Pipeline: 发布 Docker 镜像(image)</h2>
+
+<p>这里 Docker 镜像是发布到自建的 Docker Registry Server 的，其部署文档参考：<a href="https://zhezh09.github.io/post/tech/devops/docker/registry-and-webui/">Docker | Deploy Docker Registry and Web UI</a></p>
+
+<ul>
+<li><p>生成 Go-Web-App 的可执行文件后，就可以将其打包为 Docker Image 发布了，此时的 <code>.drone.yml</code> 配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">workspace<span class="p">:</span><span class="w">
+</span><span class="w">  </span>base<span class="p">:</span><span class="w"> </span>/go<span class="w">
+</span><span class="w">  </span>path<span class="p">:</span><span class="w"> </span>src/repo/goweb-app<span class="w">
+</span><span class="w">
+</span><span class="w"></span>clone<span class="p">:</span><span class="w">    </span><span class="c"># Clone code from bitbucket</span><span class="w">
+</span><span class="w">  </span>git<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/git<span class="w">
+</span><span class="w">    </span>depth<span class="p">:</span><span class="w"> </span><span class="m">50</span><span class="w">
+</span><span class="w">    </span>tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>pipeline<span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>ping<span class="p">:</span><span class="w">   </span><span class="c"># Mgo-server for testing restful api</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>sleep<span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>mongo<span class="w"> </span>--host<span class="w"> </span>mgo<span class="w"> </span>--eval<span class="w"> </span><span class="s2">&#34;{ping:1}&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>test<span class="p">:</span><span class="w">   </span><span class="c"># Golang unit testing</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BRC=${DRONE_COMMIT_BRANCH}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>SHA=${DRONE_COMMIT_SHA<span class="p">:</span><span class="m">0</span><span class="p">:</span><span class="m">8</span>}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>EVN=${DRONE_BUILD_EVENT}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MSG=${DRONE_COMMIT_MESSAGE}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>TAG=${DRONE_TAG}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MGO=mgo<span class="p">:</span><span class="m">27017</span><span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>test_api.sh<span class="w"> </span>$MGO<span class="w"> </span>$BRC<span class="w"> </span>$SHA<span class="w"> </span>$EVN<span class="w"> </span>$MSG<span class="w"> </span>$TAG<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>build<span class="p">:</span><span class="w">  </span><span class="c"># Build go app and package source files</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>build_app.sh<span class="w">
+</span><span class="w">
+</span><span class="w">    </span>+<span class="w">  </span>image<span class="p">:</span><span class="w">  </span><span class="c"># Build image and publish to private registry</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/docker<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>repo<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span>/go-app<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>registry<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>docker_username<span class="p">,</span><span class="w"> </span>docker_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>context<span class="p">:</span><span class="w"> </span>./cicd/<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>dockerfile<span class="p">:</span><span class="w"> </span>./cicd/Dockerfile<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>default_tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">  </span><span class="c"># Dependent service</span><span class="w">
+</span><span class="w">  </span>mgo<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">
+</span><span class="w"></span>branches<span class="p">:</span><span class="w">  </span><span class="c"># Enable Drone CICD on: master &amp; release/* branches</span><span class="w">
+</span><span class="w">  </span>include<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>master<span class="p">,</span><span class="w"> </span>release/*<span class="w"> </span><span class="p">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li><p>image 阶段使用了插件：<a href="http://plugins.drone.io/drone-plugins/drone-docker/">plugins/docker</a> 来构建 Docker Image 且将其发布到指定的远程 Docker Registry, 详细说明可以查阅其文档</p></li>
+
+<li><p>image 阶段限制只在 <code>tag</code> 事件被触发式才执行 Docker Image 构建和发布</p></li>
+
+<li><p>secrets 选项中的 <code>docker_username &amp; docker_password</code> 是 Drone 注入的，我们需要在提前在 Drone Web 端先设置好这些 secrets，如下图：</p></li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1541038364/blog/images/drone-goweb-app-secrets-0.png" alt="" /></p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1541037862/blog/images/drone-goweb-app-secrets-1.png" alt="" /></p>
+</blockquote></li>
+
+<li><p>构建镜像的 Dockerfile 内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入项目根目录，创建 cicd 目录用来存放 Drone 执行时的一些脚本和配置文件</span>
+$ <span class="nb">cd</span> cicd
+
+<span class="c1"># 创建 Dockerfile</span>
+$ touch Dockerfile
+
+<span class="c1"># 填入以下内容：</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c"># Program: Dockerfile for API Service</span><span class="err">
+</span><span class="err"></span><span class="c"># Build:</span><span class="err">
+</span><span class="err"></span><span class="c">#   docker build -t &lt;image_name&gt; .</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># 基础镜像</span><span class="err">
+</span><span class="err"></span><span class="c"># Usage: FROM image:tag</span><span class="err">
+</span><span class="err"></span><span class="k">FROM</span><span class="s"> repo.company.com:5000/alpine:3.8</span><span class="err">
+</span><span class="err"></span>    <span class="err">
+</span><span class="err"></span><span class="c"># 设置环境变量</span><span class="err">
+</span><span class="err"></span><span class="c"># Usage: ENV &lt;key=value&gt; &lt;key=value&gt;</span><span class="err">
+</span><span class="err"></span><span class="k">ENV</span><span class="s"> WorkDir=/home/api</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># 指定维护者信息</span><span class="err">
+</span><span class="err"></span><span class="c"># Usage: MAINTAINER name</span><span class="err">
+</span><span class="err"></span><span class="k">MAINTAINER</span><span class="s"> &lt;xxx@xxx.com&gt;</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># 给镜像添加工作目录</span><span class="err">
+</span><span class="err"></span><span class="c"># Usage: RUN [命令]</span><span class="err">
+</span><span class="err"></span><span class="c"># RUN mkdir -p ${WorkDir}}</span><span class="err">
+</span><span class="err"></span><span class="c"># Set Time Zone</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="s1">&#39;http://mirrors.ustc.edu.cn/alpine/v3.5/main&#39;</span> &gt; /etc/apk/repositories <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">&#39;http://mirrors.ustc.edu.cn/alpine/v3.5/community&#39;</span> &gt;&gt; /etc/apk/repositories <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> apk update <span class="o">&amp;&amp;</span> apk add tzdata <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> ln -sf /usr/share/zoneinfo/Asia/Shanghai/etc/localtime <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;Asia/Shanghai&#34;</span> &gt; /etc/timezone<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># 设定默认工作路径</span><span class="err">
+</span><span class="err"></span><span class="c"># Usage: WORKDIR [path]</span><span class="err">
+</span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> ${WorkDir}</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># 复制本地应用程序文件[src]到Container的工作目录[dst]</span><span class="err">
+</span><span class="err"></span><span class="c"># Usage: COPY [src] [dst]</span><span class="err">
+</span><span class="err"></span>COPY app <span class="si">${</span><span class="nv">WorkDir</span><span class="si">}</span>/<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> chmod +x <span class="si">${</span><span class="nv">WorkDir</span><span class="si">}</span>/app<span class="err">
+</span><span class="err"></span>        <span class="err">
+</span><span class="err"></span><span class="c"># 容器暴漏给外侧的端口号</span><span class="err">
+</span><span class="err"></span><span class="c"># Usage: EXPOSE port [port...]</span><span class="err">
+</span><span class="err"></span><span class="k">EXPOSE</span><span class="s"> 80</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># 指定容器启动时执行的命令</span><span class="err">
+</span><span class="err"></span><span class="c"># Usage: CMD [&#34;executable&#34;, &#34;param1&#34;, &#34;param2&#34;]</span><span class="err">
+</span><span class="err"></span><span class="k">CMD</span><span class="s"> [&#34;./app&#34;]</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>Dockerfile 中的基础镜像使用的是 alpine, 这里将 alpine:3.8 上传到我们自建的 Docker Registry 以节省构建时间。如果使用 Docker Hub 中的镜像每次都要拉取一次，会很慢。</li>
+</ul>
+</blockquote></li>
+
+<li><p>上传构建 Go-Web-App 的基础镜像到我们自建的 Docker Private Registry:</p>
+
+<ul>
+<li><p><a href="https://zhezh09.github.io/post/tech/devops/docker/registry-and-webui/#测试">上传镜像到 Docker Registry 参考文章</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker pull alpine:3.8
+$ docker tag alpine:3.8 repo.company.com:5000/alpine:3.8
+$ docker push repo.company.com:5000/alpine:3.8
+
+<span class="c1"># push 失败时，尝试重新登陆后继续 push 即可</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Push <code>repo.company.com:5000/alpine:3.8</code> 成功后，可以打开 Docker Registry UI (<a href="http://your_domain.com:5001">http://your_domain.com:5001</a>) 即可看到刚刚提交的镜像信息。</p></li>
+</ul></li>
+
+<li><p>Now, 提交代码进行测试(备注：Drone CI/CD 设定只在 master 和 以 release/ 开头的分支起作用)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add -A <span class="o">&amp;&amp;</span> git commit -m <span class="s2">&#34;test drone cicd pipeline -&gt; publish image stage&#34;</span> <span class="o">&amp;&amp;</span> git push
+
+<span class="c1"># 打 tag, 触发 when: [event: tag] 事件，即触发 publish_image 阶段执行</span>
+$ git tag <span class="m">0</span>.0.1 -m <span class="s2">&#34;release 0.0.1&#34;</span> <span class="o">&amp;&amp;</span> git push origin <span class="m">0</span>.0.1</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>构建结果如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1541079815/blog/images/drone-goweb-app-pipeline-publish-image-stage.png" alt="" /></p>
+
+<ul>
+<li>执行完成后可以打开 Docker Registry UI：<a href="http://your.domain.com:5001">http://your.domain.com:5001</a> 看到刚刚构建好的镜像</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1541080216/blog/images/docker-registry-ui-1.png" alt="" /></p></li>
+</ul>
+
+<h2 id="drone-pipeline-上传静态资源和部署脚本-scp">Drone Pipeline: 上传静态资源和部署脚本(scp)</h2>
+
+<p>要实现自动部署容器服务，光有镜像是不够的，因此，还需要将网站资源，配置文件等一些脚本打包发到远端服务器上.</p>
+
+<ul>
+<li><p>此时的 <code>.drone.yml</code> 配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">workspace<span class="p">:</span><span class="w">
+</span><span class="w">  </span>base<span class="p">:</span><span class="w"> </span>/go<span class="w">
+</span><span class="w">  </span>path<span class="p">:</span><span class="w"> </span>src/repo/goweb-app<span class="w">
+</span><span class="w">
+</span><span class="w"></span>clone<span class="p">:</span><span class="w">    </span><span class="c"># Clone code from bitbucket</span><span class="w">
+</span><span class="w">  </span>git<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/git<span class="w">
+</span><span class="w">    </span>depth<span class="p">:</span><span class="w"> </span><span class="m">50</span><span class="w">
+</span><span class="w">    </span>tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>pipeline<span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>ping<span class="p">:</span><span class="w">   </span><span class="c"># Mgo-server for testing restful api</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>sleep<span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>mongo<span class="w"> </span>--host<span class="w"> </span>mgo<span class="w"> </span>--eval<span class="w"> </span><span class="s2">&#34;{ping:1}&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>test<span class="p">:</span><span class="w">   </span><span class="c"># Golang unit testing</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BRC=${DRONE_COMMIT_BRANCH}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>SHA=${DRONE_COMMIT_SHA<span class="p">:</span><span class="m">0</span><span class="p">:</span><span class="m">8</span>}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>EVN=${DRONE_BUILD_EVENT}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MSG=${DRONE_COMMIT_MESSAGE}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>TAG=${DRONE_TAG}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MGO=mgo<span class="p">:</span><span class="m">27017</span><span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>test_api.sh<span class="w"> </span>$MGO<span class="w"> </span>$BRC<span class="w"> </span>$SHA<span class="w"> </span>$EVN<span class="w"> </span>$MSG<span class="w"> </span>$TAG<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>build<span class="p">:</span><span class="w">  </span><span class="c"># Build go app and package source files</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>build_app.sh<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>image<span class="p">:</span><span class="w">  </span><span class="c"># Build image and publish to private registry</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/docker<span class="w">
+</span><span class="w">    </span>repo<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span>/go-app<span class="w">
+</span><span class="w">    </span>registry<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span><span class="w">
+</span><span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>docker_username<span class="p">,</span><span class="w"> </span>docker_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>context<span class="p">:</span><span class="w"> </span>./cicd/<span class="w">
+</span><span class="w">    </span>dockerfile<span class="p">:</span><span class="w"> </span>./cicd/Dockerfile<span class="w">
+</span><span class="w">    </span>default_tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">
+</span><span class="w">    </span>+<span class="w">  </span>scp<span class="p">:</span><span class="w">    </span><span class="c"># Upload resource and config files to remote server</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>image<span class="p">:</span><span class="w"> </span>appleboy/drone-scp<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>host<span class="p">:</span><span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>-<span class="w"> </span>your_server_address<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>username<span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>port<span class="p">:</span><span class="w"> </span><span class="m">22</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>ssh_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>target<span class="p">:</span><span class="w"> </span>/home/workspace/service/api-server<span class="w"> </span><span class="c"># 远程服务器目录</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>source<span class="p">:</span><span class="w"> </span>./cicd/release.tar.gz<span class="w">              </span><span class="c"># 打包好的文件</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">  </span><span class="c"># Dependent service</span><span class="w">
+</span><span class="w">  </span>mgo<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">
+</span><span class="w"></span>branches<span class="p">:</span><span class="w">  </span><span class="c"># Enable Drone CICD on: master &amp; release/* branches</span><span class="w">
+</span><span class="w">  </span>include<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>master<span class="p">,</span><span class="w"> </span>release/*<span class="w"> </span><span class="p">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>预设变量 <code>ssh_password</code> 也需要提前在 Drone Web 端设置好</li>
+</ul>
+</blockquote></li>
+
+<li><p>部署脚本 <code>deploy_services.sh</code> 内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入项目根目录，创建 cicd 目录用来存放 Drone 执行时的一些脚本和配置文件</span>
+$ <span class="nb">cd</span> cicd
+
+<span class="c1"># 创建部署脚本：deploy_services.sh</span>
+$ touch deploy_services.sh
+
+<span class="c1"># 填入如下内容：</span>
+
+<span class="cp">#!/bin/sh
+</span><span class="cp"></span>#
+<span class="c1"># Program: 部署 Docker 容器服务</span>
+<span class="c1"># Authors: zhangzhe</span>
+<span class="c1"># History:</span>
+<span class="c1">#   2018-10-24：编写脚本实现</span>
+#
+
+<span class="c1"># Pre Set</span>
+<span class="nb">set</span> -x
+
+<span class="c1"># Set Var</span>
+<span class="nv">Tag</span><span class="o">=</span><span class="nv">$1</span>                                    <span class="c1"># 读取 git tag (版本号：x.y.z)</span>
+<span class="nv">Commit</span><span class="o">=</span><span class="nv">$2</span>                                 <span class="c1"># 读取 git commit 号(8位)</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="si">${</span><span class="nv">Tag</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> -e <span class="s2">&#34;Empty git tag given&#34;</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nv">ImageName</span><span class="o">=</span>go-app:<span class="si">${</span><span class="nv">Tag</span><span class="si">}</span>                   <span class="c1"># 镜像名</span>
+<span class="nv">Registry</span><span class="o">=</span>develop.robot-qixing.com:5000    <span class="c1"># 私有仓库地址</span>
+<span class="nv">BaseImage</span><span class="o">=</span><span class="si">${</span><span class="nv">Registry</span><span class="si">}</span>/<span class="si">${</span><span class="nv">ImageName</span><span class="si">}</span>        <span class="c1"># 远程 Image 地址：docker pull ${BaseImage}</span>
+<span class="nv">ContainerName</span><span class="o">=</span>api<span class="si">${</span><span class="nv">Tag</span><span class="si">}</span>
+
+<span class="c1"># Reconfigure docker-compose.yml &amp; Caddyfile</span>
+sed -i <span class="s2">&#34;s/api(@tag)/</span><span class="si">${</span><span class="nv">ContainerName</span><span class="si">}</span><span class="s2">/g&#34;</span> docker-compose.yml  <span class="c1"># 启动对应版本(Tag)的 API 容器</span>
+sed -i <span class="s2">&#34;s/(@tag)/</span><span class="si">${</span><span class="nv">Tag</span><span class="si">}</span><span class="s2">/g&#34;</span> dockere-compose.yml              <span class="c1"># 拉去对应版本(Tag)的 API 镜像</span>
+sed -i <span class="s2">&#34;s/api(@tag)/</span><span class="si">${</span><span class="nv">ContainerName</span><span class="si">}</span><span class="s2">/g&#34;</span> Caddyfile           <span class="c1"># Caddy 代理到对应版本的 API 容器服务</span>
+
+<span class="c1"># Pull image and run docker container</span>
+docker pull <span class="si">${</span><span class="nv">BaseImage</span><span class="si">}</span>
+docker-compose up -d
+docker ps
+docker-compose logs caddy
+docker-compose logs mgo
+docker logs api<span class="si">${</span><span class="nv">Tag</span><span class="si">}</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h3 id="配置-docker-compose-yml">配置 docker-compose.yml</h3>
+
+<ul>
+<li><p>开始之前需要阅读的相关文档：</p>
+
+<ul>
+<li><a href="https://zhezh09.github.io/post/tech/devops/docker/docker-compose-note/">Docker-Compose 基础</a></li>
+<li><a href="https://hub.docker.com/r/abiosoft/caddy/">https://hub.docker.com/r/abiosoft/caddy/</a></li>
+<li><a href="https://hub.docker.com/r/library/mongo/">https://hub.docker.com/r/library/mongo/</a></li>
+</ul></li>
+
+<li><p>docker-compose.yml 配置内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> cicd <span class="o">&amp;&amp;</span> touch docker-compose.yml
+
+<span class="c1"># 填入如下内容</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">  </span>caddy<span class="p">:</span><span class="w"> </span><span class="c"># caddy proxy server</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>caddy<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>abiosoft/caddy<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="m">80</span><span class="p">:</span><span class="m">80</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="m">443</span><span class="p">:</span><span class="m">443</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/etc/ssl/server-certs<span class="p">:</span>/root/.caddy<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./Caddyfile<span class="p">:</span>/etc/Caddyfile<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./www<span class="p">:</span>/srv<span class="w">
+</span><span class="w">    </span>depends_on<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>api<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>api<span class="p">:</span><span class="w">  </span><span class="c"># api server</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>api(@tag)<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span>/go-app<span class="p">:</span>(@tag)<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>command<span class="p">:</span><span class="w"> </span><span class="s1">&#39;./app --port=80 --db_addr=mgo:27017&#39;</span><span class="w">
+</span><span class="w">    </span>depends_on<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>mgo<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>mgo<span class="p">:</span><span class="w">  </span><span class="c"># mgo server</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>mgo<span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>MONGO_INITDB_ROOT_USERNAME<span class="p">:</span><span class="w"> </span>&lt;__input_username__<span class="sd">&gt;
+</span><span class="sd">      MONGO_INITDB_ROOT_PASSWORD: &lt;__input_password__&gt;</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./mgo-data/db<span class="p">:</span>/data/db</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Caddyfile 配置内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">cd</span> cicd <span class="o">&amp;&amp;</span> touch Caddyfile.yml
+
+<span class="c1"># 填入如下内容</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-Caddyfile" data-lang="Caddyfile"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Caddyfile" data-lang="Caddyfile">https://company-domain.com {
+    gzip
+    root /srv
+    tls /root/.caddy/cert.crt /root/.caddy/cert.key
+    timeouts none
+
+    proxy /v0 api(@tag):80 {
+        transparent
+        websocket
+        except static
+    }
+
+    cors /v0 {
+        origin            *
+        methods           POST,GET,PATCH,DELETE,OPTIONS
+        allow_credentials false
+        max_age           3600
+        allowed_headers   content-type,Authorization
+        exposed_headers   X-Something-Special,SomethingElse,Authorization
+    }
+}</code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>docker-compose.yml 和 Caddyfile 文件中的 <code>(@tag)</code> 字段最终会被 ${DRONE_TAG} 替代以生成对应版本的应用容器服务<br /></li>
+
+<li><p>通过 docker-compose 配置 api server、caddy server、mongo server 的参考链接有：</p>
+
+<ul>
+<li><a href="https://gist.github.com/wesleybliss/29d4cce863f5964a3eb73c42501d99e4">Mongo: Docker Compose with example App &amp; Mongo</a></li>
+<li><a href="https://github.com/tinrab/go-mongo-docker-example/blob/master/docker-compose.yaml">Mongo: go-mongo-docker-example</a></li>
+<li><a href="https://gist.github.com/abiosoft/92fa7575d255ef49ec614485e78ed3c5">Caddy: Caddy wordpress docker-compose</a></li>
+<li><a href="https://caddy.community/t/docker-compose-localhost-502-error/4184">Caddy: Docker compose localhost 502 error</a></li>
+<li><a href="https://caddy.community/t/solved-how-to-configure-caddy-in-docker-container-getting-permission-denied/2076">Caddy: [SOLVED] How to Configure Caddy in Docker Container (Getting Permission Denied)</a></li>
+<li><a href="https://github.com/gitlabhq/gitlab-recipes/issues/311">Caddy: Caddy recipe does not work using docker-compose.yml configuration</a></li>
+<li><a href="https://gist.github.com/varavut/bb516ca395d85261cb2fe0c8f080c647">Caddy: caddy-part3-docker-compose.yml</a></li>
+</ul></li>
+</ul>
+</blockquote></li>
+
+<li><p>Now, 提交代码进行测试(备注：Drone CI/CD 设定只在 master 和 以 release/ 开头的分支起作用)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add -A <span class="o">&amp;&amp;</span> git commit -m <span class="s2">&#34;test drone cicd pipeline -&gt; scp stage&#34;</span> <span class="o">&amp;&amp;</span> git push
+
+<span class="c1"># 打 tag, 触发 when: [event: tag] 事件，即触发 publish_image 阶段执行</span>
+$ git tag <span class="m">0</span>.0.2 -m <span class="s2">&#34;release 0.0.2&#34;</span> <span class="o">&amp;&amp;</span> git push origin <span class="m">0</span>.0.2</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>构建结果如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1541124663/blog/images/drone-goweb-app-pipeline-scp-stage.png" alt="" /></p></li>
+</ul>
+
+<h2 id="drone-pipeline-服务部署-deploy">Drone Pipeline: 服务部署(deploy)</h2>
+
+<p>一切准备好后，就可以执行容器服务部署了，主要包括：Caddy Server Container、Go Web Server Container、MongoDB Server Container，这一组应用容器服务通过 docker-compose 进行管理和组织。</p>
+
+<ul>
+<li><p>此时的 <code>.drone.yml</code> 配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">workspace<span class="p">:</span><span class="w">
+</span><span class="w">  </span>base<span class="p">:</span><span class="w"> </span>/go<span class="w">
+</span><span class="w">  </span>path<span class="p">:</span><span class="w"> </span>src/repo/goweb-app<span class="w">
+</span><span class="w">    
+</span><span class="w"></span>clone<span class="p">:</span><span class="w">    </span><span class="c"># Clone code from bitbucket</span><span class="w">
+</span><span class="w">  </span>git<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/git<span class="w">
+</span><span class="w">    </span>depth<span class="p">:</span><span class="w"> </span><span class="m">50</span><span class="w">
+</span><span class="w">    </span>tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    
+</span><span class="w"></span>pipeline<span class="p">:</span><span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>ping<span class="p">:</span><span class="w">   </span><span class="c"># Mgo-server for testing restful api</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>sleep<span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>mongo<span class="w"> </span>--host<span class="w"> </span>mgo<span class="w"> </span>--eval<span class="w"> </span><span class="s2">&#34;{ping:1}&#34;</span><span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>test<span class="p">:</span><span class="w">   </span><span class="c"># Golang unit testing</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BRC=${DRONE_COMMIT_BRANCH}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>SHA=${DRONE_COMMIT_SHA<span class="p">:</span><span class="m">0</span><span class="p">:</span><span class="m">8</span>}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>EVN=${DRONE_BUILD_EVENT}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MSG=${DRONE_COMMIT_MESSAGE}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>TAG=${DRONE_TAG}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MGO=mgo<span class="p">:</span><span class="m">27017</span><span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>test_api.sh<span class="w"> </span>$MGO<span class="w"> </span>$BRC<span class="w"> </span>$SHA<span class="w"> </span>$EVN<span class="w"> </span>$MSG<span class="w"> </span>$TAG<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>build<span class="p">:</span><span class="w">  </span><span class="c"># Build go app and package source files</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>build_app.sh<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>image<span class="p">:</span><span class="w">  </span><span class="c"># Build image and publish to private registry</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/docker<span class="w">
+</span><span class="w">    </span>repo<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span>/go-app<span class="w">
+</span><span class="w">    </span>registry<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span><span class="w">
+</span><span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>docker_username<span class="p">,</span><span class="w"> </span>docker_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>context<span class="p">:</span><span class="w"> </span>./cicd/<span class="w">
+</span><span class="w">    </span>dockerfile<span class="p">:</span><span class="w"> </span>./cicd/Dockerfile<span class="w">
+</span><span class="w">    </span>default_tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>scp<span class="p">:</span><span class="w">    </span><span class="c"># Upload resource and config files to remote server</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>appleboy/drone-scp<span class="w">
+</span><span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>host<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>your_server_address<span class="w">
+</span><span class="w">    </span>username<span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">    </span>port<span class="p">:</span><span class="w"> </span><span class="m">22</span><span class="w">
+</span><span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>ssh_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>target<span class="p">:</span><span class="w"> </span>/home/workspace/service/api-server<span class="w"> </span><span class="c"># 远程服务器目录</span><span class="w">
+</span><span class="w">    </span>source<span class="p">:</span><span class="w"> </span>./cicd/release.tar.gz<span class="w">              </span><span class="c"># 随镜像一起发布的文件</span><span class="w">
+</span><span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">    
+</span><span class="w">    </span>+<span class="w">  </span>deploy<span class="p">:</span><span class="w"> </span><span class="c"># Deploy api-server, caddy-server, mgo-server</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>image<span class="p">:</span><span class="w"> </span>appleboy/drone-ssh<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>host<span class="p">:</span><span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>-<span class="w"> </span>your_server_address<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>username<span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>port<span class="p">:</span><span class="w"> </span><span class="m">22</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>ssh_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>command_timeout<span class="p">:</span><span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>script<span class="p">:</span><span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>/home/workspace/service/api-server/cicd<span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>-<span class="w"> </span>tar<span class="w"> </span>-zxvf<span class="w"> </span>release.tar.gz<span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>-<span class="w"> </span>ls<span class="w"> </span>-l<span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>deploy_services.sh<span class="w"> </span>${DRONE_TAG}<span class="w"> </span>${DRONE_COMMIT_SHA<span class="p">:</span><span class="m">0</span><span class="p">:</span><span class="m">8</span>}<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">    
+</span><span class="w"></span>services<span class="p">:</span><span class="w">  </span><span class="c"># Dependent service</span><span class="w">
+</span><span class="w">  </span>mgo<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    
+</span><span class="w"></span>branches<span class="p">:</span><span class="w">  </span><span class="c"># Enable Drone CICD on: master &amp; release/* branches</span><span class="w">
+</span><span class="w">  </span>include<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>master<span class="p">,</span><span class="w"> </span>release/*<span class="w"> </span><span class="p">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>Drone Plugins: appleboy/drone-ssh 用来连接到远程服务器</li>
+<li>deploy_services.sh 是执行服务部署的脚本，需要接收 ${DRONE_TAG} 用来动态构建容器名称等</li>
+</ul>
+</blockquote></li>
+
+<li><p>Now, 提交代码进行测试(备注：Drone CI/CD 设定只在 master 和 以 release/ 开头的分支起作用)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add -A <span class="o">&amp;&amp;</span> git commit -m <span class="s2">&#34;test drone cicd pipeline -&gt; deploy stage&#34;</span> <span class="o">&amp;&amp;</span> git push
+
+<span class="c1"># 打 tag, 触发 when: [event: tag] 事件，即触发 publish_image 阶段执行</span>
+$ git tag <span class="m">0</span>.0.3 -m <span class="s2">&#34;release 0.0.3&#34;</span> <span class="o">&amp;&amp;</span> git push origin <span class="m">0</span>.0.3</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>构建结果如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1541125010/blog/images/drone-goweb-app-pipeline-deploy-stage.png" alt="" /></p></li>
+</ul>
+
+<h2 id="drone-pipeline-结果通知-notify-hipchat">Drone Pipeline: 结果通知(notify:hipchat)</h2>
+
+<p>为了确保能够及时获取 Drone CI 构建结果，需要选取一种合适的方式来接收通知，这里集成了我们在用的 hipchat.</p>
+
+<ul>
+<li><p>此时的 <code>.drone.yml</code> 配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">workspace<span class="p">:</span><span class="w">
+</span><span class="w">  </span>base<span class="p">:</span><span class="w"> </span>/go<span class="w">
+</span><span class="w">  </span>path<span class="p">:</span><span class="w"> </span>src/repo/goweb-app<span class="w">
+</span><span class="w">    
+</span><span class="w"></span>clone<span class="p">:</span><span class="w">    </span><span class="c"># Clone code from bitbucket</span><span class="w">
+</span><span class="w">  </span>git<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/git<span class="w">
+</span><span class="w">    </span>depth<span class="p">:</span><span class="w"> </span><span class="m">50</span><span class="w">
+</span><span class="w">    </span>tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    
+</span><span class="w"></span>pipeline<span class="p">:</span><span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>ping<span class="p">:</span><span class="w">   </span><span class="c"># Mgo-server for testing restful api</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>sleep<span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>mongo<span class="w"> </span>--host<span class="w"> </span>mgo<span class="w"> </span>--eval<span class="w"> </span><span class="s2">&#34;{ping:1}&#34;</span><span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>test<span class="p">:</span><span class="w">   </span><span class="c"># Golang unit testing</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BRC=${DRONE_COMMIT_BRANCH}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>SHA=${DRONE_COMMIT_SHA<span class="p">:</span><span class="m">0</span><span class="p">:</span><span class="m">8</span>}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>EVN=${DRONE_BUILD_EVENT}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MSG=${DRONE_COMMIT_MESSAGE}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>TAG=${DRONE_TAG}<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>MGO=mgo<span class="p">:</span><span class="m">27017</span><span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>test_api.sh<span class="w"> </span>$MGO<span class="w"> </span>$BRC<span class="w"> </span>$SHA<span class="w"> </span>$EVN<span class="w"> </span>$MSG<span class="w"> </span>$TAG<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>build<span class="p">:</span><span class="w">  </span><span class="c"># Build go app and package source files</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>golang<span class="p">:</span>latest<span class="w">
+</span><span class="w">    </span>commands<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>build_app.sh<span class="w">
+</span><span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>image<span class="p">:</span><span class="w">  </span><span class="c"># Build image and publish to private registry</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>plugins/docker<span class="w">
+</span><span class="w">    </span>repo<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span>/go-app<span class="w">
+</span><span class="w">    </span>registry<span class="p">:</span><span class="w"> </span>repo.company.com<span class="p">:</span><span class="m">5000</span><span class="w">
+</span><span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>docker_username<span class="p">,</span><span class="w"> </span>docker_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>context<span class="p">:</span><span class="w"> </span>./cicd/<span class="w">
+</span><span class="w">    </span>dockerfile<span class="p">:</span><span class="w"> </span>./cicd/Dockerfile<span class="w">
+</span><span class="w">    </span>default_tags<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>scp<span class="p">:</span><span class="w">    </span><span class="c"># Upload resource and config files to remote server</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>appleboy/drone-scp<span class="w">
+</span><span class="w">    </span>group<span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span>host<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>your_server_address<span class="w">
+</span><span class="w">    </span>username<span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">    </span>port<span class="p">:</span><span class="w"> </span><span class="m">22</span><span class="w">
+</span><span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>ssh_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>target<span class="p">:</span><span class="w"> </span>/home/workspace/service/api-server<span class="w"> </span><span class="c"># 远程服务器目录</span><span class="w">
+</span><span class="w">    </span>source<span class="p">:</span><span class="w"> </span>./cicd/release.tar.gz<span class="w">              </span><span class="c"># 随镜像一起发布的文件</span><span class="w">
+</span><span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>deploy<span class="p">:</span><span class="w"> </span><span class="c"># Deploy api-server, caddy-server, mgo-server</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>appleboy/drone-ssh<span class="w">
+</span><span class="w">    </span>host<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>your_server_address<span class="w">
+</span><span class="w">    </span>username<span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">    </span>port<span class="p">:</span><span class="w"> </span><span class="m">22</span><span class="w">
+</span><span class="w">    </span>secrets<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>ssh_password<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>command_timeout<span class="p">:</span><span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="w">    </span>script<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>cd<span class="w"> </span>/home/workspace/service/api-server/cicd<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>tar<span class="w"> </span>-zxvf<span class="w"> </span>release.tar.gz<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>ls<span class="w"> </span>-l<span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>/bin/sh<span class="w"> </span>deploy_services.sh<span class="w"> </span>${DRONE_TAG}<span class="w"> </span>${DRONE_COMMIT_SHA<span class="p">:</span><span class="m">0</span><span class="p">:</span><span class="m">8</span>}<span class="w">
+</span><span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">      </span>event<span class="p">:</span><span class="w"> </span>tag<span class="w">
+</span><span class="w">    
+</span><span class="w">    </span>+<span class="w">  </span>hipchat<span class="p">:</span><span class="w"> </span><span class="c"># Notify</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>image<span class="p">:</span><span class="w"> </span>jmccann/drone-hipchat<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>url<span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//hipchat.your_company_domain.com<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>room<span class="p">:</span><span class="w"> </span><span class="m">19</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>auth_token<span class="p">:</span><span class="w"> </span>tWVtsTFzsbkwSJO79JHcyb11TR8dLyEYAlicHviB<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>from<span class="p">:</span><span class="w"> </span>Drone<span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>when<span class="p">:</span><span class="w">
+</span><span class="w">    </span>+<span class="w">      </span>status<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>success<span class="p">,</span><span class="w"> </span>failure<span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>+<span class="w">    </span>template<span class="p">:</span><span class="w"> </span><span class="sd">&gt;
+</span><span class="sd">        &lt;strong&gt;{{ uppercasefirst build.status }}&lt;/strong&gt; &lt;a href=\&#34;{{ system.link_url }}/{{     repo.owner }}/{{ repo.name }}/{{ build.number }}\&#34;&gt;{{ repo.owner }}/{{ repo.name }}#{{     truncate build.commit 8 }}&lt;/a&gt; ({{ build.branch }}) by {{ build.author }} in {{ duration     build.started_at build.finished_at }} &lt;/br&gt; - {{ build.message }}</span><span class="w">
+</span><span class="w">    
+</span><span class="w"></span>services<span class="p">:</span><span class="w">  </span><span class="c"># Dependent service</span><span class="w">
+</span><span class="w">  </span>mgo<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>mongo<span class="p">:</span>latest<span class="w">
+</span><span class="w">    
+</span><span class="w"></span>branches<span class="p">:</span><span class="w">  </span><span class="c"># Enable Drone CICD on: master &amp; release/* branches</span><span class="w">
+</span><span class="w">  </span>include<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>master<span class="p">,</span><span class="w"> </span>release/*<span class="w"> </span><span class="p">]</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>when 设定条件 <code>status: [ success, failure ]</code>：不管构建成功还是失败都会发送通知到指定的 Rooms</li>
+<li>template 配置可以参考这篇文章：<a href="http://ashphy.hateblo.jp/entry/drone-hipchat-plugin">http://ashphy.hateblo.jp/entry/drone-hipchat-plugin</a></li>
+</ul>
+</blockquote></li>
+
+<li><p>Now, 提交代码进行测试(备注：Drone CI/CD 设定只在 master 和 以 release/ 开头的分支起作用)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git add -A <span class="o">&amp;&amp;</span> git commit -m <span class="s2">&#34;test drone cicd pipeline -&gt; notify stage&#34;</span> <span class="o">&amp;&amp;</span> git push</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>构建结果如下图：</p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1541125010/blog/images/drone-goweb-app-pipeline-notify-stage.png" alt="" /></p></li>
+</ul>
+
+<p>至此，一套完整的 Drone CI/CD Pipeline 流已配置完成。</p>
+
+<p>最终完整的项目结构如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">goweb-app/
+<span class="p">|</span>-- README.md
+<span class="p">|</span>-- api
+<span class="p">|</span>   <span class="p">|</span>-- app.go
+<span class="p">|</span>   <span class="sb">`</span>-- model.go
+<span class="p">|</span>-- cicd
+<span class="p">|</span>   <span class="p">|</span>-- Caddyfile
+<span class="p">|</span>   <span class="p">|</span>-- Dockerfile
+<span class="p">|</span>   <span class="p">|</span>-- build_app.sh
+<span class="p">|</span>   <span class="p">|</span>-- deploy_services.sh
+<span class="p">|</span>   <span class="p">|</span>-- docker-compose.yml
+<span class="p">|</span>   <span class="sb">`</span>-- test_api.sh
+<span class="p">|</span>-- go.mod
+<span class="p">|</span>-- go.sum
+<span class="p">|</span>-- main.go
+<span class="p">|</span>-- main_test.go
+<span class="sb">`</span>-- www
+    <span class="sb">`</span>-- index.html
+
+<span class="m">3</span> directories, <span class="m">14</span> files</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://medium.com/@sergey.kolodyazhnyy/continuous-delivery-with-drone-ci-3a3fea5aa83">Medium: Continuous Delivery with Drone CI</a></li>
+<li><a href="https://medium.com/@stu60610/%E4%BD%BF%E7%94%A8-docker-drone-%E5%BB%BA%E7%AB%8B%E7%B0%A1%E6%98%93%E8%87%AA%E5%8B%95%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B-part2-7d250e926bd8">Medium: 使用 Docker &amp; Drone 建立簡易自動部署流程 — Part2</a></li>
+<li><a href="https://golangcaff.com/topics/111/drone-deployment-of-the-go-language-project-with-kubernetes">Drone 搭配 Kubernetes 部署 Go 語言項目</a></li>
+<li><a href="https://github.com/go-training/drone-golang-example">Example: go-training/drone-golang-example</a></li>
+<li><a href="https://blog.csdn.net/kikajack/article/details/80585377">Drone 持续集成实践 - 基于 Gogs，以 Golang 为例</a></li>
+<li><a href="https://www.jianshu.com/p/1e5f819f8881">扩展阅读: 私钥登录原理 + 添加secrets + 安装drone cli</a>
+<br /></li>
+</ul>
+
+<h1 id="faq">FAQ</h1>
+
+<p>Q: go: golang.org/x/crypto@v0.0.0-20180904163835-0709b304e793: unrecognized import path &ldquo;golang.org/x/crypto&rdquo; (https fetch: Get <a href="https://golang.org/x/crypto?go-get=1:">https://golang.org/x/crypto?go-get=1:</a> dial tcp 216.239.37.1:443: i/o timeout)
+   go: golang.org/x/sys@v0.0.0-20180905080454-ebe1bf3edb33: unrecognized import path &ldquo;golang.org/x/sys&rdquo; (https fetch: Get <a href="https://golang.org/x/sys?go-get=1:">https://golang.org/x/sys?go-get=1:</a> dial tcp 216.239.37.1:443: i/o timeout)
+   go: error loading module requirements</p>
+
+<p>A: <a href="https://gocn.vip/question/567">https://gocn.vip/question/567</a></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-11-02</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/devops/">devops</a>
+          <a href="/tags/cicd/">cicd</a>
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/tools/useful_git_scripts/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Tools | Useful Git Scripts</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/devops/docker/20181026-registry-and-webui/">
+            <span class="next-text nav-default">Docker | Deploy Docker Registry and Web UI</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-10-29 16:58:16 \x2b0800 CST',
+        title: 'DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

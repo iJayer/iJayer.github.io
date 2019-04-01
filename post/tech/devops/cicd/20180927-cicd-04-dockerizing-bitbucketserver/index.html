@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence - iJayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="zher" /><meta name="description" content=" 基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence " /><meta name="keywords" content="docker" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence" />
+<meta property="og:description" content="
+
+
+基于 Docker 部署 Bitbucket Server
+基于 Docker 部署 Jira
+基于 Docker 部署 Confluence
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/" /><meta property="article:published_time" content="2018-09-27T22:09:25&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-19T16:09:25&#43;00:00"/>
+
+<meta itemprop="name" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence">
+<meta itemprop="description" content="
+
+
+基于 Docker 部署 Bitbucket Server
+基于 Docker 部署 Jira
+基于 Docker 部署 Confluence
+">
+
+
+<meta itemprop="datePublished" content="2018-09-27T22:09:25&#43;00:00" />
+<meta itemprop="dateModified" content="2018-12-19T16:09:25&#43;00:00" />
+<meta itemprop="wordCount" content="780">
+
+
+
+<meta itemprop="keywords" content="devops,docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence"/>
+<meta name="twitter:description" content="
+
+
+基于 Docker 部署 Bitbucket Server
+基于 Docker 部署 Jira
+基于 Docker 部署 Confluence
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">iJayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">iJayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-27 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 780 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#dockerizing-bitbucket-server">Dockerizing Bitbucket Server</a></li>
+<li><a href="#config-bitbucket-server">Config Bitbucket Server</a></li>
+<li><a href="#dockerizing-jira-and-confluence-20181012-updated">Dockerizing Jira and Confluence [20181012 Updated]</a></li>
+<li><a href="#crack-20181219-updated">Crack [20181219 Updated]</a>
+<ul>
+<li><a href="#crack-bitbucket-server">Crack Bitbucket Server</a></li>
+</ul></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<ul>
+<li>基于 Docker 部署 Bitbucket Server</li>
+<li>基于 Docker 部署 Jira</li>
+<li>基于 Docker 部署 Confluence</li>
+</ul>
+
+<h1 id="dockerizing-bitbucket-server">Dockerizing Bitbucket Server</h1>
+
+<ul>
+<li><p>部署 Bitbucket Server 需要两个 Docker 镜像：<a href="https://hub.docker.com/r/atlassian/bitbucket-server/">Bitbucket-Server</a> &amp; <a href="https://hub.docker.com/r/_/postgres/">Postgre-DB</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker pull atlassian/bitbucket-server:5.10.2
+$ docker pull postgres:9.6</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>在宿主机创建 Bitbucket Server 的数据目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p /home/docker/atlassian <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /home/docker/atlassian
+    
+<span class="c1"># 创建需要挂载的 Volumes 数据目录</span>
+$ mkdir bitbucket-data postgresql-data</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>创建 docker-compose.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ touch docker-compose.yml</code></pre></td></tr></table>
+</div>
+</div>
+<p>内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;atlassian/bitbucket-server:5.10.2&#34;</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>bitbucket<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7990:7990&#34;</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7999:7999&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./bitbucket-data<span class="p">:</span>/var/atlassian/application-data/bitbucket<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>db<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>postgres<span class="p">:</span><span class="m">9.6</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>postgresql<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>POSTGRES_PASSWORD<span class="p">:</span><span class="w"> </span>&lt;your_pwd<span class="sd">&gt;
+</span><span class="sd">      POSTGRES_USER: &lt;your_user&gt;
+</span><span class="sd">      POSTGRES_DB: postgres
+</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
+</span><span class="w">
+</span><span class="w"></span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket-data<span class="p">:</span><span class="w">
+</span><span class="w">  </span>postgresql-data<span class="p">:</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note:</p>
+
+<ul>
+<li>上面 docker-compose.yml 中，Data Volumes 是创建在 Compose 内部的。如果要挂载已创建好的数据卷可以设置 <a href="https://docs.docker.com/compose/compose-file/#external">external</a> 选项。</li>
+<li>这里测试时未启用：external。 如需启用，配置方法在下一步</li>
+</ul>
+</blockquote></li>
+
+<li><p>(Optional) 挂载已创建好的数据卷(named volumes), 使用 <code>docker volume create --name &lt;volume_name&gt;</code> 创建</p>
+
+<blockquote>
+<p>Note: 关于数据卷的更多信息可以查看官方文档：<a href="https://docs.docker.com/storage/volumes/">Use volumes</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker volume create --name bitbucket-data
+$ docker volume create --name postgresql-data</code></pre></td></tr></table>
+</div>
+</div>
+<p>修改 docker-compose.yml 配置，完整内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;atlassian/bitbucket-server:5.10.2&#34;</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>bitbucket<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7990:7990&#34;</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7999:7999&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./bitbucket-data<span class="p">:</span>/var/atlassian/application-data/bitbucket<span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>db<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>postgres<span class="p">:</span><span class="m">9.6</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>postgresql<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>POSTGRES_PASSWORD<span class="p">:</span><span class="w"> </span>&lt;your_pwd<span class="sd">&gt;
+</span><span class="sd">      POSTGRES_USER: &lt;your_user&gt;
+</span><span class="sd">      POSTGRES_DB: postgres
+</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
+</span><span class="w">
+</span><span class="w"></span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket-data<span class="p">:</span><span class="w">
+</span><span class="w">    </span>external<span class="p">:</span><span class="w">
+</span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>bitbucket-data<span class="w">
+</span><span class="w">  </span>postgresql-data<span class="p">:</span><span class="w">
+</span><span class="w">    </span>external<span class="p">:</span><span class="w">
+</span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>postgresql-data</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>运行容器服务</p></li>
+</ul>
+
+<blockquote>
+<p>Note: 让应用容器在前台运行，并加入 &ndash;verbose 参数启动，以便获取更详细的日志信息</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ docker-compose --verbose up </code></pre></td></tr></table>
+</div>
+</div>
+<p>访问：<a href="http://localhost:7990">http://localhost:7990</a></p>
+
+<h1 id="config-bitbucket-server">Config Bitbucket Server</h1>
+
+<ul>
+<li>访问: <a href="http://localhost:7990">http://localhost:7990</a> , 可以看到如下页面</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538182323/blog/images/bitbucket-setup.png" alt="" /></p>
+
+<ul>
+<li><p>默认选项，进入下一步 -&gt; Licensing and settings</p>
+
+<ul>
+<li>填写表单数据</li>
+<li>License Key 选择：I need an envaluation license, 然后登陆 Google 账号，生成 Key 填入；进入下一步</li>
+</ul></li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538182323/blog/images/bitbucket-setup-2.png" alt="" /></p>
+
+<ul>
+<li>配置管理员账号，登陆即可</li>
+</ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1538182323/blog/images/bitbucket-setup-3.png" alt="" /></p>
+
+<h1 id="dockerizing-jira-and-confluence-20181012-updated">Dockerizing Jira and Confluence [20181012 Updated]</h1>
+
+<ul>
+<li>创建 Jira &amp; Confluence 相关数据目录</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ <span class="nb">cd</span> /home/docker/atlassian
+  $ mkdir jira-data confluence-data
+  $ <span class="nb">cd</span> confluence-data <span class="o">&amp;&amp;</span> mkdir attachments backups <span class="o">&amp;&amp;</span> <span class="nb">cd</span> .. <span class="c1"># 创建这两个文件夹 (attachments &amp; backups) 是因为 Confluence 容器启动运行后，在配置数据库时无法通过容器内部生成(没权限)，所以在宿主机上先设置好，最后通过数据卷挂载</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>拉去相关镜像</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ docker pull cptactionhank/atlassian-jira:7.12.2
+  $ docker pull cptactionhank/atlassian-confluence:6.12.0</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>配置 docker-compose.yml, 完整内容如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>bitbucket<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span><span class="s2">&#34;atlassian/bitbucket-server:5.10.2&#34;</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>bitbucket<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7990:7990&#34;</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;7999:7999&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>BITBUCKET_HOME=/var/atlassian/application-data/bitbucket/<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./bitbucket-data<span class="p">:</span>/var/atlassian/application-data/bitbucket<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>jira<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>cptactionhank/atlassian-jira<span class="p">:</span><span class="m">7.12</span>.<span class="m">2</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>jira<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;6080:8080&#34;</span><span class="w">
+</span><span class="w">    </span>links<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>database<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./jira-data<span class="p">:</span>/var/atlassian/application-data/jira<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>confluence<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>cptactionhank/atlassian-confluence<span class="p">:</span><span class="m">6.12</span>.<span class="m">0</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>confluence<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;8090:8090&#34;</span><span class="w">    
+</span><span class="w">    </span>links<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>database<span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./confluence-data<span class="p">:</span>/var/atlassian/application-data/confluence<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>database<span class="p">:</span><span class="w">
+</span><span class="w">    </span>image<span class="p">:</span><span class="w"> </span>postgres<span class="p">:</span><span class="m">9.6</span><span class="w">
+</span><span class="w">    </span>container_name<span class="p">:</span><span class="w"> </span>postgresql<span class="w">
+</span><span class="w">    </span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
+</span><span class="w">    </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">      </span>POSTGRES_USER<span class="p">:</span><span class="w"> </span>&lt;input_user<span class="sd">&gt;
+</span><span class="sd">      POSTGRES_PASSWORD: &lt;input_pwd&gt;
+</span><span class="sd">      POSTGRES_DB: postgres
+</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
+</span><span class="w">
+</span><span class="w"></span>volumes<span class="p">:</span><span class="w">
+</span><span class="w">  </span>bitbucket-data<span class="p">:</span><span class="w">
+</span><span class="w">  </span>jira-data<span class="p">:</span><span class="w">
+</span><span class="w">  </span>confluence-data<span class="p">:</span><span class="w">  
+</span><span class="w">  </span>postgresql-data<span class="p">:</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>运行容器服务</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker-compose up -d</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><p>访问并完成配置</p>
+
+<ul>
+<li>访问 Jira: <a href="http://10.0.0.12:6080">http://10.0.0.12:6080</a></li>
+<li>访问 Bitbucket: <a href="http://10.0.0.12:7990">http://10.0.0.12:7990</a></li>
+<li>访问 Confluence: <a href="http://10.0.0.12:8090">http://10.0.0.12:8090</a></li>
+</ul></li>
+</ul>
+
+<h1 id="crack-20181219-updated">Crack [20181219 Updated]</h1>
+
+<h2 id="crack-bitbucket-server">Crack Bitbucket Server</h2>
+
+<p>Step1: <a href="https://res.cloudinary.com/zher-files/raw/upload/v1540971426/blog/resource/bitbucket-server.7z">Download Bitbucket Server Crack Jar files</a></p>
+
+<ul>
+<li>atlassian-extras-decoder-v2-3.3.0.jar</li>
+<li>atlassian-extras-legacy-3.3.0.jar</li>
+</ul>
+
+<p>Step2: Copy crack jar files to docker server</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ docker cp atlassian-extras-decoder-v2-3.3.0.jar &lt;container_name<span class="o">(</span>id<span class="o">)</span>_of_bitbucket_server&gt;:/opt/atlassian/bitbucket/app/WEB-INF/lib
+$ docker cp atlassian-extras-legacy-3.3.0.jar &lt;container_name<span class="o">(</span>id<span class="o">)</span>_of_bitbucket_server&gt;:/opt/atlassian/bitbucket/app/WEB-INF/lib
+$ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</span>_of_bitbucket_server&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>Finally, the result looks like this:</p>
+
+<p><img src="https://img-blog.csdn.net/20180808170849254?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2d1bGlqaWFuZzIwMDg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="" /></p>
+
+<h1 id="see-also">See Also</h1>
+
+<blockquote>
+<p>Thanks to the authors 🙂</p>
+</blockquote>
+
+<ul>
+<li><a href="https://medium.com/@niko.huber/dockerizing-bitbucket-server-d07404eefc51">Dockerizing Bitbucket Server</a></li>
+<li><a href="https://gist.github.com/nikhuber/02fd324f93bc3108cd2e398ccc415c55">nikhuber/bitbucket-compose.yml</a></li>
+<li><a href="https://github.com/omidraha/atlassian/blob/master/docker-compose.yml">omidraha/atlassian/docker-compose.yml</a></li>
+<li><a href="https://github.com/omidraha/atlassian">dockerize atlassian</a></li>
+<li><a href="https://github.com/blacklabelops/jira">Dockerized Atlassian Jira</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">zher</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-12-19</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/devops/">devops</a>
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/tech/devops/cicd/20180929-cicd-05-create-oauth-app-on-bitbucket-server/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DevOps | Add an OAuth consumer(Application Links) to Bitbucket Server</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/">
+            <span class="next-text nav-default">DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-09-27 22:09:25 \x2b0000 UTC',
+        title: 'DevOps | Dockerizing Bitbucket Server \x26 Jira \x26 Confluence',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'zhezh09',
+        admin: ['zhezh09'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">iJayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
