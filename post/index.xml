@@ -2,21 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on iJayer</title>
-    <link>https://zhezh09.github.io/post/</link>
+    <link>https://iJayer.github.io/post/</link>
     <description>Recent content in Posts on iJayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Apr 2019 11:13:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Apr 2019 21:05:02 +0800</lastBuildDate>
     
-	<atom:link href="https://zhezh09.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://iJayer.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Useful Tools</title>
+      <link>https://iJayer.github.io/post/tech/tools/useful-tools/</link>
+      <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
+      
+      <guid>https://iJayer.github.io/post/tech/tools/useful-tools/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
       <title>Rabbitmq | 02 - Work Queues</title>
-      <link>https://zhezh09.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
+      <link>https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
       <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
+      <guid>https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -26,10 +39,10 @@
     
     <item>
       <title>Rabbitmq | 01 - Hello World</title>
-      <link>https://zhezh09.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
+      <link>https://iJayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
       <pubDate>Fri, 29 Mar 2019 16:05:39 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
+      <guid>https://iJayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -46,10 +59,10 @@
     
     <item>
       <title>Message Queue Compares</title>
-      <link>https://zhezh09.github.io/post/tech/mq/20190327-message-queue-compare/</link>
+      <link>https://iJayer.github.io/post/tech/mq/20190327-message-queue-compare/</link>
       <pubDate>Wed, 27 Mar 2019 21:37:23 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/mq/20190327-message-queue-compare/</guid>
+      <guid>https://iJayer.github.io/post/tech/mq/20190327-message-queue-compare/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -68,10 +81,10 @@
     
     <item>
       <title>『Go核心36讲』| 07 - go语句以及执行规则（下）</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-07/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-07/</link>
       <pubDate>Sun, 13 Jan 2019 11:57:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-07/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-07/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -90,10 +103,10 @@
     
     <item>
       <title>『Go核心36讲』| 06 - go语句以及执行规则（上）</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-06/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-06/</link>
       <pubDate>Sat, 12 Jan 2019 14:51:10 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-06/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-06/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -112,10 +125,10 @@
     
     <item>
       <title>『Go核心36讲』| 05 - 使用函数的正确姿势</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-05/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-05/</link>
       <pubDate>Mon, 07 Jan 2019 11:37:08 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-05/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-05/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -134,10 +147,10 @@
     
     <item>
       <title>『Go核心36讲』| 04 - 程序性能分析基础</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-04/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-04/</link>
       <pubDate>Tue, 18 Dec 2018 21:45:30 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-04/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-04/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -159,10 +172,10 @@
     
     <item>
       <title>Golang | 语言机制之数据和语法的设计哲学</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</link>
       <pubDate>Sun, 16 Dec 2018 17:25:00 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -171,20 +184,20 @@
 &lt;p&gt;以下是本系列文章的索引：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;👉 &lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
     <item>
       <title>Golang | 语言机制之内存剖析</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</link>
       <pubDate>Fri, 14 Dec 2018 10:24:56 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -193,20 +206,20 @@
 &lt;p&gt;以下是本系列文章的索引：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;👉 &lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
     <item>
       <title>Golang | 语言机制之逃逸分析</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
       <pubDate>Wed, 12 Dec 2018 15:24:52 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -215,20 +228,20 @@
 &lt;p&gt;以下是本系列文章的索引：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;👉 &lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
     <item>
       <title>Golang | 语言机制之栈和指针</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</link>
       <pubDate>Tue, 11 Dec 2018 17:24:40 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -237,20 +250,20 @@
 &lt;p&gt;以下是本系列文章的索引：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;👉 &lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
     <item>
       <title>『Go核心36讲』| 03 - Container 包中的那些容器</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-03/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-03/</link>
       <pubDate>Mon, 03 Dec 2018 14:02:03 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-03/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-03/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -277,10 +290,10 @@
     
     <item>
       <title>[转] Golang | Slice 深入理解</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20181121-slice-src-reading/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20181121-slice-src-reading/</link>
       <pubDate>Wed, 21 Nov 2018 14:06:08 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20181121-slice-src-reading/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20181121-slice-src-reading/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -290,10 +303,10 @@
     
     <item>
       <title>Golang | Slice Deep Learning</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20181117-slice-deep-learning/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20181117-slice-deep-learning/</link>
       <pubDate>Sat, 17 Nov 2018 14:00:24 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20181117-slice-deep-learning/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20181117-slice-deep-learning/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -303,15 +316,15 @@
     
     <item>
       <title>『Go核心36讲』| 02-数组与切片</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-02/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-02/</link>
       <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-02/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-02/</guid>
       <description>&lt;!-- 摘要 --&gt;   
 
 &lt;blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;通过上 &lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180903-tutorial-go36-01/&#34;&gt;小结&lt;/a&gt; 学习主要加深了对：&lt;code&gt;常用源码文件(命令、库、测试)写法、程序实体(常量、变量、结构体、函数、接口, 尤其是变量)以及相关的各种概念和编程技巧(类型推断、变量重声明、可重名变量、类型断言、类型转换、别名类型和潜在类型等)&lt;/code&gt; 的理解。&lt;/li&gt;
+&lt;li&gt;通过上 &lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180903-tutorial-go36-01/&#34;&gt;小结&lt;/a&gt; 学习主要加深了对：&lt;code&gt;常用源码文件(命令、库、测试)写法、程序实体(常量、变量、结构体、函数、接口, 尤其是变量)以及相关的各种概念和编程技巧(类型推断、变量重声明、可重名变量、类型断言、类型转换、别名类型和潜在类型等)&lt;/code&gt; 的理解。&lt;/li&gt;
 &lt;li&gt;接下来进入模块二：数组与切片，主要侧重于理解数组与切片底层的实现方式、存储结构、以及这两个集合类类型的区别是什么？&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -324,10 +337,10 @@
     
     <item>
       <title>Tools | Useful Git Scripts</title>
-      <link>https://zhezh09.github.io/post/tech/tools/useful_git_scripts/</link>
+      <link>https://iJayer.github.io/post/tech/tools/useful_git_scripts/</link>
       <pubDate>Sun, 04 Nov 2018 09:43:05 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/tools/useful_git_scripts/</guid>
+      <guid>https://iJayer.github.io/post/tech/tools/useful_git_scripts/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -337,30 +350,30 @@
     
     <item>
       <title>DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server</title>
-      <link>https://zhezh09.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</link>
+      <link>https://iJayer.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</link>
       <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/devops/cicd/20180925-drone-01-basic/&#34;&gt;Drone 的基本概念&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/&#34;&gt;Drone 服务部署&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/devops/docker/docker-compose-note/&#34;&gt;Docker-Compose 基础&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/devops/docker/registry-and-webui/&#34;&gt;Docker Registry 服务部署&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/cicd/20180925-drone-01-basic/&#34;&gt;Drone 的基本概念&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/&#34;&gt;Drone 服务部署&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/docker/docker-compose-note/&#34;&gt;Docker-Compose 基础&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/docker/registry-and-webui/&#34;&gt;Docker Registry 服务部署&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
     <item>
       <title>Docker | Deploy Docker Registry and Web UI</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20181026-registry-and-webui/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20181026-registry-and-webui/</link>
       <pubDate>Fri, 26 Oct 2018 09:48:45 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20181026-registry-and-webui/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20181026-registry-and-webui/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -370,10 +383,10 @@
     
     <item>
       <title>『心之所向，素履以往』— 张掖</title>
-      <link>https://zhezh09.github.io/post/footprint/20181002-%E5%BC%A0%E6%8E%96/</link>
+      <link>https://iJayer.github.io/post/footprint/20181002-%E5%BC%A0%E6%8E%96/</link>
       <pubDate>Tue, 02 Oct 2018 21:42:56 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20181002-%E5%BC%A0%E6%8E%96/</guid>
+      <guid>https://iJayer.github.io/post/footprint/20181002-%E5%BC%A0%E6%8E%96/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;div class=&#39;align-center&#39;&gt;
@@ -385,10 +398,10 @@
     
     <item>
       <title>《秋夜》</title>
-      <link>https://zhezh09.github.io/post/essay/20181001-poetry-%E7%A7%8B%E5%A4%9C/</link>
+      <link>https://iJayer.github.io/post/essay/20181001-poetry-%E7%A7%8B%E5%A4%9C/</link>
       <pubDate>Tue, 02 Oct 2018 21:18:24 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/essay/20181001-poetry-%E7%A7%8B%E5%A4%9C/</guid>
+      <guid>https://iJayer.github.io/post/essay/20181001-poetry-%E7%A7%8B%E5%A4%9C/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -398,10 +411,10 @@
     
     <item>
       <title>DevOps | Add an OAuth consumer(Application Links) to Bitbucket Server</title>
-      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180929-cicd-05-create-oauth-app-on-bitbucket-server/</link>
+      <link>https://iJayer.github.io/post/tech/devops/cicd/20180929-cicd-05-create-oauth-app-on-bitbucket-server/</link>
       <pubDate>Sat, 29 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180929-cicd-05-create-oauth-app-on-bitbucket-server/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/cicd/20180929-cicd-05-create-oauth-app-on-bitbucket-server/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;How to add an OAuth consumer(Application Links) to Bitbucket Server ?&lt;/p&gt;</description>
@@ -409,10 +422,10 @@
     
     <item>
       <title>DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence</title>
-      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/</link>
+      <link>https://iJayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/</link>
       <pubDate>Thu, 27 Sep 2018 22:09:25 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;ul&gt;
@@ -424,10 +437,10 @@
     
     <item>
       <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署</title>
-      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</link>
+      <link>https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</link>
       <pubDate>Wed, 26 Sep 2018 23:40:06 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及：&lt;/p&gt;
@@ -442,10 +455,10 @@
     
     <item>
       <title>DevOps | Drone 的基本概念</title>
-      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</link>
+      <link>https://iJayer.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</link>
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -461,10 +474,10 @@
     
     <item>
       <title>Docker | Docker Compose 基础</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20180925-docker-compose-note/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20180925-docker-compose-note/</link>
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20180925-docker-compose-note/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20180925-docker-compose-note/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -474,10 +487,10 @@
     
     <item>
       <title>Win | 命令行集合</title>
-      <link>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</link>
+      <link>https://iJayer.github.io/post/tech/os/win/cmd-usage-keep/</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/win/cmd-usage-keep/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/win/cmd-usage-keep/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -491,10 +504,10 @@
     
     <item>
       <title>让 Win 更好用的技巧</title>
-      <link>https://zhezh09.github.io/post/tech/os/win/used-better/</link>
+      <link>https://iJayer.github.io/post/tech/os/win/used-better/</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/win/used-better/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/win/used-better/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;收藏一些让 Win 更好用的方法&lt;/p&gt;</description>
@@ -502,10 +515,10 @@
     
     <item>
       <title>DevOps | CI/CD 方案调研笔记</title>
-      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</link>
+      <link>https://iJayer.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -515,10 +528,10 @@
     
     <item>
       <title>DevOps | CI/CD 概念学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</link>
+      <link>https://iJayer.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;ul&gt;
@@ -530,10 +543,10 @@
     
     <item>
       <title>Reading | Be worthy to read about career and work</title>
-      <link>https://zhezh09.github.io/post/career/be-worthy-to-read/</link>
+      <link>https://iJayer.github.io/post/career/be-worthy-to-read/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/career/be-worthy-to-read/</guid>
+      <guid>https://iJayer.github.io/post/career/be-worthy-to-read/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;Include some articles that are very inspiring in your career and work.&lt;/p&gt;</description>
@@ -541,10 +554,10 @@
     
     <item>
       <title>Golang | gRPC学习笔记-05 | 编码实践</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180910-grpc-05-practice/</link>
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180910-grpc-05-practice/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180910-grpc-05-practice/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;学习完了理论知识，开始写点 Demo 体验一番吧！ Sohoo！😋&lt;/p&gt;</description>
@@ -552,19 +565,19 @@
     
     <item>
       <title>杭城 | 夕阳无限好</title>
-      <link>https://zhezh09.github.io/post/life/20180908-%E6%9D%AD%E5%9F%8E-%E5%A4%95%E9%98%B3%E6%97%A0%E9%99%90%E5%A5%BD/</link>
+      <link>https://iJayer.github.io/post/life/20180908-%E6%9D%AD%E5%9F%8E-%E5%A4%95%E9%98%B3%E6%97%A0%E9%99%90%E5%A5%BD/</link>
       <pubDate>Sat, 08 Sep 2018 15:54:21 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/life/20180908-%E6%9D%AD%E5%9F%8E-%E5%A4%95%E9%98%B3%E6%97%A0%E9%99%90%E5%A5%BD/</guid>
+      <guid>https://iJayer.github.io/post/life/20180908-%E6%9D%AD%E5%9F%8E-%E5%A4%95%E9%98%B3%E6%97%A0%E9%99%90%E5%A5%BD/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</link>
       <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;gRPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;Protocol Buffers&lt;/code&gt; 的相关知识：&lt;/p&gt;
@@ -578,10 +591,10 @@
     
     <item>
       <title>Golang | gRPC学习笔记-03 | 什么是 gRPC？</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</link>
       <pubDate>Thu, 06 Sep 2018 09:12:12 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;RPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;gRPC&lt;/code&gt; 的基础概念：&lt;/p&gt;
@@ -597,10 +610,10 @@
     
     <item>
       <title>Golang | gRPC学习笔记-02 | 什么是 RPC？</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</link>
       <pubDate>Thu, 06 Sep 2018 08:12:12 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;上一小节，简单熟悉了一下基于 gRPC 的 Hello World Demo 程序，接下来学习 gRPC 的相关概念知识，先来看 &lt;code&gt;RPC&lt;/code&gt;:&lt;/p&gt;
@@ -614,10 +627,10 @@
     
     <item>
       <title>Golang | gRPC学习笔记-01 | Hello World Demo</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;Ok, 先来安装 gRPC 的开发环境，并且实践一下 Hello World 程序吧！&lt;/p&gt;</description>
@@ -625,28 +638,28 @@
     
     <item>
       <title>Golang | gRPC 学习笔记集</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180904-grpc-00/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-00/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180904-grpc-00/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;🙂 So, 开始学习 gRPC 啦！！！ 学习笔记，内容包括：&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/&#34;&gt;Note1: gRPC | Hello Wrold&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/&#34;&gt;Note2: gRPC基础概念 | 什么是 RPC?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/&#34;&gt;Note3: gRPC基础概念 | 什么是 gRPC?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhezh09.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/&#34;&gt;Note4: gRPC基础概念 | 什么是 Protocol Buffers?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/&#34;&gt;Note1: gRPC | Hello Wrold&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/&#34;&gt;Note2: gRPC基础概念 | 什么是 RPC?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/&#34;&gt;Note3: gRPC基础概念 | 什么是 gRPC?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/&#34;&gt;Note4: gRPC基础概念 | 什么是 Protocol Buffers?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     
     <item>
       <title>Tools | Make &amp; Makefile 学习笔记 （一）</title>
-      <link>https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</link>
+      <link>https://iJayer.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</guid>
+      <guid>https://iJayer.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;ul&gt;
@@ -657,10 +670,10 @@
     
     <item>
       <title>『Go核心36讲』| 01-基础概念补漏</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-01/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-01/</link>
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-01/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-01/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -685,19 +698,19 @@
     
     <item>
       <title>Linux | Common Cmd</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/common-cmd/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/common-cmd/</link>
       <pubDate>Sun, 02 Sep 2018 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/common-cmd/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/common-cmd/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>『Go核心36讲』| 学习笔记集</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-00/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-00/</link>
       <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/tutorial-go36-00/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-00/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/intro/112&#34;&gt;《Go语言核心36讲》&lt;/a&gt; 是郝林老师发布的一则专栏教程(付费)，以音频+文稿的方式系统的讲述了 Go 的知识。&lt;/p&gt;
@@ -709,19 +722,19 @@
     
     <item>
       <title>Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统（二）| 监控平台数据持久化</title>
-      <link>https://zhezh09.github.io/post/tech/devops/monitor/20180830-persistent-monitoring-platform-data/</link>
+      <link>https://iJayer.github.io/post/tech/devops/monitor/20180830-persistent-monitoring-platform-data/</link>
       <pubDate>Thu, 30 Aug 2018 18:57:08 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/monitor/20180830-persistent-monitoring-platform-data/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/monitor/20180830-persistent-monitoring-platform-data/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | 依赖管理-02：Go Modules 使用笔记</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</link>
       <pubDate>Wed, 29 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;Go1.11 新特性 — 依赖管理工具：Go Modules 使用过程学习笔记，内容包括:&lt;/p&gt;
@@ -734,10 +747,10 @@
     
     <item>
       <title>Golang | 依赖管理-01：Go Modules 初步了解和学习</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</link>
       <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;Go1.11 新特性 — 依赖管理工具：Go Modules 初步学习和使用笔记，内容包括:&lt;/p&gt;
@@ -750,10 +763,10 @@
     
     <item>
       <title>Web | 扩展知识-01-一些性能测试指标概念</title>
-      <link>https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</link>
+      <link>https://iJayer.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</link>
       <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</guid>
+      <guid>https://iJayer.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;strong&gt;学习笔记&lt;/strong&gt;：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&amp;hellip;&lt;/p&gt;</description>
@@ -761,10 +774,10 @@
     
     <item>
       <title>Golang | 理解 Golang 的 nil (转)</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</link>
       <pubDate>Wed, 22 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</guid>
       <description>&lt;p&gt;&lt;strong&gt;理解 &lt;code&gt;nil&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
@@ -779,10 +792,10 @@
     
     <item>
       <title>杭城 | 黄昏夜幕时</title>
-      <link>https://zhezh09.github.io/post/life/20180818-%E6%9D%AD%E5%9F%8E-twilight-night/</link>
+      <link>https://iJayer.github.io/post/life/20180818-%E6%9D%AD%E5%9F%8E-twilight-night/</link>
       <pubDate>Sun, 19 Aug 2018 16:41:56 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/life/20180818-%E6%9D%AD%E5%9F%8E-twilight-night/</guid>
+      <guid>https://iJayer.github.io/post/life/20180818-%E6%9D%AD%E5%9F%8E-twilight-night/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;生活就是一点一滴，记录过的才是美好&amp;hellip; 比如，&lt;/p&gt;
 &lt;/blockquote&gt;</description>
@@ -790,37 +803,37 @@
     
     <item>
       <title>博客搭建-04 让.github.io出现在Google搜索中</title>
-      <link>https://zhezh09.github.io/post/others/20180814-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-04-%E8%AE%A9.github.io%E5%87%BA%E7%8E%B0%E5%9C%A8google%E6%90%9C%E7%B4%A2%E4%B8%AD/</link>
+      <link>https://iJayer.github.io/post/others/20180814-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-04-%E8%AE%A9.github.io%E5%87%BA%E7%8E%B0%E5%9C%A8google%E6%90%9C%E7%B4%A2%E4%B8%AD/</link>
       <pubDate>Tue, 14 Aug 2018 13:38:03 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/others/20180814-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-04-%E8%AE%A9.github.io%E5%87%BA%E7%8E%B0%E5%9C%A8google%E6%90%9C%E7%B4%A2%E4%B8%AD/</guid>
+      <guid>https://iJayer.github.io/post/others/20180814-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-04-%E8%AE%A9.github.io%E5%87%BA%E7%8E%B0%E5%9C%A8google%E6%90%9C%E7%B4%A2%E4%B8%AD/</guid>
       <description>&lt;p&gt;如何让博客内容出现在 Google 🔍 中呢？？？&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>博客搭建-03 HugoServer注册为Win服务</title>
-      <link>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</link>
+      <link>https://iJayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</link>
       <pubDate>Mon, 13 Aug 2018 22:05:21 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
+      <guid>https://iJayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
       <description>&lt;p&gt;WinSW: 把 win 下的命令行程序包装为 service 运行&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>博客搭建-02 GitHub Pages托管和部署</title>
-      <link>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/</link>
+      <link>https://iJayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/</link>
       <pubDate>Mon, 13 Aug 2018 22:04:38 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/</guid>
+      <guid>https://iJayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-02-github-pages%E6%89%98%E7%AE%A1%E5%92%8C%E9%83%A8%E7%BD%B2/</guid>
       <description>&lt;p&gt;将 Hugo 生成的网站部署和托管到 GitHub Pages&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>博客搭建-01 Hugo安装和使用</title>
-      <link>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-01-hugo%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <link>https://iJayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-01-hugo%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 13 Aug 2018 22:03:40 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-01-hugo%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://iJayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-01-hugo%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
       <description>&lt;p&gt;准备一些需要用的工具和软件：&lt;/p&gt;
 
 &lt;ul&gt;
@@ -834,10 +847,10 @@
     
     <item>
       <title>Tools | Git Submodule 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</link>
+      <link>https://iJayer.github.io/post/tech/tools/20180806-git-submodule-learn/</link>
       <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/tools/20180806-git-submodule-learn/</guid>
+      <guid>https://iJayer.github.io/post/tech/tools/20180806-git-submodule-learn/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;ul&gt;
@@ -848,10 +861,10 @@
     
     <item>
       <title>Monitor | Grafana 使用</title>
-      <link>https://zhezh09.github.io/post/tech/devops/monitor/grafana-03-practice/</link>
+      <link>https://iJayer.github.io/post/tech/devops/monitor/grafana-03-practice/</link>
       <pubDate>Sun, 05 Aug 2018 17:32:41 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/monitor/grafana-03-practice/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/monitor/grafana-03-practice/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -861,19 +874,19 @@
     
     <item>
       <title>Monitor | 基于 cAdvisor&#43;InfluxDB&#43;Grafana 搭建监控系统</title>
-      <link>https://zhezh09.github.io/post/tech/devops/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</link>
+      <link>https://iJayer.github.io/post/tech/devops/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</link>
       <pubDate>Sun, 29 Jul 2018 18:57:08 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>InfluxDB | 入门指南</title>
-      <link>https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/</link>
+      <link>https://iJayer.github.io/post/tech/db/influxdb/02-getting-started/</link>
       <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/influxdb/02-getting-started/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/influxdb/02-getting-started/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -883,10 +896,10 @@
     
     <item>
       <title>InfluxDB | 基础知识</title>
-      <link>https://zhezh09.github.io/post/tech/db/influxdb/01-basic-concepts/</link>
+      <link>https://iJayer.github.io/post/tech/db/influxdb/01-basic-concepts/</link>
       <pubDate>Thu, 26 Jul 2018 17:46:58 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/influxdb/01-basic-concepts/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/influxdb/01-basic-concepts/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -896,10 +909,10 @@
     
     <item>
       <title>Monitor | Grafana 配置</title>
-      <link>https://zhezh09.github.io/post/tech/devops/monitor/grafana-02-config/</link>
+      <link>https://iJayer.github.io/post/tech/devops/monitor/grafana-02-config/</link>
       <pubDate>Sun, 22 Jul 2018 17:22:38 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/monitor/grafana-02-config/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/monitor/grafana-02-config/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -909,10 +922,10 @@
     
     <item>
       <title>Monitor | Grafana 基础</title>
-      <link>https://zhezh09.github.io/post/tech/devops/monitor/grafana-01-basic-concepts/</link>
+      <link>https://iJayer.github.io/post/tech/devops/monitor/grafana-01-basic-concepts/</link>
       <pubDate>Sun, 22 Jul 2018 17:02:38 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/monitor/grafana-01-basic-concepts/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/monitor/grafana-01-basic-concepts/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;ul&gt;
@@ -924,10 +937,10 @@
     
     <item>
       <title>Monitor | cAdvisor 采集的 Measurements</title>
-      <link>https://zhezh09.github.io/post/tech/devops/monitor/cadvisor-02-measurements/</link>
+      <link>https://iJayer.github.io/post/tech/devops/monitor/cadvisor-02-measurements/</link>
       <pubDate>Sat, 21 Jul 2018 16:37:21 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/monitor/cadvisor-02-measurements/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/monitor/cadvisor-02-measurements/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -937,10 +950,10 @@
     
     <item>
       <title>Monitor | cAdvisor 基础</title>
-      <link>https://zhezh09.github.io/post/tech/devops/monitor/cadvisor-01-basic-concepts/</link>
+      <link>https://iJayer.github.io/post/tech/devops/monitor/cadvisor-01-basic-concepts/</link>
       <pubDate>Sat, 21 Jul 2018 16:36:59 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/monitor/cadvisor-01-basic-concepts/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/monitor/cadvisor-01-basic-concepts/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -950,19 +963,19 @@
     
     <item>
       <title>Monitor | 关于监控系统的相关知识</title>
-      <link>https://zhezh09.github.io/post/tech/devops/monitor/about-monitor-system/</link>
+      <link>https://iJayer.github.io/post/tech/devops/monitor/about-monitor-system/</link>
       <pubDate>Wed, 18 Jul 2018 18:57:08 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/monitor/about-monitor-system/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/monitor/about-monitor-system/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | Pits =&gt; Concurrent access map</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</link>
       <pubDate>Wed, 18 Jul 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -974,10 +987,10 @@
     
     <item>
       <title>Golang | Step-by-step guide to concurrency 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</link>
       <pubDate>Sun, 01 Jul 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -998,19 +1011,19 @@
     
     <item>
       <title>Golang | cmd - go cgo</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</link>
       <pubDate>Fri, 29 Jun 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | cmd - go install | run | clean | env | get</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</link>
       <pubDate>Wed, 27 Jun 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1026,10 +1039,10 @@
     
     <item>
       <title>Golang | cmd - go build 构建 C 的静态 &#43; 动态链接库、Go 的动态链接库</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</link>
       <pubDate>Mon, 25 Jun 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1043,37 +1056,28 @@
     
     <item>
       <title>Golang | cmd - go build 构建模式</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</link>
       <pubDate>Sun, 24 Jun 2018 14:07:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | cmd - go build 构建约束</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</link>
       <pubDate>Sat, 23 Jun 2018 14:04:26 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
-    </item>
-    
-    <item>
-      <title>Golang | cmd - go build</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180621-go_cmd_01_go-build/</link>
-      <pubDate>Thu, 21 Jun 2018 14:04:26 +0800</pubDate>
-      
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180621-go_cmd_01_go-build/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | Performance Optimization =&gt; go tarch 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</link>
       <pubDate>Tue, 19 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1085,10 +1089,10 @@
     
     <item>
       <title>Golang | Performance Optimization =&gt; 优化建议</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</link>
       <pubDate>Tue, 19 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1098,10 +1102,10 @@
     
     <item>
       <title>Golang | Performance Optimization =&gt; pprof practice</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</link>
       <pubDate>Fri, 15 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1113,10 +1117,10 @@
     
     <item>
       <title>Golang | Stdlib - runtime</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180610-stdlib-runtime/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180610-stdlib-runtime/</link>
       <pubDate>Sun, 10 Jun 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180610-stdlib-runtime/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180610-stdlib-runtime/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1129,10 +1133,10 @@
     
     <item>
       <title>Golang | Performance Optimization =&gt; pprof</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</link>
       <pubDate>Wed, 06 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1145,10 +1149,10 @@
     
     <item>
       <title>Golang | 程序性能优化学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</link>
       <pubDate>Tue, 05 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1161,28 +1165,28 @@
     
     <item>
       <title>杭城 | 篮球</title>
-      <link>https://zhezh09.github.io/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83/</link>
+      <link>https://iJayer.github.io/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83/</link>
       <pubDate>Sat, 02 Jun 2018 15:55:24 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83/</guid>
+      <guid>https://iJayer.github.io/post/life/20180602-%E6%9D%AD%E5%9F%8E-%E7%AF%AE%E7%90%83/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Tools | top &amp; htop</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20180529-tools-htop/</link>
       <pubDate>Tue, 29 May 2018 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20180529-tools-htop/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>『心之所向，素履以往』— 千岛湖</title>
-      <link>https://zhezh09.github.io/post/footprint/20180520-%E5%8D%83%E5%B2%9B%E6%B9%96/</link>
+      <link>https://iJayer.github.io/post/footprint/20180520-%E5%8D%83%E5%B2%9B%E6%B9%96/</link>
       <pubDate>Sun, 20 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20180520-%E5%8D%83%E5%B2%9B%E6%B9%96/</guid>
+      <guid>https://iJayer.github.io/post/footprint/20180520-%E5%8D%83%E5%B2%9B%E6%B9%96/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;div class=&#39;align-center&#39;&gt;
@@ -1193,19 +1197,19 @@
     
     <item>
       <title>Linux | Tools | Logrotate 使用总结</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20180511-tools-logrotate/</link>
       <pubDate>Fri, 11 May 2018 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20180511-tools-logrotate/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>MongoDB | 使用 logrotate 管理日志</title>
-      <link>https://zhezh09.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</link>
+      <link>https://iJayer.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</link>
       <pubDate>Fri, 11 May 2018 15:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1215,28 +1219,28 @@
     
     <item>
       <title>Nginx | 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</link>
+      <link>https://iJayer.github.io/post/tech/web/20180424-nginx-learning-notes/</link>
       <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/web/20180424-nginx-learning-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>杭州 | 夜游京杭运河</title>
-      <link>https://zhezh09.github.io/post/life/20180421-%E6%9D%AD%E5%9F%8E-%E5%A4%9C%E6%B8%B8%E4%BA%AC%E6%9D%AD%E8%BF%90%E6%B2%B3/</link>
+      <link>https://iJayer.github.io/post/life/20180421-%E6%9D%AD%E5%9F%8E-%E5%A4%9C%E6%B8%B8%E4%BA%AC%E6%9D%AD%E8%BF%90%E6%B2%B3/</link>
       <pubDate>Sat, 21 Apr 2018 21:29:56 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/life/20180421-%E6%9D%AD%E5%9F%8E-%E5%A4%9C%E6%B8%B8%E4%BA%AC%E6%9D%AD%E8%BF%90%E6%B2%B3/</guid>
+      <guid>https://iJayer.github.io/post/life/20180421-%E6%9D%AD%E5%9F%8E-%E5%A4%9C%E6%B8%B8%E4%BA%AC%E6%9D%AD%E8%BF%90%E6%B2%B3/</guid>
       <description>我拿起酒杯对自己说 一杯敬朝阳，一杯敬月光 一杯敬明天，一杯敬过往 拍摄于 2018-04-21 日傍晚 20 时许，设备 S7Edge</description>
     </item>
     
     <item>
       <title>Golang | 关于 for range 的一些细节</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</link>
       <pubDate>Wed, 28 Mar 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1249,10 +1253,10 @@
     
     <item>
       <title>Golang | net/http =&gt; Customize Handler、ServeMux、Middleware</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</link>
       <pubDate>Tue, 20 Mar 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1266,10 +1270,10 @@
     
     <item>
       <title>Golang | net/http =&gt; server.go 源码阅读</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</link>
       <pubDate>Fri, 16 Mar 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1285,46 +1289,46 @@
     
     <item>
       <title>Golang | 定时任务</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</link>
       <pubDate>Wed, 07 Mar 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>杭州 | 雨后的清晨</title>
-      <link>https://zhezh09.github.io/post/life/20180303-%E6%9D%AD%E5%9F%8E-%E9%9B%A8%E5%90%8E%E7%9A%84%E6%B8%85%E6%99%A8/</link>
+      <link>https://iJayer.github.io/post/life/20180303-%E6%9D%AD%E5%9F%8E-%E9%9B%A8%E5%90%8E%E7%9A%84%E6%B8%85%E6%99%A8/</link>
       <pubDate>Sat, 03 Mar 2018 16:46:59 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/life/20180303-%E6%9D%AD%E5%9F%8E-%E9%9B%A8%E5%90%8E%E7%9A%84%E6%B8%85%E6%99%A8/</guid>
+      <guid>https://iJayer.github.io/post/life/20180303-%E6%9D%AD%E5%9F%8E-%E9%9B%A8%E5%90%8E%E7%9A%84%E6%B8%85%E6%99%A8/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>古城 | 过客</title>
-      <link>https://zhezh09.github.io/post/life/20180224-%E5%8F%A4%E5%9F%8E-%E5%8C%86%E5%8C%86/</link>
+      <link>https://iJayer.github.io/post/life/20180224-%E5%8F%A4%E5%9F%8E-%E5%8C%86%E5%8C%86/</link>
       <pubDate>Sat, 24 Feb 2018 16:59:10 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/life/20180224-%E5%8F%A4%E5%9F%8E-%E5%8C%86%E5%8C%86/</guid>
+      <guid>https://iJayer.github.io/post/life/20180224-%E5%8F%A4%E5%9F%8E-%E5%8C%86%E5%8C%86/</guid>
       <description>归杭的旅途已是彼时的路 途中的风景散落记忆深处 犹如时光里划过的水墨画 匆匆脚尖 丝丝印记 你在追 我在跑 拍摄于 2018-02-24 日傍晚 17 时许，设备 S7Edge</description>
     </item>
     
     <item>
       <title>《归乡·北方》</title>
-      <link>https://zhezh09.github.io/post/essay/20180209-poetry-%E5%BD%92%E4%B9%A1%E5%8C%97%E6%96%B9/</link>
+      <link>https://iJayer.github.io/post/essay/20180209-poetry-%E5%BD%92%E4%B9%A1%E5%8C%97%E6%96%B9/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/essay/20180209-poetry-%E5%BD%92%E4%B9%A1%E5%8C%97%E6%96%B9/</guid>
+      <guid>https://iJayer.github.io/post/essay/20180209-poetry-%E5%BD%92%E4%B9%A1%E5%8C%97%E6%96%B9/</guid>
       <description>2018·春节： 归途，夜难宿、即兴起、诗一首，勉之 🌙 — Zher，于 2018-02-09 日凌晨 01 时许</description>
     </item>
     
     <item>
       <title>Golang | mgo - Rich MongoDB Driver for Go [译]</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180127-lib-mgo/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180127-lib-mgo/</link>
       <pubDate>Sat, 27 Jan 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180127-lib-mgo/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180127-lib-mgo/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1334,19 +1338,19 @@
     
     <item>
       <title>Golang | 单元测试</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20171113-go-unit-test/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20171113-go-unit-test/</link>
       <pubDate>Mon, 13 Nov 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20171113-go-unit-test/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20171113-go-unit-test/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | CGO =&gt; 基础 </title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20171023-cgo-note/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20171023-cgo-note/</link>
       <pubDate>Mon, 23 Oct 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20171023-cgo-note/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20171023-cgo-note/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1356,28 +1360,28 @@
     
     <item>
       <title>Golang | 函数</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20171013-go-func/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20171013-go-func/</link>
       <pubDate>Fri, 13 Oct 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20171013-go-func/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20171013-go-func/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | 模板</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20171010-go-template/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20171010-go-template/</link>
       <pubDate>Tue, 10 Oct 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20171010-go-template/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20171010-go-template/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>『心之所向，素履以往』— 黄山</title>
-      <link>https://zhezh09.github.io/post/footprint/20171006-%E9%BB%84%E5%B1%B1/</link>
+      <link>https://iJayer.github.io/post/footprint/20171006-%E9%BB%84%E5%B1%B1/</link>
       <pubDate>Fri, 06 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20171006-%E9%BB%84%E5%B1%B1/</guid>
+      <guid>https://iJayer.github.io/post/footprint/20171006-%E9%BB%84%E5%B1%B1/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;山，不役于物，不伤于物，任万灵滋长于上，不惧不动，万古恒长。故，仁者乐山。&lt;/p&gt;</description>
@@ -1385,55 +1389,55 @@
     
     <item>
       <title>Network | 计算机网络基础</title>
-      <link>https://zhezh09.github.io/post/tech/network/20170926-net-basic/</link>
+      <link>https://iJayer.github.io/post/tech/network/20170926-net-basic/</link>
       <pubDate>Tue, 26 Sep 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/network/20170926-net-basic/</guid>
+      <guid>https://iJayer.github.io/post/tech/network/20170926-net-basic/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | 跨主机通信</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/</link>
       <pubDate>Tue, 19 Sep 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Fedora 系统优化</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</link>
       <pubDate>Fri, 15 Sep 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | SFTP</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20170808-lib-sftp/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20170808-lib-sftp/</link>
       <pubDate>Tue, 08 Aug 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20170808-lib-sftp/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20170808-lib-sftp/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | SSH</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20170807-lib-ssh/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20170807-lib-ssh/</link>
       <pubDate>Mon, 07 Aug 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20170807-lib-ssh/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20170807-lib-ssh/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | Stdlib: Flag 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180912-stdlib-flag/</link>
       <pubDate>Tue, 25 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20180912-stdlib-flag/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180912-stdlib-flag/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;flag 包学习笔记概要：&lt;/p&gt;
@@ -1448,28 +1452,28 @@
     
     <item>
       <title>Tools | Git 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</link>
+      <link>https://iJayer.github.io/post/tech/tools/20170721-git-learn/</link>
       <pubDate>Fri, 21 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/tools/20170721-git-learn/</guid>
+      <guid>https://iJayer.github.io/post/tech/tools/20170721-git-learn/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | 容器配置静态 IP</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</link>
       <pubDate>Thu, 13 Jul 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | FAQ</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/faq/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/faq/</link>
       <pubDate>Tue, 11 Jul 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/faq/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/faq/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1479,127 +1483,127 @@
     
     <item>
       <title>Docker | 私有仓库搭建</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/</link>
       <pubDate>Tue, 04 Jul 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Alpine 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</link>
       <pubDate>Mon, 26 Jun 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>MongoDB | Deploy a Replica Set With Docker and Keyfile Access Contorl</title>
-      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</link>
+      <link>https://iJayer.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</link>
       <pubDate>Mon, 19 Jun 2017 15:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>MongoDB | 部署一个 Sharding 集群</title>
-      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</link>
+      <link>https://iJayer.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</link>
       <pubDate>Sun, 18 Jun 2017 15:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>MongoDB | 部署一个 Replica Set 集群</title>
-      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</link>
+      <link>https://iJayer.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</link>
       <pubDate>Wed, 14 Jun 2017 15:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>MongoDB | 基础学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170612-basic-note/</link>
+      <link>https://iJayer.github.io/post/tech/db/mongodb/20170612-basic-note/</link>
       <pubDate>Mon, 12 Jun 2017 15:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170612-basic-note/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/mongodb/20170612-basic-note/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>MongoDB | 集群</title>
-      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170612-cluster-note/</link>
+      <link>https://iJayer.github.io/post/tech/db/mongodb/20170612-cluster-note/</link>
       <pubDate>Mon, 12 Jun 2017 15:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170612-cluster-note/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/mongodb/20170612-cluster-note/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | 同步与锁</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</link>
       <pubDate>Thu, 08 Jun 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | 闭包</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20170603-go-closure/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20170603-go-closure/</link>
       <pubDate>Sat, 03 Jun 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20170603-go-closure/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20170603-go-closure/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Centos 系统优化</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170525-linux.centos-notes/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170525-linux.centos-notes/</link>
       <pubDate>Thu, 25 May 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170525-linux.centos-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170525-linux.centos-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Shell | 基础学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</link>
+      <link>https://iJayer.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</link>
       <pubDate>Thu, 18 May 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Bash 基础</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170515-bash-basic-notes/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170515-bash-basic-notes/</link>
       <pubDate>Mon, 15 May 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170515-bash-basic-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170515-bash-basic-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Systemd 基础</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170511-systemd-basic/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170511-systemd-basic/</link>
       <pubDate>Thu, 11 May 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170511-systemd-basic/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170511-systemd-basic/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | 网络实现和网络模式</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Tue, 09 May 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1616,37 +1620,37 @@
     
     <item>
       <title>Docker | 容器间访问方式</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/</link>
       <pubDate>Fri, 05 May 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | 数据卷</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170503-data-volume/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170503-data-volume/</link>
       <pubDate>Wed, 03 May 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170503-data-volume/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170503-data-volume/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | 使用 Docker 部署 Go 程序</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170502-deploy-go-app-with-docker/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170502-deploy-go-app-with-docker/</link>
       <pubDate>Tue, 02 May 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170502-deploy-go-app-with-docker/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170502-deploy-go-app-with-docker/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>『心之所向，素履以往』— 舟山</title>
-      <link>https://zhezh09.github.io/post/footprint/20170501-%E8%88%9F%E5%B1%B1/</link>
+      <link>https://iJayer.github.io/post/footprint/20170501-%E8%88%9F%E5%B1%B1/</link>
       <pubDate>Mon, 01 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20170501-%E8%88%9F%E5%B1%B1/</guid>
+      <guid>https://iJayer.github.io/post/footprint/20170501-%E8%88%9F%E5%B1%B1/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;div class=&#39;align-center&#39;&gt;
@@ -1657,28 +1661,28 @@
     
     <item>
       <title>MongoDB | 配置选项</title>
-      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170423-config-options/</link>
+      <link>https://iJayer.github.io/post/tech/db/mongodb/20170423-config-options/</link>
       <pubDate>Sun, 23 Apr 2017 15:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170423-config-options/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/mongodb/20170423-config-options/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Caddy | 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/</link>
+      <link>https://iJayer.github.io/post/tech/web/20170419-caddy-learning-notes/</link>
       <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/web/20170419-caddy-learning-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | Dockerfile</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170410-dockerfile/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170410-dockerfile/</link>
       <pubDate>Mon, 10 Apr 2017 17:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170410-dockerfile/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170410-dockerfile/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1703,28 +1707,28 @@
     
     <item>
       <title>Docker | 构建镜像</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170410-build-image/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170410-build-image/</link>
       <pubDate>Mon, 10 Apr 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170410-build-image/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170410-build-image/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | 常用命令</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170409-common-cmd/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170409-common-cmd/</link>
       <pubDate>Sun, 09 Apr 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170409-common-cmd/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170409-common-cmd/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Docker | 基础知识学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170408-docker-basic-notes/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170408-docker-basic-notes/</link>
       <pubDate>Sat, 08 Apr 2017 16:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170408-docker-basic-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170408-docker-basic-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -1735,46 +1739,46 @@ Docker要求Linux内核：3.10+&lt;/p&gt;
     
     <item>
       <title>Docker | Install</title>
-      <link>https://zhezh09.github.io/post/tech/devops/docker/20170408-docker-01-install/</link>
+      <link>https://iJayer.github.io/post/tech/devops/docker/20170408-docker-01-install/</link>
       <pubDate>Sat, 08 Apr 2017 15:39:25 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/devops/docker/20170408-docker-01-install/</guid>
+      <guid>https://iJayer.github.io/post/tech/devops/docker/20170408-docker-01-install/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Network | 理论填坑</title>
-      <link>https://zhezh09.github.io/post/tech/network/20170307-net-pits/</link>
+      <link>https://iJayer.github.io/post/tech/network/20170307-net-pits/</link>
       <pubDate>Tue, 07 Mar 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/network/20170307-net-pits/</guid>
+      <guid>https://iJayer.github.io/post/tech/network/20170307-net-pits/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | Context 基础</title>
-      <link>https://zhezh09.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</link>
+      <link>https://iJayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Tue, 07 Mar 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</guid>
+      <guid>https://iJayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>MongoDB | 安装和配置</title>
-      <link>https://zhezh09.github.io/post/tech/db/mongodb/20170307-install-and-config/</link>
+      <link>https://iJayer.github.io/post/tech/db/mongodb/20170307-install-and-config/</link>
       <pubDate>Tue, 07 Mar 2017 15:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/db/mongodb/20170307-install-and-config/</guid>
+      <guid>https://iJayer.github.io/post/tech/db/mongodb/20170307-install-and-config/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>『心之所向，素履以往』— 乌镇</title>
-      <link>https://zhezh09.github.io/post/footprint/20160903-%E4%B9%8C%E9%95%87/</link>
+      <link>https://iJayer.github.io/post/footprint/20160903-%E4%B9%8C%E9%95%87/</link>
       <pubDate>Fri, 23 Sep 2016 17:18:52 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/footprint/20160903-%E4%B9%8C%E9%95%87/</guid>
+      <guid>https://iJayer.github.io/post/footprint/20160903-%E4%B9%8C%E9%95%87/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;div class=&#39;align-center&#39;&gt;
@@ -1787,6 +1791,15 @@ Docker要求Linux内核：3.10+&lt;/p&gt;
 都散发着乌镇该有的静谧之美&lt;/p&gt;
 
 &lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://iJayer.github.io/post/tech/code/golang/20180621-go_cmd_01_go-build/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://iJayer.github.io/post/tech/code/golang/20180621-go_cmd_01_go-build/</guid>
+      <description></description>
     </item>
     
   </channel>

@@ -2,65 +2,74 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on iJayer</title>
-    <link>https://zhezh09.github.io/categories/</link>
+    <link>https://iJayer.github.io/categories/</link>
     <description>Recent content in Categories on iJayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     
-	<atom:link href="https://zhezh09.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://iJayer.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>career</title>
-      <link>https://zhezh09.github.io/categories/career/</link>
+      <link>https://iJayer.github.io/categories/career/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/categories/career/</guid>
+      <guid>https://iJayer.github.io/categories/career/</guid>
       <description></description>
     </item>
     
     <item>
       <title>essay</title>
-      <link>https://zhezh09.github.io/categories/essay/</link>
+      <link>https://iJayer.github.io/categories/essay/</link>
       <pubDate>Tue, 02 Oct 2018 21:18:24 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/categories/essay/</guid>
+      <guid>https://iJayer.github.io/categories/essay/</guid>
       <description></description>
     </item>
     
     <item>
       <title>footprint</title>
-      <link>https://zhezh09.github.io/categories/footprint/</link>
+      <link>https://iJayer.github.io/categories/footprint/</link>
       <pubDate>Tue, 02 Oct 2018 21:42:56 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/categories/footprint/</guid>
+      <guid>https://iJayer.github.io/categories/footprint/</guid>
       <description></description>
     </item>
     
     <item>
       <title>life</title>
-      <link>https://zhezh09.github.io/categories/life/</link>
+      <link>https://iJayer.github.io/categories/life/</link>
       <pubDate>Sat, 08 Sep 2018 15:54:21 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/categories/life/</guid>
+      <guid>https://iJayer.github.io/categories/life/</guid>
       <description></description>
     </item>
     
     <item>
       <title>others</title>
-      <link>https://zhezh09.github.io/categories/others/</link>
+      <link>https://iJayer.github.io/categories/others/</link>
       <pubDate>Tue, 14 Aug 2018 13:38:03 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/categories/others/</guid>
+      <guid>https://iJayer.github.io/categories/others/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tech</title>
-      <link>https://zhezh09.github.io/categories/tech/</link>
+      <link>https://iJayer.github.io/categories/tech/</link>
       <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/categories/tech/</guid>
+      <guid>https://iJayer.github.io/categories/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>https://iJayer.github.io/categories/tools/</link>
+      <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
+      
+      <guid>https://iJayer.github.io/categories/tools/</guid>
       <description></description>
     </item>
     

@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.52 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://zhezh09.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/" />
+<link rel="canonical" href="https://iJayer.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,7 +41,7 @@
 <meta property="og:title" content="DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server" />
 <meta property="og:description" content="Devops | CI/CD 实践" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhezh09.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/" /><meta property="article:published_time" content="2018-10-29T16:58:16&#43;08:00"/>
+<meta property="og:url" content="https://iJayer.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/" /><meta property="article:published_time" content="2018-10-29T16:58:16&#43;08:00"/>
 <meta property="article:modified_time" content="2018-11-02T16:58:16&#43;00:00"/>
 
 <meta itemprop="name" content="DevOps | 基于 Drone CI 部署 Go 语言项目 — Web Server">
@@ -169,10 +169,10 @@
 <p>前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有：</p>
 
 <ul>
-<li><a href="https://zhezh09.github.io/post/tech/devops/cicd/20180925-drone-01-basic/">Drone 的基本概念</a></li>
-<li><a href="https://zhezh09.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/">Drone 服务部署</a></li>
-<li><a href="https://zhezh09.github.io/post/tech/devops/docker/docker-compose-note/">Docker-Compose 基础</a></li>
-<li><a href="https://zhezh09.github.io/post/tech/devops/docker/registry-and-webui/">Docker Registry 服务部署</a></li>
+<li><a href="https://iJayer.github.io/post/tech/devops/cicd/20180925-drone-01-basic/">Drone 的基本概念</a></li>
+<li><a href="https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/">Drone 服务部署</a></li>
+<li><a href="https://iJayer.github.io/post/tech/devops/docker/docker-compose-note/">Docker-Compose 基础</a></li>
+<li><a href="https://iJayer.github.io/post/tech/devops/docker/registry-and-webui/">Docker Registry 服务部署</a></li>
 </ul>
 </blockquote>
 
@@ -277,7 +277,7 @@ $ touch api/app.go api/model.go main.go main_test.go</code></pre></td></tr></tab
 </div>
 </div>
 <ul>
-<li>源码内容可以 <a href="https://github.com/zhezh09/go-practice/tree/master/go-web/restapi">Click Here</a> 进行拷贝。</li>
+<li>源码内容可以 <a href="https://github.com/iJayer/go-practice/tree/master/go-web/restapi">Click Here</a> 进行拷贝。</li>
 </ul></li>
 
 <li><p>初始化 go module 并运行项目</p>
@@ -346,7 +346,7 @@ go: finding gopkg.in/mgo.v2 latest
 
 <ul>
 <li><a href="http://docs.drone.io/getting-started/">http://docs.drone.io/getting-started/</a></li>
-<li><a href="https://zhezh09.github.io/post/tech/devops/cicd/20180925-drone-01-basic/">Drone 的基本概念</a></li>
+<li><a href="https://iJayer.github.io/post/tech/devops/cicd/20180925-drone-01-basic/">Drone 的基本概念</a></li>
 </ul>
 
 <p>在项目 <code>根目录</code> 创建 Drone CI/CD 的配置文件：<code>.drone.yml</code>；然后跳转到 Drone Web UI：<a href="http://your_company_domain.com:8000">http://your_company_domain.com:8000</a>，完成登陆后 Drone Server 会自动同步你的账号下面的项目列表(或者手动同步)。然后选择需要启用 Drone CI 的项目，点击右侧开关选项即可启用。如下图：</p>
@@ -826,7 +826,7 @@ $ touch www/index.html
 
 <h2 id="drone-pipeline-发布-docker-镜像-image">Drone Pipeline: 发布 Docker 镜像(image)</h2>
 
-<p>这里 Docker 镜像是发布到自建的 Docker Registry Server 的，其部署文档参考：<a href="https://zhezh09.github.io/post/tech/devops/docker/registry-and-webui/">Docker | Deploy Docker Registry and Web UI</a></p>
+<p>这里 Docker 镜像是发布到自建的 Docker Registry Server 的，其部署文档参考：<a href="https://iJayer.github.io/post/tech/devops/docker/registry-and-webui/">Docker | Deploy Docker Registry and Web UI</a></p>
 
 <ul>
 <li><p>生成 Go-Web-App 的可执行文件后，就可以将其打包为 Docker Image 发布了，此时的 <code>.drone.yml</code> 配置如下：</p>
@@ -1085,7 +1085,7 @@ $ touch Dockerfile
 <li><p>上传构建 Go-Web-App 的基础镜像到我们自建的 Docker Private Registry:</p>
 
 <ul>
-<li><p><a href="https://zhezh09.github.io/post/tech/devops/docker/registry-and-webui/#测试">上传镜像到 Docker Registry 参考文章</a></p>
+<li><p><a href="https://iJayer.github.io/post/tech/devops/docker/registry-and-webui/#测试">上传镜像到 Docker Registry 参考文章</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -1393,7 +1393,7 @@ docker logs api<span class="si">${</span><span class="nv">Tag</span><span class=
 <li><p>开始之前需要阅读的相关文档：</p>
 
 <ul>
-<li><a href="https://zhezh09.github.io/post/tech/devops/docker/docker-compose-note/">Docker-Compose 基础</a></li>
+<li><a href="https://iJayer.github.io/post/tech/devops/docker/docker-compose-note/">Docker-Compose 基础</a></li>
 <li><a href="https://hub.docker.com/r/abiosoft/caddy/">https://hub.docker.com/r/abiosoft/caddy/</a></li>
 <li><a href="https://hub.docker.com/r/library/mongo/">https://hub.docker.com/r/library/mongo/</a></li>
 </ul></li>
@@ -2143,8 +2143,8 @@ $ git tag <span class="m">0</span>.0.3 -m <span class="s2">&#34;release 0.0.3&#3
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'zhezh09',
-        admin: ['zhezh09'],
+        owner: 'iJayer',
+        admin: ['iJayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -2157,14 +2157,14 @@ $ git tag <span class="m">0</span>.0.3 -m <span class="s2">&#34;release 0.0.3&#3
     <footer id="footer" class="footer">
       <div class="social-links">
       <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/zher16297365" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/zhezh09" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://zhezh09.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">

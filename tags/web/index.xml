@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>web on iJayer</title>
-    <link>https://zhezh09.github.io/tags/web/</link>
+    <link>https://iJayer.github.io/tags/web/</link>
     <description>Recent content in web on iJayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 26 Aug 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://zhezh09.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://iJayer.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Web | 扩展知识-01-一些性能测试指标概念</title>
-      <link>https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</link>
+      <link>https://iJayer.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</link>
       <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</guid>
+      <guid>https://iJayer.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;strong&gt;学习笔记&lt;/strong&gt;：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&amp;hellip;&lt;/p&gt;</description>
@@ -24,19 +24,19 @@
     
     <item>
       <title>Nginx | 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</link>
+      <link>https://iJayer.github.io/post/tech/web/20180424-nginx-learning-notes/</link>
       <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/web/20180424-nginx-learning-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/web/20180424-nginx-learning-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Caddy | 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/</link>
+      <link>https://iJayer.github.io/post/tech/web/20170419-caddy-learning-notes/</link>
       <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/web/20170419-caddy-learning-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/web/20170419-caddy-learning-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     

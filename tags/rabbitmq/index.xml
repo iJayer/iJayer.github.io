@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>rabbitmq on iJayer</title>
-    <link>https://zhezh09.github.io/tags/rabbitmq/</link>
+    <link>https://iJayer.github.io/tags/rabbitmq/</link>
     <description>Recent content in rabbitmq on iJayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 01 Apr 2019 11:13:00 +0800</lastBuildDate>
     
-	<atom:link href="https://zhezh09.github.io/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://iJayer.github.io/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Rabbitmq | 02 - Work Queues</title>
-      <link>https://zhezh09.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
+      <link>https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
       <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
+      <guid>https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -26,10 +26,10 @@
     
     <item>
       <title>Rabbitmq | 01 - Hello World</title>
-      <link>https://zhezh09.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
+      <link>https://iJayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
       <pubDate>Fri, 29 Mar 2019 16:05:39 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
+      <guid>https://iJayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;

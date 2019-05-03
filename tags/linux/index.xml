@@ -2,84 +2,97 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>linux on iJayer</title>
-    <link>https://zhezh09.github.io/tags/linux/</link>
+    <link>https://iJayer.github.io/tags/linux/</link>
     <description>Recent content in linux on iJayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 02 Sep 2018 17:53:01 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Apr 2019 21:05:02 +0800</lastBuildDate>
     
-	<atom:link href="https://zhezh09.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://iJayer.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Useful Tools</title>
+      <link>https://iJayer.github.io/post/tech/tools/useful-tools/</link>
+      <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
+      
+      <guid>https://iJayer.github.io/post/tech/tools/useful-tools/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
       <title>Linux | Common Cmd</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/common-cmd/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/common-cmd/</link>
       <pubDate>Sun, 02 Sep 2018 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/common-cmd/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/common-cmd/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Tools | top &amp; htop</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20180529-tools-htop/</link>
       <pubDate>Tue, 29 May 2018 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20180529-tools-htop/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20180529-tools-htop/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Tools | Logrotate 使用总结</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20180511-tools-logrotate/</link>
       <pubDate>Fri, 11 May 2018 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20180511-tools-logrotate/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20180511-tools-logrotate/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Fedora 系统优化</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</link>
       <pubDate>Fri, 15 Sep 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Alpine 学习笔记</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</link>
       <pubDate>Mon, 26 Jun 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Centos 系统优化</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170525-linux.centos-notes/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170525-linux.centos-notes/</link>
       <pubDate>Thu, 25 May 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170525-linux.centos-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170525-linux.centos-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Bash 基础</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170515-bash-basic-notes/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170515-bash-basic-notes/</link>
       <pubDate>Mon, 15 May 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170515-bash-basic-notes/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170515-bash-basic-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Linux | Systemd 基础</title>
-      <link>https://zhezh09.github.io/post/tech/os/linux/20170511-systemd-basic/</link>
+      <link>https://iJayer.github.io/post/tech/os/linux/20170511-systemd-basic/</link>
       <pubDate>Thu, 11 May 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://zhezh09.github.io/post/tech/os/linux/20170511-systemd-basic/</guid>
+      <guid>https://iJayer.github.io/post/tech/os/linux/20170511-systemd-basic/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
