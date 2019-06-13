@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://iJayer.github.io/sitemap.xml
+Sitemap: https://ijayer.github.io/sitemap.xml

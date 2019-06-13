@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>MongoDB | 基础学习笔记 - iJayer</title>
+  <title>MongoDB | 基础学习笔记 - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -23,10 +23,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/db/mongodb/20170612-basic-note/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/db/mongodb/20170612-basic-note/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,7 +41,8 @@
 <meta property="og:title" content="MongoDB | 基础学习笔记" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/db/mongodb/20170612-basic-note/" /><meta property="article:published_time" content="2017-06-12T15:53:01&#43;08:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/db/mongodb/20170612-basic-note/" />
+<meta property="article:published_time" content="2017-06-12T15:53:01&#43;08:00"/>
 <meta property="article:modified_time" content="2018-01-24T15:53:01&#43;00:00"/>
 
 <meta itemprop="name" content="MongoDB | 基础学习笔记">
@@ -50,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2017-06-12T15:53:01&#43;08:00" />
 <meta itemprop="dateModified" content="2018-01-24T15:53:01&#43;00:00" />
-<meta itemprop="wordCount" content="8594">
+<meta itemprop="wordCount" content="8550">
 
 
 
@@ -72,7 +73,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -98,7 +99,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -131,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 8594 words </span>
+          <span class="more-meta"> 8550 words </span>
           <span class="more-meta"> 18 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -577,7 +578,6 @@
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="nx">book</span><span class="o">:</span><span class="s2">&#34;my book&#34;</span><span class="p">})</span>
@@ -585,8 +585,7 @@
 </div>
 </div>
 <ul>
-<li>查找，可添加查询条件</li>
-</ul>
+<li><p>查找，可添加查询条件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
@@ -598,9 +597,9 @@
 db.books.find().pretty()	// 显示格式化后的数据
 db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </div>
-</div>
-<ul>
-<li>更新</li>
+</div></li>
+
+<li><p>更新</p></li>
 </ul>
 
 <p>update接受（至少）两个参数：第一个是限定条件（用于匹配待更新的文档），第二个是新的文档。</p>
@@ -610,7 +609,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
-</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
@@ -626,7 +624,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">remove</span><span class="p">({</span><span class="nx">book</span> <span class="o">:</span> <span class="s2">&#34;my book&#34;</span><span class="p">})</span>
@@ -969,7 +966,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1002,7 +998,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1038,7 +1033,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
-</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1093,7 +1087,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
-</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1135,7 +1128,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1173,7 +1165,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1183,7 +1174,7 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <span class="p">)</span>
 
 <span class="c1">// mgo+golang
-</span><span class="c1"></span></code></pre></td></tr></table>
+</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>Note:</p>
@@ -1213,7 +1204,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
-</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1254,7 +1244,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1264,7 +1253,7 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <span class="p">)</span>
 
 <span class="c1">// mgo+golang
-</span><span class="c1"></span></code></pre></td></tr></table>
+</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>Note:</p>
@@ -1287,7 +1276,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1383,7 +1371,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1419,7 +1406,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
-</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1469,7 +1455,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1502,7 +1487,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js">
@@ -1521,7 +1505,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js">
@@ -1571,7 +1554,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1598,7 +1580,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1629,7 +1610,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
-</span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1684,7 +1664,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span> <span class="nx">$addToSet</span><span class="o">:</span> <span class="p">{</span> <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span> <span class="nx">$each</span><span class="o">:</span> <span class="p">[</span> <span class="o">&lt;</span><span class="nx">value1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">value2</span><span class="o">&gt;</span> <span class="p">...</span> <span class="p">]</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span>  
@@ -1707,7 +1686,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>  
@@ -1736,7 +1714,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
@@ -1791,7 +1768,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>  
@@ -1839,11 +1815,10 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;zhe&#34;</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="o">:</span> <span class="mi">24</span><span class="p">})</span> <span class="c1">// 条件间是 and 关系
-</span><span class="c1"></span></code></pre></td></tr></table>
+</span></code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="指定需要返回的键">指定需要返回的键</h2>
@@ -1857,7 +1832,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js">  <span class="c1">// bson.M{bson.M{}, bson.M{&#34;name&#34;:1}}
@@ -1871,7 +1845,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js">  <span class="nx">db</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">find</span><span class="p">({},{</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">})</span>
@@ -1903,16 +1876,15 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1961,7 +1933,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// shell
@@ -1987,16 +1958,15 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <p>Note: 下面是一个错误使用方式</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> 
@@ -2033,7 +2003,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> 
@@ -2062,7 +2031,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
@@ -2083,7 +2051,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
@@ -2105,7 +2072,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 查询存在 phone 字段的文档
@@ -2125,7 +2091,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 32-bit integer 16 &#34;int&#34;
@@ -2148,7 +2113,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span> <span class="o">&lt;</span><span class="nx">field</span><span class="o">&gt;:</span> <span class="p">{</span> <span class="nx">$regex</span><span class="o">:</span> <span class="sr">/pattern/</span><span class="p">,</span> <span class="nx">$options</span><span class="o">:</span> <span class="s1">&#39;&lt;options&gt;&#39;</span> <span class="p">}</span> <span class="p">}</span>
@@ -2164,7 +2128,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="sr">/zhe/i</span><span class="p">})</span>
@@ -2188,7 +2151,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
@@ -2210,7 +2172,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
@@ -2237,7 +2198,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js">
@@ -2255,7 +2215,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">myCollection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">$where</span><span class="o">:</span> <span class="s2">&#34;this.credits == this.debits&#34;</span> <span class="p">}</span> <span class="p">);</span>  
@@ -2279,7 +2238,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
@@ -2309,7 +2267,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
@@ -2335,7 +2292,6 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="s2">&#34;card&#34;</span><span class="o">:</span> <span class="p">{</span><span class="nx">$size</span><span class="o">:</span> <span class="mi">5</span><span class="p">}})</span>
@@ -2433,8 +2389,8 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -2454,7 +2410,7 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -2480,7 +2436,7 @@ db.books.findOne() 		// Find One(默认返回第一个)</pre></td></tr></table>
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

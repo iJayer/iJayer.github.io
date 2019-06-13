@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Golang | Performance Optimization =&gt; pprof practice - iJayer</title>
+  <title>Golang | Performance Optimization =&gt; pprof practice - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -23,10 +23,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -47,7 +47,8 @@ pprof 小练习
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/" /><meta property="article:published_time" content="2018-06-15T13:48:02&#43;08:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/" />
+<meta property="article:published_time" content="2018-06-15T13:48:02&#43;08:00"/>
 <meta property="article:modified_time" content="2018-06-15T13:48:02&#43;00:00"/>
 
 <meta itemprop="name" content="Golang | Performance Optimization =&gt; pprof practice">
@@ -62,7 +63,7 @@ pprof 小练习
 
 <meta itemprop="datePublished" content="2018-06-15T13:48:02&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-15T13:48:02&#43;00:00" />
-<meta itemprop="wordCount" content="1293">
+<meta itemprop="wordCount" content="1220">
 
 
 
@@ -90,7 +91,7 @@ pprof 小练习
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -116,7 +117,7 @@ pprof 小练习
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -149,7 +150,7 @@ pprof 小练习
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 1293 words </span>
+          <span class="more-meta"> 1220 words </span>
           <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -164,6 +165,35 @@ pprof 小练习
 <li><a href="#分析-memory">分析 Memory</a>
 <ul>
 <li><a href="#通过索引页-查看-heap-信息">通过索引页，查看 heap 信息</a></li>
+</ul></li>
+<li><a href="#runtime-memstats">runtime.MemStats</a></li>
+<li><a href="#alloc-4693984">Alloc = 4693984</a></li>
+<li><a href="#totalalloc-6570567768">TotalAlloc = 6570567768</a></li>
+<li><a href="#sys-15476984">Sys = 15476984</a></li>
+<li><a href="#lookups-6441">Lookups = 6441</a></li>
+<li><a href="#mallocs-106981880">Mallocs = 106981880</a></li>
+<li><a href="#frees-106936207">Frees = 106936207</a></li>
+<li><a href="#heapalloc-4693984">HeapAlloc = 4693984</a></li>
+<li><a href="#heapsys-10321920">HeapSys = 10321920</a></li>
+<li><a href="#heapidle-4726784">HeapIdle = 4726784</a></li>
+<li><a href="#heapinuse-5595136">HeapInuse = 5595136</a></li>
+<li><a href="#heapreleased-2342912">HeapReleased = 2342912</a></li>
+<li><a href="#heapobjects-45673">HeapObjects = 45673</a></li>
+<li><a href="#stack-2260992-2260992">Stack = 2260992 / 2260992</a></li>
+<li><a href="#mspan-95608-147456">MSpan = 95608 / 147456</a></li>
+<li><a href="#mcache-1736-16384">MCache = 1736 / 16384</a></li>
+<li><a href="#buckhashsys-1700763">BuckHashSys = 1700763</a></li>
+<li><a href="#gcsys-610304">GCSys = 610304</a></li>
+<li><a href="#othersys-419165">OtherSys = 419165</a></li>
+<li><a href="#nextgc-5206176">NextGC = 5206176</a></li>
+<li><a href="#lastgc-1529050738440737221">LastGC = 1529050738440737221</a></li>
+<li><a href="#pausens-24391-22047-27986-23706-33849-31450-29197-26735-40822-26734-25389-24701-32894-38224-22443-23303-31302-66411-73710">PauseNs = [24391 22047 27986 23706 33849 31450 29197 26735 40822 26734 25389 24701 32894 38224 22443 23303 31302 66411 73710 &hellip;&hellip;.]</a></li>
+<li><a href="#pauseend-1529050573425521907-1529050575212897649-1529050576923992459-1529050579026633238-1529050580885216128-1529050582768778420">PauseEnd = [1529050573425521907 1529050575212897649 1529050576923992459 1529050579026633238 1529050580885216128 1529050582768778420 &hellip;&hellip;.]</a></li>
+<li><a href="#numgc-2905">NumGC = 2905</a></li>
+<li><a href="#numforcedgc-0">NumForcedGC = 0</a></li>
+<li><a href="#gccpufraction-0-0006629790327640667">GCCPUFraction = 0.0006629790327640667</a></li>
+<li><a href="#debuggc-false">DebugGC = false</a>
+<ul>
 <li><a href="#通过-web-可视化视图查看内存分配信息">通过 web 可视化视图查看内存分配信息</a></li>
 </ul></li>
 <li><a href="#分析-cpu">分析 CPU</a></li>
@@ -224,15 +254,18 @@ pprof 小练习
     <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:8082&#34;</span><span class="p">,</span> <span class="nx">router</span><span class="p">))</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>运行服务</p>
+</div>
+<ol>
+<li>运行服务</li>
+</ol>
 
 <blockquote>
 <p>Note: 如果启用了 Caddy 做反向代理，则需开启 proxy /debug host:ip 转发</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>打开浏览器，进入 debug/pporf 的索引页面, 会有如下的输出：</p>
+<ol>
+<li>打开浏览器，进入 debug/pporf 的索引页面, 会有如下的输出：</li>
+</ol>
 
 <p><a href="https://host:ip/debug/pprof">https://host:ip/debug/pprof</a></p>
 <div class="highlight"><div class="chroma">
@@ -260,9 +293,7 @@ profiles:
 
 full goroutine stack dump</pre></td></tr></table>
 </div>
-</div></li>
-</ol>
-
+</div>
 <blockquote>
 <p>Note: 这个索引页面上所有可统计的数据，包括 go tool pprof 采集到的数据都依赖于进程中的 pprof 采样率, 默认 512KB 采样一次, 当需求的数据不够精确时，可以调节采样率：runtime.MemProfileRate, 但是采样率越低，进程云进行速度越慢。</p>
 </blockquote>
@@ -272,66 +303,19 @@ full goroutine stack dump</pre></td></tr></table>
 <h2 id="通过索引页-查看-heap-信息">通过索引页，查看 heap 信息</h2>
 
 <p><a href="https://host:ip/debug/pprof/heap?debug=1">https://host:ip/debug/pprof/heap?debug=1</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">heap profile: 4: 1136 [12390: 25948656] @ heap/1048576
+
+<p>```</p></li>
+</ol>
+
+<p>heap profile: 4: 1136 [12390: 25948656] @ heap/1048576
 2: 768 [2: 768] @ 0x433b71 0x43408d 0x455ce6 0x456739 0x42f050
 #	0x433b70	runtime.malg+0x30		D:/Go/src/runtime/proc.go:3221
 #	0x43408c	runtime.newproc1+0x42c		D:/Go/src/runtime/proc.go:3273
 #	0x455ce5	runtime.newproc.func1+0x45	D:/Go/src/runtime/proc.go:3244
 #	0x456738	runtime.systemstack+0x78	D:/Go/src/runtime/asm_amd64.s:409
-#	0x42f050	runtime.mstart+0x0		D:/Go/src/runtime/proc.go:1175
+#	0x42f050	runtime.mstart+0x0		D:/Go/src/runtime/proc.go:1175</p>
 
-1: 352 [137: 48224] @ 0x8a9f82 0x76d1f7 0x7726f8 0x6beb00 0x76310e 0x66b5e4 0x66e28c 0x66a601 0x4590a1
+<p>1: 352 [137: 48224] @ 0x8a9f82 0x76d1f7 0x7726f8 0x6beb00 0x76310e 0x66b5e4 0x66e28c 0x66a601 0x4590a1
 #	0x8a9f81	qx-api/src/resource.(*Robot).Create+0x41			D:/code/Go_Path/src/qx-api/src/resource/robot.go:59
 #	0x76d1f6	qx-api/src/api.(*resource).handleCreate+0x186			D:/code/Go_Path/src/qx-api/src/api/resource.go:121
 #	0x7726f7	qx-api/src/api.(*API).addResource.func2+0x407			D:/code/Go_Path/src/qx-api/src/api/api.go:96
@@ -339,39 +323,66 @@ full goroutine stack dump</pre></td></tr></table>
 #	0x76310d	github.com/rs/cors.(*Cors).Handler.func1+0xfd			D:/code/Go_Path/src/github.com/rs/cors/cors.go:190
 #	0x66b5e3	net/http.HandlerFunc.ServeHTTP+0x43				D:/Go/src/net/http/server.go:1947
 #	0x66e28b	net/http.serverHandler.ServeHTTP+0xbb				D:/Go/src/net/http/server.go:2694
-#	0x66a600	net/http.(*conn).serve+0x650					D:/Go/src/net/http/server.go:1830
+#	0x66a600	net/http.(*conn).serve+0x650					D:/Go/src/net/http/server.go:1830</p>
 
-------------------------------------------------------------------------------------
+<hr />
 
-# runtime.MemStats
-# Alloc = 4693984
-# TotalAlloc = 6570567768
-# Sys = 15476984
-# Lookups = 6441
-# Mallocs = 106981880
-# Frees = 106936207
-# HeapAlloc = 4693984
-# HeapSys = 10321920
-# HeapIdle = 4726784
-# HeapInuse = 5595136
-# HeapReleased = 2342912
-# HeapObjects = 45673
-# Stack = 2260992 / 2260992
-# MSpan = 95608 / 147456
-# MCache = 1736 / 16384
-# BuckHashSys = 1700763
-# GCSys = 610304
-# OtherSys = 419165
-# NextGC = 5206176
-# LastGC = 1529050738440737221
-# PauseNs = [24391 22047 27986 23706 33849 31450 29197 26735 40822 26734 25389 24701 32894 38224 22443 23303 31302 66411 73710 .......]
-# PauseEnd = [1529050573425521907 1529050575212897649 1529050576923992459 1529050579026633238 1529050580885216128 1529050582768778420 .......]
-# NumGC = 2905
-# NumForcedGC = 0
-# GCCPUFraction = 0.0006629790327640667
-# DebugGC = false</pre></td></tr></table>
-</div>
-</div>
+<h1 id="runtime-memstats">runtime.MemStats</h1>
+
+<h1 id="alloc-4693984">Alloc = 4693984</h1>
+
+<h1 id="totalalloc-6570567768">TotalAlloc = 6570567768</h1>
+
+<h1 id="sys-15476984">Sys = 15476984</h1>
+
+<h1 id="lookups-6441">Lookups = 6441</h1>
+
+<h1 id="mallocs-106981880">Mallocs = 106981880</h1>
+
+<h1 id="frees-106936207">Frees = 106936207</h1>
+
+<h1 id="heapalloc-4693984">HeapAlloc = 4693984</h1>
+
+<h1 id="heapsys-10321920">HeapSys = 10321920</h1>
+
+<h1 id="heapidle-4726784">HeapIdle = 4726784</h1>
+
+<h1 id="heapinuse-5595136">HeapInuse = 5595136</h1>
+
+<h1 id="heapreleased-2342912">HeapReleased = 2342912</h1>
+
+<h1 id="heapobjects-45673">HeapObjects = 45673</h1>
+
+<h1 id="stack-2260992-2260992">Stack = 2260992 / 2260992</h1>
+
+<h1 id="mspan-95608-147456">MSpan = 95608 / 147456</h1>
+
+<h1 id="mcache-1736-16384">MCache = 1736 / 16384</h1>
+
+<h1 id="buckhashsys-1700763">BuckHashSys = 1700763</h1>
+
+<h1 id="gcsys-610304">GCSys = 610304</h1>
+
+<h1 id="othersys-419165">OtherSys = 419165</h1>
+
+<h1 id="nextgc-5206176">NextGC = 5206176</h1>
+
+<h1 id="lastgc-1529050738440737221">LastGC = 1529050738440737221</h1>
+
+<h1 id="pausens-24391-22047-27986-23706-33849-31450-29197-26735-40822-26734-25389-24701-32894-38224-22443-23303-31302-66411-73710">PauseNs = [24391 22047 27986 23706 33849 31450 29197 26735 40822 26734 25389 24701 32894 38224 22443 23303 31302 66411 73710 &hellip;&hellip;.]</h1>
+
+<h1 id="pauseend-1529050573425521907-1529050575212897649-1529050576923992459-1529050579026633238-1529050580885216128-1529050582768778420">PauseEnd = [1529050573425521907 1529050575212897649 1529050576923992459 1529050579026633238 1529050580885216128 1529050582768778420 &hellip;&hellip;.]</h1>
+
+<h1 id="numgc-2905">NumGC = 2905</h1>
+
+<h1 id="numforcedgc-0">NumForcedGC = 0</h1>
+
+<h1 id="gccpufraction-0-0006629790327640667">GCCPUFraction = 0.0006629790327640667</h1>
+
+<h1 id="debuggc-false">DebugGC = false</h1>
+
+<p>```</p>
+
 <blockquote>
 <p>Note: 其中显示的内容会比较多，但是主体分为2个部分:
 - 第一部分：打印的是通过 runtime.MemProfile() 获取的 runtime.MemProfileRecord 记录。其含义为：</p>
@@ -490,9 +501,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 <span class="o">(</span>pprof<span class="o">)</span>
 <span class="o">(</span>pprof<span class="o">)</span> web</code></pre></td></tr></table>
 </div>
-</div></li>
-</ol>
-
+</div>
 <h1 id="see-also">See Also</h1>
 
 <blockquote>
@@ -501,7 +510,8 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 
 <ul>
 <li><a href="https://juejin.im/entry/596827706fb9a06bc569044c">golang 内存分析/动态追踪</a></li>
-</ul>
+</ul></li>
+</ol>
     </div>
 
     <div class="post-copyright">
@@ -547,8 +557,8 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -568,7 +578,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -594,7 +604,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

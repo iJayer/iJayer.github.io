@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Golang | Context 基础 - iJayer</title>
+  <title>Golang | Context 基础 - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -23,10 +23,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,7 +41,8 @@
 <meta property="og:title" content="Golang | Context 基础" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/" /><meta property="article:published_time" content="2017-03-07T16:07:43&#43;08:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/" />
+<meta property="article:published_time" content="2017-03-07T16:07:43&#43;08:00"/>
 <meta property="article:modified_time" content="2017-03-07T16:07:43&#43;00:00"/>
 
 <meta itemprop="name" content="Golang | Context 基础">
@@ -72,7 +73,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -98,7 +99,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -189,9 +190,11 @@
     <span class="nf">Value</span><span class="p">(</span><span class="nx">key</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kd">interface</span><span class="p">{}</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>默认错误</p>
+</div>
+<ul>
+<li>默认错误
+<br /></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
@@ -256,14 +259,15 @@
 <span class="kd">func</span> <span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">parent</span> <span class="nx">Context</span><span class="p">,</span> <span class="nx">timeout</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="p">(</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">CancelFunc</span><span class="p">)</span>
 <span class="kd">func</span> <span class="nf">WithValue</span><span class="p">(</span><span class="nx">parent</span> <span class="nx">Context</span><span class="p">,</span> <span class="nx">key</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">val</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Context</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <blockquote>
 <p>函数都接受一个Context类型的参数parent, 并返回一个Context类型的值，这样就层层创建出不同的节点。子节点是从复制父节点得到的，并且根据接受参数设定子节点的一些状态值，接着就可以将子节点传递给下层Goroutine。</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>WithCancel(): 将父节点复制到子节点, 返回cancelCtx和一个CancelFunc函数类型的变量，其定义为:type CancelFunc func(). 调用这个CancelFunc时，撤销对应的Context对象,也就是让他的后代goroutine退出。代码处理方式如下</p>
+<ul>
+<li>WithCancel(): 将父节点复制到子节点, 返回cancelCtx和一个CancelFunc函数类型的变量，其定义为:type CancelFunc func(). 调用这个CancelFunc时，撤销对应的Context对象,也就是让他的后代goroutine退出。代码处理方式如下
+<br /></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
@@ -273,11 +277,12 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="k">select</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">cancelCtx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
-        <span class="c1">// do some clean
+<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">cancelCtx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+    <span class="c1">// do some clean
 </span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div></li>
+</ul></li>
 
 <li><p>WithDeadline() &amp; WithTimeout(): 返回timerCtx(parent的一个副本)和一个CancelFunc函数类型的变量。WithDeadline和WithTimeout相似，前者设置具体的deadline时间，到达deadline时后代goroutine退出；后者传入一个从现在开始Context剩余的生命时长。</p></li>
 
@@ -374,8 +379,8 @@
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -395,7 +400,7 @@
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -421,7 +426,7 @@
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

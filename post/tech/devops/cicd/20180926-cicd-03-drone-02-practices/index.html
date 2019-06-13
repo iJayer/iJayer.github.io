@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署 - iJayer</title>
+  <title>DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署 - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -23,10 +23,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,7 +41,8 @@
 <meta property="og:title" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署" />
 <meta property="og:description" content="Devops | CI/CD 实践" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/" /><meta property="article:published_time" content="2018-09-26T23:40:06&#43;00:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/" />
+<meta property="article:published_time" content="2018-09-26T23:40:06&#43;00:00"/>
 <meta property="article:modified_time" content="2018-11-02T23:40:06&#43;00:00"/>
 
 <meta itemprop="name" content="DevOps | CI/CD 实践: Drone &#43; Docker &#43; Bitbucket Server 服务部署">
@@ -72,7 +73,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -98,7 +99,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -375,9 +376,10 @@ bitbucket
 
 <span class="m">0</span> directories, <span class="m">2</span> files</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>创建 docker-compose.yml</p>
+</div>
+<ul>
+<li>创建 docker-compose.yml</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -477,9 +479,11 @@ bitbucket
 <ul>
 <li>DRONE_HOST 的格式一定要注意：<code>&lt;scheme&gt;://&lt;host&gt;</code>, scheme: http | https</li>
 </ul>
-</blockquote></li>
+</blockquote>
 
-<li><p>启动 Drone 服务</p>
+<ul>
+<li>启动 Drone 服务</li>
+</ul>
 
 <p>这里启动时加 <code>--verbose</code> 参数从前台启动，可获取更多的日志信息，方便测试</p>
 <div class="highlight"><div class="chroma">
@@ -592,9 +596,11 @@ $ go mod init cicd</code></pre></td></tr></table>
 </div>
 <blockquote>
 <p>Note: 关于 .drone.yml 的说明随后会单独写一篇总结文档，这里先走通整个流程，体验一下。</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>提交代码</p>
+<ul>
+<li>提交代码</li>
+</ul>
 
 <p>将此项目推送到 Bitbucket Server 就会触发 Drone CI 自动构建</p>
 
@@ -606,19 +612,21 @@ $ go mod init cicd</code></pre></td></tr></table>
 
 <blockquote>
 <p>Note: 问题的原因和解决办法在下面的 FAQ 中。</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>Drone CI 执行结果</p>
-
-<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1539517379/blog/images/drone-ci-success.png" alt="" /></p></li>
+<ul>
+<li>Drone CI 执行结果</li>
 </ul>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1539517379/blog/images/drone-ci-success.png" alt="" /></p>
 
 <p>至此，完。</p>
 
 <h1 id="faq">FAQ</h1>
 
 <ol>
-<li><p>提交代码到 Bitbucket Server 时，Drone CI 没有出发自动构建</p>
+<li>提交代码到 Bitbucket Server 时，Drone CI 没有出发自动构建</li>
+</ol>
 
 <ul>
 <li><p>Google 到的与该问题相关的链接：</p>
@@ -651,8 +659,7 @@ $ go mod init cicd</code></pre></td></tr></table>
 </ul></li>
 
 <li><p>Push 代码测试，如果仍然失败，尝试重启 Bitbucket Server &amp; Drone Service, 重启 Drone Service 时记得清除下容器的数据卷数据(删除 drone.sqlite)</p></li>
-</ul></li>
-</ol>
+</ul>
 
 <h1 id="see-also">See Also</h1>
 
@@ -665,6 +672,7 @@ $ go mod init cicd</code></pre></td></tr></table>
 <li><a href="https://medium.com/@sergey.kolodyazhnyy/continuous-delivery-with-drone-ci-3a3fea5aa83">Medium: Continuous Delivery with Drone CI</a></li>
 <li><a href="https://medium.com/asiayo-engineering/%E7%94%A8-drone-%E6%89%93%E9%80%A0-ci-cd-flow-36b9d14c7620">Medium: 用 Drone 打造 CI/CD flow</a></li>
 <li><a href="https://github.com/appleboy/docs/blob/6b887d48eedf62c4122de486ddee58a655a93a3b/content/installation/services/bitbucket_server.md">docs/content/installation/services/bitbucket_server.md</a></li>
+</ul></li>
 </ul>
     </div>
 
@@ -713,8 +721,8 @@ $ go mod init cicd</code></pre></td></tr></table>
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -734,7 +742,7 @@ $ go mod init cicd</code></pre></td></tr></table>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -760,7 +768,7 @@ $ go mod init cicd</code></pre></td></tr></table>
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

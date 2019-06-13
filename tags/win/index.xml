@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>win on iJayer</title>
-    <link>https://iJayer.github.io/tags/win/</link>
-    <description>Recent content in win on iJayer</description>
+    <title>win on ijayer</title>
+    <link>https://ijayer.github.io/tags/win/</link>
+    <description>Recent content in win on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 21 Apr 2019 21:05:02 +0800</lastBuildDate>
     
-	<atom:link href="https://iJayer.github.io/tags/win/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ijayer.github.io/tags/win/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Useful Tools</title>
-      <link>https://iJayer.github.io/post/tech/tools/useful-tools/</link>
+      <link>https://ijayer.github.io/post/tech/tools/useful-tools/</link>
       <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/tools/useful-tools/</guid>
+      <guid>https://ijayer.github.io/post/tech/tools/useful-tools/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -26,10 +26,10 @@
     
     <item>
       <title>Win | 命令行集合</title>
-      <link>https://iJayer.github.io/post/tech/os/win/cmd-usage-keep/</link>
+      <link>https://ijayer.github.io/post/tech/os/win/cmd-usage-keep/</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/os/win/cmd-usage-keep/</guid>
+      <guid>https://ijayer.github.io/post/tech/os/win/cmd-usage-keep/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -43,10 +43,10 @@
     
     <item>
       <title>让 Win 更好用的技巧</title>
-      <link>https://iJayer.github.io/post/tech/os/win/used-better/</link>
+      <link>https://ijayer.github.io/post/tech/os/win/used-better/</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/os/win/used-better/</guid>
+      <guid>https://ijayer.github.io/post/tech/os/win/used-better/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;收藏一些让 Win 更好用的方法&lt;/p&gt;</description>
@@ -54,10 +54,10 @@
     
     <item>
       <title>博客搭建-03 HugoServer注册为Win服务</title>
-      <link>https://iJayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</link>
+      <link>https://ijayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</link>
       <pubDate>Mon, 13 Aug 2018 22:05:21 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
+      <guid>https://ijayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
       <description>&lt;p&gt;WinSW: 把 win 下的命令行程序包装为 service 运行&lt;/p&gt;</description>
     </item>
     

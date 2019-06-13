@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Docker | Docker Compose 基础 - iJayer</title>
+  <title>Docker | Docker Compose 基础 - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -24,10 +24,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/devops/docker/20180925-docker-compose-note/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/devops/docker/20180925-docker-compose-note/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -46,7 +46,8 @@
 平时启动容器的时候，一般会使用 docker run 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，docker run 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 Compose, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/devops/docker/20180925-docker-compose-note/" /><meta property="article:published_time" content="2018-09-25T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/devops/docker/20180925-docker-compose-note/" />
+<meta property="article:published_time" content="2018-09-25T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-09-25T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="Docker | Docker Compose 基础">
@@ -85,7 +86,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -111,7 +112,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -305,8 +306,9 @@ docker-compose version <span class="m">1</span>.22.0, build f46880fe</code></pre
 </div>
 <blockquote>
 <p>Note: 关于 -f 的具体处理逻辑可以查看 <a href="https://docs.docker.com/compose/reference/overview/#use--f-to-specify-name-and-path-of-one-or-more-compose-files">Here</a></p>
-</blockquote></li>
+</blockquote>
 
+<ul>
 <li><p>-p, &ndash;project-name NAME 指定项目名称，默认将使用所在目录名称作为项目名。</p></li>
 
 <li><p>&ndash;x-networking 使用 Docker 的可拔插网络后端特性</p></li>
@@ -334,15 +336,17 @@ docker-compose version <span class="m">1</span>.22.0, build f46880fe</code></pre
 <pre class="chroma"><code class="language-bash" data-lang="bash">Usage: build <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>--build-arg <span class="nv">key</span><span class="o">=</span>val...<span class="o">]</span> <span class="o">[</span>SERVICE...<span class="o">]</span>
 
 Options:
-    --force-rm  删除构建过程中的临时容器
-    --no-cache  构建镜像过程中不使用 cache（这将加长构建过程）
-    --pull      始终尝试通过 pull 来获取更新版本的镜像</code></pre></td></tr></table>
+--force-rm  删除构建过程中的临时容器
+--no-cache  构建镜像过程中不使用 cache（这将加长构建过程）
+--pull      始终尝试通过 pull 来获取更新版本的镜像</code></pre></td></tr></table>
 </div>
-</div>
-<ul>
-<li>构建或重新构建服务容器</li>
-<li>服务容器一旦构建后，将会带上一个标记名，例如对于 web 项目中的一个 db 容器，可能是 web_db</li>
-<li>当服务的 Dockerfile 有改动或构建的目录内容有变化时，可以运行 <code>docker-compose build</code> 来重新构建</li>
+</div></li>
+
+<li><p>构建或重新构建服务容器</p></li>
+
+<li><p>服务容器一旦构建后，将会带上一个标记名，例如对于 web 项目中的一个 db 容器，可能是 web_db</p></li>
+
+<li><p>当服务的 Dockerfile 有改动或构建的目录内容有变化时，可以运行 <code>docker-compose build</code> 来重新构建</p></li>
 </ul>
 
 <h3 id="config">config</h3>
@@ -548,13 +552,13 @@ Options:
 --no-build              不自动构建缺失的服务镜像。
 -t, --timeout TIMEOUT   停止容器时候的超时（默认为 <span class="m">10</span> 秒）。</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <h1 id="模板文件">模板文件</h1>
 
 <ul>
-<li><p>模板文件是 Docker Compose 的核心，默认文件名为 <code>docker-compose.yml</code>, 格式 <code>YAML</code>。 其中大部分指令和 <code>docker run</code> 是类似的</p>
+<li>模板文件是 Docker Compose 的核心，默认文件名为 <code>docker-compose.yml</code>, 格式 <code>YAML</code>。 其中大部分指令和 <code>docker run</code> 是类似的
+<br /></li>
+</ul>
 
 <blockquote>
 <p>Note:</p>
@@ -563,15 +567,15 @@ Options:
 <li>定义的每个服务都必须通过 <code>image</code> 指令指定镜像或通过 <code>build</code> 指令(需要 Dockerfile) 来自动构建镜像</li>
 <li>如果使用 build 指令，在 Dockerfile 中设置的选项(例如：CMD, EXPOSE, VOLUME, ENV 等) 将会自动被获取，无需在 docker-compose.yml 中再次设置。</li>
 </ul>
-</blockquote></li>
-</ul>
+</blockquote>
 
 <p>下面简单介绍定义 Docker Compose 模板文件的指令集</p>
 
 <h2 id="image">image</h2>
 
 <ul>
-<li><p>指定为镜像名称或镜像 ID。如果镜像在本地不存在，Compose 将会尝试拉去这个镜像</p>
+<li>指定为镜像名称或镜像 ID。如果镜像在本地不存在，Compose 将会尝试拉去这个镜像</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -597,9 +601,10 @@ image: a4bc65fd</code></pre></td></tr></table>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash">build: /path/to/build/dir</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>也可以使用 <code>context</code> 指令指定 Dockerfile 所在文件夹的路径, 然后使用 <code>dockerfile</code> 指令指定 Dockerfile 文件名</p>
+</div>
+<ul>
+<li>也可以使用 <code>context</code> 指令指定 Dockerfile 所在文件夹的路径, 然后使用 <code>dockerfile</code> 指令指定 Dockerfile 文件名</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -639,13 +644,12 @@ webapp:
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash">command: <span class="nb">echo</span> <span class="s2">&#34;hello world&#34;</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <h2 id="container-name">container_name</h2>
 
 <ul>
-<li><p>指定容器名称。默认将会使用 <code>项目名称_服务名称_序号</code> 这样的格式</p>
+<li>指定容器名称。默认将会使用 <code>项目名称_服务名称_序号</code> 这样的格式</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -699,8 +703,7 @@ webapp:
 </div>
 <blockquote>
 <p>Note: web 服务不会等待 redis db 「完全启动」之后才启动。</p>
-</blockquote></li>
-</ul>
+</blockquote>
 
 <h2 id="env-file">env_file</h2>
 
@@ -722,13 +725,13 @@ webapp:
 <pre class="chroma"><code class="language-yml" data-lang="yml">env_file<span class="p">:</span><span class="w"> </span>.env<span class="w">
 </span><span class="w">
 </span><span class="w"></span>env_file<span class="p">:</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>./common.env<span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>./apps/web.env<span class="w">
-</span><span class="w">    </span>-<span class="w"> </span>./opt/secrets.env</code></pre></td></tr></table>
+</span><span class="w"></span>-<span class="w"> </span>./common.env<span class="w">
+</span><span class="w"></span>-<span class="w"> </span>./apps/web.env<span class="w">
+</span><span class="w"></span>-<span class="w"> </span>./opt/secrets.env</code></pre></td></tr></table>
 </div>
-</div>
-<ul>
-<li>环境变量文件中每一行必须符合格式，支持 # 开头的注释行</li>
+</div></li>
+
+<li><p>环境变量文件中每一行必须符合格式，支持 # 开头的注释行</p></li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -770,15 +773,14 @@ webapp:
 <p>Note: 如果变量名称或者值中用到 true|false，yes|no 等表达 布尔 含义的词汇，最好放到引号里，避免 YAML 自动解析某些内容为对应的布尔语义。这些特定词汇，包括:</p>
 
 <p><code>y|Y|yes|Yes|YES|n|N|no|No|NO|true|True|TRUE|false|False|FALSE|on|On|ON|off|Off|OFF</code></p>
-</blockquote></li>
-</ul>
+</blockquote>
 
 <h2 id="expose">expose</h2>
 
 <ul>
 <li>暴露端口，但不映射到宿主机，只被连接的服务访问。</li>
-
-<li><p>仅可以指定内部端口为参数</p>
+<li>仅可以指定内部端口为参数</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
@@ -830,15 +832,13 @@ webapp:
 </span><span class="w">    </span>some-network<span class="p">:</span><span class="w">
 </span><span class="w">    </span>other-network<span class="p">:</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <h2 id="ports">ports</h2>
 
 <ul>
 <li>暴露端口信息。</li>
-
-<li><p>使用宿主端口：容器端口 (HOST:CONTAINER) 格式，或者仅仅指定容器的端口（宿主将会随机选择端口）都可以。</p>
+<li>使用宿主端口：容器端口 (HOST:CONTAINER) 格式，或者仅仅指定容器的端口（宿主将会随机选择端口）都可以。</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="lnt">1
@@ -885,9 +885,7 @@ webapp:
 </span><span class="w">    </span>-<span class="w"> </span>cache/<span class="p">:</span>/tmp/cache<span class="w">
 </span><span class="w">    </span>-<span class="w"> </span>~/configs<span class="p">:</span>/etc/configs/<span class="p">:</span>ro</code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <h2 id="others">Others</h2>
 
 <p>此外，还有包括 domainname, entrypoint, hostname, ipc, mac_address, privileged, read_only, shm_size, restart, stdin_open, tty, user, working_dir 等指令，基本跟 docker run 中对应参数的功能一致。</p>
@@ -904,6 +902,7 @@ webapp:
 <li><a href="http://www.dockerinfo.net/docker-compose-%E9%A1%B9%E7%9B%AE">Docker中文文档：Docker Compose 项目</a><br /></li>
 <li><a href="http://dockone.io/article/834">使用Docker Compose管理多个容器</a>
 <br /></li>
+</ul></li>
 </ul>
     </div>
 
@@ -950,8 +949,8 @@ webapp:
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -971,7 +970,7 @@ webapp:
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -997,7 +996,7 @@ webapp:
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

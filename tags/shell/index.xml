@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>shell on iJayer</title>
-    <link>https://iJayer.github.io/tags/shell/</link>
-    <description>Recent content in shell on iJayer</description>
+    <title>shell on ijayer</title>
+    <link>https://ijayer.github.io/tags/shell/</link>
+    <description>Recent content in shell on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 18 May 2017 17:53:01 +0800</lastBuildDate>
     
-	<atom:link href="https://iJayer.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ijayer.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Shell | 基础学习笔记</title>
-      <link>https://iJayer.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</link>
+      <link>https://ijayer.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</link>
       <pubDate>Thu, 18 May 2017 17:53:01 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     

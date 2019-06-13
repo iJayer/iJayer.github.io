@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>influxdb on iJayer</title>
-    <link>https://iJayer.github.io/tags/influxdb/</link>
-    <description>Recent content in influxdb on iJayer</description>
+    <title>influxdb on ijayer</title>
+    <link>https://ijayer.github.io/tags/influxdb/</link>
+    <description>Recent content in influxdb on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 29 Jul 2018 17:46:58 +0000</lastBuildDate>
     
-	<atom:link href="https://iJayer.github.io/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ijayer.github.io/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>InfluxDB | 入门指南</title>
-      <link>https://iJayer.github.io/post/tech/db/influxdb/02-getting-started/</link>
+      <link>https://ijayer.github.io/post/tech/db/influxdb/02-getting-started/</link>
       <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/db/influxdb/02-getting-started/</guid>
+      <guid>https://ijayer.github.io/post/tech/db/influxdb/02-getting-started/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -26,10 +26,10 @@
     
     <item>
       <title>InfluxDB | 基础知识</title>
-      <link>https://iJayer.github.io/post/tech/db/influxdb/01-basic-concepts/</link>
+      <link>https://ijayer.github.io/post/tech/db/influxdb/01-basic-concepts/</link>
       <pubDate>Thu, 26 Jul 2018 17:46:58 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/db/influxdb/01-basic-concepts/</guid>
+      <guid>https://ijayer.github.io/post/tech/db/influxdb/01-basic-concepts/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;

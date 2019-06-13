@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Golang | Performance Optimization =&gt; pprof - iJayer</title>
+  <title>Golang | Performance Optimization =&gt; pprof - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -23,10 +23,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -48,7 +48,8 @@ cpu、goroutine、heap 分析方法
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/" /><meta property="article:published_time" content="2018-06-06T13:48:02&#43;08:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/" />
+<meta property="article:published_time" content="2018-06-06T13:48:02&#43;08:00"/>
 <meta property="article:modified_time" content="2018-06-06T13:48:02&#43;00:00"/>
 
 <meta itemprop="name" content="Golang | Performance Optimization =&gt; pprof">
@@ -93,7 +94,7 @@ cpu、goroutine、heap 分析方法
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -119,7 +120,7 @@ cpu、goroutine、heap 分析方法
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -298,9 +299,11 @@ cpu、goroutine、heap 分析方法
 </div>
 <blockquote>
 <p>Note: 为了简单明了，我们使用了 os.Stdout （不在程序中创建文件）而是利用 shell 重定向输出，用于创建性能概要文件。</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>然后编译、运行，将行数据保存到文件：</p>
+<ul>
+<li>然后编译、运行，将行数据保存到文件：</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -367,9 +370,11 @@ Showing top <span class="m">10</span> nodes out of <span class="m">15</span>
 </div>
 <blockquote>
 <p>Note: 这表示 <code>runtime.memclrNoHeapPointers</code> 占用了最多的CPU时间</p>
-</blockquote></li>
+</blockquote>
 
-<li><p>我们一行一行的分解程序，可以更准确地观察 CPU 的使用情况。</p>
+<ul>
+<li>我们一行一行的分解程序，可以更准确地观察 CPU 的使用情况。</li>
+</ul>
 
 <p>使用 <code>list</code> 命令，通过 <code>main.main</code> 可以看到主函数 main：</p>
 <div class="highlight"><div class="chroma">
@@ -483,9 +488,10 @@ Total: 80ms
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash">$ go build -o app <span class="o">&amp;&amp;</span> <span class="nb">time</span> ./app &gt; mem.profile</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>然后运行 pprof 程序，以交互式方式查看内存分析数据：</p>
+</div>
+<ul>
+<li>然后运行 pprof 程序，以交互式方式查看内存分析数据：</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -586,9 +592,7 @@ Total: 80ms
         .          .     <span class="m">24</span>:// func main<span class="o">()</span> <span class="o">{</span>
 <span class="o">(</span>pprof<span class="o">)</span> </code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <h1 id="通过-web-服务器远程分析">通过 Web 服务器远程分析</h1>
 
 <p><code>/debug/pprof</code> 适合在开发的时候进行分析，从运行到结束。但是如果应用已经在数据中心运行，我们希望远程启用调试进行在线分析，这种情况，可以通过 http 远程调试。</p>
@@ -637,35 +641,37 @@ Total: 80ms
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;fmt&#34;</span>
-    <span class="s">&#34;log&#34;</span>
-    <span class="s">&#34;net/http&#34;</span>
-    <span class="nx">_</span> <span class="s">&#34;net/http/pprof&#34;</span>
-    <span class="s">&#34;sync&#34;</span>
+<span class="s">&#34;fmt&#34;</span>
+<span class="s">&#34;log&#34;</span>
+<span class="s">&#34;net/http&#34;</span>
+<span class="nx">_</span> <span class="s">&#34;net/http/pprof&#34;</span>
+<span class="s">&#34;sync&#34;</span>
 <span class="p">)</span>
 
 <span class="c1">// bigBytes allocates 10 sets of 100 megabytes
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">bigBytes</span><span class="p">()</span> <span class="o">*</span><span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
-    <span class="nx">s</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">100000000</span><span class="p">)</span>
-    <span class="k">return</span> <span class="o">&amp;</span><span class="nx">s</span>
+<span class="nx">s</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">100000000</span><span class="p">)</span>
+<span class="k">return</span> <span class="o">&amp;</span><span class="nx">s</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;localhost:6060&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">))</span>
-    <span class="p">}()</span>
-    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-        <span class="nx">s</span> <span class="o">:=</span> <span class="nf">bigBytes</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-            <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;oh noes&#34;</span><span class="p">)</span>
-        <span class="p">}</span>
+<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;localhost:6060&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">))</span>
+<span class="p">}()</span>
+<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+    <span class="nx">s</span> <span class="o">:=</span> <span class="nf">bigBytes</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;oh noes&#34;</span><span class="p">)</span>
     <span class="p">}</span>
-    <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span> <span class="c1">// 为了 pprof 分析的正常运行，阻止 `main` 函数退出
+<span class="p">}</span>
+<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span> <span class="c1">// 为了 pprof 分析的正常运行，阻止 `main` 函数退出
 </span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
 </div>
-</div>
+</div></li>
+</ul>
+
 <p><strong>如果使用了定制的 URL 路由提供 pprof 分析，则需要单独注册 pprof 端点(endpoint)</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1236,8 +1242,8 @@ Answer:
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -1257,7 +1263,7 @@ Answer:
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1283,7 +1289,7 @@ Answer:
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

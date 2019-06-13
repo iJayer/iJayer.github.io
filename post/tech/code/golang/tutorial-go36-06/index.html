@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>『Go核心36讲』| 06 - go语句以及执行规则（上） - iJayer</title>
+  <title>『Go核心36讲』| 06 - go语句以及执行规则（上） - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,18 +16,19 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="  进程、线程(系统级) goroutine(用户级) 调度器  专栏：16 | go语句及其执行规则（上）
- " /><meta name="keywords" content="go" />
+<meta name="author" content="zher" /><meta name="description" content="  进程、线程(系统级) goroutine(用户级) 调度器   专栏：16 | go语句及其执行规则（上）
+
+" /><meta name="keywords" content="go" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/code/golang/tutorial-go36-06/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-06/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -50,12 +51,14 @@ goroutine(用户级)
 
 
 
-  专栏：16 | go语句及其执行规则（上）
 
+
+专栏：16 | go语句及其执行规则（上）
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/code/golang/tutorial-go36-06/" /><meta property="article:published_time" content="2019-01-12T14:51:10&#43;08:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-06/" />
+<meta property="article:published_time" content="2019-01-12T14:51:10&#43;08:00"/>
 <meta property="article:modified_time" content="2019-01-12T14:51:10&#43;00:00"/>
 
 <meta itemprop="name" content="『Go核心36讲』| 06 - go语句以及执行规则（上）">
@@ -69,15 +72,16 @@ goroutine(用户级)
 
 
 
-  专栏：16 | go语句及其执行规则（上）
 
+
+专栏：16 | go语句及其执行规则（上）
 
 ">
 
 
 <meta itemprop="datePublished" content="2019-01-12T14:51:10&#43;08:00" />
 <meta itemprop="dateModified" content="2019-01-12T14:51:10&#43;00:00" />
-<meta itemprop="wordCount" content="2186">
+<meta itemprop="wordCount" content="2187">
 
 
 
@@ -94,8 +98,9 @@ goroutine(用户级)
 
 
 
-  专栏：16 | go语句及其执行规则（上）
 
+
+专栏：16 | go语句及其执行规则（上）
 
 "/>
 
@@ -112,7 +117,7 @@ goroutine(用户级)
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -138,7 +143,7 @@ goroutine(用户级)
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -171,7 +176,7 @@ goroutine(用户级)
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 2186 words </span>
+          <span class="more-meta"> 2187 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -203,16 +208,20 @@ goroutine(用户级)
 <li>调度器</li>
 </ul>
 
-<div class='align-right'>
-  <p><a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：16 | go语句及其执行规则（上）</a></p>
-
-</div>
+<p><div class='align-right'></p>
 </blockquote>
 
-<div class='align-center'>
-  <p><img src="https://images.unsplash.com/photo-1547139371-4b4a9ef45205?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="" /></p>
+<p><a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：16 | go语句及其执行规则（上）</a></p>
 
-<p>— <a href="https://unsplash.com/photos/5NTu77sRSbQ">Malcolm Lightbody @mlightbody</a></p>
+<p></div></p>
+
+<div class='align-center'>
+  
+
+![](https://images.unsplash.com/photo-1547139371-4b4a9ef45205?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80)
+
+— [Malcolm Lightbody @mlightbody](https://unsplash.com/photos/5NTu77sRSbQ)
+
 
 </div>
 
@@ -261,7 +270,7 @@ goroutine(用户级)
 <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1547286060/blog/images/9ea14f68ffbcde373ddb61e186695d7d.png" alt="" /></p>
 
 <div class='align-center'>
-  M、P、G 之间的关系(简化版)
+   M、P、G 之间的关系(简化版) 
 </div>
 
 <h2 id="一个问题">一个问题</h2>
@@ -368,8 +377,8 @@ goroutine(用户级)
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -389,7 +398,7 @@ goroutine(用户级)
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -415,7 +424,7 @@ goroutine(用户级)
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

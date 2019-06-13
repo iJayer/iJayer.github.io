@@ -1,228 +1,229 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on iJayer</title>
-    <link>https://iJayer.github.io/tags/</link>
-    <description>Recent content in Tags on iJayer</description>
+    <title>Tags on ijayer</title>
+    <link>https://ijayer.github.io/tags/</link>
+    <description>Recent content in Tags on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <lastBuildDate>Sun, 02 Jun 2019 17:05:35 +0800</lastBuildDate>
     
-	<atom:link href="https://iJayer.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ijayer.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>caddy</title>
-      <link>https://iJayer.github.io/tags/caddy/</link>
-      <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/caddy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>career</title>
-      <link>https://iJayer.github.io/tags/career/</link>
-      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/career/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cicd</title>
-      <link>https://iJayer.github.io/tags/cicd/</link>
-      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/cicd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>db</title>
-      <link>https://iJayer.github.io/tags/db/</link>
-      <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/db/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>devops</title>
-      <link>https://iJayer.github.io/tags/devops/</link>
-      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/devops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>docker</title>
-      <link>https://iJayer.github.io/tags/docker/</link>
-      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>essay</title>
-      <link>https://iJayer.github.io/tags/essay/</link>
-      <pubDate>Tue, 02 Oct 2018 21:18:24 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/essay/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>golang</title>
-      <link>https://iJayer.github.io/tags/golang/</link>
-      <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
+      <link>https://ijayer.github.io/tags/golang/</link>
+      <pubDate>Sun, 02 Jun 2019 17:05:35 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>grpc</title>
-      <link>https://iJayer.github.io/tags/grpc/</link>
-      <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/grpc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>influxdb</title>
-      <link>https://iJayer.github.io/tags/influxdb/</link>
-      <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/influxdb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>life</title>
-      <link>https://iJayer.github.io/tags/life/</link>
-      <pubDate>Tue, 02 Oct 2018 21:42:56 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/life/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>https://iJayer.github.io/tags/linux/</link>
-      <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mongodb</title>
-      <link>https://iJayer.github.io/tags/mongodb/</link>
-      <pubDate>Fri, 11 May 2018 15:53:01 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/mongodb/</guid>
+      <guid>https://ijayer.github.io/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mq</title>
-      <link>https://iJayer.github.io/tags/mq/</link>
-      <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
+      <link>https://ijayer.github.io/tags/mq/</link>
+      <pubDate>Sun, 02 Jun 2019 17:05:35 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/tags/mq/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>network</title>
-      <link>https://iJayer.github.io/tags/network/</link>
-      <pubDate>Tue, 26 Sep 2017 17:53:01 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/network/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>nginx</title>
-      <link>https://iJayer.github.io/tags/nginx/</link>
-      <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/nginx/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>others</title>
-      <link>https://iJayer.github.io/tags/others/</link>
-      <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/others/</guid>
+      <guid>https://ijayer.github.io/tags/mq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rabbitmq</title>
-      <link>https://iJayer.github.io/tags/rabbitmq/</link>
-      <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
+      <link>https://ijayer.github.io/tags/rabbitmq/</link>
+      <pubDate>Sun, 02 Jun 2019 17:05:35 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/tags/rabbitmq/</guid>
+      <guid>https://ijayer.github.io/tags/rabbitmq/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>reading</title>
-      <link>https://iJayer.github.io/tags/reading/</link>
-      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      <title>linux</title>
+      <link>https://ijayer.github.io/tags/linux/</link>
+      <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/tags/reading/</guid>
+      <guid>https://ijayer.github.io/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>shell</title>
-      <link>https://iJayer.github.io/tags/shell/</link>
-      <pubDate>Thu, 18 May 2017 17:53:01 +0800</pubDate>
+      <title>others</title>
+      <link>https://ijayer.github.io/tags/others/</link>
+      <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/tags/shell/</guid>
+      <guid>https://ijayer.github.io/tags/others/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tools</title>
-      <link>https://iJayer.github.io/tags/tools/</link>
+      <link>https://ijayer.github.io/tags/tools/</link>
       <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/tags/tools/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>web</title>
-      <link>https://iJayer.github.io/tags/web/</link>
-      <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://iJayer.github.io/tags/web/</guid>
+      <guid>https://ijayer.github.io/tags/tools/</guid>
       <description></description>
     </item>
     
     <item>
       <title>win</title>
-      <link>https://iJayer.github.io/tags/win/</link>
+      <link>https://ijayer.github.io/tags/win/</link>
       <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/tags/win/</guid>
+      <guid>https://ijayer.github.io/tags/win/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cicd</title>
+      <link>https://ijayer.github.io/tags/cicd/</link>
+      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/cicd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>devops</title>
+      <link>https://ijayer.github.io/tags/devops/</link>
+      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://ijayer.github.io/tags/docker/</link>
+      <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>life</title>
+      <link>https://ijayer.github.io/tags/life/</link>
+      <pubDate>Tue, 02 Oct 2018 21:42:56 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>essay</title>
+      <link>https://ijayer.github.io/tags/essay/</link>
+      <pubDate>Tue, 02 Oct 2018 21:18:24 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/essay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>career</title>
+      <link>https://ijayer.github.io/tags/career/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/career/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reading</title>
+      <link>https://ijayer.github.io/tags/reading/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/reading/</guid>
       <description></description>
     </item>
     
     <item>
       <title>work</title>
-      <link>https://iJayer.github.io/tags/work/</link>
+      <link>https://ijayer.github.io/tags/work/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/tags/work/</guid>
+      <guid>https://ijayer.github.io/tags/work/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>grpc</title>
+      <link>https://ijayer.github.io/tags/grpc/</link>
+      <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/grpc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://ijayer.github.io/tags/web/</link>
+      <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>db</title>
+      <link>https://ijayer.github.io/tags/db/</link>
+      <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/db/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>influxdb</title>
+      <link>https://ijayer.github.io/tags/influxdb/</link>
+      <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/influxdb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mongodb</title>
+      <link>https://ijayer.github.io/tags/mongodb/</link>
+      <pubDate>Fri, 11 May 2018 15:53:01 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>https://ijayer.github.io/tags/nginx/</link>
+      <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>network</title>
+      <link>https://ijayer.github.io/tags/network/</link>
+      <pubDate>Tue, 26 Sep 2017 17:53:01 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>https://ijayer.github.io/tags/shell/</link>
+      <pubDate>Thu, 18 May 2017 17:53:01 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>caddy</title>
+      <link>https://ijayer.github.io/tags/caddy/</link>
+      <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/tags/caddy/</guid>
       <description></description>
     </item>
     

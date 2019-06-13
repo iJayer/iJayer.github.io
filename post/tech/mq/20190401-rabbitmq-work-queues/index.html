@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Rabbitmq | 02 - Work Queues - iJayer</title>
+  <title>Rabbitmq | 02 - Work Queues - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -24,10 +24,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -46,7 +46,8 @@
 实现一个用来在多个 Workers 之间分发 耗时任务 的工作队列
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/" /><meta property="article:published_time" content="2019-04-01T11:13:00&#43;08:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/" />
+<meta property="article:published_time" content="2019-04-01T11:13:00&#43;08:00"/>
 <meta property="article:modified_time" content="2019-04-01T11:13:00&#43;00:00"/>
 
 <meta itemprop="name" content="Rabbitmq | 02 - Work Queues">
@@ -85,7 +86,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -111,7 +112,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -283,8 +284,8 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Open terminal A</span>
 $ go run new_task.go</code></pre></td></tr></table>
 </div>
-</div></li>
-
+</div>
+<ul>
 <li><p>Execute Task</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -322,9 +323,9 @@ $ go run worker.go
 <span class="c1"># Open terminal G</span>
 $ go run worker.go</code></pre></td></tr></table>
 </div>
-</div>
-<ul>
-<li>打开四个终端执行四个耗时任务</li>
+</div></li>
+
+<li><p>打开四个终端执行四个耗时任务</p></li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -498,9 +499,7 @@ $ go run new_task.go Fourth....</code></pre></td></tr></table>
     <span class="nx">Body</span><span class="p">:</span>         <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">body</span><span class="p">),</span>
 <span class="p">})</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <blockquote>
 <p>关于消息持久化需要注意：</p>
 
@@ -532,13 +531,15 @@ $ go run new_task.go Fourth....</code></pre></td></tr></table>
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">err</span> <span class="p">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">Qos</span><span class="p">(</span>
-  <span class="mi">1</span><span class="p">,</span>     <span class="c1">// prefetch count
-</span><span class="c1"></span>  <span class="mi">0</span><span class="p">,</span>     <span class="c1">// prefetch size
-</span><span class="c1"></span>  <span class="kc">false</span><span class="p">,</span> <span class="c1">// global
+<span class="mi">1</span><span class="p">,</span>     <span class="c1">// prefetch count
+</span><span class="c1"></span><span class="mi">0</span><span class="p">,</span>     <span class="c1">// prefetch size
+</span><span class="c1"></span><span class="kc">false</span><span class="p">,</span> <span class="c1">// global
 </span><span class="c1"></span><span class="p">)</span>
 <span class="nf">failOnError</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s">&#34;Failed to set QoS&#34;</span><span class="p">)</span></code></pre></td></tr></table>
 </div>
-</div>
+</div></li>
+</ul>
+
 <blockquote>
 <p>关于队列长度：如果所有的消费者程序都繁忙的话，队列则可能会被消息塞满了。你需要注意这种情况，要么通过增加消费者来处理，要么改用其他的策略。</p>
 </blockquote>
@@ -599,8 +600,8 @@ $ go run new_task.go Fourth....</code></pre></td></tr></table>
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -620,7 +621,7 @@ $ go run new_task.go Fourth....</code></pre></td></tr></table>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -646,7 +647,7 @@ $ go run new_task.go Fourth....</code></pre></td></tr></table>
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

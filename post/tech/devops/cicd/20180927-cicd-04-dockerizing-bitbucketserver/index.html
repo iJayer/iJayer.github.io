@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence - iJayer</title>
+  <title>DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -23,10 +23,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -47,7 +47,8 @@
 基于 Docker 部署 Confluence
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/" /><meta property="article:published_time" content="2018-09-27T22:09:25&#43;00:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/" />
+<meta property="article:published_time" content="2018-09-27T22:09:25&#43;00:00"/>
 <meta property="article:modified_time" content="2018-12-19T16:09:25&#43;00:00"/>
 
 <meta itemprop="name" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence">
@@ -62,7 +63,7 @@
 
 <meta itemprop="datePublished" content="2018-09-27T22:09:25&#43;00:00" />
 <meta itemprop="dateModified" content="2018-12-19T16:09:25&#43;00:00" />
-<meta itemprop="wordCount" content="780">
+<meta itemprop="wordCount" content="768">
 
 
 
@@ -90,7 +91,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -116,7 +117,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -149,7 +150,7 @@
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 780 words </span>
+          <span class="more-meta"> 768 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -194,9 +195,10 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash">$ docker pull atlassian/bitbucket-server:5.10.2
 $ docker pull postgres:9.6</code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>在宿主机创建 Bitbucket Server 的数据目录</p>
+</div>
+<ul>
+<li>在宿主机创建 Bitbucket Server 的数据目录</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -281,9 +283,9 @@ $ mkdir bitbucket-data postgresql-data</code></pre></td></tr></table>
 </span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
 </span><span class="w">    </span>environment<span class="p">:</span><span class="w">
 </span><span class="w">      </span>POSTGRES_PASSWORD<span class="p">:</span><span class="w"> </span>&lt;your_pwd<span class="sd">&gt;
-</span><span class="sd">      POSTGRES_USER: &lt;your_user&gt;
-</span><span class="sd">      POSTGRES_DB: postgres
-</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="sd">      POSTGRES_USER: &lt;your_user&gt;</span><span class="w">
+</span><span class="w">      </span>POSTGRES_DB<span class="p">:</span><span class="w"> </span>postgres<span class="w">
+</span><span class="w">      </span>PGDATA<span class="p">:</span><span class="w"> </span>/var/lib/postgresql/data/pgdata<span class="w">
 </span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
 </span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
 </span><span class="w">
@@ -380,9 +382,9 @@ $ docker volume create --name postgresql-data</code></pre></td></tr></table>
 </span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
 </span><span class="w">    </span>environment<span class="p">:</span><span class="w">
 </span><span class="w">      </span>POSTGRES_PASSWORD<span class="p">:</span><span class="w"> </span>&lt;your_pwd<span class="sd">&gt;
-</span><span class="sd">      POSTGRES_USER: &lt;your_user&gt;
-</span><span class="sd">      POSTGRES_DB: postgres
-</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="sd">      POSTGRES_USER: &lt;your_user&gt;</span><span class="w">
+</span><span class="w">      </span>POSTGRES_DB<span class="p">:</span><span class="w"> </span>postgres<span class="w">
+</span><span class="w">      </span>PGDATA<span class="p">:</span><span class="w"> </span>/var/lib/postgresql/data/pgdata<span class="w">
 </span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
 </span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
 </span><span class="w">
@@ -577,9 +579,9 @@ $ docker volume create --name postgresql-data</code></pre></td></tr></table>
 </span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;5432:5432&#34;</span><span class="w">
 </span><span class="w">    </span>environment<span class="p">:</span><span class="w">
 </span><span class="w">      </span>POSTGRES_USER<span class="p">:</span><span class="w"> </span>&lt;input_user<span class="sd">&gt;
-</span><span class="sd">      POSTGRES_PASSWORD: &lt;input_pwd&gt;
-</span><span class="sd">      POSTGRES_DB: postgres
-</span><span class="sd">      PGDATA: /var/lib/postgresql/data/pgdata</span><span class="w">
+</span><span class="sd">      POSTGRES_PASSWORD: &lt;input_pwd&gt;</span><span class="w">
+</span><span class="w">      </span>POSTGRES_DB<span class="p">:</span><span class="w"> </span>postgres<span class="w">
+</span><span class="w">      </span>PGDATA<span class="p">:</span><span class="w"> </span>/var/lib/postgresql/data/pgdata<span class="w">
 </span><span class="w">    </span>volumes<span class="p">:</span><span class="w">
 </span><span class="w">      </span>-<span class="w"> </span>./postgresql-data<span class="p">:</span>/var/lib/postgresql/data<span class="w">
 </span><span class="w">
@@ -698,8 +700,8 @@ $ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -719,7 +721,7 @@ $ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -745,7 +747,7 @@ $ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Golang | Step-by-step guide to concurrency 学习笔记 - iJayer</title>
+  <title>Golang | Step-by-step guide to concurrency 学习笔记 - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -26,10 +26,10 @@
 
 
 
-<meta name="generator" content="Hugo 0.52 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://iJayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -59,7 +59,8 @@ Golang中基本的并发模式
 并行计算
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://iJayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/" /><meta property="article:published_time" content="2018-07-01T14:09:26&#43;08:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/" />
+<meta property="article:published_time" content="2018-07-01T14:09:26&#43;08:00"/>
 <meta property="article:modified_time" content="2018-07-01T14:09:26&#43;00:00"/>
 
 <meta itemprop="name" content="Golang | Step-by-step guide to concurrency 学习笔记">
@@ -83,7 +84,7 @@ Golang中基本的并发模式
 
 <meta itemprop="datePublished" content="2018-07-01T14:09:26&#43;08:00" />
 <meta itemprop="dateModified" content="2018-07-01T14:09:26&#43;00:00" />
-<meta itemprop="wordCount" content="6677">
+<meta itemprop="wordCount" content="6678">
 
 
 
@@ -120,7 +121,7 @@ Golang中基本的并发模式
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">iJayer</a>
+    <a href="/" class="logo">ijayer</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -146,7 +147,7 @@ Golang中基本的并发模式
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">iJayer</a>
+  <a href="/" class="logo">ijayer</a>
 </div>
 
 <nav class="site-navbar">
@@ -179,7 +180,7 @@ Golang中基本的并发模式
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 6677 words </span>
+          <span class="more-meta"> 6678 words </span>
           <span class="more-meta"> 14 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -252,9 +253,12 @@ Golang中基本的并发模式
 </ul>
 
 <div class='align-center'>
-  <p><img src="https://res.cloudinary.com/twenty20/private_images/t_standard-fit/v1521838719/photosp/d59a4866-14cb-460f-a111-15fde2adc69c/d59a4866-14cb-460f-a111-15fde2adc69c.jpg" alt="" /></p>
+  
 
-<p>— <a href="https://www.twenty20.com/photog84?cta=ft&amp;cta_uid=07188173-8090-4f5e-86d6-52e263eb0b7e&amp;utm_t20_source=partner&amp;utm_t20_channel=reshot&amp;utm_t20_campaign=gallery">Nancy Hajjar</a></p>
+![](https://res.cloudinary.com/twenty20/private_images/t_standard-fit/v1521838719/photosp/d59a4866-14cb-460f-a111-15fde2adc69c/d59a4866-14cb-460f-a111-15fde2adc69c.jpg)
+
+— [Nancy Hajjar](https://www.twenty20.com/photog84?cta=ft&cta_uid=07188173-8090-4f5e-86d6-52e263eb0b7e&utm_t20_source=partner&utm_t20_channel=reshot&utm_t20_campaign=gallery)
+
 
 </div>
 
@@ -880,9 +884,10 @@ Golang中基本的并发模式
     <span class="k">return</span> <span class="nx">ch</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
-</div></li>
-
-<li><p>下面是相对更加实际一点的例子：如何使用select语句为一个操作设置一个时间限制。代码会输出变量news的值或者超时消息，具体依赖于两个接收语句哪个先执行：</p>
+</div>
+<ol>
+<li>下面是相对更加实际一点的例子：如何使用select语句为一个操作设置一个时间限制。代码会输出变量news的值或者超时消息，具体依赖于两个接收语句哪个先执行：</li>
+</ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
@@ -940,9 +945,7 @@ Golang中基本的并发模式
     <span class="k">select</span><span class="p">{}</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ol>
-
+</div>
 <p><a href="#content"><strong>返回目录</strong></a></p>
 
 <h1 id="数据竞争">数据竞争</h1>
@@ -976,20 +979,22 @@ Golang中基本的并发模式
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">race</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">wait</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
-    <span class="nx">n</span> <span class="o">:=</span> <span class="mi">0</span>
+<span class="nx">wait</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
+<span class="nx">n</span> <span class="o">:=</span> <span class="mi">0</span>
 
-    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-    	<span class="nx">n</span><span class="o">++</span> <span class="c1">// func.1 goroutine: 一次访问要执行的操作：读，递增，写
-</span><span class="c1"></span>    	<span class="nx">wait</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
-    <span class="p">}()</span>
+<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">n</span><span class="o">++</span> <span class="c1">// func.1 goroutine: 一次访问要执行的操作：读，递增，写
+</span><span class="c1"></span>	<span class="nx">wait</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+<span class="p">}()</span>
 
-    <span class="nx">n</span><span class="o">++</span> <span class="c1">// main goroutine: 访问冲突
-</span><span class="c1"></span>    <span class="o">&lt;-</span><span class="nx">wait</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;n =&#34;</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+<span class="nx">n</span><span class="o">++</span> <span class="c1">// main goroutine: 访问冲突
+</span><span class="c1"></span><span class="o">&lt;-</span><span class="nx">wait</span>
+<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;n =&#34;</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
-</div>
+</div></li>
+</ol>
+
 <p>代码中，有两个go程(假设main goroutine为 <code>g1</code>, go func(){}() 为 <code>g2</code>)参与了数据竞争，且我们无法获知操作将会以那种顺序发生，以下只是诸多可能性中的一种：</p>
 
 <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548082901/blog/images/data-race.png" alt="data race" /></p>
@@ -1707,8 +1712,8 @@ main.main<span class="o">()</span>
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',
-        owner: 'iJayer',
-        admin: ['iJayer'],
+        owner: 'ijayer',
+        admin: ['ijayer'],
         body: decodeURI(location.href)
       });
       gitalk.render('gitalk-container');
@@ -1728,7 +1733,7 @@ main.main<span class="o">()</span>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
-  <a href="https://iJayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1754,7 +1759,7 @@ main.main<span class="o">()</span>
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">iJayer</span>
+    <span class="author">jayer</span>
   </span>
 </div>
     </footer>

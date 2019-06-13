@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>golang on iJayer</title>
-    <link>https://iJayer.github.io/tags/golang/</link>
-    <description>Recent content in golang on iJayer</description>
+    <title>golang on ijayer</title>
+    <link>https://ijayer.github.io/tags/golang/</link>
+    <description>Recent content in golang on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Apr 2019 11:13:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Jun 2019 17:05:35 +0800</lastBuildDate>
     
-	<atom:link href="https://iJayer.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ijayer.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Rabbitmq | 04 - Routing</title>
+      <link>https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/</link>
+      <pubDate>Sun, 02 Jun 2019 17:05:35 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rabbitmq | 03 - Publish/Subscribe</title>
+      <link>https://ijayer.github.io/post/tech/mq/20190519-rabbitmq-publish.subscribe/</link>
+      <pubDate>Sun, 19 May 2019 17:28:12 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/post/tech/mq/20190519-rabbitmq-publish.subscribe/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Publish/Subscribe: Send messages to many consumers at once.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这一小节，通过实现一个日志系统来学习 RabbitMQ &lt;code&gt;p/b&lt;/code&gt; 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Rabbitmq | 02 - Work Queues</title>
-      <link>https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
+      <link>https://ijayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
       <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
+      <guid>https://ijayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -26,10 +52,10 @@
     
     <item>
       <title>Rabbitmq | 01 - Hello World</title>
-      <link>https://iJayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
+      <link>https://ijayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
       <pubDate>Fri, 29 Mar 2019 16:05:39 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
+      <guid>https://ijayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -46,10 +72,10 @@
     
     <item>
       <title>『Go核心36讲』| 07 - go语句以及执行规则（下）</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-07/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-07/</link>
       <pubDate>Sun, 13 Jan 2019 11:57:26 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-07/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-07/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -59,19 +85,20 @@
 &lt;li&gt;Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&#39;align-right&#39;&gt;
-  &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：17 | go语句及其执行规则（下）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#39;align-right&#39;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;/div&gt;
-&lt;/blockquote&gt;</description>
+&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：17 | go语句及其执行规则（下）&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>『Go核心36讲』| 06 - go语句以及执行规则（上）</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-06/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-06/</link>
       <pubDate>Sat, 12 Jan 2019 14:51:10 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-06/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-06/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -81,19 +108,20 @@
 &lt;li&gt;调度器&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&#39;align-right&#39;&gt;
-  &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：16 | go语句及其执行规则（上）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#39;align-right&#39;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;/div&gt;
-&lt;/blockquote&gt;</description>
+&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：16 | go语句及其执行规则（上）&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>『Go核心36讲』| 05 - 使用函数的正确姿势</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-05/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-05/</link>
       <pubDate>Mon, 07 Jan 2019 11:37:08 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-05/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-05/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -105,17 +133,17 @@
 &lt;/ul&gt;
 
 &lt;div class=&#39;align-right&#39;&gt;
-  &lt;a href=&#34;https://time.geekbang.org/column/article/14671?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%252525253D&#34;&gt;专栏：12 | 使用函数的正确姿势&lt;/a&gt;
+   [专栏：12 | 使用函数的正确姿势](https://time.geekbang.org/column/article/14671?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%252525253D) 
 &lt;/div&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
     <item>
       <title>『Go核心36讲』| 04 - 程序性能分析基础</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-04/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-04/</link>
       <pubDate>Tue, 18 Dec 2018 21:45:30 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-04/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-04/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -130,17 +158,17 @@
 &lt;/ul&gt;
 
 &lt;div class=&#39;align-right&#39;&gt;
-  &lt;a href=&#34;https://time.geekbang.org/column/article/69812&#34;&gt;专栏：48 &amp;amp; 49 | 程序性能分析基础&lt;/a&gt;
+   [专栏：48 &amp; 49 | 程序性能分析基础](https://time.geekbang.org/column/article/69812) 
 &lt;/div&gt;
 &lt;/blockquote&gt;</description>
     </item>
     
     <item>
       <title>Golang | 语言机制之数据和语法的设计哲学</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</link>
       <pubDate>Sun, 16 Dec 2018 17:25:00 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -159,10 +187,10 @@
     
     <item>
       <title>Golang | 语言机制之内存剖析</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</link>
       <pubDate>Fri, 14 Dec 2018 10:24:56 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -181,10 +209,10 @@
     
     <item>
       <title>Golang | 语言机制之逃逸分析</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
       <pubDate>Wed, 12 Dec 2018 15:24:52 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -203,10 +231,10 @@
     
     <item>
       <title>Golang | 语言机制之栈和指针</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</link>
       <pubDate>Tue, 11 Dec 2018 17:24:40 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -225,10 +253,10 @@
     
     <item>
       <title>『Go核心36讲』| 03 - Container 包中的那些容器</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-03/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-03/</link>
       <pubDate>Mon, 03 Dec 2018 14:02:03 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-03/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-03/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -255,10 +283,10 @@
     
     <item>
       <title>[转] Golang | Slice 深入理解</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20181121-slice-src-reading/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20181121-slice-src-reading/</link>
       <pubDate>Wed, 21 Nov 2018 14:06:08 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20181121-slice-src-reading/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20181121-slice-src-reading/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -268,10 +296,10 @@
     
     <item>
       <title>Golang | Slice Deep Learning</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20181117-slice-deep-learning/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20181117-slice-deep-learning/</link>
       <pubDate>Sat, 17 Nov 2018 14:00:24 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20181117-slice-deep-learning/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20181117-slice-deep-learning/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -281,10 +309,10 @@
     
     <item>
       <title>『Go核心36讲』| 02-数组与切片</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-02/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-02/</link>
       <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-02/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-02/</guid>
       <description>&lt;!-- 摘要 --&gt;   
 
 &lt;blockquote&gt;
@@ -293,19 +321,20 @@
 &lt;li&gt;接下来进入模块二：数组与切片，主要侧重于理解数组与切片底层的实现方式、存储结构、以及这两个集合类类型的区别是什么？&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&#39;align-right&#39;&gt;
-  &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/14106?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：07 | 数组和切片&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#39;align-right&#39;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;/div&gt;
-&lt;/blockquote&gt;</description>
+&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/14106?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：07 | 数组和切片&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Golang | gRPC学习笔记-05 | 编码实践</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180910-grpc-05-practice/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180910-grpc-05-practice/</link>
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180910-grpc-05-practice/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180910-grpc-05-practice/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;学习完了理论知识，开始写点 Demo 体验一番吧！ Sohoo！😋&lt;/p&gt;</description>
@@ -313,10 +342,10 @@
     
     <item>
       <title>Golang | gRPC学习笔记-04 | 什么是 Protocol Buffers？</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</link>
       <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;gRPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;Protocol Buffers&lt;/code&gt; 的相关知识：&lt;/p&gt;
@@ -330,10 +359,10 @@
     
     <item>
       <title>Golang | gRPC学习笔记-03 | 什么是 gRPC？</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</link>
       <pubDate>Thu, 06 Sep 2018 09:12:12 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;RPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;gRPC&lt;/code&gt; 的基础概念：&lt;/p&gt;
@@ -349,10 +378,10 @@
     
     <item>
       <title>Golang | gRPC学习笔记-02 | 什么是 RPC？</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</link>
       <pubDate>Thu, 06 Sep 2018 08:12:12 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;上一小节，简单熟悉了一下基于 gRPC 的 Hello World Demo 程序，接下来学习 gRPC 的相关概念知识，先来看 &lt;code&gt;RPC&lt;/code&gt;:&lt;/p&gt;
@@ -366,10 +395,10 @@
     
     <item>
       <title>Golang | gRPC学习笔记-01 | Hello World Demo</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;Ok, 先来安装 gRPC 的开发环境，并且实践一下 Hello World 程序吧！&lt;/p&gt;</description>
@@ -377,10 +406,10 @@
     
     <item>
       <title>Golang | gRPC 学习笔记集</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180904-grpc-00/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180904-grpc-00/</link>
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180904-grpc-00/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180904-grpc-00/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;🙂 So, 开始学习 gRPC 啦！！！ 学习笔记，内容包括：&lt;/p&gt;
@@ -395,10 +424,10 @@
     
     <item>
       <title>『Go核心36讲』| 01-基础概念补漏</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-01/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-01/</link>
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-01/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-01/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -410,23 +439,24 @@
 &lt;li&gt;程序实体那些事儿&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&#39;align-right&#39;&gt;
-  &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/13159&#34;&gt;专栏：02 | 命令源码文件&lt;/a&gt;&lt;br /&gt;
+&lt;p&gt;&lt;div class=&#39;align-right&#39;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/13159&#34;&gt;专栏：02 | 命令源码文件&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://time.geekbang.org/column/article/13176&#34;&gt;专栏：03 | 库源码文件&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://time.geekbang.org/column/article/13178&#34;&gt;专栏：04 | 程序实体的那些事儿（上）&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://time.geekbang.org/column/article/13562&#34;&gt;专栏：05 | 程序实体的那些事儿（中）&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://time.geekbang.org/column/article/13601&#34;&gt;专栏：06 | 程序实体的那些事儿（下）&lt;/a&gt;&lt;/p&gt;
 
-&lt;/div&gt;
-&lt;/blockquote&gt;</description>
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>『Go核心36讲』| 学习笔记集</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-00/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-00/</link>
       <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/tutorial-go36-00/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-00/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/intro/112&#34;&gt;《Go语言核心36讲》&lt;/a&gt; 是郝林老师发布的一则专栏教程(付费)，以音频+文稿的方式系统的讲述了 Go 的知识。&lt;/p&gt;
@@ -438,10 +468,10 @@
     
     <item>
       <title>Golang | 依赖管理-02：Go Modules 使用笔记</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</link>
       <pubDate>Wed, 29 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;Go1.11 新特性 — 依赖管理工具：Go Modules 使用过程学习笔记，内容包括:&lt;/p&gt;
@@ -454,10 +484,10 @@
     
     <item>
       <title>Golang | 依赖管理-01：Go Modules 初步了解和学习</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</link>
       <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;Go1.11 新特性 — 依赖管理工具：Go Modules 初步学习和使用笔记，内容包括:&lt;/p&gt;
@@ -470,10 +500,10 @@
     
     <item>
       <title>Golang | 理解 Golang 的 nil (转)</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</link>
       <pubDate>Wed, 22 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</guid>
       <description>&lt;p&gt;&lt;strong&gt;理解 &lt;code&gt;nil&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
@@ -488,10 +518,10 @@
     
     <item>
       <title>Golang | Pits =&gt; Concurrent access map</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</link>
       <pubDate>Wed, 18 Jul 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -503,10 +533,10 @@
     
     <item>
       <title>Golang | Step-by-step guide to concurrency 学习笔记</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</link>
       <pubDate>Sun, 01 Jul 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -527,19 +557,19 @@
     
     <item>
       <title>Golang | cmd - go cgo</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</link>
       <pubDate>Fri, 29 Jun 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | cmd - go install | run | clean | env | get</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</link>
       <pubDate>Wed, 27 Jun 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -555,10 +585,10 @@
     
     <item>
       <title>Golang | cmd - go build 构建 C 的静态 &#43; 动态链接库、Go 的动态链接库</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</link>
       <pubDate>Mon, 25 Jun 2018 14:09:26 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -572,28 +602,28 @@
     
     <item>
       <title>Golang | cmd - go build 构建模式</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</link>
       <pubDate>Sun, 24 Jun 2018 14:07:26 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | cmd - go build 构建约束</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</link>
       <pubDate>Sat, 23 Jun 2018 14:04:26 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | Performance Optimization =&gt; go tarch 学习笔记</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</link>
       <pubDate>Tue, 19 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -605,10 +635,10 @@
     
     <item>
       <title>Golang | Performance Optimization =&gt; 优化建议</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</link>
       <pubDate>Tue, 19 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -618,10 +648,10 @@
     
     <item>
       <title>Golang | Performance Optimization =&gt; pprof practice</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</link>
       <pubDate>Fri, 15 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -633,10 +663,10 @@
     
     <item>
       <title>Golang | Stdlib - runtime</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180610-stdlib-runtime/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180610-stdlib-runtime/</link>
       <pubDate>Sun, 10 Jun 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180610-stdlib-runtime/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180610-stdlib-runtime/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -649,10 +679,10 @@
     
     <item>
       <title>Golang | Performance Optimization =&gt; pprof</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</link>
       <pubDate>Wed, 06 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -665,10 +695,10 @@
     
     <item>
       <title>Golang | 程序性能优化学习笔记</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</link>
       <pubDate>Tue, 05 Jun 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -681,10 +711,10 @@
     
     <item>
       <title>Golang | 关于 for range 的一些细节</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</link>
       <pubDate>Wed, 28 Mar 2018 13:48:02 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -697,10 +727,10 @@
     
     <item>
       <title>Golang | net/http =&gt; Customize Handler、ServeMux、Middleware</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</link>
       <pubDate>Tue, 20 Mar 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -714,10 +744,10 @@
     
     <item>
       <title>Golang | net/http =&gt; server.go 源码阅读</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</link>
       <pubDate>Fri, 16 Mar 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -733,19 +763,19 @@
     
     <item>
       <title>Golang | 定时任务</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</link>
       <pubDate>Wed, 07 Mar 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | mgo - Rich MongoDB Driver for Go [译]</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180127-lib-mgo/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180127-lib-mgo/</link>
       <pubDate>Sat, 27 Jan 2018 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180127-lib-mgo/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180127-lib-mgo/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -755,19 +785,19 @@
     
     <item>
       <title>Golang | 单元测试</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20171113-go-unit-test/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20171113-go-unit-test/</link>
       <pubDate>Mon, 13 Nov 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20171113-go-unit-test/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20171113-go-unit-test/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | CGO =&gt; 基础 </title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20171023-cgo-note/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20171023-cgo-note/</link>
       <pubDate>Mon, 23 Oct 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20171023-cgo-note/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20171023-cgo-note/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -777,46 +807,46 @@
     
     <item>
       <title>Golang | 函数</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20171013-go-func/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20171013-go-func/</link>
       <pubDate>Fri, 13 Oct 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20171013-go-func/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20171013-go-func/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | 模板</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20171010-go-template/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20171010-go-template/</link>
       <pubDate>Tue, 10 Oct 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20171010-go-template/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20171010-go-template/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | SFTP</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20170808-lib-sftp/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20170808-lib-sftp/</link>
       <pubDate>Tue, 08 Aug 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20170808-lib-sftp/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20170808-lib-sftp/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | SSH</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20170807-lib-ssh/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20170807-lib-ssh/</link>
       <pubDate>Mon, 07 Aug 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20170807-lib-ssh/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20170807-lib-ssh/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | Stdlib: Flag 学习笔记</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20180912-stdlib-flag/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20180912-stdlib-flag/</link>
       <pubDate>Tue, 25 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20180912-stdlib-flag/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20180912-stdlib-flag/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;p&gt;flag 包学习笔记概要：&lt;/p&gt;
@@ -831,28 +861,28 @@
     
     <item>
       <title>Golang | 同步与锁</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</link>
       <pubDate>Thu, 08 Jun 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | 闭包</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20170603-go-closure/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20170603-go-closure/</link>
       <pubDate>Sat, 03 Jun 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20170603-go-closure/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20170603-go-closure/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     
     <item>
       <title>Golang | Context 基础</title>
-      <link>https://iJayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</link>
+      <link>https://ijayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Tue, 07 Mar 2017 16:07:43 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</guid>
+      <guid>https://ijayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</guid>
       <description>&lt;!-- 摘要 --&gt;</description>
     </item>
     

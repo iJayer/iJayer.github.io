@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rabbitmq on iJayer</title>
-    <link>https://iJayer.github.io/tags/rabbitmq/</link>
-    <description>Recent content in rabbitmq on iJayer</description>
+    <title>rabbitmq on ijayer</title>
+    <link>https://ijayer.github.io/tags/rabbitmq/</link>
+    <description>Recent content in rabbitmq on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Apr 2019 11:13:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Jun 2019 17:05:35 +0800</lastBuildDate>
     
-	<atom:link href="https://iJayer.github.io/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ijayer.github.io/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Rabbitmq | 04 - Routing</title>
+      <link>https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/</link>
+      <pubDate>Sun, 02 Jun 2019 17:05:35 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rabbitmq | 03 - Publish/Subscribe</title>
+      <link>https://ijayer.github.io/post/tech/mq/20190519-rabbitmq-publish.subscribe/</link>
+      <pubDate>Sun, 19 May 2019 17:28:12 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/post/tech/mq/20190519-rabbitmq-publish.subscribe/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Publish/Subscribe: Send messages to many consumers at once.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这一小节，通过实现一个日志系统来学习 RabbitMQ &lt;code&gt;p/b&lt;/code&gt; 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Rabbitmq | 02 - Work Queues</title>
-      <link>https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
+      <link>https://ijayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</link>
       <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
+      <guid>https://ijayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
@@ -26,10 +52,10 @@
     
     <item>
       <title>Rabbitmq | 01 - Hello World</title>
-      <link>https://iJayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
+      <link>https://ijayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</link>
       <pubDate>Fri, 29 Mar 2019 16:05:39 +0800</pubDate>
       
-      <guid>https://iJayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
+      <guid>https://ijayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
       <description>&lt;!-- 摘要 --&gt;
 
 &lt;blockquote&gt;
