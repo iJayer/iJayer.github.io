@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Rabbitmq | 04 - Routing - ijayer</title>
+  <title>Rabbitmq | 05 - Topics - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="jayer" /><meta name="description" content="这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。
+<meta name="author" content="jayer" /><meta name="description" content="前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 syslog，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&amp;hellip;) 来路由。
+如果我们只想监听来自模块 cron 的严重消息，而忽略掉所有来自 kern 模块的日志，应该怎么做呢？
+ 接下来，就要学习另一个 Exchange Type：Topic
 " /><meta name="keywords" content="mq, rabbitmq, go" />
 
 
@@ -27,7 +29,7 @@
 <meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/mq/20190613-rabbitmq-topics/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,33 +41,51 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Rabbitmq | 04 - Routing" />
+<meta property="og:title" content="Rabbitmq | 05 - Topics" />
 <meta property="og:description" content="
 
-这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/" />
-<meta property="article:published_time" content="2019-06-02T17:05:35&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-13T17:05:35&#43;00:00"/>
+前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 syslog，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。
 
-<meta itemprop="name" content="Rabbitmq | 04 - Routing">
+如果我们只想监听来自模块 cron 的严重消息，而忽略掉所有来自 kern 模块的日志，应该怎么做呢？
+
+
+接下来，就要学习另一个 Exchange Type：Topic
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ijayer.github.io/post/tech/mq/20190613-rabbitmq-topics/" />
+<meta property="article:published_time" content="2019-06-13T22:48:56&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-22T22:48:56&#43;00:00"/>
+
+<meta itemprop="name" content="Rabbitmq | 05 - Topics">
 <meta itemprop="description" content="
 
-这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。">
+前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 syslog，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。
+
+如果我们只想监听来自模块 cron 的严重消息，而忽略掉所有来自 kern 模块的日志，应该怎么做呢？
 
 
-<meta itemprop="datePublished" content="2019-06-02T17:05:35&#43;08:00" />
-<meta itemprop="dateModified" content="2019-06-13T17:05:35&#43;00:00" />
-<meta itemprop="wordCount" content="640">
+接下来，就要学习另一个 Exchange Type：Topic
+">
+
+
+<meta itemprop="datePublished" content="2019-06-13T22:48:56&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-22T22:48:56&#43;00:00" />
+<meta itemprop="wordCount" content="1280">
 
 
 
 <meta itemprop="keywords" content="mq,rabbitmq,golang," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Rabbitmq | 04 - Routing"/>
+<meta name="twitter:title" content="Rabbitmq | 05 - Topics"/>
 <meta name="twitter:description" content="
 
-这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。"/>
+前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 syslog，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。
+
+如果我们只想监听来自模块 cron 的严重消息，而忽略掉所有来自 kern 模块的日志，应该怎么做呢？
+
+
+接下来，就要学习另一个 Exchange Type：Topic
+"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -132,15 +152,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Rabbitmq | 04 - Routing</h1>
+      <h1 class="post-title">Rabbitmq | 05 - Topics</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-06-02 </span>
+        <span class="post-time"> 2019-06-13 </span>
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 640 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 1280 words </span>
+          <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -150,9 +170,7 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#bindings">Bindings</a></li>
-<li><a href="#direct-exchange">Direct exchange</a></li>
-<li><a href="#multiple-bindings">Multiple bindings</a></li>
+<li><a href="#topic-exchange">Topic Exchange</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ul>
 </nav>
@@ -161,87 +179,81 @@
     <div class="post-content">
       <!-- 摘要 -->
 
-<p>这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。</p>
+<p>前面，分别使用了 <code>fanout</code> 和 <code>direct</code> 类型实现了简易的日志生产、路由和消费，虽然 <code>direct</code> 可以按照 <code>Binding_Key</code> 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 <code>syslog</code>，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。</p>
 
-<h1 id="bindings">Bindings</h1>
+<p>如果我们只想监听来自模块 <code>cron</code> 的严重消息，而忽略掉所有来自 <code>kern</code> 模块的日志，应该怎么做呢？</p>
 
-<p>上一小节我们创建了 Exchange 和 Queue 的一个绑定，代码描述如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">err</span> <span class="p">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">QueueBind</span><span class="p">(</span>
-    <span class="nx">q</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
-    <span class="s">&#34;&#34;</span><span class="p">,</span>
-    <span class="s">&#34;logs&#34;</span><span class="p">,</span> <span class="c1">// exchange
-</span><span class="c1"></span>    <span class="kc">false</span><span class="p">,</span>
-    <span class="kc">nil</span><span class="p">,</span>
-<span class="p">)</span></code></pre></td></tr></table>
-</div>
-</div>
 <blockquote>
-<p>Binding: 描述的就是 Exchange 和 Queue 之间的关系，也可以看作：队列对 Exchange 传来的消息感兴趣。</p>
+<p>接下来，就要学习另一个 Exchange Type：<code>Topic</code></p>
 </blockquote>
 
-<p>Bindings 也可以接收一个参数：<code>routing_key</code>；这里，为了避免和 <code>Channel.Publish</code> 的参数冲突，将其称作 <code>binding_key</code>, 代码描述如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">err</span> <span class="p">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">QueueBind</span><span class="p">(</span>
-    <span class="nx">q</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
-    <span class="s">&#34;black&#34;</span><span class="p">,</span> <span class="c1">// routing key
-</span><span class="c1"></span>    <span class="s">&#34;logs&#34;</span><span class="p">,</span>
-    <span class="kc">false</span><span class="p">,</span>
-    <span class="kc">nil</span><span class="p">,</span>
-<span class="p">)</span></code></pre></td></tr></table>
-</div>
-</div>
-<blockquote>
-<p>Note: <code>binding_key</code> 的含义取决于 exchange 的类型（回顾一下，有：fanout、direct、topic、header）</p>
-</blockquote>
+<h1 id="topic-exchange">Topic Exchange</h1>
 
-<h1 id="direct-exchange">Direct exchange</h1>
-
-<p>前面，我们的日志系统会将所有的消息广播给所有的消费者，这里我们将其进行扩展：即依据日志的严重程度来允许过滤消息。例如，我们只将严重的错误写入磁盘，而告警和展示的日志信息则不用写入磁盘，以此来节省存储空间。</p>
-
-<p>上一小节使用了 <code>fanout</code> exchange, 其扩展性不够，只能进行无意识的广播，即将发送给 exchange 的消息路由到与该 exchange 绑定的所有 queues 中去</p>
-
-<p>这里，我们使用 <code>direct</code> exchange, direct 背后的算法逻辑：队列的 binding_key 和 消息的 routing_key 完全匹配时，消息才会被路由到队列中去。</p>
-
-<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1559485554/blog/images/direct-exchange.png" alt="" /></p>
-
-<p>上图中，<code>direct</code> Exchange ‘X’ 绑定了两个队列，第一个队列的 <code>binding_key</code> 是 <code>orange</code>, 第二个队列有两个 <code>binding_key</code>, 分别是 <code>black</code>、<code>green</code></p>
-
-<p>按照这样设计，消息路由规则如下：</p>
+<p>在 Topic 模式下对 <code>routing_key</code> 是有要求的：</p>
 
 <ul>
-<li>发送到 Exchange 的消息，如果其 binding_key 为 orange，则会被路由到 Q1</li>
-<li>发送到 Exchange 的消息，如果其 binding_key 为 black 或者 green 时，则会被路由到 Q2</li>
-<li>其他的 binding_key 的消息则会被直接丢弃掉</li>
+<li>首先，消息发送给 Topic Exchange 时，其 routing_key 不能为任意的字符，必须是由 <code>.</code> 隔开的单词列表</li>
+<li>其次，组成 routing_key 的单词可以任意，但通常使用与所传输消息相关的词语</li>
+<li>最后，routing_key 的长度限制是 255 字节，只要不超出阈值，怎么定义都行</li>
 </ul>
 
-<h1 id="multiple-bindings">Multiple bindings</h1>
+<p>再来看 <code>binding_key</code>: binding_key 命名规范和 routing_key 一致</p>
 
-<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1559486171/blog/images/direct-exchange-multiple.png" alt="" /></p>
+<p>在 RabbitMQ 的数据流转结构图中，Topic 的 Exchange 之后的逻辑实际上和 <code>direct</code> 模式是类似的：一个设定有 routing_key 的消息，将会和所有绑定到 Exchange 的队列做一次匹配，匹配项就是 binding_key，匹配成功的消息将会发送到该队列中去。</p>
 
-<p>同样的 <code>binding_key</code> 绑定在多个队列上完全可行，上图实列中：发送到 Exchange X 的消息，如果 <code>binding_key</code> 为 black, 则都会传送到 Q1 和 Q2 队列中去。</p>
+<p>那么消息过来后是如何做匹配的呢？ 这就要来了解下关于 <code>binding_key</code> 的两项特别重要要求：</p>
 
-<p>完整代码：<a href="https://github.com/ijayer/mq-practice/tree/master/rabbitmq/golang-intro/04-routing">Golang Intro: 04 - Routing</a></p>
+<ul>
+<li>*（星号）：用来替代一个单词</li>
+<li>#（井号）：用来替代零个或多个单词</li>
+</ul>
+
+<p>我们通过例子来理解一下：如下图：</p>
+
+<p><img src="https://www.rabbitmq.com/img/tutorials/python-five.png" alt="" /></p>
+
+<p>在例子中，所有发送的消息都是来描述动物的。所发送消息的路由键(routing_key)由三个点(.)分单词组成，第一个单词描述：速度，第二个单词描述：颜色，第三个单词描述：种类。如下：<code>&lt;speed&gt;.&lt;colour&gt;.&lt;species&gt;</code></p>
+
+<p>接下来，我们创建绑定：</p>
+
+<ul>
+<li>Q1 和 binding_key <code>*.orange.*</code> 绑定</li>
+<li>Q2 和 binding_key <code>*.*.rabbit</code> 和 <code>lazy.#</code> 绑定</li>
+</ul>
+
+<p>上述两条绑定规则可以描述如下：</p>
+
+<ul>
+<li>所发送的消息如果是描述橙色动物的，那将会被 Q1 接收</li>
+<li>Q2呢，则会接收所有与 rabbit 和 lazy 的动物有关的消息</li>
+</ul>
+
+<p>来，看看被设置为以下 <code>routing_key</code> 的消息将如何路由</p>
+
+<ul>
+<li><code>routing_key = quick.orange.rabbit</code> 的消息将会被传递到 Q1 &amp; Q2</li>
+<li><code>routing_key = lazy.orange.elephant</code> 的消息也会被路由到 Q1 &amp; Q2</li>
+<li><code>routing_key = quick.orange.fox</code> 的消息将会被路由到 Q1</li>
+<li><code>routing_key = lazy.brown.fox</code> 的消息将会被路由到 Q2</li>
+<li><code>routing_key = lazy.pink.rabbit</code> 的消息只会被路由到 Q2 一次（尽管它和两个队列匹配）</li>
+<li><code>routing_key = quick.brown.fox</code> 的消息将不会被传递到任何队列中去</li>
+</ul>
+
+<p>虽然有了命名规范，但就是有人不按规范来做啊！比如，我就将 <code>routing_key</code> 设置为了 <code>orange</code> | <code>quick.orange.male.rabbit</code>，如果这个消息被发送出去，将会发生什么呢？毫无疑问，这些消息没法匹配到任务队列，且消息将被丢失掉。</p>
+
+<p>另一个例子，<code>routing_key = lazy.orange.male.rabbit</code> 尽管由四个单词组成，也会匹配到最后一个绑定，并将消息路由到 Q2</p>
+
+<p>现在，关于 <code>Topic Exchange</code> 我们应该知道：</p>
+
+<ul>
+<li>Topic Exchange 能力很强，可以实现像其他类型的 Exchange 一样的特性</li>
+<li>当一个队列被绑定到带有 <code>#</code> 的 <code>binding_key</code> 时，这个队列将会接收到所有的消息，而不用管 <code>routing_key</code> 是如何设置的。就像在 <code>faout</code> 模式的 Exchange 一样</li>
+<li>当 <code>binding_key</code> 没有用到 <code>*</code> 和 <code>#</code> 时，Topic Exchange 就起和 <code>direct</code> 类型的 Exchange 一样的作用</li>
+</ul>
+
+<p>来，接着上一节的内容开始写代码吧：这里将日志消息的 <code>routing_key</code> 设置为由两个单词组成：<code>&lt;faclity&gt;.&lt;severity&gt;</code></p>
+
+<p>完整代码：<a href="https://github.com/ijayer/mq-practice/tree/master/rabbitmq/golang-intro/05-topics">Golang Intro: 05 - Topics</a></p>
 
 <h1 id="see-also">See Also</h1>
 
@@ -250,7 +262,8 @@
 </blockquote>
 
 <ul>
-<li><a href="https://www.rabbitmq.com/tutorials/tutorial-four-go.html">Routing</a></li>
+<li><a href="https://www.rabbitmq.com/tutorials/tutorial-five-go.html">Topics</a>
+<br /></li>
 </ul>
     </div>
 
@@ -261,7 +274,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2019-06-13</span>
+    <span class="item-content">2019-06-22</span>
   </p>
   
   <p class="copyright-item">
@@ -275,13 +288,13 @@
           <a href="/tags/golang/">golang</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/tech/mq/20190613-rabbitmq-topics/">
+        <a class="prev" href="/post/tech/mq/20190614-rabbitmq-rpc/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Rabbitmq | 05 - Topics</span>
+            <span class="prev-text nav-default">Rabbitmq | 06 - RPC</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/tech/mq/20190519-rabbitmq-publish.subscribe/">
-            <span class="next-text nav-default">Rabbitmq | 03 - Publish/Subscribe</span>
+        <a class="next" href="/post/tech/mq/20190602-rabbitmq-routing/">
+            <span class="next-text nav-default">Rabbitmq | 04 - Routing</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -294,8 +307,8 @@
     <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitalk = new Gitalk({
-        id: '2019-06-02 17:05:35 \x2b0800 CST',
-        title: 'Rabbitmq | 04 - Routing',
+        id: '2019-06-13 22:48:56 \x2b0800 CST',
+        title: 'Rabbitmq | 05 - Topics',
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',

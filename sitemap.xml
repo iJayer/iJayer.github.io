@@ -3,14 +3,64 @@
   
   <url>
     <loc>https://ijayer.github.io/categories/</loc>
-    <lastmod>2019-06-13T17:05:35+00:00</lastmod>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ijayer.github.io/post/</loc>
-    <lastmod>2019-06-13T17:05:35+00:00</lastmod>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/post/tech/mq/20190614-rabbitmq-rpc/</loc>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/tags/</loc>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/tags/golang/</loc>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/</loc>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/tags/mq/</loc>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/tags/rabbitmq/</loc>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/categories/tech/</loc>
+    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/post/tech/mq/20190613-rabbitmq-topics/</loc>
+    <lastmod>2019-06-22T22:48:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
@@ -18,42 +68,6 @@
     <lastmod>2019-06-13T17:05:35+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/tags/</loc>
-    <lastmod>2019-06-13T17:05:35+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/tags/golang/</loc>
-    <lastmod>2019-06-13T17:05:35+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/</loc>
-    <lastmod>2019-06-13T17:05:35+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/tags/mq/</loc>
-    <lastmod>2019-06-13T17:05:35+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/tags/rabbitmq/</loc>
-    <lastmod>2019-06-13T17:05:35+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/categories/tech/</loc>
-    <lastmod>2019-06-13T17:05:35+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Rabbitmq | 04 - Routing - ijayer</title>
+  <title>Rabbitmq | 06 - RPC - ijayer</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="jayer" /><meta name="description" content="这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。
+<meta name="author" content="jayer" /><meta name="description" content="这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数
 " /><meta name="keywords" content="mq, rabbitmq, go" />
 
 
@@ -27,7 +27,7 @@
 <meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/" />
+<link rel="canonical" href="https://ijayer.github.io/post/tech/mq/20190614-rabbitmq-rpc/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,33 +39,33 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Rabbitmq | 04 - Routing" />
+<meta property="og:title" content="Rabbitmq | 06 - RPC" />
 <meta property="og:description" content="
 
-这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。" />
+这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/" />
-<meta property="article:published_time" content="2019-06-02T17:05:35&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-13T17:05:35&#43;00:00"/>
+<meta property="og:url" content="https://ijayer.github.io/post/tech/mq/20190614-rabbitmq-rpc/" />
+<meta property="article:published_time" content="2019-06-22T22:56:56&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-23T22:56:56&#43;00:00"/>
 
-<meta itemprop="name" content="Rabbitmq | 04 - Routing">
+<meta itemprop="name" content="Rabbitmq | 06 - RPC">
 <meta itemprop="description" content="
 
-这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。">
+这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数">
 
 
-<meta itemprop="datePublished" content="2019-06-02T17:05:35&#43;08:00" />
-<meta itemprop="dateModified" content="2019-06-13T17:05:35&#43;00:00" />
-<meta itemprop="wordCount" content="640">
+<meta itemprop="datePublished" content="2019-06-22T22:56:56&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-23T22:56:56&#43;00:00" />
+<meta itemprop="wordCount" content="1265">
 
 
 
 <meta itemprop="keywords" content="mq,rabbitmq,golang," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Rabbitmq | 04 - Routing"/>
+<meta name="twitter:title" content="Rabbitmq | 06 - RPC"/>
 <meta name="twitter:description" content="
 
-这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。"/>
+这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -132,15 +132,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Rabbitmq | 04 - Routing</h1>
+      <h1 class="post-title">Rabbitmq | 06 - RPC</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-06-02 </span>
+        <span class="post-time"> 2019-06-22 </span>
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 640 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 1265 words </span>
+          <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -150,9 +150,9 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
-<li><a href="#bindings">Bindings</a></li>
-<li><a href="#direct-exchange">Direct exchange</a></li>
-<li><a href="#multiple-bindings">Multiple bindings</a></li>
+<li><a href="#callback-queue">Callback queue</a></li>
+<li><a href="#correlation-id">Correlation Id</a></li>
+<li><a href="#summary">Summary</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ul>
 </nav>
@@ -161,87 +161,107 @@
     <div class="post-content">
       <!-- 摘要 -->
 
-<p>这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。</p>
+<p>这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数</p>
 
-<h1 id="bindings">Bindings</h1>
+<p>有关 RPC 的说明：</p>
 
-<p>上一小节我们创建了 Exchange 和 Queue 的一个绑定，代码描述如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">err</span> <span class="p">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">QueueBind</span><span class="p">(</span>
-    <span class="nx">q</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
-    <span class="s">&#34;&#34;</span><span class="p">,</span>
-    <span class="s">&#34;logs&#34;</span><span class="p">,</span> <span class="c1">// exchange
-</span><span class="c1"></span>    <span class="kc">false</span><span class="p">,</span>
-    <span class="kc">nil</span><span class="p">,</span>
-<span class="p">)</span></code></pre></td></tr></table>
-</div>
-</div>
+<p>尽管 RPC 在计算过程中是一个非常常见的模型，它也经常受到批评。当程序员并不注意一个函数是否是本地调用，或者是一个耗时的 RPC 时，问题就来了。像这样的迷惑就会导致产生不可预知的系统并且增加不必要的调试的复杂度。错误的使用 RPC 也将导致难以维护的意大利面式的代码产生。</p>
+
 <blockquote>
-<p>Binding: 描述的就是 Exchange 和 Queue 之间的关系，也可以看作：队列对 Exchange 传来的消息感兴趣。</p>
-</blockquote>
-
-<p>Bindings 也可以接收一个参数：<code>routing_key</code>；这里，为了避免和 <code>Channel.Publish</code> 的参数冲突，将其称作 <code>binding_key</code>, 代码描述如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">err</span> <span class="p">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">QueueBind</span><span class="p">(</span>
-    <span class="nx">q</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
-    <span class="s">&#34;black&#34;</span><span class="p">,</span> <span class="c1">// routing key
-</span><span class="c1"></span>    <span class="s">&#34;logs&#34;</span><span class="p">,</span>
-    <span class="kc">false</span><span class="p">,</span>
-    <span class="kc">nil</span><span class="p">,</span>
-<span class="p">)</span></code></pre></td></tr></table>
-</div>
-</div>
-<blockquote>
-<p>Note: <code>binding_key</code> 的含义取决于 exchange 的类型（回顾一下，有：fanout、direct、topic、header）</p>
-</blockquote>
-
-<h1 id="direct-exchange">Direct exchange</h1>
-
-<p>前面，我们的日志系统会将所有的消息广播给所有的消费者，这里我们将其进行扩展：即依据日志的严重程度来允许过滤消息。例如，我们只将严重的错误写入磁盘，而告警和展示的日志信息则不用写入磁盘，以此来节省存储空间。</p>
-
-<p>上一小节使用了 <code>fanout</code> exchange, 其扩展性不够，只能进行无意识的广播，即将发送给 exchange 的消息路由到与该 exchange 绑定的所有 queues 中去</p>
-
-<p>这里，我们使用 <code>direct</code> exchange, direct 背后的算法逻辑：队列的 binding_key 和 消息的 routing_key 完全匹配时，消息才会被路由到队列中去。</p>
-
-<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1559485554/blog/images/direct-exchange.png" alt="" /></p>
-
-<p>上图中，<code>direct</code> Exchange ‘X’ 绑定了两个队列，第一个队列的 <code>binding_key</code> 是 <code>orange</code>, 第二个队列有两个 <code>binding_key</code>, 分别是 <code>black</code>、<code>green</code></p>
-
-<p>按照这样设计，消息路由规则如下：</p>
+<p>牢记这一点，然后考虑下面的这些建议：</p>
 
 <ul>
-<li>发送到 Exchange 的消息，如果其 binding_key 为 orange，则会被路由到 Q1</li>
-<li>发送到 Exchange 的消息，如果其 binding_key 为 black 或者 green 时，则会被路由到 Q2</li>
-<li>其他的 binding_key 的消息则会被直接丢弃掉</li>
+<li>确保哪个函数明显是本地调用，哪个函数明显是远程调用</li>
+<li>系统设计要文档化，并且要使组件间的依赖清晰可见</li>
+<li>错误处理场景：当 RPC Server 宕机很长时间的时候客户端应该如何应对?</li>
+</ul>
+</blockquote>
+
+<h1 id="callback-queue">Callback queue</h1>
+
+<p>一般来说，使用 RabbitMQ 处理 RPC 调用很容易：客户端发送请求消息，服务端回应响应消息。那么，为了能够收到响应消息，我们就需要在请求消息中携带一个 <code>回调队列的地址（callback queue address）</code>。我们使用默认的队列来尝试一下吧！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">q</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">QueueDeclare</span><span class="p">(</span>
+    <span class="s">&#34;&#34;</span><span class="p">,</span>     <span class="c1">// default queue name
+</span><span class="c1"></span>    <span class="kc">false</span><span class="p">,</span>  <span class="c1">// durable
+</span><span class="c1"></span>    <span class="kc">false</span><span class="p">,</span>  <span class="c1">// delete when usused
+</span><span class="c1"></span>    <span class="kc">true</span><span class="p">,</span>   <span class="c1">// exclusive
+</span><span class="c1"></span>    <span class="kc">false</span><span class="p">,</span>  <span class="c1">// noWait
+</span><span class="c1"></span>    <span class="kc">nil</span><span class="p">,</span>    <span class="c1">// arguments
+</span><span class="c1"></span><span class="p">)</span>
+
+<span class="nx">err</span> <span class="p">=</span> <span class="nx">ch</span><span class="p">.</span><span class="nf">Publish</span><span class="p">(</span>
+    <span class="s">&#34;&#34;</span><span class="p">,</span>             <span class="c1">// exchange
+</span><span class="c1"></span>    <span class="s">&#34;rpc_queue&#34;</span><span class="p">,</span>    <span class="c1">// routing key
+</span><span class="c1"></span>    <span class="kc">false</span><span class="p">,</span>          <span class="c1">// mandatory
+</span><span class="c1"></span>    <span class="kc">false</span><span class="p">,</span>          <span class="c1">// immediate
+</span><span class="c1"></span>    <span class="nx">amqp</span><span class="p">.</span><span class="nx">Publishing</span> <span class="p">{</span>
+        <span class="nx">ContentType</span><span class="p">:</span> <span class="s">&#34;text/plain&#34;</span><span class="p">,</span>
+        <span class="nx">CorrelationId</span><span class="p">:</span> <span class="nx">corrId</span><span class="p">,</span>
+        <span class="nx">ReplyTo</span><span class="p">:</span> <span class="nx">q</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+        <span class="nx">Body</span><span class="p">:</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nx">n</span><span class="p">)),</span>
+    <span class="p">}</span>
+<span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>消息属性说明；AMQP 0-9-1 协议预定义了 14 个消息的属性，但是大多数都不怎么使用，部分说明如下:</p>
+
+<ul>
+<li><code>persistent</code>: 标记消息是否要被持久化(true | false)</li>
+<li><code>content_type</code>：消息编码类型(application/json | text/plain)</li>
+<li><code>reply_to</code>: 回调队列名</li>
+<li><code>correlation_id</code>：用来将 RPC 响应和请求关联</li>
+</ul>
+</blockquote>
+
+<h1 id="correlation-id">Correlation Id</h1>
+
+<p>上面提到的为每个 RPC 请求创建一个回调队列效率并不高，但幸运的是这有一个更好的方式：为每个客户端创建一个 <code>回调队列(callback queue)</code>。</p>
+
+<p>这就引出了一个新的问题，在回调队列中收到的响应并不能清晰的标明是来自那个请求的响应。这就要使用一个属性 <code>correlation_id</code>（关联id）。我们可以给每个请求都设置一个唯一的值，随后，我们在回调队列收到响应的时候就比对这个属性，基于此，我们就能将响应和请求对应起来。如果我们收到了一个未知的 <code>correlation_id</code>，说明该消息不是我们想要的，可以完全丢弃。</p>
+
+<p>到这里，我们可能会有疑问：既然收到了不是来自我们请求的响应，为什么不直接报错，而是选择丢弃呢？那是因为在 Server 端存在竞争检测的可能。尽管不太可能，但 RPC server 也有可能在发送响应后就宕机了，而且在宕机前也没来得及发送 ack。如果这种情况发生了，重启 RPC 服务后会再次处理这个请求。这就是为什么在客户端上我们必须优雅的处理重复的响应，理想情况下 RPC 应该是幂等的。</p>
+
+<h1 id="summary">Summary</h1>
+
+<p><img src="https://www.rabbitmq.com/img/tutorials/python-six.png" alt="" /></p>
+
+<p>上图中的 RPC 工作流：</p>
+
+<ul>
+<li>当客户端启动的时候，会创建一个匿名独占的回调队列</li>
+<li>一个 RPC 请求中，客户端发送的消息会带两个属性：<code>reply_to</code>：其值为回调队列，<code>correlation_id</code>：为每个请求设置的唯一值</li>
+<li>Request 将被发送到一个 RPC 队列</li>
+<li>RPC Server 等待来自 rpc_queue 队列的请求。当请求到达后，他就会处理其任务，并将处理结果通过 <code>reply_to</code> 字段所表示的回调队列送回给客户端。</li>
+<li>客户端等待回调队列的数据。当消息到达后，先检查 <code>correlatioin_id</code>，如果和请求中的值匹配，则将 Response 返回给应用程序。</li>
 </ul>
 
-<h1 id="multiple-bindings">Multiple bindings</h1>
-
-<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1559486171/blog/images/direct-exchange-multiple.png" alt="" /></p>
-
-<p>同样的 <code>binding_key</code> 绑定在多个队列上完全可行，上图实列中：发送到 Exchange X 的消息，如果 <code>binding_key</code> 为 black, 则都会传送到 Q1 和 Q2 队列中去。</p>
-
-<p>完整代码：<a href="https://github.com/ijayer/mq-practice/tree/master/rabbitmq/golang-intro/04-routing">Golang Intro: 04 - Routing</a></p>
+<p>完整 <a href="https://github.com/ijayer/mq-practice/tree/master/rabbitmq/golang-intro/06-rpc">Demo Code</a></p>
 
 <h1 id="see-also">See Also</h1>
 
@@ -250,7 +270,8 @@
 </blockquote>
 
 <ul>
-<li><a href="https://www.rabbitmq.com/tutorials/tutorial-four-go.html">Routing</a></li>
+<li><a href="https://www.rabbitmq.com/tutorials/tutorial-six-go.html">RPC</a>
+<br /></li>
 </ul>
     </div>
 
@@ -261,7 +282,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2019-06-13</span>
+    <span class="item-content">2019-06-23</span>
   </p>
   
   <p class="copyright-item">
@@ -275,13 +296,9 @@
           <a href="/tags/golang/">golang</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/tech/mq/20190613-rabbitmq-topics/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Rabbitmq | 05 - Topics</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/tech/mq/20190519-rabbitmq-publish.subscribe/">
-            <span class="next-text nav-default">Rabbitmq | 03 - Publish/Subscribe</span>
+        
+        <a class="next" href="/post/tech/mq/20190613-rabbitmq-topics/">
+            <span class="next-text nav-default">Rabbitmq | 05 - Topics</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -294,8 +311,8 @@
     <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitalk = new Gitalk({
-        id: '2019-06-02 17:05:35 \x2b0800 CST',
-        title: 'Rabbitmq | 04 - Routing',
+        id: '2019-06-22 22:56:56 \x2b0800 CST',
+        title: 'Rabbitmq | 06 - RPC',
         clientID: '4357c1dbcf7ef0515c29',
         clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
         repo: 'blog-comments',

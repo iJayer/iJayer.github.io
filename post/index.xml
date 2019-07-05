@@ -6,10 +6,38 @@
     <description>Recent content in Posts on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 02 Jun 2019 17:05:35 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jun 2019 22:56:56 +0800</lastBuildDate>
     
 	<atom:link href="https://ijayer.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rabbitmq | 06 - RPC</title>
+      <link>https://ijayer.github.io/post/tech/mq/20190614-rabbitmq-rpc/</link>
+      <pubDate>Sat, 22 Jun 2019 22:56:56 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/post/tech/mq/20190614-rabbitmq-rpc/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rabbitmq | 05 - Topics</title>
+      <link>https://ijayer.github.io/post/tech/mq/20190613-rabbitmq-topics/</link>
+      <pubDate>Thu, 13 Jun 2019 22:48:56 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/post/tech/mq/20190613-rabbitmq-topics/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;前面，分别使用了 &lt;code&gt;fanout&lt;/code&gt; 和 &lt;code&gt;direct&lt;/code&gt; 类型实现了简易的日志生产、路由和消费，虽然 &lt;code&gt;direct&lt;/code&gt; 可以按照 &lt;code&gt;Binding_Key&lt;/code&gt; 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 &lt;code&gt;syslog&lt;/code&gt;，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&amp;hellip;) 来路由。&lt;/p&gt;
+
+&lt;p&gt;如果我们只想监听来自模块 &lt;code&gt;cron&lt;/code&gt; 的严重消息，而忽略掉所有来自 &lt;code&gt;kern&lt;/code&gt; 模块的日志，应该怎么做呢？&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;接下来，就要学习另一个 Exchange Type：&lt;code&gt;Topic&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
     
     <item>
       <title>Rabbitmq | 04 - Routing</title>

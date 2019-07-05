@@ -45,7 +45,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ijayer.github.io/" />
 
-<meta property="og:updated_time" content="2019-06-02T17:05:35&#43;08:00"/>
+<meta property="og:updated_time" content="2019-06-22T22:56:56&#43;08:00"/>
 
 <meta itemprop="name" content="ijayer">
 <meta itemprop="description" content="ijayer">
@@ -119,13 +119,69 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/tech/mq/20190614-rabbitmq-rpc/">Rabbitmq | 06 - RPC</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-06-22 </span>
+      <div class="post-category">
+          <a href="/categories/tech/"> tech </a>
+          </div>
+        <span class="more-meta"> 1265 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <!-- 摘要 -->
+
+<p>这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/tech/mq/20190614-rabbitmq-rpc/" class="read-more-link">Read more..</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/tech/mq/20190613-rabbitmq-topics/">Rabbitmq | 05 - Topics</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-06-13 </span>
+      <div class="post-category">
+          <a href="/categories/tech/"> tech </a>
+          </div>
+        <span class="more-meta"> 1280 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <!-- 摘要 -->
+
+<p>前面，分别使用了 <code>fanout</code> 和 <code>direct</code> 类型实现了简易的日志生产、路由和消费，虽然 <code>direct</code> 可以按照 <code>Binding_Key</code> 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 <code>syslog</code>，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。</p>
+
+<p>如果我们只想监听来自模块 <code>cron</code> 的严重消息，而忽略掉所有来自 <code>kern</code> 模块的日志，应该怎么做呢？</p>
+
+<blockquote>
+<p>接下来，就要学习另一个 Exchange Type：<code>Topic</code></p>
+</blockquote>
+    </div>
+    <div class="read-more">
+      <a href="/post/tech/mq/20190613-rabbitmq-topics/" class="read-more-link">Read more..</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/tech/mq/20190602-rabbitmq-routing/">Rabbitmq | 04 - Routing</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2019-06-02 </span>
       <div class="post-category">
           <a href="/categories/tech/"> tech </a>
           </div>
-        <span class="more-meta"> 625 words </span>
+        <span class="more-meta"> 640 words </span>
         <span class="more-meta"> 2 mins read </span>
     </div>
   </header>
@@ -150,7 +206,7 @@
       <div class="post-category">
           <a href="/categories/tech/"> tech </a>
           </div>
-        <span class="more-meta"> 925 words </span>
+        <span class="more-meta"> 940 words </span>
         <span class="more-meta"> 2 mins read </span>
     </div>
   </header>
@@ -233,8 +289,8 @@
       <div class="post-category">
           <a href="/categories/tech/"> tech </a>
           </div>
-        <span class="more-meta"> 1986 words </span>
-        <span class="more-meta"> 4 mins read </span>
+        <span class="more-meta"> 2069 words </span>
+        <span class="more-meta"> 5 mins read </span>
     </div>
   </header>
   
@@ -328,79 +384,6 @@
     </div>
     <div class="read-more">
       <a href="/post/tech/code/golang/tutorial-go36-07/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/tech/code/golang/tutorial-go36-06/">『Go核心36讲』| 06 - go语句以及执行规则（上）</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-01-12 </span>
-      <div class="post-category">
-          <a href="/categories/tech/"> tech </a>
-          </div>
-        <span class="more-meta"> 2187 words </span>
-        <span class="more-meta"> 5 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<ul>
-<li>进程、线程(系统级)</li>
-<li>goroutine(用户级)</li>
-<li>调度器</li>
-</ul>
-
-<p><div class='align-right'></p>
-</blockquote>
-
-<p><a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：16 | go语句及其执行规则（上）</a></p>
-
-<p></div></p>
-    </div>
-    <div class="read-more">
-      <a href="/post/tech/code/golang/tutorial-go36-06/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/tech/code/golang/tutorial-go36-05/">『Go核心36讲』| 05 - 使用函数的正确姿势</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-01-07 </span>
-      <div class="post-category">
-          <a href="/categories/tech/"> tech </a>
-          </div>
-        <span class="more-meta"> 3229 words </span>
-        <span class="more-meta"> 7 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<ul>
-<li>函数类型、函数签名</li>
-<li>高阶函数</li>
-<li>闭包</li>
-<li>函数传参<br /></li>
-</ul>
-
-<div class='align-right'>
-   [专栏：12 | 使用函数的正确姿势](https://time.geekbang.org/column/article/14671?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%252525253D) 
-</div>
-</blockquote>
-    </div>
-    <div class="read-more">
-      <a href="/post/tech/code/golang/tutorial-go36-05/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>
