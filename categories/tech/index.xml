@@ -17,9 +17,7 @@
       <pubDate>Sat, 22 Jun 2019 22:56:56 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/mq/20190614-rabbitmq-rpc/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数&lt;/p&gt;</description>
+      <description>这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数 有关 RPC 的说明： 尽管 RPC 在计算过程中</description>
     </item>
     
     <item>
@@ -28,15 +26,7 @@
       <pubDate>Thu, 13 Jun 2019 22:48:56 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/mq/20190613-rabbitmq-topics/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;前面，分别使用了 &lt;code&gt;fanout&lt;/code&gt; 和 &lt;code&gt;direct&lt;/code&gt; 类型实现了简易的日志生产、路由和消费，虽然 &lt;code&gt;direct&lt;/code&gt; 可以按照 &lt;code&gt;Binding_Key&lt;/code&gt; 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 &lt;code&gt;syslog&lt;/code&gt;，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&amp;hellip;) 来路由。&lt;/p&gt;
-
-&lt;p&gt;如果我们只想监听来自模块 &lt;code&gt;cron&lt;/code&gt; 的严重消息，而忽略掉所有来自 &lt;code&gt;kern&lt;/code&gt; 模块的日志，应该怎么做呢？&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;接下来，就要学习另一个 Exchange Type：&lt;code&gt;Topic&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息</description>
     </item>
     
     <item>
@@ -45,9 +35,7 @@
       <pubDate>Sun, 02 Jun 2019 17:05:35 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/mq/20190602-rabbitmq-routing/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。&lt;/p&gt;</description>
+      <description>这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。 Bindings 上一小节我们创建了 Exchange 和 Queue 的一个绑定，代码描述如下： 1 2 3 4 5 6 7 err = ch.QueueBind( q.Name, &amp;#34;&amp;#34;,</description>
     </item>
     
     <item>
@@ -56,13 +44,7 @@
       <pubDate>Sun, 19 May 2019 17:28:12 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/mq/20190519-rabbitmq-publish.subscribe/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Publish/Subscribe: Send messages to many consumers at once.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;这一小节，通过实现一个日志系统来学习 RabbitMQ &lt;code&gt;p/b&lt;/code&gt; 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？&lt;/p&gt;</description>
+      <description>Publish/Subscribe: Send messages to many consumers at once. 这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其</description>
     </item>
     
     <item>
@@ -71,11 +53,7 @@
       <pubDate>Mon, 01 Apr 2019 11:13:00 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/mq/20190401-rabbitmq-work-queues/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;实现一个用来在多个 Workers 之间分发 &lt;code&gt;耗时任务&lt;/code&gt; 的工作队列&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>实现一个用来在多个 Workers 之间分发 耗时任务 的工作队列。 那么为什么会出现工作队列呢？可以和上节的 Simple 队列做简单对比： Simple 队列是一一对应的，而且我们在实际</description>
     </item>
     
     <item>
@@ -84,18 +62,7 @@
       <pubDate>Fri, 29 Mar 2019 16:05:39 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/mq/20190328-rabbitmq-hello-world/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;RabbitMQ 是一个开源的、使用最广的消息队列。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。&lt;/li&gt;
-&lt;li&gt;支持的协议：AMQP，XMPP, SMTP, STOMP&lt;/li&gt;
-&lt;li&gt;支持集群部署（私有云或公有云）&lt;/li&gt;
-&lt;li&gt;可使用 HTTP-API、命令行工具和 UI 界面以便于管理和监控&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>RabbitMQ 是一个开源的、使用最广的消息队列。 Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。 支持的协议：AMQP，XMPP, SMTP, STOMP 支持集群部</description>
     </item>
     
     <item>
@@ -104,20 +71,7 @@
       <pubDate>Wed, 27 Mar 2019 21:37:23 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/mq/20190327-message-queue-compare/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;几种常见的消息队列比较：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.rabbitmq.com/&#34;&gt;RabbitMQ&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://activemq.apache.org/&#34;&gt;ActiveMQ&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://zeromq.org/&#34;&gt;ZeroMQ&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://redis.io/&#34;&gt;Redis&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://rocketmq.apache.org/&#34;&gt;RocketMQ&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://kafka.apache.org/&#34;&gt;Kafaka&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>几种常见的消息队列比较： RabbitMQ ActiveMQ ZeroMQ Redis RocketMQ Kafaka Message Queue Wiki: Message Queue Message queues provide an asynchronous communications protocol, meaning that then sender and receiver of the message do not need to interact with the message queue at the same time. Message placed onto the queue are stored until the recipient</description>
     </item>
     
     <item>
@@ -126,21 +80,7 @@
       <pubDate>Sun, 13 Jan 2019 11:57:26 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-07/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?&lt;/li&gt;
-&lt;li&gt;Q2：怎样才能让主 goroutine 等待其他 goroutine ?&lt;/li&gt;
-&lt;li&gt;Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;div class=&#39;align-right&#39;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：17 | go语句及其执行规则（下）&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/div&gt;&lt;/p&gt;</description>
+      <description>Q1：用什么手段可以对 goroutine 的启用数量加以限制 ? Q2：怎样才能让主 goroutine 等待其他 goroutine ? Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ? 专栏：17 | go 语</description>
     </item>
     
     <item>
@@ -149,21 +89,7 @@
       <pubDate>Sat, 12 Jan 2019 14:51:10 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-06/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;进程、线程(系统级)&lt;/li&gt;
-&lt;li&gt;goroutine(用户级)&lt;/li&gt;
-&lt;li&gt;调度器&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;div class=&#39;align-right&#39;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：16 | go语句及其执行规则（上）&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/div&gt;&lt;/p&gt;</description>
+      <description>进程、线程(系统级) goroutine(用户级) 调度器 专栏：16 | go 语句及其执行规则（上） — Malcolm Lightbody @mlightbody 前导内容：进程与线程 进程：描述的就是程序的</description>
     </item>
     
     <item>
@@ -172,20 +98,7 @@
       <pubDate>Mon, 07 Jan 2019 11:37:08 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-05/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;函数类型、函数签名&lt;/li&gt;
-&lt;li&gt;高阶函数&lt;/li&gt;
-&lt;li&gt;闭包&lt;/li&gt;
-&lt;li&gt;函数传参&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&#39;align-right&#39;&gt;
-   [专栏：12 | 使用函数的正确姿势](https://time.geekbang.org/column/article/14671?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%252525253D) 
-&lt;/div&gt;
-&lt;/blockquote&gt;</description>
+      <description>函数类型、函数签名 高阶函数 闭包 函数传参 专栏：12 | 使用函数的正确姿势 — zher，杭州图书馆 2019-01-06 日 16 时许 函数是一等公民 函数：一等的(first-</description>
     </item>
     
     <item>
@@ -194,23 +107,7 @@
       <pubDate>Tue, 18 Dec 2018 21:45:30 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-04/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;性能分析，有哪些工具可以用？&lt;/li&gt;
-&lt;li&gt;概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？&lt;/li&gt;
-&lt;li&gt;每一种概要信息代表了什么，包含什么样的内容？&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;runtime/pprof.Lookup&lt;/code&gt; 函数的正确调用方式是什么？&lt;/li&gt;
-&lt;li&gt;通过这些怎么检查程序瓶颈？&lt;/li&gt;
-&lt;li&gt;怎么为基于 HTTP 协议的网络服务添加性能分析接口？&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;runtime/trace&lt;/code&gt; 代码包的功用是什么?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&#39;align-right&#39;&gt;
-   [专栏：48 &amp; 49 | 程序性能分析基础](https://time.geekbang.org/column/article/69812) 
-&lt;/div&gt;
-&lt;/blockquote&gt;</description>
+      <description>性能分析，有哪些工具可以用？ 概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度</description>
     </item>
     
     <item>
@@ -219,20 +116,7 @@
       <pubDate>Sun, 16 Dec 2018 17:25:00 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-04-%E6%95%B0%E6%8D%AE%E5%92%8C%E8%AF%AD%E6%B3%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。&lt;/p&gt;
-
-&lt;p&gt;以下是本系列文章的索引：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主</description>
     </item>
     
     <item>
@@ -241,20 +125,7 @@
       <pubDate>Fri, 14 Dec 2018 10:24:56 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-03-%E5%86%85%E5%AD%98%E5%89%96%E6%9E%90/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。（译者注：这一篇可看成第二篇的进阶版）&lt;/p&gt;
-
-&lt;p&gt;以下是本系列文章的索引：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主</description>
     </item>
     
     <item>
@@ -263,20 +134,7 @@
       <pubDate>Wed, 12 Dec 2018 15:24:52 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-02-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。&lt;/p&gt;
-
-&lt;p&gt;以下是本系列文章的索引：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主</description>
     </item>
     
     <item>
@@ -285,20 +143,7 @@
       <pubDate>Tue, 11 Dec 2018 17:24:40 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20181212-go%E8%AF%AD%E8%A8%80%E6%9C%BA%E5%88%B6-01-%E6%A0%88%E5%92%8C%E6%8C%87%E9%92%88/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主要介绍堆和逃逸分析。&lt;/p&gt;
-
-&lt;p&gt;以下是本系列文章的索引：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;👉 &lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-01-栈和指针/&#34;&gt;Go 语言机制之栈与指针&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-02-逃逸分析/&#34;&gt;Go 语言机制之逃逸分析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-03-内存剖析/&#34;&gt;Go 语言机制之内存剖析&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io//post/tech/code/golang/20181212-go语言机制-04-数据和语法的设计哲学/&#34;&gt;Go 语言机制之数据和语法的设计哲学&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>本系列文章总共四篇，主要帮助大家理解 Go 语言中一些语法结构和其背后的设计原则，包括指针、栈、堆、逃&amp;gt; 逸分析和值/指针传递。这是第二篇，主</description>
     </item>
     
     <item>
@@ -307,28 +152,7 @@
       <pubDate>Mon, 03 Dec 2018 14:02:03 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-03/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Six interesting containers in Golang&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;From &lt;a href=&#34;https://golang.org/src/container/&#34;&gt;pkg/container&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;container/list&lt;/li&gt;
-&lt;li&gt;container/ring&lt;/li&gt;
-&lt;li&gt;container/heap&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Built in
-
-&lt;ul&gt;
-&lt;li&gt;map&lt;/li&gt;
-&lt;li&gt;slice&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Channels as quenues&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>Six interesting containers in Golang From pkg/container container/list container/ring container/heap Built in map slice Channels as quenues Container Container — 容器数据类型：该包实现了三个复杂的数据结构：堆、链表、环 List Go 语言标准库的 container/list 代码包提供的对 链表 的实现。</description>
     </item>
     
     <item>
@@ -337,11 +161,7 @@
       <pubDate>Wed, 21 Nov 2018 14:06:08 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20181121-slice-src-reading/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://halfrost.com/go_slice/#&#34;&gt;转自：深入解析 Go 中 Slice 底层实现&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>转自：深入解析 Go 中 Slice 底层实现 深入解析 Go 中 Slice 底层实现 切片是 Go 中的一种基本的数据结构，使用这种结构可以用来管理数据集合。切片的设计想法是由动态数</description>
     </item>
     
     <item>
@@ -350,11 +170,7 @@
       <pubDate>Sat, 17 Nov 2018 14:00:24 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20181117-slice-deep-learning/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.golang.org/go-slices-usage-and-internals&#34;&gt;Go Blog: Go slice internals 学习笔记&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>Go Blog: Go slice internals 学习笔记 Slice internals A slice is a descriptor of an array segment. It consists of a pointer to the array, the length of the segment, and its capacity (the maximum length of the segment). 一个切片就是一个数组片段的描述符。它(切片)包含了一个指</description>
     </item>
     
     <item>
@@ -363,20 +179,7 @@
       <pubDate>Sat, 17 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-02/</guid>
-      <description>&lt;!-- 摘要 --&gt;   
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;通过上 &lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180903-tutorial-go36-01/&#34;&gt;小结&lt;/a&gt; 学习主要加深了对：&lt;code&gt;常用源码文件(命令、库、测试)写法、程序实体(常量、变量、结构体、函数、接口, 尤其是变量)以及相关的各种概念和编程技巧(类型推断、变量重声明、可重名变量、类型断言、类型转换、别名类型和潜在类型等)&lt;/code&gt; 的理解。&lt;/li&gt;
-&lt;li&gt;接下来进入模块二：数组与切片，主要侧重于理解数组与切片底层的实现方式、存储结构、以及这两个集合类类型的区别是什么？&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;div class=&#39;align-right&#39;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/14106?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D&#34;&gt;专栏：07 | 数组和切片&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/div&gt;&lt;/p&gt;</description>
+      <description>通过上 小结 学习主要加深了对：常用源码文件(命令、库、测试)写法、程序实体(常量、变量、结构体、函数、接口, 尤其是变量)以及相关的各种概念和编</description>
     </item>
     
     <item>
@@ -385,11 +188,7 @@
       <pubDate>Sun, 04 Nov 2018 09:43:05 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/useful_git_scripts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Organize and collect useful git scripts&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>Organize and collect useful git scripts gcp gcp =&amp;gt; add + commit + push + status 1 2 3 4 5 6 7 8 9 10 11 12 13 #!/bin/sh set -e if [ 0 -eq $# ]; then echo &amp;#34;Usage: gcp &amp;lt;commit&amp;gt;&amp;#34; exit 1 fi git add -A git commit -m &amp;#34;$1&amp;#34; git push git status gta gta =&amp;gt; add tag and push to origin 1 2 3 4</description>
     </item>
     
     <item>
@@ -398,18 +197,7 @@
       <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/cicd/20180925-drone-01-basic/&#34;&gt;Drone 的基本概念&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/&#34;&gt;Drone 服务部署&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/docker/docker-compose-note/&#34;&gt;Docker-Compose 基础&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/docker/registry-and-webui/&#34;&gt;Docker Registry 服务部署&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有： Drone 的基本概念 Drone 服务部署 Docker-Compose 基础 Docker Registry 服务部署 简介 这里以一</description>
     </item>
     
     <item>
@@ -418,11 +206,7 @@
       <pubDate>Fri, 26 Oct 2018 09:48:45 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20181026-registry-and-webui/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;背景：最近基于 Drone 搭建了用于公司内部使用的 CI/CD 平台，而 CI/CD 过程中生成的 Docker Image 需要能够进行集中式的存储和管理 (即：&lt;code&gt;push&lt;/code&gt;、&lt;code&gt;pull&lt;/code&gt;、&lt;code&gt;delete&lt;/code&gt; 等)，且不能将其上传到公网环境中去，因此，有必要自己动手搭建 &lt;code&gt;Docker Private Registry&lt;/code&gt; 完成镜像的存储与分发任务。当然，仓库搭建完成后，能够可视化的管理也就很有必要了，像浏览 Docker Hub 一样&amp;hellip;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>背景：最近基于 Drone 搭建了用于公司内部使用的 CI/CD 平台，而 CI/CD 过程中生成的 Docker Image 需要能够进行集中式的存储和管理 (即：push、pull、delete 等)</description>
     </item>
     
     <item>
@@ -431,9 +215,7 @@
       <pubDate>Sat, 29 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180929-cicd-05-create-oauth-app-on-bitbucket-server/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;How to add an OAuth consumer(Application Links) to Bitbucket Server ?&lt;/p&gt;</description>
+      <description>How to add an OAuth consumer(Application Links) to Bitbucket Server ? Create Application Links Step1: 打开 Create Application Links 页面 =&amp;gt; Continue Step2: 创建 Application Link =&amp;gt; Continue Step3: 填写表单 1 2 3 4 5 6 7 8 Application Name: Drone Application Type: 默认(Generic Application) Consumer Key: &amp;lt;_your_key_&amp;gt; Shared Secret: &amp;lt;_your_secret_&amp;gt; Request Token URL: http://&amp;lt;_domain_&amp;gt;:8000/plugins/servlet/oauth/request-token</description>
     </item>
     
     <item>
@@ -442,13 +224,7 @@
       <pubDate>Thu, 27 Sep 2018 22:09:25 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;基于 Docker 部署 Bitbucket Server&lt;/li&gt;
-&lt;li&gt;基于 Docker 部署 Jira&lt;/li&gt;
-&lt;li&gt;基于 Docker 部署 Confluence&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence Dockerizing Bitbucket Server 部署 Bitbucket Server 需要两个 Docker 镜像：Bitbucket-Server &amp;amp; Postgre-DB 1 2 $ docker pull atlassian/bitbucket-server:5.10.2 $ docker pull postgres:9.6 在宿主机创建 Bitbucket Server</description>
     </item>
     
     <item>
@@ -457,16 +233,7 @@
       <pubDate>Wed, 26 Sep 2018 23:40:06 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;怎么用 Docker 搭建 Bitbucket Server&lt;/li&gt;
-&lt;li&gt;怎么启动 Drone Service&lt;/li&gt;
-&lt;li&gt;实践过程中踩过那些坑&lt;/li&gt;
-&lt;li&gt;&amp;hellip;&amp;hellip;&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及： 怎么用 Docker 搭建 Bitbucket Server 怎么启动 Drone Service 实践过程中踩过那些坑 &amp;hellip;&amp;hellip; 说明 开始之前先了解一下实践环</description>
     </item>
     
     <item>
@@ -475,17 +242,7 @@
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;Drone&lt;/code&gt; 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Drone 的核心概念&lt;/li&gt;
-&lt;li&gt;Drone 的运作原理(架构)&lt;/li&gt;
-&lt;li&gt;Drone 的基本术语&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。 Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语 转自：GeekPipe-基于Drone的持续集成实践之</description>
     </item>
     
     <item>
@@ -494,11 +251,7 @@
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20180925-docker-compose-note/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;平时启动容器的时候，一般会使用 &lt;code&gt;docker run&lt;/code&gt; 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，&lt;code&gt;docker run&lt;/code&gt; 命令就显得不是很方便了。 为此 Docker 推出了一个工具软件 &lt;a href=&#34;https://docs.docker.com/compose/overview/&#34;&gt;Compose&lt;/a&gt;, 用来定义和运行多个容器应用。 这部分内容就是关于 Docker Compose 的学习笔记。&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>平时启动容器的时候，一般会使用 docker run 命令，但会遇到一种情况就是当一个项目需要启动多个容器的时，docker run 命令就显得不是很方便了。 为此 Docker 推出</description>
     </item>
     
     <item>
@@ -507,15 +260,7 @@
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/win/cmd-usage-keep/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Windows 下命令行精选&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;快速启动命令行：&lt;kbd&gt;Win + X&lt;/kbd&gt; + &lt;kbd&gt;A&lt;/kbd&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>Windows 下命令行精选 快速启动命令行：Win + X + A 环境变量 设置临时环境变量，cmd 窗口关闭，则失效 1 $ set PATH=%PATH%;D:\code\bin\ 设置永久环境变量：添加到当前用户 1 $ setx /M</description>
     </item>
     
     <item>
@@ -524,9 +269,7 @@
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/win/used-better/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;收藏一些让 Win 更好用的方法&lt;/p&gt;</description>
+      <description>收藏一些让 Win 更好用的方法 Lenovo 屏蔽 Fn 键 安装 Lenovo 键盘驱动 (Google 搜索下载) 开始菜单打开该驱动程序，设置使用标准的F1-F12功能键 添加开机启动软件 Win + R Input:</description>
     </item>
     
     <item>
@@ -535,11 +278,7 @@
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;了解当下主流的 CI/CD 方案&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>了解当下主流的 CI/CD 方案 开始之前 最近，项目节奏放缓，有了一定的空闲时间。所以呢，很早之前就想把 CI/CD 集成到现有项目中去的想法终于可以尝试一下了，同时</description>
     </item>
     
     <item>
@@ -548,13 +287,7 @@
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;持续集成&lt;/li&gt;
-&lt;li&gt;持续交付&lt;/li&gt;
-&lt;li&gt;持续部署&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>持续集成 持续交付 持续部署 [转] 阮一峰：持续集成是什么？ 1. 概念 1.1. 持续集成 持续集成(CI, Continuous Intergation): 指频繁的，一天多次将代码集成到主干。 它的好处主要有</description>
     </item>
     
     <item>
@@ -563,9 +296,7 @@
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180910-grpc-05-practice/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;学习完了理论知识，开始写点 Demo 体验一番吧！ Sohoo！😋&lt;/p&gt;</description>
+      <description>学习完了理论知识，开始写点 Demo 体验一番吧！ Sohoo！😋 Statement: 文章转载自 大桥下的蜗牛 =&amp;gt; 视频笔记：gRPC 从学习到生产 - Alan Shreve。 原文(英)：</description>
     </item>
     
     <item>
@@ -574,15 +305,7 @@
       <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;gRPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;Protocol Buffers&lt;/code&gt; 的相关知识：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;什么是 Protocol Buffers ?&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;.proto&lt;/code&gt; 文件怎么写？ -&amp;gt; 语言规范&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;.proto&lt;/code&gt; 文件写好了怎么用？&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>上一小节，简单熟悉了一下 gRPC，接下来继续学习 Protocol Buffers 的相关知识： 什么是 Protocol Buffers ? .proto 文件怎么写？ -&amp;gt; 语言规范 .proto 文件写好了怎么用？ 本指南描述了怎样使用</description>
     </item>
     
     <item>
@@ -591,17 +314,7 @@
       <pubDate>Thu, 06 Sep 2018 09:12:12 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;RPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;gRPC&lt;/code&gt; 的基础概念：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;什么是 gRPC ?&lt;/li&gt;
-&lt;li&gt;gRPC 的关键概念有哪些 ?&lt;/li&gt;
-&lt;li&gt;在 gRPC 中，如何去定义一个服务 ？&lt;/li&gt;
-&lt;li&gt;gRPC 服务类型有哪几种？&lt;/li&gt;
-&lt;li&gt;一个 gRPC 客户端调用一个 gRPC 服务端方法时，会发生什么？&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>上一小节，简单熟悉了一下 RPC，接下来继续学习 gRPC 的基础概念： 什么是 gRPC ? gRPC 的关键概念有哪些 ? 在 gRPC 中，如何去定义一个服务 ？ gRPC 服务类型有哪几种？ 一</description>
     </item>
     
     <item>
@@ -610,15 +323,7 @@
       <pubDate>Thu, 06 Sep 2018 08:12:12 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;上一小节，简单熟悉了一下基于 gRPC 的 Hello World Demo 程序，接下来学习 gRPC 的相关概念知识，先来看 &lt;code&gt;RPC&lt;/code&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;什么是 RPC ?&lt;/li&gt;
-&lt;li&gt;RPC 的核心概念有哪些？&lt;/li&gt;
-&lt;li&gt;RPC 是调用流程是怎么样的？&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>上一小节，简单熟悉了一下基于 gRPC 的 Hello World Demo 程序，接下来学习 gRPC 的相关概念知识，先来看 RPC: 什么是 RPC ? RPC 的核心概念有哪些？ RPC 是调用流程是怎么样的？ Statement: 文中</description>
     </item>
     
     <item>
@@ -627,9 +332,7 @@
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;Ok, 先来安装 gRPC 的开发环境，并且实践一下 Hello World 程序吧！&lt;/p&gt;</description>
+      <description>Ok, 先来安装 gRPC 的开发环境，并且实践一下 Hello World 程序吧！ 1. 开发环境 ENV: go version go1.11 windows/amd64 IDE: goland 使用 gRPC 需要安装以下开发环境 Install gRPC (RPC框架) Install Protocol Buffers v3 (Google推</description>
     </item>
     
     <item>
@@ -638,16 +341,7 @@
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180904-grpc-00/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;🙂 So, 开始学习 gRPC 啦！！！ 学习笔记，内容包括：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/&#34;&gt;Note1: gRPC | Hello Wrold&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/&#34;&gt;Note2: gRPC基础概念 | 什么是 RPC?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/&#34;&gt;Note3: gRPC基础概念 | 什么是 gRPC?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/&#34;&gt;Note4: gRPC基础概念 | 什么是 Protocol Buffers?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>🙂 So, 开始学习 gRPC 啦！！！ 学习笔记，内容包括： Note1: gRPC | Hello Wrold Note2: gRPC基础概念 | 什么是 RPC? Note3: gRPC基础概念 | 什么是 gRPC? Note4: gRPC基础概念 | 什么是 Protocol Buffers? See</description>
     </item>
     
     <item>
@@ -656,12 +350,7 @@
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Make 命令的简单用法&lt;/li&gt;
-&lt;li&gt;Makefile 的编写规则&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>Make 命令的简单用法 Makefile 的编写规则 Statements: 笔记的内容转自 阮一峰老师的 Make 命令教程 1. 前言 代码变成可执行文件，叫做 编译 (compile); 先编译这个，还是先编译那个(即编译的安</description>
     </item>
     
     <item>
@@ -670,27 +359,7 @@
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-01/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;这一节，主要跟着专栏第一章补漏一些必备的基础概念，内容概览：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Go 中的源码文件分类&lt;/li&gt;
-&lt;li&gt;关于命令源码文件、库源码文件你漏掉了那些知识点？&lt;/li&gt;
-&lt;li&gt;程序实体那些事儿&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;div class=&#39;align-right&#39;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/article/13159&#34;&gt;专栏：02 | 命令源码文件&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://time.geekbang.org/column/article/13176&#34;&gt;专栏：03 | 库源码文件&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://time.geekbang.org/column/article/13178&#34;&gt;专栏：04 | 程序实体的那些事儿（上）&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://time.geekbang.org/column/article/13562&#34;&gt;专栏：05 | 程序实体的那些事儿（中）&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://time.geekbang.org/column/article/13601&#34;&gt;专栏：06 | 程序实体的那些事儿（下）&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/div&gt;&lt;/p&gt;</description>
+      <description>这一节，主要跟着专栏第一章补漏一些必备的基础概念，内容概览： Go 中的源码文件分类 关于命令源码文件、库源码文件你漏掉了那些知识点？ 程序实体那些事</description>
     </item>
     
     <item>
@@ -699,7 +368,7 @@
       <pubDate>Sun, 02 Sep 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/common-cmd/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>系统管理 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 # 查看系统内核版本号及系统名称 $ uname -a # 找出僵尸进程 $ ps aux | awk &amp;#39;{ print $8 &amp;#34; &amp;#34; $2 &amp;#34; &amp;#34; $11}&amp;#39; | grep</description>
     </item>
     
     <item>
@@ -708,13 +377,7 @@
       <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/tutorial-go36-00/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/intro/112&#34;&gt;《Go语言核心36讲》&lt;/a&gt; 是郝林老师发布的一则专栏教程(付费)，以音频+文稿的方式系统的讲述了 Go 的知识。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;我自己使用 Go 已经有两年时间了(从毕业到现在)，在这个过程中阅读过一些书籍、博客、文档等，遇到问题也是随手查下资料解决掉了，现在回顾一下感觉有很多知识漏洞还没有补上或对某些知识点还是似懂非懂的样子，所以就借此机会跟随这个专栏巩固一下 Go 的知识吧！ 以下内容为我自己学习过程中整理的学习笔记。So, Let&amp;rsquo;s Go!&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>《Go语言核心36讲》 是郝林老师发布的一则专栏教程(付费)，以音频+文稿的方式系统的讲述了 Go 的知识。 我自己使用 Go 已经有两年时间了(从毕业到现</description>
     </item>
     
     <item>
@@ -723,7 +386,7 @@
       <pubDate>Thu, 30 Aug 2018 18:57:08 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/20180830-persistent-monitoring-platform-data/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>背景说明 通常我们会采用本地持久存储卷来保存一些 Docker 容器服务的配置与数据，这样做的好处是配置与数据可以在容器主机上比较方便的进行修改、备份，因为</description>
     </item>
     
     <item>
@@ -732,14 +395,7 @@
       <pubDate>Wed, 29 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180828-feature-go-modules-02/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;Go1.11 新特性 — 依赖管理工具：Go Modules 使用过程学习笔记，内容包括:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;如何在 &lt;code&gt;新&lt;/code&gt; 的项目上使用 go modules&lt;/li&gt;
-&lt;li&gt;如何在 &lt;code&gt;旧&lt;/code&gt; 的项目中引入 go modules&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>Go1.11 新特性 — 依赖管理工具：Go Modules 使用过程学习笔记，内容包括: 如何在 新 的项目上使用 go modules 如何在 旧 的项目中引入 go modules Statement: 文中部分内容参考自网络博客(地址</description>
     </item>
     
     <item>
@@ -748,14 +404,7 @@
       <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180828-feature-go-modules-01/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;Go1.11 新特性 — 依赖管理工具：Go Modules 初步学习和使用笔记，内容包括:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;简单了解下 &lt;code&gt;Go Module&lt;/code&gt; 以及一些新概念&lt;/li&gt;
-&lt;li&gt;简单了解下 &lt;code&gt;go mod&lt;/code&gt; 命令&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>Go1.11 新特性 — 依赖管理工具：Go Modules 初步学习和使用笔记，内容包括: 简单了解下 Go Module 以及一些新概念 简单了解下 go mod 命令 1. Go Module Go1.11 添加了对版本化模块的初步支</description>
     </item>
     
     <item>
@@ -764,9 +413,7 @@
       <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;&lt;strong&gt;学习笔记&lt;/strong&gt;：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&amp;hellip;&lt;/p&gt;</description>
+      <description>学习笔记：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&amp;hellip; 1. 网站的 PV、V</description>
     </item>
     
     <item>
@@ -775,16 +422,7 @@
       <pubDate>Wed, 22 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180822-advanced-%E7%90%86%E8%A7%A3golang%E7%9A%84nil/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;理解 &lt;code&gt;nil&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;nil&lt;/code&gt; 是什么？&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nil&lt;/code&gt; 在 Go 中又是什么？&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nil&lt;/code&gt; 意味着什么？&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nil&lt;/code&gt; 有用吗？&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;我们常常会把 nil 拼写成 null, 学过 C 的同学肯定听过这个 null 符号，甚至某些让人痛恨的同学还故意取一个这样的名字&amp;hellip;&lt;/p&gt;</description>
+      <description>理解 nil nil 是什么？ nil 在 Go 中又是什么？ nil 意味着什么？ nil 有用吗？ 我们常常会把 nil 拼写成 null, 学过 C 的同学肯定听过这个 null 符号，甚至某些让人痛恨的同学还故意</description>
     </item>
     
     <item>
@@ -793,12 +431,7 @@
       <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/20180806-git-submodule-learn/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;什么是 Git 子模块&lt;/li&gt;
-&lt;li&gt;Git 子模块怎么用&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>什么是 Git 子模块 Git 子模块怎么用 1. Git submodule 命令用法 git submodule 命令用于初始化，更新或检查子模块。 1 2 3 4 5 6 7 8 usage: git submodule [--quiet] add [-b &amp;lt;branch&amp;gt;] [-f|--force] [--name &amp;lt;name&amp;gt;] [--reference &amp;lt;repository&amp;gt;] [--] &amp;lt;repository&amp;gt; [&amp;lt;path&amp;gt;] or: git submodule [--quiet] status [--cached] [--recursive]</description>
     </item>
     
     <item>
@@ -807,11 +440,7 @@
       <pubDate>Sun, 05 Aug 2018 17:32:41 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/grafana-03-practice/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下： 添加数据源(InfluxDB) 添加InfluxDB数据源相关的配置: Name: 添</description>
     </item>
     
     <item>
@@ -820,7 +449,7 @@
       <pubDate>Sun, 29 Jul 2018 18:57:08 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Docker 监控系统说明 系统说明 1 2 3 CentOS: 7.4 | X86_64 Docker: 18.06 | CE Monitor: 基于 docker 容器搭建监控系统 Docker 监控组件 1 2 3 cAdvisor: 用于数据采集, 对应镜像：google/cadvisor</description>
     </item>
     
     <item>
@@ -829,11 +458,7 @@
       <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/influxdb/02-getting-started/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;通过命令行工具 influx 完成数据库的创建和读写练习&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>通过命令行工具 influx 完成数据库的创建和读写练习 入门指南 这部分内容主要通过 influx (CLI) 工具操作 influxdb 数据库，即：创建数据库和读写数据。 说明：也可以直接发送裸的</description>
     </item>
     
     <item>
@@ -842,11 +467,7 @@
       <pubDate>Thu, 26 Jul 2018 17:46:58 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/influxdb/01-basic-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;InfluxDB 初步了解及安装使用&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>InfluxDB 初步了解及安装使用 简介 InfluxDB On GitHub | Influxdb Docs InfluxDB, 一个开源的时序数据库(Time Series Database), 对记录指标、事件和性能分析非常有用，无外部依赖(Go Coding) 特点 无结构(无</description>
     </item>
     
     <item>
@@ -855,11 +476,7 @@
       <pubDate>Sun, 22 Jul 2018 17:22:38 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/grafana-02-config/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;每个服务程序，基本上都会指定一个或多个配置文件，用来定制其所要启用的功能，Grafana 也不例外，那么 Grafana 的配置文件有哪些，以及提供了什么样的配置选项呢？&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>每个服务程序，基本上都会指定一个或多个配置文件，用来定制其所要启用的功能，Grafana 也不例外，那么 Grafana 的配置文件有哪些，以及提供了什么样的</description>
     </item>
     
     <item>
@@ -868,13 +485,7 @@
       <pubDate>Sun, 22 Jul 2018 17:02:38 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/grafana-01-basic-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Grafana 能干什么？&lt;/li&gt;
-&lt;li&gt;Grafana 有什么特性？&lt;/li&gt;
-&lt;li&gt;用好 Grafana, 需要了解什么，即-基本概念&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>Grafana 能干什么？ Grafana 有什么特性？ 用好 Grafana, 需要了解什么，即-基本概念 Grafana Grafana 是一款采用 Go 语言编写的开源应用，主要用于大规模指标数据的可视化展示。有着非常漂</description>
     </item>
     
     <item>
@@ -883,11 +494,7 @@
       <pubDate>Sat, 21 Jul 2018 16:37:21 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/cadvisor-02-measurements/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;cAdvisor 作为监控系统的数据采集模块，那么可以采集到那些指标参数呢？&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>cAdvisor 作为监控系统的数据采集模块，那么可以采集到那些指标参数呢？ Measurements 打开 InfluxDB Web 管理界面，选择数据库：cadvisor, 执行命令： 1 Query: SHOW MEASUREMENTS 即可看到 cAdvisor 采</description>
     </item>
     
     <item>
@@ -896,11 +503,7 @@
       <pubDate>Sat, 21 Jul 2018 16:36:59 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/cadvisor-01-basic-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;有关 cAdvisor 的基础知识、安装和使用方法介绍&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>有关 cAdvisor 的基础知识、安装和使用方法介绍 1. cAdvisor cAdvisor 是 Google 用来让容器用户了解其所运行容器的资源使用和性能特征的工具。cAdvisor 是一个用来收集、聚合</description>
     </item>
     
     <item>
@@ -909,7 +512,7 @@
       <pubDate>Wed, 18 Jul 2018 18:57:08 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/about-monitor-system/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>1. 关于监控 监控就是要把一切尽在掌控 1.1. 监控的目的 通过监控可以： 实时掌握系统的运行状态 减少宕机时间 对故障的提前预警 历史状态的回放、故障排除、分析</description>
     </item>
     
     <item>
@@ -918,13 +521,7 @@
       <pubDate>Wed, 18 Jul 2018 14:09:26 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180718-concurrent-access-map-pits/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;Issue: 为什么 map 并发不安全，读也不安全吗？&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>Issue: 为什么 map 并发不安全，读也不安全吗？ 代码测试 单个 goroutine 读写 map 的 Demo: 结论：正常 多个 goroutine 只写 的 Demo： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24</description>
     </item>
     
     <item>
@@ -933,22 +530,7 @@
       <pubDate>Sun, 01 Jul 2018 14:09:26 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180701-tutorial_step-by-step-guide-to-concurrency/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://yourbasic.org/golang/concurrent-programming/&#34;&gt;原文：Step-by-step guide to concurrency&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;http://blog.xiayf.cn/2015/05/20/fundamentals-of-concurrent-programming/&#34;&gt;参考：Go并发编程基础（译）&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;内容涵盖：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;运行期并发线程(goroutines)&lt;/li&gt;
-&lt;li&gt;基本的同步技术(通道和锁)&lt;/li&gt;
-&lt;li&gt;Golang中基本的并发模式&lt;/li&gt;
-&lt;li&gt;死锁和数据竞争&lt;/li&gt;
-&lt;li&gt;并行计算&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>原文：Step-by-step guide to concurrency 参考：Go并发编程基础（译） 内容涵盖： 运行期并发线程(goroutines) 基本的同步技术(通道和锁) G</description>
     </item>
     
     <item>
@@ -957,7 +539,7 @@
       <pubDate>Fri, 29 Jun 2018 14:09:26 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180629-go_cmd_03_cgo/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Cgo 支持创建调用 C 代码的 Go 包 通过 go 命令使用 cgo 为了使用 cgo, 你需要在普通的 Go 代码中导入一个 伪包 &amp;quot;C&amp;quot;。这样 Go 代码就可以引用一些 C</description>
     </item>
     
     <item>
@@ -966,17 +548,7 @@
       <pubDate>Wed, 27 Jun 2018 14:09:26 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180627-go_cmd_02_install_run_clean_env_get/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;go install&lt;/li&gt;
-&lt;li&gt;go run&lt;/li&gt;
-&lt;li&gt;go clean&lt;/li&gt;
-&lt;li&gt;go env&lt;/li&gt;
-&lt;li&gt;go get&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>go install go run go clean go env go get 目录 go install go run go clean go env go get See Also go install 完成两步操作： 第一步是生成结果文件(可执行文件或.a文件) 第二步是把编译好的结果文件移到</description>
     </item>
     
     <item>
@@ -985,15 +557,7 @@
       <pubDate>Mon, 25 Jun 2018 14:09:26 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180625-go_cmd_01_3_go-build_c-archive_c-shared_go-shared/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;Go 中如何构建 C 的静态链接库&lt;/li&gt;
-&lt;li&gt;Go 中如何构建 C 的动态链接库&lt;/li&gt;
-&lt;li&gt;Go 中如何构建 Go 的动态链接库&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>Go 中如何构建 C 的静态链接库 Go 中如何构建 C 的动态链接库 Go 中如何构建 Go 的动态链接库 目录 c-archive c-shared 为什么会需要动态链接库 shared See Also c-archive 这里构建的是供 C 程序调用</description>
     </item>
     
     <item>
@@ -1002,7 +566,7 @@
       <pubDate>Sun, 24 Jun 2018 14:07:26 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180624-go_cmd_01_2_go-build-mode/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>build modes The &amp;lsquo;go build&amp;rsquo; and &amp;lsquo;go install&amp;rsquo; commands take a -buildmode argument which indicates which kind of object file is to be built. Currently supported values are: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 -buildmode=archive Build the listed</description>
     </item>
     
     <item>
@@ -1011,7 +575,7 @@
       <pubDate>Sat, 23 Jun 2018 14:04:26 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180623-go_cmd_01_1_go-build-constraint/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Build Constraints(约束) Build -tags A build constraint, also known as a build tag, is a line comment that begins 1 // +build that lists the conditions under which a file should be included in the package. Constraints may appear in any kind of source file (not just Go), but they must appear near the top of</description>
     </item>
     
     <item>
@@ -1020,13 +584,7 @@
       <pubDate>Tue, 19 Jun 2018 13:48:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;go tarch（火焰图）学习笔记&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>go tarch（火焰图）学习笔记 火焰图(Flame Graph) 火焰图 也是性能分析的利器。最初是由 Netflix 的 Brendan Gregg 发明并推广的。 图片来自：blog.lab99.o</description>
     </item>
     
     <item>
@@ -1035,11 +593,7 @@
       <pubDate>Tue, 19 Jun 2018 13:48:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180619-performance-optimization-05-experience/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://software.intel.com/en-us/blogs/2014/05/10/debugging-performance-issues-in-go-programs&#34;&gt;转自：Debugging performance issues in Go programs&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>转自：Debugging performance issues in Go programs 1. 将多个小对象合并成一个大对象 2. 减少不必要的指针简介引用，多使用 copy 引用 例如使用 bytes.Buffer 代替 *bytes.Buffer, 因为使用指针时会分配</description>
     </item>
     
     <item>
@@ -1048,13 +602,7 @@
       <pubDate>Fri, 15 Jun 2018 13:48:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;pprof 小练习&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>pprof 小练习 实践练习项目：Golang profiling and optimizing 注册自定义的 pprof 接口(基于httprouter) 注册接口函数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 // 使用自定义</description>
     </item>
     
     <item>
@@ -1063,14 +611,7 @@
       <pubDate>Sun, 10 Jun 2018 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180610-stdlib-runtime/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;了解 runtime 包中的的环境变量&lt;/li&gt;
-&lt;li&gt;了解 runtime 包中的基本函数及使用&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>了解 runtime 包中的的环境变量 了解 runtime 包中的基本函数及使用 目录 1. 概述 2. 环境变量 2.1. GOGC 2.2. GODEBUG 2.3. GOMAXPROCS 2.4. GOTRACEBACK 2.5. GOARCH、GOOS、GOPATH、GOROOT 3. 基</description>
     </item>
     
     <item>
@@ -1079,14 +620,7 @@
       <pubDate>Wed, 06 Jun 2018 13:48:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;go tool pprof 用法&lt;/li&gt;
-&lt;li&gt;cpu、goroutine、heap 分析方法&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>go tool pprof 用法 cpu、goroutine、heap 分析方法 pprof Pprof 是一款可视化的性能分析工具，源自 Google Performance Tools 工具集。用于确定程序运行过程中CPU和内存的</description>
     </item>
     
     <item>
@@ -1095,14 +629,7 @@
       <pubDate>Tue, 05 Jun 2018 13:48:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180605-performance-optimization-01-introduction/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;程序优化有哪些方式和步骤？&lt;/li&gt;
-&lt;li&gt;可供选择的调优工具有哪些？&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>程序优化有哪些方式和步骤？ 可供选择的调优工具有哪些？ 调优之前 如何做Go的性能优化？ 调优方式 要监控程序性能，有下面几种方式： Timers: 计时器，用于基准</description>
     </item>
     
     <item>
@@ -1111,7 +638,7 @@
       <pubDate>Tue, 29 May 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20180529-tools-htop/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>top top 命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用情况，类似win的任务管理器。 top 是一个动态显示过程，即可以通过</description>
     </item>
     
     <item>
@@ -1120,7 +647,7 @@
       <pubDate>Fri, 11 May 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20180511-tools-logrotate/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>日志实在是太有用了，它记录了程序运行时各种信息。通过日志可以分析用户行为，记录运行轨迹，查找程序问题。可惜磁盘的空间是有限的，就像飞机里的黑</description>
     </item>
     
     <item>
@@ -1129,11 +656,7 @@
       <pubDate>Fri, 11 May 2018 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7+G 之多&amp;hellip; Why?&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7+G 之多&amp;hellip; Why? 问题现象 内网测试服务器出现了日志暴增的现象，日志描述如下： 1 2</description>
     </item>
     
     <item>
@@ -1142,7 +665,7 @@
       <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/web/20180424-nginx-learning-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Nginx？ 1 2 3 4 Who? 俄罗斯人开发 What? 十分轻量级的HTTP服务器, &amp;#39;engine X&amp;#39; How? 高性能、模块丰富、配置灵活、低消耗 Why? 基于事件驱动方式编写 Nginx 有那些功能？</description>
     </item>
     
     <item>
@@ -1151,14 +674,7 @@
       <pubDate>Wed, 28 Mar 2018 13:48:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180328-%E5%85%B3%E4%BA%8E_for-range_%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;for range&lt;/code&gt; 的迭代变量会被重用&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;range expression&lt;/code&gt;  的副本参与 iteration&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>for range 的迭代变量会被重用 range expression 的副本参与 iteration 1. iteration variable 重用 for range 的 idiomatic(惯用)使用方式是使用 short variable declaration(:=) 形式在 for expression 中声明 iteration variable，但需</description>
     </item>
     
     <item>
@@ -1167,15 +683,7 @@
       <pubDate>Tue, 20 Mar 2018 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180320_net-http_02_customize-handler&#43;servemux&#43;middleware/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;怎么定义 Handler？&lt;/li&gt;
-&lt;li&gt;怎么定义 Server？&lt;/li&gt;
-&lt;li&gt;怎么定义 Middleware？ 如何用？&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>怎么定义 Handler？ 怎么定义 Server？ 怎么定义 Middleware？ 如何用？ 目录 自定义 Handler 自定义 Server 中间件 Middleware See Also 自定义 Handler 标准库http提</description>
     </item>
     
     <item>
@@ -1184,17 +692,7 @@
       <pubDate>Fri, 16 Mar 2018 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180316_net-http_01_reading-server.go/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://golang.org/src/net/http/server.go&#34;&gt;src/net/http/server.go&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;ResponseWriter ?&lt;/li&gt;
-&lt;li&gt;Handler ?&lt;/li&gt;
-&lt;li&gt;ServerMux ?&lt;/li&gt;
-&lt;li&gt;Server ?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>src/net/http/server.go ResponseWriter ? Handler ? ServerMux ? Server ? 目录 HTTP HTTP处理流程 几个重要接口或结构 文中的几个重要约定 Handler ServeMux ServeMux 提供的方法 Server 创建 HTTP 服务 注册路由 服务监听 处理请求 总结 http</description>
     </item>
     
     <item>
@@ -1203,7 +701,7 @@
       <pubDate>Wed, 07 Mar 2018 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180307-lib-cron-learn-note/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Cron go get github.com/robfig/cron cron(定时任务): 按照约定的时间，定时的执行特定的任务（job），cron 表达式表达了这种约定。 cron表达式格式 格式1 cron 表达式</description>
     </item>
     
     <item>
@@ -1212,11 +710,7 @@
       <pubDate>Sat, 27 Jan 2018 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180127-lib-mgo/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;http://labix.org/mgo&#34;&gt;译：Rich MongoDB Driver for Go&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>译：Rich MongoDB Driver for Go 目录 1. Highlights(强调) 1.1. Cluster discovery and communication(集群发现和通信) 1.2. Failover management(故障转移</description>
     </item>
     
     <item>
@@ -1225,7 +719,7 @@
       <pubDate>Mon, 13 Nov 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20171113-go-unit-test/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>单元测试 单元测试基础 Go单元测试采用内置的测试框架，通过引入 testing 包以及 go test 命令来提供测试功能 testing 包专门用来进行自动化测试，日志和错误报告，且包含</description>
     </item>
     
     <item>
@@ -1234,11 +728,7 @@
       <pubDate>Mon, 23 Oct 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20171023-cgo-note/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://chai2010.gitbooks.io/advanced-go-programming-book/content/ch2-cgo/readme.html&#34;&gt;《深入 CGO 编程》 学习笔记&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>《深入 CGO 编程》 学习笔记 最简单的CGO程序 hello cgo 1 2 3 4 5 import &amp;#34;C&amp;#34; func main() { println(&amp;#34;hello cgo&amp;#34;) } 代码通过 import &amp;quot;C&amp;quot; 语句启用 CGO 特性，主函数只是通过 Go 内置的 println 函数输出字符串，其</description>
     </item>
     
     <item>
@@ -1247,7 +737,7 @@
       <pubDate>Fri, 13 Oct 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20171013-go-func/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>函数 函数签名：函数参数列表 + 函数返回值 func(i int, s string) string 签名为：func(int, string) string 多返回值 标准库中的函数通常返回2个值，一个是期望得到的返回值，</description>
     </item>
     
     <item>
@@ -1256,7 +746,7 @@
       <pubDate>Tue, 10 Oct 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20171010-go-template/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>什么是模板 Go中模板处理通过包: text/template 和 html/template 完成 一个模板就是一个字符串或一个文件，里面包含了一个或多个双花括号 {{}} 包含的对象 Go中模板解析 Go中模板</description>
     </item>
     
     <item>
@@ -1265,7 +755,7 @@
       <pubDate>Tue, 26 Sep 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/network/20170926-net-basic/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>计算机网络的核心内容就是网络协议学习。 网络硬件 网络传输技术：广播式链路和点到点链路 单播：即点到点链路，在点到点传输中只有一个发送方和接收方 广</description>
     </item>
     
     <item>
@@ -1274,7 +764,7 @@
       <pubDate>Tue, 19 Sep 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170919-%E8%B7%A8%E4%B8%BB%E6%9C%BA%E9%80%9A%E4%BF%A1/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>相关知识 Overlay Network？ An overlay network is a computer network that is built on top of another network. 覆盖网络，是一个建立在另一个网络上的计算机网络。覆盖网络中的节点被认为是通过虚拟或逻</description>
     </item>
     
     <item>
@@ -1283,7 +773,7 @@
       <pubDate>Fri, 15 Sep 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Chrome http://www.itzgeek.com/how-tos/linux/centos-how-tos/how-to-run-google-chrome-as-root-fedora-16-centos-6-rhel-6.html Download &amp;amp; Install Entry /usr/share/applications Select chrome icon Right key Add -no-sandbox to startup command old: /usr/bin/google-chrome-stable %U new: /usr/bin/google-chrome-stable %U -no-sandbox Finished &amp;amp; Start Chrome. OK! Enjoy it. Go、Golang Download &amp;amp; Install Open In Termianl http://www.fedora.cc/fedora-zhongduan-1.html yum -y install nautilus-open-terminal reboot Install Lantern Linux系统提供一个软件ali</description>
     </item>
     
     <item>
@@ -1292,7 +782,7 @@
       <pubDate>Tue, 08 Aug 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20170808-lib-sftp/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>SFTP 用于远程传输文件；基于SSH协议设计，所以传输文件前首先要建立SSH连接，在 Golang | SSH Note 有关于SSH包的使用笔记，同时，使用SSH也可以完成远</description>
     </item>
     
     <item>
@@ -1301,7 +791,7 @@
       <pubDate>Mon, 07 Aug 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20170807-lib-ssh/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>SSH 简介 https://godoc.org/golang.org/x/crypto/ssh SSH 客户端 工作流程 Linux SSH Work Flow: execute: ssh root@host:ip input: pwd hosted remote shell: execute command 同理，通过 Golang 的 SSH 包提供的函数也要实现上述流程： Input command by keyboard Obtain user&amp;rsquo;s input from os.Stdin Establish a ssh connect Send data|cmd by ssh 获取标准</description>
     </item>
     
     <item>
@@ -1310,16 +800,7 @@
       <pubDate>Tue, 25 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180912-stdlib-flag/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;flag 包学习笔记概要：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;如何定义命令行参数，即 flags ？&lt;/li&gt;
-&lt;li&gt;flags 解析规则及语法格式 ？&lt;/li&gt;
-&lt;li&gt;flag 包有哪些重要的变量、函数以及类型 ？&lt;/li&gt;
-&lt;li&gt;如何绑定用户自定义的数据类型作为参数值的类型？&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>flag 包学习笔记概要： 如何定义命令行参数，即 flags ？ flags 解析规则及语法格式 ？ flag 包有哪些重要的变量、函数以及类型 ？ 如何绑定用户自定义的数据类型作为参数值</description>
     </item>
     
     <item>
@@ -1328,7 +809,7 @@
       <pubDate>Fri, 21 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/20170721-git-learn/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>1. 获取仓库 1.1. 新建仓库 仓库：respository，可理解为一个目录，该目录下所有文件都可被Git管理。 创建文件夹，打开，执行下面命令创建新仓</description>
     </item>
     
     <item>
@@ -1337,7 +818,7 @@
       <pubDate>Thu, 13 Jul 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170713-%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>方式一：Pipework 借助pipework实现，容器重启后 IP 需要重新配置。 Pipework简介 Software-Defined Networking for Linux Containers(SDN). Pipework是一个Docker</description>
     </item>
     
     <item>
@@ -1346,11 +827,7 @@
       <pubDate>Tue, 11 Jul 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/faq/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Docker 使用过程中经常遇到的问题备忘&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>Docker 使用过程中经常遇到的问题备忘 Q1: 基于Alpine构建的Docker镜像出现时间和宿主时间不同步问题，时区设置有问题 Alpine默认时区·UT</description>
     </item>
     
     <item>
@@ -1359,7 +836,7 @@
       <pubDate>Tue, 04 Jul 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170704-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E6%90%AD%E5%BB%BA/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>简介 Registry作为Docker的核心组件之一负责镜像内容的存储与分发，客户端执行docker pull(push)命令都将直接与Regi</description>
     </item>
     
     <item>
@@ -1368,7 +845,7 @@
       <pubDate>Mon, 26 Jun 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>简介 https://alpinelinux.org/ 包管理 apk 镜像源配置 官方镜像源：http://rsync.alpinelinux.org/alpine/MIRRORS.txt MIRRO</description>
     </item>
     
     <item>
@@ -1377,7 +854,7 @@
       <pubDate>Mon, 19 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>集群服务原理图 整体原理图 主节点(Primary)搭建在物理主机 副本集原理图 集群规划 一个Primary节点，两个Secondary节点 ip port description 192.168.1.167</description>
     </item>
     
     <item>
@@ -1386,7 +863,7 @@
       <pubDate>Sun, 18 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>环境说明 由于是实验环境，故在一台主机上开设不同的端口来启动mongodb服务进行sharding集群部署。 ENV: MongoDB shell version v3.4.5 MongoDB server version: 3.4.5 Centos 7 x86_64 集群规划 s</description>
     </item>
     
     <item>
@@ -1395,7 +872,7 @@
       <pubDate>Wed, 14 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>环境搭建 Replica Set：是有故障恢复功能的主从集群，由一个primary节点和一个或多个secondary节点组成。 环境说明 MongoDB shell version v3.4.5 MongoDB server version: 3.4.5 Centos 7 x86_64</description>
     </item>
     
     <item>
@@ -1404,7 +881,7 @@
       <pubDate>Mon, 12 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170612-basic-note/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>目录 特性 基础 基本概念 文档 集合 动态模式 命名 子集合 数据库 MongoDB保留的数据库 MongoDB Shell 数据类型 基本数据类型 日期 数组 内嵌文档 _id 和 ObjectId 使用 MongoDB Shell 使用 shell 执</description>
     </item>
     
     <item>
@@ -1413,7 +890,7 @@
       <pubDate>Mon, 12 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170612-cluster-note/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>什么是集群 集群(cluster)：指一组计算机系统作为一个整体向用户提供服务，这些单个的计算机系统在集群中称为节点(node)，通常通过局域</description>
     </item>
     
     <item>
@@ -1422,7 +899,7 @@
       <pubDate>Thu, 08 Jun 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20170608-go-sync-and-mutex/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Mutex 互斥锁是传统的并发程序对共享资源进行访问控制的主要手段。 sync.Mutex 是一个互斥锁，其作用是守护在临界区入口来保证同一时间只有一个线程进入临界区。其在</description>
     </item>
     
     <item>
@@ -1431,7 +908,7 @@
       <pubDate>Sat, 03 Jun 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20170603-go-closure/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>闭包概念 闭包字面定义：闭包是由函数及相关引用环境组合而形成的实体。(即：闭包=函数+引用环境) 闭包的理解：闭包是个函数，而他记住了周期性发生</description>
     </item>
     
     <item>
@@ -1440,7 +917,7 @@
       <pubDate>Thu, 25 May 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170525-linux.centos-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>更新系统 备份系统镜像源 $ cd /etc/yum.repos.d $ cp CentOS-Base.repo CentOS-Base.repo.bak $ cp CentOS-Epel.repo CentOS-Epel.repo.bak 下载163的镜像源 $ wget http://mirrors.aliyun.com/repo/Centos-7.repo&amp;lsquo; $ mv Centos-7.repo CentOS-Base.repo 生成缓存 $ yum makecache 更新系统 $ yum upgrade 配置静态IP Centos-7·学习之</description>
     </item>
     
     <item>
@@ -1449,7 +926,7 @@
       <pubDate>Thu, 18 May 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Shell Scripts 变量 定义 - $ myname=zhe 使用 - $ echo $myname 只读 - $ readonly修饰变量 删除 - $ unset myname 变量类型： 局部变量 环境变量 Shell变量 Shell Scripts 字符串 &#39; &#39; 单引号 $ str=&#39;this is</description>
     </item>
     
     <item>
@@ -1458,7 +935,7 @@
       <pubDate>Mon, 15 May 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170515-bash-basic-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>一个工具·bash-completion 选项/参数补齐 1 $ apt install bash-completion Bash中的常用命令 type 1 # 查询指令是否为bash shell的内置指令(找指令</description>
     </item>
     
     <item>
@@ -1467,7 +944,7 @@
       <pubDate>Thu, 11 May 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170511-systemd-basic/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>由来 历史上，Linux 的启动一直采用init进程。下面的命令用来启动服务。 1 2 3 $ sudo /etc/init.d/apache2 start # 或者 $ service apache2 start 这种方法有两个缺点： 一是启动时间长。i</description>
     </item>
     
     <item>
@@ -1476,18 +953,7 @@
       <pubDate>Tue, 09 May 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;我们在使用docker run创建Docker容器时，可以用&amp;ndash;net选项指定容器的网络模式；Docker网络有四种模式:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;桥模式：&amp;ndash;net=bridge&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;主机模式：&amp;ndash;net=host&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;容器模式：&amp;ndash;net=container_name|id&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;无网络模式：&amp;ndash;net=none&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>我们在使用docker run创建Docker容器时，可以用&amp;ndash;net选项指定容器的网络模式；Docker网络有四种模式: 桥模式：&amp;</description>
     </item>
     
     <item>
@@ -1496,7 +962,7 @@
       <pubDate>Fri, 05 May 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>端口映射 用 docker run 的 -P or -p来映射端口 -P: Docker随机映射宿主机49000~49900的一个端口到容器内部开放的网络端口 1 2 3 $ docker run --name test -d -P ubuntu:14.04</description>
     </item>
     
     <item>
@@ -1505,7 +971,7 @@
       <pubDate>Wed, 03 May 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170503-data-volume/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>数据卷 数据卷(Data Volume): 可供一个或多个容器使用的特殊目录，绕过UFS Data Volume可在容器间共享和重用 对Data Volume的修改立马生效 对</description>
     </item>
     
     <item>
@@ -1514,7 +980,7 @@
       <pubDate>Tue, 02 May 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170502-deploy-go-app-with-docker/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Docker部署编译好的Go web app 一、以ubuntu:14.04为基础构建Go web app容器 生成Linux平台的可执行程序 1 2 3 4 5 6 7 # 开发平</description>
     </item>
     
     <item>
@@ -1523,7 +989,7 @@
       <pubDate>Sun, 23 Apr 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170423-config-options/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Configuration File Offical：The Official Doc.Configuration File Options NOTE: File Format: YAML YAML does not support tab characters for indentation: use spaces instead. Use The Configuration File Specify the config file with --config 1 2 mongod --config /etc/mongod.conf mongos --config /etc/mongos.conf Specify the config file with -f 1 2 mongod -f /etc/mongod.conf mongos -f /etc/mongos.conf Core Options systemLog 1 2 3</description>
     </item>
     
     <item>
@@ -1532,7 +998,7 @@
       <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/web/20170419-caddy-learning-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>安装 Linux Note: You must specify a personal or commercial license; see getcaddy.com for instructions. (安装时要求必须给出一种许可证，所以下面命令添加了选项：-s personal) 1 2 3 4 5 # 一键安装脚本 [zhe@zhe Temp]$ curl https://getcaddy.com | bash -s personal # 查看</description>
     </item>
     
     <item>
@@ -1541,26 +1007,7 @@
       <pubDate>Mon, 10 Apr 2017 17:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170410-dockerfile/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;FROM&lt;/li&gt;
-&lt;li&gt;MAINTAINER&lt;/li&gt;
-&lt;li&gt;RUN&lt;/li&gt;
-&lt;li&gt;COPY&lt;/li&gt;
-&lt;li&gt;ADD&lt;/li&gt;
-&lt;li&gt;CMD&lt;/li&gt;
-&lt;li&gt;ENTRYPOINT&lt;/li&gt;
-&lt;li&gt;EXPOSE&lt;/li&gt;
-&lt;li&gt;ENV&lt;/li&gt;
-&lt;li&gt;ARG&lt;/li&gt;
-&lt;li&gt;VOLUME&lt;/li&gt;
-&lt;li&gt;WORKDIR&lt;/li&gt;
-&lt;li&gt;ONBUILD
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>FROM MAINTAINER RUN COPY ADD CMD ENTRYPOINT EXPOSE ENV ARG VOLUME WORKDIR ONBUILD FROM 说明：FROM，指定镜像构建的基础镜像，每个Dockerfile都必须包含FROM指令，且为第一条指令。 格式：F</description>
     </item>
     
     <item>
@@ -1569,7 +1016,7 @@
       <pubDate>Mon, 10 Apr 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170410-build-image/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>构建镜像 docker build 1 2 $ docker build [选项] &amp;lt;上下文路径/URL/-&amp;gt; $ docker build -t nginx:v3 . 镜像构建的上下文(Context) docker build工作原理 C/S</description>
     </item>
     
     <item>
@@ -1578,7 +1025,7 @@
       <pubDate>Sun, 09 Apr 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170409-common-cmd/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>获取镜像：docker pull 1 2 3 # Usage $ docker pull [选项] [Docker Registry地址]&amp;lt;仓库名&amp;gt;:&amp;lt;标签&amp;gt; $ docker pull ubuntu:14.04 列出镜像：doc</description>
     </item>
     
     <item>
@@ -1587,12 +1034,7 @@
       <pubDate>Sat, 08 Apr 2017 16:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170408-docker-basic-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Docker要求64bit系统(x86 or arm)&lt;br /&gt;
-Docker要求Linux内核：3.10+&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>Docker要求64bit系统(x86 or arm) Docker要求Linux内核：3.10+ Docker简介 Docker：Go 实现，对进程进行封装隔</description>
     </item>
     
     <item>
@@ -1601,7 +1043,7 @@ Docker要求Linux内核：3.10+&lt;/p&gt;
       <pubDate>Sat, 08 Apr 2017 15:39:25 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/docker/20170408-docker-01-install/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>简介 本文基于Ubuntu16.04_64bit_OS 和 CentOS7_64bit_OS 查看系统信息 $ uname -a Linux device_name 4.4.0-31-generic #50~14.04.1-Ubuntu SMP Wed Jul 13 01:07:32 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux 使用root账号进行安装 安装前准备 Ubuntu</description>
     </item>
     
     <item>
@@ -1610,7 +1052,7 @@ Docker要求Linux内核：3.10+&lt;/p&gt;
       <pubDate>Tue, 07 Mar 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/network/20170307-net-pits/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>内网，外网概念整理 内网：即局域网，如学校，企业网络；局域网内的每台计算机的IP地址在本局域网内唯一，不可重复。但两个局域网内的内网IP可相同</description>
     </item>
     
     <item>
@@ -1619,7 +1061,7 @@ Docker要求Linux内核：3.10+&lt;/p&gt;
       <pubDate>Tue, 07 Mar 2017 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20170307-go-context-%E5%9F%BA%E7%A1%80/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>简介 Context： 上下文，上下层间传递的内容，通常理解为一个程序单元(goroutine)的运行状态、快照或者现场。主要应用在由一个请求衍</description>
     </item>
     
     <item>
@@ -1628,7 +1070,7 @@ Docker要求Linux内核：3.10+&lt;/p&gt;
       <pubDate>Tue, 07 Mar 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170307-install-and-config/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Install Package Summary MongoDB安装包说明： mongodb-org 可自动安装以下四个包 mongodb-org-server 可安装mongod进程、配置文件和启动脚本 mongod：核心基础进程，用来接受和读写</description>
     </item>
     
   </channel>

@@ -16,16 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="  Q1：用什么手段可以对 goroutine 的启用数量加以限制 ? Q2：怎样才能让主 goroutine 等待其他 goroutine ? Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?   专栏：17 | go语句及其执行规则（下）
-
-" /><meta name="keywords" content="go" />
+<meta name="author" content="zher" /><meta name="description" content="Q1：用什么手段可以对 goroutine 的启用数量加以限制 ? Q2：怎样才能让主 goroutine 等待其他 goroutine ? Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ? 专栏：17 | go 语" /><meta name="keywords" content="go" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-07/" />
@@ -36,73 +34,31 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="『Go核心36讲』| 07 - go语句以及执行规则（下）" />
-<meta property="og:description" content="
-
-
-
-Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?
-Q2：怎样才能让主 goroutine 等待其他 goroutine ?
-Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
-
-
-
-
-
-专栏：17 | go语句及其执行规则（下）
-
-" />
+<meta property="og:description" content="Q1：用什么手段可以对 goroutine 的启用数量加以限制 ? Q2：怎样才能让主 goroutine 等待其他 goroutine ? Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ? 专栏：17 | go 语" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-07/" />
 <meta property="article:published_time" content="2019-01-13T11:57:26&#43;08:00"/>
 <meta property="article:modified_time" content="2019-01-17T11:57:26&#43;00:00"/>
 
 <meta itemprop="name" content="『Go核心36讲』| 07 - go语句以及执行规则（下）">
-<meta itemprop="description" content="
-
-
-
-Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?
-Q2：怎样才能让主 goroutine 等待其他 goroutine ?
-Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
-
-
-
-
-
-专栏：17 | go语句及其执行规则（下）
-
-">
+<meta itemprop="description" content="Q1：用什么手段可以对 goroutine 的启用数量加以限制 ? Q2：怎样才能让主 goroutine 等待其他 goroutine ? Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ? 专栏：17 | go 语">
 
 
 <meta itemprop="datePublished" content="2019-01-13T11:57:26&#43;08:00" />
 <meta itemprop="dateModified" content="2019-01-17T11:57:26&#43;00:00" />
-<meta itemprop="wordCount" content="2107">
+<meta itemprop="wordCount" content="2103">
 
 
 
 <meta itemprop="keywords" content="golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="『Go核心36讲』| 07 - go语句以及执行规则（下）"/>
-<meta name="twitter:description" content="
-
-
-
-Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?
-Q2：怎样才能让主 goroutine 等待其他 goroutine ?
-Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
-
-
-
-
-
-专栏：17 | go语句及其执行规则（下）
-
-"/>
+<meta name="twitter:description" content="Q1：用什么手段可以对 goroutine 的启用数量加以限制 ? Q2：怎样才能让主 goroutine 等待其他 goroutine ? Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ? 专栏：17 | go 语"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -176,7 +132,7 @@ Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 2107 words </span>
+          <span class="more-meta"> 2103 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -201,7 +157,9 @@ Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <ul>
@@ -210,26 +168,20 @@ Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
 <li>Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?</li>
 </ul>
 
-<p><div class='align-right'></p>
+<p><p align="right"> <a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：17 | go 语句及其执行规则（下）</a></p>
 </blockquote>
 
-<p><a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：17 | go语句及其执行规则（下）</a></p>
+<!-- more -->
 
-<p></div></p>
+<p><p align="center">
+<img src="https://res.cloudinary.com/twenty20/private_images/t_standard-fit/v1521838898/photosp/8aaa273b-9295-454a-a85c-069a4a58ccb2/8aaa273b-9295-454a-a85c-069a4a58ccb2.jpg" alt="" /></p>
 
-<div class='align-center'>
-  
-
-![](https://res.cloudinary.com/twenty20/private_images/t_standard-fit/v1521838898/photosp/8aaa273b-9295-454a-a85c-069a4a58ccb2/8aaa273b-9295-454a-a85c-069a4a58ccb2.jpg)    
-
-— [@cabday Alfredsson](https://www.twenty20.com/sussialfredsson?cta=ft&cta_uid=07188173-8090-4f5e-86d6-52e263eb0b7e&utm_t20_source=partner&utm_t20_channel=reshot&utm_t20_campaign=gallery)
-
-
-</div>
+<p><p align="center">
+<a href="https://www.twenty20.com/sussialfredsson?cta=ft&amp;cta_uid=07188173-8090-4f5e-86d6-52e263eb0b7e&amp;utm_t20_source=partner&amp;utm_t20_channel=reshot&amp;utm_t20_campaign=gallery">@cabday Alfredsson</a></p>
 
 <h1 id="q1-用什么手段可以对-goroutine-的启用数量加以限制">Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?</h1>
 
-<p>自己尝试用 <code>buffer channel</code> 实现了一个比较陋的Demo：</p>
+<p>自己尝试用 <code>buffer channel</code> 实现了一个比较陋的 Demo：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">  1
@@ -876,9 +828,9 @@ Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
 </blockquote>
 
 <ul>
-<li><a href="https://time.geekbang.org/column/article/39844?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%25253D">17 | go语句及其执行规则（下）</a>
-<br /></li>
+<li><a href="https://time.geekbang.org/column/article/39844?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%25253D">17 | go 语句及其执行规则（下）</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -888,14 +840,18 @@ Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2019-01-17</span>
+    <span class="item-content">
+        2019-01-17
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/golang/">golang</a>
           </div>
@@ -932,6 +888,10 @@ Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -941,7 +901,7 @@ Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -984,7 +944,7 @@ Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

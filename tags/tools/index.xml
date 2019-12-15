@@ -17,11 +17,7 @@
       <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/useful-tools/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等 Windows System tools 垃圾清理：Jetclean 截图工具：Pickpick 画图工具：Draw.I</description>
     </item>
     
     <item>
@@ -30,11 +26,7 @@
       <pubDate>Sun, 04 Nov 2018 09:43:05 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/useful_git_scripts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Organize and collect useful git scripts&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>Organize and collect useful git scripts gcp gcp =&amp;gt; add + commit + push + status 1 2 3 4 5 6 7 8 9 10 11 12 13 #!/bin/sh set -e if [ 0 -eq $# ]; then echo &amp;#34;Usage: gcp &amp;lt;commit&amp;gt;&amp;#34; exit 1 fi git add -A git commit -m &amp;#34;$1&amp;#34; git push git status gta gta =&amp;gt; add tag and push to origin 1 2 3 4</description>
     </item>
     
     <item>
@@ -43,12 +35,7 @@
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/20180904-make-makefile-%E7%AC%94%E8%AE%B0/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Make 命令的简单用法&lt;/li&gt;
-&lt;li&gt;Makefile 的编写规则&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>Make 命令的简单用法 Makefile 的编写规则 Statements: 笔记的内容转自 阮一峰老师的 Make 命令教程 1. 前言 代码变成可执行文件，叫做 编译 (compile); 先编译这个，还是先编译那个(即编译的安</description>
     </item>
     
     <item>
@@ -57,7 +44,7 @@
       <pubDate>Sun, 02 Sep 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/common-cmd/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>系统管理 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 # 查看系统内核版本号及系统名称 $ uname -a # 找出僵尸进程 $ ps aux | awk &amp;#39;{ print $8 &amp;#34; &amp;#34; $2 &amp;#34; &amp;#34; $11}&amp;#39; | grep</description>
     </item>
     
     <item>
@@ -66,12 +53,7 @@
       <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/20180806-git-submodule-learn/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;什么是 Git 子模块&lt;/li&gt;
-&lt;li&gt;Git 子模块怎么用&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>什么是 Git 子模块 Git 子模块怎么用 1. Git submodule 命令用法 git submodule 命令用于初始化，更新或检查子模块。 1 2 3 4 5 6 7 8 usage: git submodule [--quiet] add [-b &amp;lt;branch&amp;gt;] [-f|--force] [--name &amp;lt;name&amp;gt;] [--reference &amp;lt;repository&amp;gt;] [--] &amp;lt;repository&amp;gt; [&amp;lt;path&amp;gt;] or: git submodule [--quiet] status [--cached] [--recursive]</description>
     </item>
     
     <item>
@@ -80,7 +62,7 @@
       <pubDate>Tue, 29 May 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20180529-tools-htop/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>top top 命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用情况，类似win的任务管理器。 top 是一个动态显示过程，即可以通过</description>
     </item>
     
     <item>
@@ -89,7 +71,7 @@
       <pubDate>Fri, 11 May 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20180511-tools-logrotate/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>日志实在是太有用了，它记录了程序运行时各种信息。通过日志可以分析用户行为，记录运行轨迹，查找程序问题。可惜磁盘的空间是有限的，就像飞机里的黑</description>
     </item>
     
     <item>
@@ -98,7 +80,7 @@
       <pubDate>Fri, 21 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/20170721-git-learn/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>1. 获取仓库 1.1. 新建仓库 仓库：respository，可理解为一个目录，该目录下所有文件都可被Git管理。 创建文件夹，打开，执行下面命令创建新仓</description>
     </item>
     
   </channel>

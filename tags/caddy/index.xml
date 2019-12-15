@@ -17,7 +17,7 @@
       <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/web/20170419-caddy-learning-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>安装 Linux Note: You must specify a personal or commercial license; see getcaddy.com for instructions. (安装时要求必须给出一种许可证，所以下面命令添加了选项：-s personal) 1 2 3 4 5 # 一键安装脚本 [zhe@zhe Temp]$ curl https://getcaddy.com | bash -s personal # 查看</description>
     </item>
     
   </channel>

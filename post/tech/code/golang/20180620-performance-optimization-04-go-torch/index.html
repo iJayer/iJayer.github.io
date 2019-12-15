@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="  go tarch（火焰图）学习笔记  " /><meta name="keywords" content="go, golang, pprof" />
+<meta name="author" content="zher" /><meta name="description" content="go tarch（火焰图）学习笔记 火焰图(Flame Graph) 火焰图 也是性能分析的利器。最初是由 Netflix 的 Brendan Gregg 发明并推广的。 图片来自：blog.lab99.o" /><meta name="keywords" content="go, golang, pprof" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/" />
@@ -34,49 +34,31 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Golang | Performance Optimization =&gt; go tarch 学习笔记" />
-<meta property="og:description" content="
-
-
-
-go tarch（火焰图）学习笔记
-
-" />
+<meta property="og:description" content="go tarch（火焰图）学习笔记 火焰图(Flame Graph) 火焰图 也是性能分析的利器。最初是由 Netflix 的 Brendan Gregg 发明并推广的。 图片来自：blog.lab99.o" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/20180620-performance-optimization-04-go-torch/" />
 <meta property="article:published_time" content="2018-06-19T13:48:02&#43;08:00"/>
 <meta property="article:modified_time" content="2018-06-19T13:48:02&#43;00:00"/>
 
 <meta itemprop="name" content="Golang | Performance Optimization =&gt; go tarch 学习笔记">
-<meta itemprop="description" content="
-
-
-
-go tarch（火焰图）学习笔记
-
-">
+<meta itemprop="description" content="go tarch（火焰图）学习笔记 火焰图(Flame Graph) 火焰图 也是性能分析的利器。最初是由 Netflix 的 Brendan Gregg 发明并推广的。 图片来自：blog.lab99.o">
 
 
 <meta itemprop="datePublished" content="2018-06-19T13:48:02&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-19T13:48:02&#43;00:00" />
-<meta itemprop="wordCount" content="1372">
+<meta itemprop="wordCount" content="1147">
 
 
 
 <meta itemprop="keywords" content="golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Golang | Performance Optimization =&gt; go tarch 学习笔记"/>
-<meta name="twitter:description" content="
-
-
-
-go tarch（火焰图）学习笔记
-
-"/>
+<meta name="twitter:description" content="go tarch（火焰图）学习笔记 火焰图(Flame Graph) 火焰图 也是性能分析的利器。最初是由 Netflix 的 Brendan Gregg 发明并推广的。 图片来自：blog.lab99.o"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -150,7 +132,7 @@ go tarch（火焰图）学习笔记
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 1372 words </span>
+          <span class="more-meta"> 1147 words </span>
           <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -170,7 +152,7 @@ go tarch（火焰图）学习笔记
 </ul></li>
 <li><a href="#go-torch-使用">go-torch 使用</a>
 <ul>
-<li><a href="#使用-go-torch-分析-api项目内存分配情况">使用 go-torch 分析 API项目内存分配情况</a></li>
+<li><a href="#使用-go-torch-分析-api-项目内存分配情况">使用 go-torch 分析 API 项目内存分配情况</a></li>
 </ul></li>
 <li><a href="#see-also">See Also</a></li>
 </ul>
@@ -178,7 +160,9 @@ go tarch（火焰图）学习笔记
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <ul>
@@ -186,24 +170,23 @@ go tarch（火焰图）学习笔记
 </ul>
 </blockquote>
 
+<!-- more -->
+
 <h1 id="火焰图-flame-graph">火焰图(Flame Graph)</h1>
 
 <p><a href="http://www.brendangregg.com/flamegraphs.html">火焰图</a> 也是性能分析的利器。最初是由 Netflix 的 Brendan Gregg 发明并推广的。</p>
 
 <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1548059970/blog/images/go-tarch.png" alt="Frame Graph" /></p>
 
-<div class='align-center'>
-  
-图片来自：[blog.lab99.org](https://blog.lab99.org/post/golang-2017-10-20-video-seven-ways-to-profile-go-apps.html#fang-fa-liu-huo-yan-tu-flame-graph)
-
-</div>
+<p><p align="center">
+图片来自：<a href="https://blog.lab99.org/post/golang-2017-10-20-video-seven-ways-to-profile-go-apps.html#fang-fa-liu-huo-yan-tu-flame-graph">blog.lab99.org</a></p>
 
 <p>火焰图说明：</p>
 
 <ul>
 <li><code>X轴</code> 显示的是在<code>该性能指标分析</code>中所占用的资源量: 即横向越宽，则意味着该指标占用的资源就越多</li>
 <li><code>Y轴</code> 栈帧(Stack frame,调用链)垂直堆叠, 显示的是调用栈的深度</li>
-<li>如果一个方法被调用者调用了多次, 那么它也会显示多次, 且分列在不同调用者的堆栈上(注：这点和pprof工具不同，pprof只显示了一个方法的框，上面的时间标签是所有的调用者调用的时间)</li>
+<li>如果一个方法被调用者调用了多次, 那么它也会显示多次, 且分列在不同调用者的堆栈上(注：这点和 pprof 工具不同，pprof 只显示了一个方法的框，上面的时间标签是所有的调用者调用的时间)</li>
 <li>火焰图的调用顺序<code>从下到上</code>, 每一个方块代表一个函数, 方块上面的一层表示该函数会去调用那些函数</li>
 <li>需要注意的几点：
 
@@ -213,7 +196,7 @@ go tarch（火焰图）学习笔记
 </ul></li>
 </ul>
 
-<p>火焰图可以来自于很多数据：包括 <code>pprof</code> &amp; <code>perf</code>, 且go-torch和pprof一样，它也采用30秒的采样数据生成火焰图</p>
+<p>火焰图可以来自于很多数据：包括 <code>pprof</code> &amp; <code>perf</code>, 且 go-torch 和 pprof 一样，它也采用 30 秒的采样数据生成火焰图</p>
 
 <h1 id="安装-go-torch">安装 go-torch</h1>
 
@@ -230,7 +213,7 @@ go tarch（火焰图）学习笔记
 </div>
 <h2 id="get-the-flame-graph-script">Get the flame graph script</h2>
 
-<p>FlameGraph 是profile数据的可视化层工具，已被广泛用于Python和Node</p>
+<p>FlameGraph 是 profile 数据的可视化层工具，已被广泛用于 Python 和 Node</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
@@ -241,7 +224,7 @@ go tarch（火焰图）学习笔记
 $ git clone https://github.com/brendangregg/FlameGraph.git</pre></td></tr></table>
 </div>
 </div>
-<p>Set PATH：检出完成后，把flamegraph.pl拷到我们机器环境变量$PATH的路径中去，例如：</p>
+<p>Set PATH：检出完成后，把 flamegraph.pl 拷到我们机器环境变量\$PATH 的路径中去，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
@@ -252,7 +235,7 @@ $ git clone https://github.com/brendangregg/FlameGraph.git</pre></td></tr></tabl
 </div>
 <h2 id="check">Check</h2>
 
-<p>在终端输入 <code>flamegraph.pl -h</code> 检查是否安装FlameGraph成功</p>
+<p>在终端输入 <code>flamegraph.pl -h</code> 检查是否安装 FlameGraph 成功</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
@@ -321,7 +304,7 @@ USAGE: /usr/bin/flamegraph.pl [options] infile &gt; outfile.svg
 <li>&ndash;seconds：要执行 profiling 的时间长度，默认为 30s</li>
 </ul>
 
-<h2 id="使用-go-torch-分析-api项目内存分配情况">使用 go-torch 分析 API项目内存分配情况</h2>
+<h2 id="使用-go-torch-分析-api-项目内存分配情况">使用 go-torch 分析 API 项目内存分配情况</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
@@ -340,8 +323,8 @@ $ go-torch -inuse_space http://127.0.0.1:8080/debug/pprof/heap --colors=mem</pre
 <p>Note:</p>
 
 <ul>
-<li>-alloc_space/-inuse_space参数与-u/-b等参数有冲突，使用了-alloc_space/-inuse_space后请将pprof的 资源直接追加在参数后面，而不要使用-u/-b参数去指定，这与go-torch的参数解析问题有关，看过其源码后既能明白</li>
-<li>同时还要注意，分析内存的URL一定是heap结尾的，因为默认路径是profile的，其用来分析cpu相关问题</li>
+<li>-alloc_space/-inuse_space 参数与-u/-b 等参数有冲突，使用了-alloc_space/-inuse_space 后请将 pprof 的 资源直接追加在参数后面，而不要使用-u/-b 参数去指定，这与 go-torch 的参数解析问题有关，看过其源码后既能明白</li>
+<li>同时还要注意，分析内存的 URL 一定是 heap 结尾的，因为默认路径是 profile 的，其用来分析 cpu 相关问题</li>
 </ul>
 </blockquote>
 
@@ -354,11 +337,12 @@ $ go-torch -inuse_space http://127.0.0.1:8080/debug/pprof/heap --colors=mem</pre
 </blockquote>
 
 <ul>
-<li><a href="http://lihaoquan.me/2017/1/1/Profiling-and-Optimizing-Go-using-go-torch.html">实践项目：Go代码调优利器-火焰图</a></li>
+<li><a href="http://lihaoquan.me/2017/1/1/Profiling-and-Optimizing-Go-using-go-torch.html">实践项目：Go 代码调优利器-火焰图</a></li>
 <li><a href="https://blog.lab99.org/post/golang-2017-10-20-video-seven-ways-to-profile-go-apps.html#fang-fa-liu-huo-yan-tu-flame-graph">方法六：火焰图 (Flame Graph)</a></li>
 <li><a href="http://colobu.com/2017/03/02/a-short-survey-of-golang-pprof/">鸟窝 3/go-torch</a></li>
 <li><a href="http://cizixs.com/2017/09/11/profiling-golang-program">使用 pprof 和火焰图调试 golang 应用</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -368,14 +352,18 @@ $ go-torch -inuse_space http://127.0.0.1:8080/debug/pprof/heap --colors=mem</pre
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-06-19</span>
+    <span class="item-content">
+        2018-06-19
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/golang/">golang</a>
           </div>
@@ -412,6 +400,10 @@ $ go-torch -inuse_space http://127.0.0.1:8080/debug/pprof/heap --colors=mem</pre
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -421,7 +413,7 @@ $ go-torch -inuse_space http://127.0.0.1:8080/debug/pprof/heap --colors=mem</pre
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -464,7 +456,7 @@ $ go-torch -inuse_space http://127.0.0.1:8080/debug/pprof/heap --colors=mem</pre
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

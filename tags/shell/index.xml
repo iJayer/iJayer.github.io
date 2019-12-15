@@ -17,7 +17,7 @@
       <pubDate>Thu, 18 May 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Shell Scripts 变量 定义 - $ myname=zhe 使用 - $ echo $myname 只读 - $ readonly修饰变量 删除 - $ unset myname 变量类型： 局部变量 环境变量 Shell变量 Shell Scripts 字符串 &#39; &#39; 单引号 $ str=&#39;this is</description>
     </item>
     
   </channel>

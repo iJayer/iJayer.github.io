@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/" />
@@ -36,7 +36,7 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -132,10 +132,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
+      更新系统 备份系统镜像源 $ cd /etc/yum.repos.d $ cp CentOS-Base.repo CentOS-Base.repo.bak $ cp CentOS-Epel.repo CentOS-Epel.repo.bak 下载163的镜像源 $ wget http://mirrors.aliyun.com/repo/Centos-7.repo&lsquo; $ mv Centos-7.repo CentOS-Base.repo 生成缓存 $ yum makecache 更新系统 $ yum upgrade 配置静态IP Centos-7·学习之
     </div>
     <div class="read-more">
-      <a href="/post/tech/os/linux/20170525-linux.centos-notes/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/os/linux/20170525-linux.centos-notes/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -155,10 +155,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
+      Shell Scripts 变量 定义 - $ myname=zhe 使用 - $ echo $myname 只读 - $ readonly修饰变量 删除 - $ unset myname 变量类型： 局部变量 环境变量 Shell变量 Shell Scripts 字符串 ' ' 单引号 $ str='this is
     </div>
     <div class="read-more">
-      <a href="/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/code/shell/20170518-shell-scripts-basic-learn-notes/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -178,10 +178,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
+      一个工具·bash-completion 选项/参数补齐 1 $ apt install bash-completion Bash中的常用命令 type 1 # 查询指令是否为bash shell的内置指令(找指令
     </div>
     <div class="read-more">
-      <a href="/post/tech/os/linux/20170515-bash-basic-notes/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/os/linux/20170515-bash-basic-notes/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -201,10 +201,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
+      由来 历史上，Linux 的启动一直采用init进程。下面的命令用来启动服务。 1 2 3 $ sudo /etc/init.d/apache2 start # 或者 $ service apache2 start 这种方法有两个缺点： 一是启动时间长。i
     </div>
     <div class="read-more">
-      <a href="/post/tech/os/linux/20170511-systemd-basic/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/os/linux/20170511-systemd-basic/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -224,21 +224,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<p>我们在使用docker run创建Docker容器时，可以用&ndash;net选项指定容器的网络模式；Docker网络有四种模式:</p>
-
-<ul>
-<li>桥模式：&ndash;net=bridge<br /></li>
-<li>主机模式：&ndash;net=host<br /></li>
-<li>容器模式：&ndash;net=container_name|id<br /></li>
-<li>无网络模式：&ndash;net=none<br /></li>
-</ul>
-</blockquote>
+      我们在使用docker run创建Docker容器时，可以用&ndash;net选项指定容器的网络模式；Docker网络有四种模式: 桥模式：&
     </div>
     <div class="read-more">
-      <a href="/post/tech/devops/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/devops/docker/20170509-docker-%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -258,10 +247,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
+      端口映射 用 docker run 的 -P or -p来映射端口 -P: Docker随机映射宿主机49000~49900的一个端口到容器内部开放的网络端口 1 2 3 $ docker run --name test -d -P ubuntu:14.04
     </div>
     <div class="read-more">
-      <a href="/post/tech/devops/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/devops/docker/20170505-%E5%AE%B9%E5%99%A8%E9%97%B4%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -281,10 +270,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
+      数据卷 数据卷(Data Volume): 可供一个或多个容器使用的特殊目录，绕过UFS Data Volume可在容器间共享和重用 对Data Volume的修改立马生效 对
     </div>
     <div class="read-more">
-      <a href="/post/tech/devops/docker/20170503-data-volume/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/devops/docker/20170503-data-volume/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -304,10 +293,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
+      Docker部署编译好的Go web app 一、以ubuntu:14.04为基础构建Go web app容器 生成Linux平台的可执行程序 1 2 3 4 5 6 7 # 开发平
     </div>
     <div class="read-more">
-      <a href="/post/tech/devops/docker/20170502-deploy-go-app-with-docker/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/devops/docker/20170502-deploy-go-app-with-docker/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -327,18 +316,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<div class='align-center'>
-  
-
-阳光温热，岁月静好...
-
-
-</div>
+      阳光温热，岁月静好...
     </div>
     <div class="read-more">
-      <a href="/post/footprint/20170501-%E8%88%9F%E5%B1%B1/" class="read-more-link">Read more..</a>
+      <a href="/post/footprint/20170501-%E8%88%9F%E5%B1%B1/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -367,7 +348,7 @@
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -410,7 +391,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

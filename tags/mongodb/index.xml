@@ -17,11 +17,7 @@
       <pubDate>Fri, 11 May 2018 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20180511-use-logrotate-to-manage-logs/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7+G 之多&amp;hellip; Why?&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>记一次日志引起的故障：服务器 mongod 日志出现暴增，一天增加了 7+G 之多&amp;hellip; Why? 问题现象 内网测试服务器出现了日志暴增的现象，日志描述如下： 1 2</description>
     </item>
     
     <item>
@@ -30,11 +26,7 @@
       <pubDate>Sat, 27 Jan 2018 16:07:43 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180127-lib-mgo/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;http://labix.org/mgo&#34;&gt;译：Rich MongoDB Driver for Go&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>译：Rich MongoDB Driver for Go 目录 1. Highlights(强调) 1.1. Cluster discovery and communication(集群发现和通信) 1.2. Failover management(故障转移</description>
     </item>
     
     <item>
@@ -43,7 +35,7 @@
       <pubDate>Mon, 19 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170619-deploy-a-replica-set-with-docker-and-keyfile-access-contorl/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>集群服务原理图 整体原理图 主节点(Primary)搭建在物理主机 副本集原理图 集群规划 一个Primary节点，两个Secondary节点 ip port description 192.168.1.167</description>
     </item>
     
     <item>
@@ -52,7 +44,7 @@
       <pubDate>Sun, 18 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170618-deploy-a-sharding-cluster/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>环境说明 由于是实验环境，故在一台主机上开设不同的端口来启动mongodb服务进行sharding集群部署。 ENV: MongoDB shell version v3.4.5 MongoDB server version: 3.4.5 Centos 7 x86_64 集群规划 s</description>
     </item>
     
     <item>
@@ -61,7 +53,7 @@
       <pubDate>Wed, 14 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170615-deploy-a-replica-set-cluster/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>环境搭建 Replica Set：是有故障恢复功能的主从集群，由一个primary节点和一个或多个secondary节点组成。 环境说明 MongoDB shell version v3.4.5 MongoDB server version: 3.4.5 Centos 7 x86_64</description>
     </item>
     
     <item>
@@ -70,7 +62,7 @@
       <pubDate>Mon, 12 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170612-basic-note/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>目录 特性 基础 基本概念 文档 集合 动态模式 命名 子集合 数据库 MongoDB保留的数据库 MongoDB Shell 数据类型 基本数据类型 日期 数组 内嵌文档 _id 和 ObjectId 使用 MongoDB Shell 使用 shell 执</description>
     </item>
     
     <item>
@@ -79,7 +71,7 @@
       <pubDate>Mon, 12 Jun 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170612-cluster-note/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>什么是集群 集群(cluster)：指一组计算机系统作为一个整体向用户提供服务，这些单个的计算机系统在集群中称为节点(node)，通常通过局域</description>
     </item>
     
     <item>
@@ -88,7 +80,7 @@
       <pubDate>Sun, 23 Apr 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170423-config-options/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Configuration File Offical：The Official Doc.Configuration File Options NOTE: File Format: YAML YAML does not support tab characters for indentation: use spaces instead. Use The Configuration File Specify the config file with --config 1 2 mongod --config /etc/mongod.conf mongos --config /etc/mongos.conf Specify the config file with -f 1 2 mongod -f /etc/mongod.conf mongos -f /etc/mongos.conf Core Options systemLog 1 2 3</description>
     </item>
     
     <item>
@@ -97,7 +89,7 @@
       <pubDate>Tue, 07 Mar 2017 15:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/mongodb/20170307-install-and-config/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Install Package Summary MongoDB安装包说明： mongodb-org 可自动安装以下四个包 mongodb-org-server 可安装mongod进程、配置文件和启动脚本 mongod：核心基础进程，用来接受和读写</description>
     </item>
     
   </channel>

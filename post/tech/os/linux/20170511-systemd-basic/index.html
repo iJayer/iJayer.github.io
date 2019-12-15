@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="" /><meta name="keywords" content="linux, systemd" />
+<meta name="author" content="zher" /><meta name="description" content="由来 历史上，Linux 的启动一直采用init进程。下面的命令用来启动服务。 1 2 3 $ sudo /etc/init.d/apache2 start # 或者 $ service apache2 start 这种方法有两个缺点： 一是启动时间长。i" /><meta name="keywords" content="linux, systemd" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/os/linux/20170511-systemd-basic/" />
@@ -34,19 +34,19 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Linux | Systemd 基础" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="由来 历史上，Linux 的启动一直采用init进程。下面的命令用来启动服务。 1 2 3 $ sudo /etc/init.d/apache2 start # 或者 $ service apache2 start 这种方法有两个缺点： 一是启动时间长。i" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/os/linux/20170511-systemd-basic/" />
 <meta property="article:published_time" content="2017-05-11T17:53:01&#43;08:00"/>
 <meta property="article:modified_time" content="2017-12-01T19:53:01&#43;00:00"/>
 
 <meta itemprop="name" content="Linux | Systemd 基础">
-<meta itemprop="description" content="">
+<meta itemprop="description" content="由来 历史上，Linux 的启动一直采用init进程。下面的命令用来启动服务。 1 2 3 $ sudo /etc/init.d/apache2 start # 或者 $ service apache2 start 这种方法有两个缺点： 一是启动时间长。i">
 
 
 <meta itemprop="datePublished" content="2017-05-11T17:53:01&#43;08:00" />
@@ -58,7 +58,7 @@
 <meta itemprop="keywords" content="linux," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux | Systemd 基础"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="由来 历史上，Linux 的启动一直采用init进程。下面的命令用来启动服务。 1 2 3 $ sudo /etc/init.d/apache2 start # 或者 $ service apache2 start 这种方法有两个缺点： 一是启动时间长。i"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -177,7 +177,11 @@
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
+
+<!-- more -->
 
 <h1 id="由来">由来</h1>
 
@@ -1020,6 +1024,7 @@ $ sudo journalctl --vacuum-time<span class="o">=</span>1years</code></pre></td><
 <li><a href="http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html">Systemd 入门教程：命令篇</a></li>
 <li><a href="https://linux.cn/article-6888-1.html">最简明扼要的 Systemd 教程，只需十分钟</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -1029,14 +1034,18 @@ $ sudo journalctl --vacuum-time<span class="o">=</span>1years</code></pre></td><
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2017-12-01</span>
+    <span class="item-content">
+        2017-12-01
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/linux/">linux</a>
           </div>
@@ -1073,6 +1082,10 @@ $ sudo journalctl --vacuum-time<span class="o">=</span>1years</code></pre></td><
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -1082,7 +1095,7 @@ $ sudo journalctl --vacuum-time<span class="o">=</span>1years</code></pre></td><
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -1125,7 +1138,7 @@ $ sudo journalctl --vacuum-time<span class="o">=</span>1years</code></pre></td><
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

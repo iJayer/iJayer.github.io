@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/" />
@@ -36,7 +36,7 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -132,12 +132,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<p>这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数</p>
+      这一节使用 RabbitMQ 构建 RPC 系统：包含一个客户端和一个可扩展的服务端，服务端是一个虚拟的 RPC Service，用来返回 Fibonacci 数 有关 RPC 的说明： 尽管 RPC 在计算过程中
     </div>
     <div class="read-more">
-      <a href="/post/tech/mq/20190614-rabbitmq-rpc/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/mq/20190614-rabbitmq-rpc/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -157,18 +155,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<p>前面，分别使用了 <code>fanout</code> 和 <code>direct</code> 类型实现了简易的日志生产、路由和消费，虽然 <code>direct</code> 可以按照 <code>Binding_Key</code> 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 <code>syslog</code>，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。</p>
-
-<p>如果我们只想监听来自模块 <code>cron</code> 的严重消息，而忽略掉所有来自 <code>kern</code> 模块的日志，应该怎么做呢？</p>
-
-<blockquote>
-<p>接下来，就要学习另一个 Exchange Type：<code>Topic</code></p>
-</blockquote>
+      前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息
     </div>
     <div class="read-more">
-      <a href="/post/tech/mq/20190613-rabbitmq-topics/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/mq/20190613-rabbitmq-topics/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -188,12 +178,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<p>这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。</p>
+      这一小节继续前面的内容，给日志系统添加新特性：只订阅一部分消息。 Bindings 上一小节我们创建了 Exchange 和 Queue 的一个绑定，代码描述如下： 1 2 3 4 5 6 7 err = ch.QueueBind( q.Name, &#34;&#34;,
     </div>
     <div class="read-more">
-      <a href="/post/tech/mq/20190602-rabbitmq-routing/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/mq/20190602-rabbitmq-routing/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -206,23 +194,17 @@
       <div class="post-category">
           <a href="/categories/tech/"> tech </a>
           </div>
-        <span class="more-meta"> 940 words </span>
-        <span class="more-meta"> 2 mins read </span>
+        <span class="more-meta"> 1054 words </span>
+        <span class="more-meta"> 3 mins read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<p>Publish/Subscribe: Send messages to many consumers at once.</p>
-</blockquote>
-
-<p>这一小节，通过实现一个日志系统来学习 RabbitMQ <code>p/b</code> 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？</p>
+      Publish/Subscribe: Send messages to many consumers at once. 这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其
     </div>
     <div class="read-more">
-      <a href="/post/tech/mq/20190519-rabbitmq-publish.subscribe/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/mq/20190519-rabbitmq-publish.subscribe/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -242,14 +224,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<p>个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等</p>
-</blockquote>
+      个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等 Windows System tools 垃圾清理：Jetclean 截图工具：Pickpick 画图工具：Draw.I
     </div>
     <div class="read-more">
-      <a href="/post/tech/tools/useful-tools/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/tools/useful-tools/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -262,21 +240,17 @@
       <div class="post-category">
           <a href="/categories/tech/"> tech </a>
           </div>
-        <span class="more-meta"> 2729 words </span>
+        <span class="more-meta"> 2986 words </span>
         <span class="more-meta"> 6 mins read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<p>实现一个用来在多个 Workers 之间分发 <code>耗时任务</code> 的工作队列</p>
-</blockquote>
+      实现一个用来在多个 Workers 之间分发 耗时任务 的工作队列。 那么为什么会出现工作队列呢？可以和上节的 Simple 队列做简单对比： Simple 队列是一一对应的，而且我们在实际
     </div>
     <div class="read-more">
-      <a href="/post/tech/mq/20190401-rabbitmq-work-queues/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/mq/20190401-rabbitmq-work-queues/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -296,21 +270,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<p>RabbitMQ 是一个开源的、使用最广的消息队列。</p>
-
-<ul>
-<li>Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。</li>
-<li>支持的协议：AMQP，XMPP, SMTP, STOMP</li>
-<li>支持集群部署（私有云或公有云）</li>
-<li>可使用 HTTP-API、命令行工具和 UI 界面以便于管理和监控</li>
-</ul>
-</blockquote>
+      RabbitMQ 是一个开源的、使用最广的消息队列。 Erlang 开发，对高并发、路由、负载均衡、数据持久化有很好的支持。 支持的协议：AMQP，XMPP, SMTP, STOMP 支持集群部
     </div>
     <div class="read-more">
-      <a href="/post/tech/mq/20190328-rabbitmq-hello-world/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/mq/20190328-rabbitmq-hello-world/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -330,23 +293,10 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<p>几种常见的消息队列比较：</p>
-
-<ul>
-<li><a href="https://www.rabbitmq.com/">RabbitMQ</a></li>
-<li><a href="http://activemq.apache.org/">ActiveMQ</a></li>
-<li><a href="http://zeromq.org/">ZeroMQ</a></li>
-<li><a href="https://redis.io/">Redis</a></li>
-<li><a href="https://rocketmq.apache.org/">RocketMQ</a></li>
-<li><a href="https://kafka.apache.org/">Kafaka</a></li>
-</ul>
-</blockquote>
+      几种常见的消息队列比较： RabbitMQ ActiveMQ ZeroMQ Redis RocketMQ Kafaka Message Queue Wiki: Message Queue Message queues provide an asynchronous communications protocol, meaning that then sender and receiver of the message do not need to interact with the message queue at the same time. Message placed onto the queue are stored until the recipient
     </div>
     <div class="read-more">
-      <a href="/post/tech/mq/20190327-message-queue-compare/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/mq/20190327-message-queue-compare/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -359,31 +309,17 @@
       <div class="post-category">
           <a href="/categories/tech/"> tech </a>
           </div>
-        <span class="more-meta"> 2107 words </span>
+        <span class="more-meta"> 2103 words </span>
         <span class="more-meta"> 5 mins read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      <!-- 摘要 -->
-
-<blockquote>
-<ul>
-<li>Q1：用什么手段可以对 goroutine 的启用数量加以限制 ?</li>
-<li>Q2：怎样才能让主 goroutine 等待其他 goroutine ?</li>
-<li>Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ?</li>
-</ul>
-
-<p><div class='align-right'></p>
-</blockquote>
-
-<p><a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：17 | go语句及其执行规则（下）</a></p>
-
-<p></div></p>
+      Q1：用什么手段可以对 goroutine 的启用数量加以限制 ? Q2：怎样才能让主 goroutine 等待其他 goroutine ? Q3：怎样让我们启用的多个 goroutine 按照既定的顺序执行 ? 专栏：17 | go 语
     </div>
     <div class="read-more">
-      <a href="/post/tech/code/golang/tutorial-go36-07/" class="read-more-link">Read more..</a>
+      <a href="/post/tech/code/golang/tutorial-go36-07/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -409,7 +345,7 @@
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -452,7 +388,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

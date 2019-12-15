@@ -17,18 +17,7 @@
       <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/cicd/20180925-drone-01-basic/&#34;&gt;Drone 的基本概念&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/&#34;&gt;Drone 服务部署&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/docker/docker-compose-note/&#34;&gt;Docker-Compose 基础&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/docker/registry-and-webui/&#34;&gt;Docker Registry 服务部署&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有： Drone 的基本概念 Drone 服务部署 Docker-Compose 基础 Docker Registry 服务部署 简介 这里以一</description>
     </item>
     
     <item>
@@ -37,16 +26,7 @@
       <pubDate>Wed, 26 Sep 2018 23:40:06 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;怎么用 Docker 搭建 Bitbucket Server&lt;/li&gt;
-&lt;li&gt;怎么启动 Drone Service&lt;/li&gt;
-&lt;li&gt;实践过程中踩过那些坑&lt;/li&gt;
-&lt;li&gt;&amp;hellip;&amp;hellip;&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及： 怎么用 Docker 搭建 Bitbucket Server 怎么启动 Drone Service 实践过程中踩过那些坑 &amp;hellip;&amp;hellip; 说明 开始之前先了解一下实践环</description>
     </item>
     
     <item>
@@ -55,17 +35,7 @@
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;Drone&lt;/code&gt; 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Drone 的核心概念&lt;/li&gt;
-&lt;li&gt;Drone 的运作原理(架构)&lt;/li&gt;
-&lt;li&gt;Drone 的基本术语&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。 Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语 转自：GeekPipe-基于Drone的持续集成实践之</description>
     </item>
     
     <item>
@@ -74,11 +44,7 @@
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;了解当下主流的 CI/CD 方案&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>了解当下主流的 CI/CD 方案 开始之前 最近，项目节奏放缓，有了一定的空闲时间。所以呢，很早之前就想把 CI/CD 集成到现有项目中去的想法终于可以尝试一下了，同时</description>
     </item>
     
     <item>
@@ -87,13 +53,7 @@
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;持续集成&lt;/li&gt;
-&lt;li&gt;持续交付&lt;/li&gt;
-&lt;li&gt;持续部署&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>持续集成 持续交付 持续部署 [转] 阮一峰：持续集成是什么？ 1. 概念 1.1. 持续集成 持续集成(CI, Continuous Intergation): 指频繁的，一天多次将代码集成到主干。 它的好处主要有</description>
     </item>
     
   </channel>

@@ -17,11 +17,7 @@
       <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/useful-tools/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等 Windows System tools 垃圾清理：Jetclean 截图工具：Pickpick 画图工具：Draw.I</description>
     </item>
     
     <item>
@@ -30,15 +26,7 @@
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/win/cmd-usage-keep/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Windows 下命令行精选&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;快速启动命令行：&lt;kbd&gt;Win + X&lt;/kbd&gt; + &lt;kbd&gt;A&lt;/kbd&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>Windows 下命令行精选 快速启动命令行：Win + X + A 环境变量 设置临时环境变量，cmd 窗口关闭，则失效 1 $ set PATH=%PATH%;D:\code\bin\ 设置永久环境变量：添加到当前用户 1 $ setx /M</description>
     </item>
     
     <item>
@@ -47,9 +35,7 @@
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/win/used-better/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;收藏一些让 Win 更好用的方法&lt;/p&gt;</description>
+      <description>收藏一些让 Win 更好用的方法 Lenovo 屏蔽 Fn 键 安装 Lenovo 键盘驱动 (Google 搜索下载) 开始菜单打开该驱动程序，设置使用标准的F1-F12功能键 添加开机启动软件 Win + R Input:</description>
     </item>
     
     <item>
@@ -58,7 +44,7 @@
       <pubDate>Mon, 13 Aug 2018 22:05:21 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/others/20180813-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-03-hugoserver%E6%B3%A8%E5%86%8C%E4%B8%BAwin%E6%9C%8D%E5%8A%A1/</guid>
-      <description>&lt;p&gt;WinSW: 把 win 下的命令行程序包装为 service 运行&lt;/p&gt;</description>
+      <description>WinSW: 把 win 下的命令行程序包装为 service 运行 Install Install doc click here Config 以配置 win 平台下的 hugo server 为例：运行 Git Bash, 执行如下命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 #</description>
     </item>
     
   </channel>

@@ -16,16 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="jayer" /><meta name="description" content=" Publish/Subscribe: Send messages to many consumers at once.
- 这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？
-" /><meta name="keywords" content="mq, rabbitmq, go" />
+<meta name="author" content="jayer" /><meta name="description" content="Publish/Subscribe: Send messages to many consumers at once. 这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其" /><meta name="keywords" content="mq, rabbitmq, go" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/mq/20190519-rabbitmq-publish.subscribe/" />
@@ -36,49 +34,31 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Rabbitmq | 03 - Publish/Subscribe" />
-<meta property="og:description" content="
-
-
-Publish/Subscribe: Send messages to many consumers at once.
-
-
-这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？" />
+<meta property="og:description" content="Publish/Subscribe: Send messages to many consumers at once. 这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/mq/20190519-rabbitmq-publish.subscribe/" />
 <meta property="article:published_time" content="2019-05-19T17:28:12&#43;08:00"/>
 <meta property="article:modified_time" content="2019-05-31T17:28:12&#43;00:00"/>
 
 <meta itemprop="name" content="Rabbitmq | 03 - Publish/Subscribe">
-<meta itemprop="description" content="
-
-
-Publish/Subscribe: Send messages to many consumers at once.
-
-
-这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？">
+<meta itemprop="description" content="Publish/Subscribe: Send messages to many consumers at once. 这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其">
 
 
 <meta itemprop="datePublished" content="2019-05-19T17:28:12&#43;08:00" />
 <meta itemprop="dateModified" content="2019-05-31T17:28:12&#43;00:00" />
-<meta itemprop="wordCount" content="940">
+<meta itemprop="wordCount" content="1054">
 
 
 
 <meta itemprop="keywords" content="mq,rabbitmq,golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rabbitmq | 03 - Publish/Subscribe"/>
-<meta name="twitter:description" content="
-
-
-Publish/Subscribe: Send messages to many consumers at once.
-
-
-这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？"/>
+<meta name="twitter:description" content="Publish/Subscribe: Send messages to many consumers at once. 这一小节，通过实现一个日志系统来学习 RabbitMQ p/b 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -152,8 +132,8 @@ Publish/Subscribe: Send messages to many consumers at once.
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 940 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 1054 words </span>
+          <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -170,19 +150,24 @@ Publish/Subscribe: Send messages to many consumers at once.
 </ul></li>
 <li><a href="#temproary-queues">Temproary Queues</a></li>
 <li><a href="#bindings">Bindings</a></li>
+<li><a href="#p-s模型图">P/S模型图</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <p>Publish/Subscribe: Send messages to many consumers at once.</p>
 </blockquote>
 
 <p>这一小节，通过实现一个日志系统来学习 RabbitMQ <code>p/b</code> 的简单用法：该日志系统由2个程序构成，第一个用来发送日志消息，第二个则用来接收并将其输出到终端窗口。在开始之前，先了解下 Exchange ！了解它是什么，怎么路由消息等？</p>
+
+<!-- more -->
 
 <h1 id="exchange">Exchange</h1>
 
@@ -294,15 +279,30 @@ Publish/Subscribe: Send messages to many consumers at once.
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
+<h1 id="p-s模型图">P/S模型图</h1>
+
 <p><img src="https://res.cloudinary.com/zher-files/image/upload/v1559317325/blog/images/python-three-overall.png" alt="" /></p>
 
+<p>模型解读：</p>
+
+<ul>
+<li>一个生产者，多个消费者</li>
+<li>每个消费者都有一个自己的队列</li>
+<li>生产者只将消息发送给 Exchange(交换机、转换器)，且 Exchange 只转发消息，并不做任何存储</li>
+<li>每个消费者的队列都要绑定到 Exchange</li>
+<li>生产者发送消息 -&gt; Exchange -&gt; 路由到队列 -&gt; 消费者消费<br /></li>
+</ul>
+
 <p>完整代码：<a href="https://github.com/ijayer/mq-practice/tree/master/rabbitmq/golang-intro/03-publish-subscribe">Golang Intro: 03 - Publish/Subscribe</a></p>
+
+<p><img src="https://res.cloudinary.com/zher-files/image/upload/v1562470198/blog/images/rabbitmq-p-s.png" alt="" /></p>
 
 <h1 id="see-also">See Also</h1>
 
 <ul>
 <li><a href="https://www.rabbitmq.com/tutorials/tutorial-three-go.html">Publish/Subscribe</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -312,14 +312,18 @@ Publish/Subscribe: Send messages to many consumers at once.
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2019-05-31</span>
+    <span class="item-content">
+        2019-05-31
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/mq/">mq</a>
           <a href="/tags/rabbitmq/">rabbitmq</a>
@@ -358,6 +362,10 @@ Publish/Subscribe: Send messages to many consumers at once.
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -367,7 +375,7 @@ Publish/Subscribe: Send messages to many consumers at once.
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -410,7 +418,7 @@ Publish/Subscribe: Send messages to many consumers at once.
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="  go tool pprof 用法 cpu、goroutine、heap 分析方法  " /><meta name="keywords" content="go, golang, pprof" />
+<meta name="author" content="zher" /><meta name="description" content="go tool pprof 用法 cpu、goroutine、heap 分析方法 pprof Pprof 是一款可视化的性能分析工具，源自 Google Performance Tools 工具集。用于确定程序运行过程中CPU和内存的" /><meta name="keywords" content="go, golang, pprof" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/" />
@@ -34,33 +34,19 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Golang | Performance Optimization =&gt; pprof" />
-<meta property="og:description" content="
-
-
-
-go tool pprof 用法
-cpu、goroutine、heap 分析方法
-
-" />
+<meta property="og:description" content="go tool pprof 用法 cpu、goroutine、heap 分析方法 pprof Pprof 是一款可视化的性能分析工具，源自 Google Performance Tools 工具集。用于确定程序运行过程中CPU和内存的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/20180606-performance-optimization-02-pprof-usage/" />
 <meta property="article:published_time" content="2018-06-06T13:48:02&#43;08:00"/>
 <meta property="article:modified_time" content="2018-06-06T13:48:02&#43;00:00"/>
 
 <meta itemprop="name" content="Golang | Performance Optimization =&gt; pprof">
-<meta itemprop="description" content="
-
-
-
-go tool pprof 用法
-cpu、goroutine、heap 分析方法
-
-">
+<meta itemprop="description" content="go tool pprof 用法 cpu、goroutine、heap 分析方法 pprof Pprof 是一款可视化的性能分析工具，源自 Google Performance Tools 工具集。用于确定程序运行过程中CPU和内存的">
 
 
 <meta itemprop="datePublished" content="2018-06-06T13:48:02&#43;08:00" />
@@ -72,14 +58,7 @@ cpu、goroutine、heap 分析方法
 <meta itemprop="keywords" content="golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Golang | Performance Optimization =&gt; pprof"/>
-<meta name="twitter:description" content="
-
-
-
-go tool pprof 用法
-cpu、goroutine、heap 分析方法
-
-"/>
+<meta name="twitter:description" content="go tool pprof 用法 cpu、goroutine、heap 分析方法 pprof Pprof 是一款可视化的性能分析工具，源自 Google Performance Tools 工具集。用于确定程序运行过程中CPU和内存的"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -193,7 +172,9 @@ cpu、goroutine、heap 分析方法
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <ul>
@@ -201,6 +182,8 @@ cpu、goroutine、heap 分析方法
 <li>cpu、goroutine、heap 分析方法</li>
 </ul>
 </blockquote>
+
+<!-- more -->
 
 <h1 id="pprof">pprof</h1>
 
@@ -1197,6 +1180,7 @@ Answer:
 <ul>
 <li><a href="https://github.com/hyper0x/go_command_tutorial/blob/master/0.12.md">go_command_tutorial: go tool pprof</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -1206,14 +1190,18 @@ Answer:
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-06-06</span>
+    <span class="item-content">
+        2018-06-06
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/golang/">golang</a>
           </div>
@@ -1250,6 +1238,10 @@ Answer:
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -1259,7 +1251,7 @@ Answer:
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -1302,7 +1294,7 @@ Answer:
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

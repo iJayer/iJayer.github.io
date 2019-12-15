@@ -16,17 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="jayer" /><meta name="description" content="前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 syslog，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&amp;hellip;) 来路由。
-如果我们只想监听来自模块 cron 的严重消息，而忽略掉所有来自 kern 模块的日志，应该怎么做呢？
- 接下来，就要学习另一个 Exchange Type：Topic
-" /><meta name="keywords" content="mq, rabbitmq, go" />
+<meta name="author" content="jayer" /><meta name="description" content="前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息" /><meta name="keywords" content="mq, rabbitmq, go" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/mq/20190613-rabbitmq-topics/" />
@@ -37,35 +34,19 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Rabbitmq | 05 - Topics" />
-<meta property="og:description" content="
-
-前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 syslog，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。
-
-如果我们只想监听来自模块 cron 的严重消息，而忽略掉所有来自 kern 模块的日志，应该怎么做呢？
-
-
-接下来，就要学习另一个 Exchange Type：Topic
-" />
+<meta property="og:description" content="前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/mq/20190613-rabbitmq-topics/" />
 <meta property="article:published_time" content="2019-06-13T22:48:56&#43;08:00"/>
 <meta property="article:modified_time" content="2019-06-22T22:48:56&#43;00:00"/>
 
 <meta itemprop="name" content="Rabbitmq | 05 - Topics">
-<meta itemprop="description" content="
-
-前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 syslog，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。
-
-如果我们只想监听来自模块 cron 的严重消息，而忽略掉所有来自 kern 模块的日志，应该怎么做呢？
-
-
-接下来，就要学习另一个 Exchange Type：Topic
-">
+<meta itemprop="description" content="前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息">
 
 
 <meta itemprop="datePublished" content="2019-06-13T22:48:56&#43;08:00" />
@@ -77,15 +58,7 @@
 <meta itemprop="keywords" content="mq,rabbitmq,golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rabbitmq | 05 - Topics"/>
-<meta name="twitter:description" content="
-
-前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 syslog，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。
-
-如果我们只想监听来自模块 cron 的严重消息，而忽略掉所有来自 kern 模块的日志，应该怎么做呢？
-
-
-接下来，就要学习另一个 Exchange Type：Topic
-"/>
+<meta name="twitter:description" content="前面，分别使用了 fanout 和 direct 类型实现了简易的日志生产、路由和消费，虽然 direct 可以按照 Binding_Key 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -177,7 +150,9 @@
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <p>前面，分别使用了 <code>fanout</code> 和 <code>direct</code> 类型实现了简易的日志生产、路由和消费，虽然 <code>direct</code> 可以按照 <code>Binding_Key</code> 绑定关系实现日志过滤，但其仍有局限性，即不能基于多个标准进行消息路由。例如，我不仅想按照日志的严重程度来收取日志，也想把不同日志源的日志信息也收集过来，就好比 <code>syslog</code>，既基于日志的严重程度(error/warn/info) 来路由消息，也基于不同模块(auth/cron/kern&hellip;) 来路由。</p>
 
@@ -185,6 +160,8 @@
 
 <blockquote>
 <p>接下来，就要学习另一个 Exchange Type：<code>Topic</code></p>
+
+<!-- more -->
 </blockquote>
 
 <h1 id="topic-exchange">Topic Exchange</h1>
@@ -265,6 +242,7 @@
 <li><a href="https://www.rabbitmq.com/tutorials/tutorial-five-go.html">Topics</a>
 <br /></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -274,14 +252,18 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2019-06-22</span>
+    <span class="item-content">
+        2019-06-22
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/mq/">mq</a>
           <a href="/tags/rabbitmq/">rabbitmq</a>
@@ -320,6 +302,10 @@
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -329,7 +315,7 @@
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -372,7 +358,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content=" 基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence " /><meta name="keywords" content="docker" />
+<meta name="author" content="zher" /><meta name="description" content="基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence Dockerizing Bitbucket Server 部署 Bitbucket Server 需要两个 Docker 镜像：Bitbucket-Server &amp;amp; Postgre-DB 1 2 $ docker pull atlassian/bitbucket-server:5.10.2 $ docker pull postgres:9.6 在宿主机创建 Bitbucket Server" /><meta name="keywords" content="docker" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/" />
@@ -34,31 +34,19 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence" />
-<meta property="og:description" content="
-
-
-基于 Docker 部署 Bitbucket Server
-基于 Docker 部署 Jira
-基于 Docker 部署 Confluence
-" />
+<meta property="og:description" content="基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence Dockerizing Bitbucket Server 部署 Bitbucket Server 需要两个 Docker 镜像：Bitbucket-Server &amp; Postgre-DB 1 2 $ docker pull atlassian/bitbucket-server:5.10.2 $ docker pull postgres:9.6 在宿主机创建 Bitbucket Server" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/" />
 <meta property="article:published_time" content="2018-09-27T22:09:25&#43;00:00"/>
 <meta property="article:modified_time" content="2018-12-19T16:09:25&#43;00:00"/>
 
 <meta itemprop="name" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence">
-<meta itemprop="description" content="
-
-
-基于 Docker 部署 Bitbucket Server
-基于 Docker 部署 Jira
-基于 Docker 部署 Confluence
-">
+<meta itemprop="description" content="基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence Dockerizing Bitbucket Server 部署 Bitbucket Server 需要两个 Docker 镜像：Bitbucket-Server &amp; Postgre-DB 1 2 $ docker pull atlassian/bitbucket-server:5.10.2 $ docker pull postgres:9.6 在宿主机创建 Bitbucket Server">
 
 
 <meta itemprop="datePublished" content="2018-09-27T22:09:25&#43;00:00" />
@@ -70,13 +58,7 @@
 <meta itemprop="keywords" content="devops,docker," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DevOps | Dockerizing Bitbucket Server &amp; Jira &amp; Confluence"/>
-<meta name="twitter:description" content="
-
-
-基于 Docker 部署 Bitbucket Server
-基于 Docker 部署 Jira
-基于 Docker 部署 Confluence
-"/>
+<meta name="twitter:description" content="基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence Dockerizing Bitbucket Server 部署 Bitbucket Server 需要两个 Docker 镜像：Bitbucket-Server &amp; Postgre-DB 1 2 $ docker pull atlassian/bitbucket-server:5.10.2 $ docker pull postgres:9.6 在宿主机创建 Bitbucket Server"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -174,13 +156,17 @@
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <ul>
 <li>基于 Docker 部署 Bitbucket Server</li>
 <li>基于 Docker 部署 Jira</li>
 <li>基于 Docker 部署 Confluence</li>
 </ul>
+
+<!-- more -->
 
 <h1 id="dockerizing-bitbucket-server">Dockerizing Bitbucket Server</h1>
 
@@ -654,6 +640,7 @@ $ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</
 <li><a href="https://github.com/omidraha/atlassian">dockerize atlassian</a></li>
 <li><a href="https://github.com/blacklabelops/jira">Dockerized Atlassian Jira</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -663,14 +650,18 @@ $ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-12-19</span>
+    <span class="item-content">
+        2018-12-19
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/devops/">devops</a>
           <a href="/tags/docker/">docker</a>
@@ -708,6 +699,10 @@ $ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -717,7 +712,7 @@ $ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -760,7 +755,7 @@ $ docker restart &lt;container_name<span class="o">(</span>id<span class="o">)</
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

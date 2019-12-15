@@ -17,11 +17,7 @@
       <pubDate>Sun, 29 Jul 2018 17:46:58 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/influxdb/02-getting-started/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;通过命令行工具 influx 完成数据库的创建和读写练习&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>通过命令行工具 influx 完成数据库的创建和读写练习 入门指南 这部分内容主要通过 influx (CLI) 工具操作 influxdb 数据库，即：创建数据库和读写数据。 说明：也可以直接发送裸的</description>
     </item>
     
     <item>
@@ -30,11 +26,7 @@
       <pubDate>Thu, 26 Jul 2018 17:46:58 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/db/influxdb/01-basic-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;InfluxDB 初步了解及安装使用&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>InfluxDB 初步了解及安装使用 简介 InfluxDB On GitHub | Influxdb Docs InfluxDB, 一个开源的时序数据库(Time Series Database), 对记录指标、事件和性能分析非常有用，无外部依赖(Go Coding) 特点 无结构(无</description>
     </item>
     
   </channel>

@@ -17,9 +17,7 @@
       <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180910-grpc-05-practice/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;学习完了理论知识，开始写点 Demo 体验一番吧！ Sohoo！😋&lt;/p&gt;</description>
+      <description>学习完了理论知识，开始写点 Demo 体验一番吧！ Sohoo！😋 Statement: 文章转载自 大桥下的蜗牛 =&amp;gt; 视频笔记：gRPC 从学习到生产 - Alan Shreve。 原文(英)：</description>
     </item>
     
     <item>
@@ -28,15 +26,7 @@
       <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;gRPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;Protocol Buffers&lt;/code&gt; 的相关知识：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;什么是 Protocol Buffers ?&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;.proto&lt;/code&gt; 文件怎么写？ -&amp;gt; 语言规范&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;.proto&lt;/code&gt; 文件写好了怎么用？&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>上一小节，简单熟悉了一下 gRPC，接下来继续学习 Protocol Buffers 的相关知识： 什么是 Protocol Buffers ? .proto 文件怎么写？ -&amp;gt; 语言规范 .proto 文件写好了怎么用？ 本指南描述了怎样使用</description>
     </item>
     
     <item>
@@ -45,17 +35,7 @@
       <pubDate>Thu, 06 Sep 2018 09:12:12 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;上一小节，简单熟悉了一下 &lt;code&gt;RPC&lt;/code&gt;，接下来继续学习 &lt;code&gt;gRPC&lt;/code&gt; 的基础概念：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;什么是 gRPC ?&lt;/li&gt;
-&lt;li&gt;gRPC 的关键概念有哪些 ?&lt;/li&gt;
-&lt;li&gt;在 gRPC 中，如何去定义一个服务 ？&lt;/li&gt;
-&lt;li&gt;gRPC 服务类型有哪几种？&lt;/li&gt;
-&lt;li&gt;一个 gRPC 客户端调用一个 gRPC 服务端方法时，会发生什么？&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>上一小节，简单熟悉了一下 RPC，接下来继续学习 gRPC 的基础概念： 什么是 gRPC ? gRPC 的关键概念有哪些 ? 在 gRPC 中，如何去定义一个服务 ？ gRPC 服务类型有哪几种？ 一</description>
     </item>
     
     <item>
@@ -64,15 +44,7 @@
       <pubDate>Thu, 06 Sep 2018 08:12:12 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;上一小节，简单熟悉了一下基于 gRPC 的 Hello World Demo 程序，接下来学习 gRPC 的相关概念知识，先来看 &lt;code&gt;RPC&lt;/code&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;什么是 RPC ?&lt;/li&gt;
-&lt;li&gt;RPC 的核心概念有哪些？&lt;/li&gt;
-&lt;li&gt;RPC 是调用流程是怎么样的？&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>上一小节，简单熟悉了一下基于 gRPC 的 Hello World Demo 程序，接下来学习 gRPC 的相关概念知识，先来看 RPC: 什么是 RPC ? RPC 的核心概念有哪些？ RPC 是调用流程是怎么样的？ Statement: 文中</description>
     </item>
     
     <item>
@@ -81,9 +53,7 @@
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;Ok, 先来安装 gRPC 的开发环境，并且实践一下 Hello World 程序吧！&lt;/p&gt;</description>
+      <description>Ok, 先来安装 gRPC 的开发环境，并且实践一下 Hello World 程序吧！ 1. 开发环境 ENV: go version go1.11 windows/amd64 IDE: goland 使用 gRPC 需要安装以下开发环境 Install gRPC (RPC框架) Install Protocol Buffers v3 (Google推</description>
     </item>
     
     <item>
@@ -92,16 +62,7 @@
       <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/code/golang/20180904-grpc-00/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;🙂 So, 开始学习 gRPC 啦！！！ 学习笔记，内容包括：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180904-grpc-01-helloworld/&#34;&gt;Note1: gRPC | Hello Wrold&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180905-grpc-02-what-is-rpc/&#34;&gt;Note2: gRPC基础概念 | 什么是 RPC?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180906-grpc-03-what-is-grpc/&#34;&gt;Note3: gRPC基础概念 | 什么是 gRPC?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/code/golang/20180907-grpc-04-what-is-protocol-buffers/&#34;&gt;Note4: gRPC基础概念 | 什么是 Protocol Buffers?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>🙂 So, 开始学习 gRPC 啦！！！ 学习笔记，内容包括： Note1: gRPC | Hello Wrold Note2: gRPC基础概念 | 什么是 RPC? Note3: gRPC基础概念 | 什么是 gRPC? Note4: gRPC基础概念 | 什么是 Protocol Buffers? See</description>
     </item>
     
   </channel>

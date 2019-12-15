@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-01/" />
@@ -34,7 +34,7 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-09-03T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-11-16T11:12:12&#43;00:00" />
-<meta itemprop="wordCount" content="4951">
+<meta itemprop="wordCount" content="4944">
 
 
 
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 4951 words </span>
+          <span class="more-meta"> 4944 words </span>
           <span class="more-meta"> 10 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -141,32 +141,7 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#源码文件">源码文件</a>
-<ul>
-<li><a href="#命令源码文件">命令源码文件</a>
-<ul>
-<li><a href="#知识精讲-命令源码文件接收参数">知识精讲：命令源码文件接收参数</a></li>
-</ul></li>
-<li><a href="#库源码文件">库源码文件</a>
-<ul>
-<li><a href="#思考题">思考题</a></li>
-<li><a href="#总结">总结</a></li>
-</ul></li>
-<li><a href="#测试源码文件">测试源码文件</a></li>
-</ul></li>
-<li><a href="#程序实体">程序实体</a>
-<ul>
-<li><a href="#程序实体那些事儿-一">程序实体那些事儿(一)</a></li>
-<li><a href="#程序实体那些事儿-二">程序实体那些事儿(二)</a>
-<ul>
-<li><a href="#总结-1">总结：</a></li>
-</ul></li>
-<li><a href="#程序实体那些事儿-三">程序实体那些事儿(三)</a></li>
-</ul></li>
-</ul>
-</nav>
+    
   </div>
 </div>
     <div class="post-content">
@@ -182,7 +157,6 @@
 </ul>
 
 <p><div class='align-right'></p>
-</blockquote>
 
 <p><a href="https://time.geekbang.org/column/article/13159">专栏：02 | 命令源码文件</a><br />
 <a href="https://time.geekbang.org/column/article/13176">专栏：03 | 库源码文件</a><br />
@@ -190,7 +164,9 @@
 <a href="https://time.geekbang.org/column/article/13562">专栏：05 | 程序实体的那些事儿（中）</a><br />
 <a href="https://time.geekbang.org/column/article/13601">专栏：06 | 程序实体的那些事儿（下）</a></p>
 
-<p></div></p>
+<p><div class='align-right'>
+  <!-- more --></p>
+</blockquote>
 
 <h1 id="源码文件">源码文件</h1>
 
@@ -199,7 +175,8 @@
 <h2 id="命令源码文件">命令源码文件</h2>
 
 <ul>
-<li><p>命令源码文件的用途是什么，怎样编写他？</p>
+<li>命令源码文件的用途是什么，怎样编写他？</li>
+</ul>
 
 <p>命令源码文件是程序的运行入口，是每个可独立运行的程序必须拥有的。</p>
 
@@ -215,21 +192,22 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+<pre class="chroma"><code class="language-go" data-lang="go">  <span class="kn">package</span> <span class="nx">main</span>
 
-<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+  <span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello world&#34;</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+  <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello world&#34;</span><span class="p">)</span>
+  <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
 <ul>
-<li><p>命令源码文件运行：</p></li>
+<li><p>命令源码文件运行：</p>
 
-<li><p>可以通过 <code>go run</code> 命令直接启动</p></li>
-
-<li><p>通过构建 <code>go build</code> 或 安装 <code>go install</code> 生成与其对应的可执行文件来运行，可执行文件名一般会与该命令源码文件的直接父目录同名。</p></li>
+<ul>
+<li>可以通过 <code>go run</code> 命令直接启动</li>
+<li>通过构建 <code>go build</code> 或 安装 <code>go install</code> 生成与其对应的可执行文件来运行，可执行文件名一般会与该命令源码文件的直接父目录同名。</li>
+</ul></li>
 </ul>
 
 <blockquote>
@@ -256,8 +234,7 @@
 <p>关于代码包导入的几个思考题？</p>
 
 <ul>
-<li>代码包的导入路径总会与其所在目录的相当路径一致吗？
-<br /></li>
+<li>代码包的导入路径总会与其所在目录的相当路径一致吗？</li>
 </ul>
 
 <p>答案：自己编码一试便知</p>
@@ -287,21 +264,23 @@
 </ol>
 </blockquote>
 
-<p>先来看问题1：</p>
+<p>先来看问题 1：</p>
 
 <ul>
-<li><p>import 后路径最后一级相同，不一定会冲突，分为两种情况：</p></li>
+<li><p>import 后路径最后一级相同，不一定会冲突，分为两种情况：</p>
 
-<li><p>如果文件夹下文件声明的包名相同，则肯定冲突，会报错 <code>redeclared</code></p></li>
-
-<li><p>如果文件夹下文件声明的包名不同，也不会冲突。</p></li>
+<ul>
+<li>如果文件夹下文件声明的包名相同，则肯定冲突，会报错 <code>redeclared</code></li>
+<li>如果文件夹下文件声明的包名不同，也不会冲突。</li>
+</ul></li>
 </ul>
 
-<p>再来看问题2：</p>
+<p>再来看问题 2：</p>
 
 <ul>
-<li><p>如果冲突，可能采用的解决方式：</p></li>
+<li><p>如果冲突，可能采用的解决方式：</p>
 
+<ul>
 <li><p>给包设置别名,调用的时候来区分开不同的 package, 比如:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -312,8 +291,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;flag&#34;</span>
-    <span class="nx">lflag</span> <span class="s">&#34;lib/flag&#34;</span>
+<span class="s">&#34;flag&#34;</span>
+<span class="nx">lflag</span> <span class="s">&#34;lib/flag&#34;</span>
 <span class="p">)</span></code></pre></td></tr></table>
 </div>
 </div>
@@ -447,13 +426,13 @@
 <li>首先，代码引用变量的时候总会最优先查找当前代码块中的那个变量。注意，这里的“当前代码块”仅仅是引用变量的代码所在的那个代码块，并不包含任何子代码块。</li>
 <li>其次，如果当前代码块中没有声明以此为名的变量，那么程序会沿着代码块的嵌套关系，从直接包含当前代码块的那个代码块开始（向上查找：查找过程从小作用域查到大作用域），一层一层地查找。</li>
 <li>一般情况下，程序会一直查到当前代码包代表的那层代码块。如果仍然找不到，那么 Go 语言的编译器就会报错了。</li>
+</ul></li>
 </ul>
 
 <p>小结：</p>
 
 <ul>
 <li>如果代码包导入语句写为 <code>import . xxx</code> 的形式，那么就会导致该 <code>xxx</code> 包中公开的程序实体被当作当前源码文件中的代码，视为当前代码包中的程序实体。(Note: 如果当前代码包有与 <code>xxx</code> 包重名的变量，则会报错：<code>redeclared</code>)</li>
-</ul></li>
 </ul>
 
 <p>知识扩展：</p>
@@ -498,19 +477,17 @@
 <li><p>首先，对于整数类型值、整数常量之间的类型转化，原则上只要源值在目标类型的可表示范围内就是合法的。</p>
 
 <ul>
-<li><p>需要注意：源整数类型的可表示范围较大，而目标类型的可表示范围较小的情况</p>
+<li><p>需要注意：源整数类型的可表示范围较大，而目标类型的可表示范围较小的情况</p></li>
 
-<ul>
-<li>当整数值得类型的有效范围由宽变窄是，只需要在补码形式下截掉一定数量的高位二进制数即可。</li>
-<li>当把一个浮点数类型的值转化为整数类型值时，前者的小数部分会被全部截掉。</li>
-</ul></li>
+<li><p>当整数值得类型的有效范围由宽变窄是，只需要在补码形式下截掉一定数量的高位二进制数即可。</p></li>
 
-<li><p><a href="https://chendehao.gitbooks.io/c-language-programming/05/03-%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E6%A6%82%E5%BF%B5%E5%8F%8A%E8%BD%AC%E6%8D%A2.html">关于原码、反码、补码的基本概念补充</a></p>
+<li><p>当把一个浮点数类型的值转化为整数类型值时，前者的小数部分会被全部截掉。</p></li>
 
-<ul>
+<li><p><a href="https://chendehao.gitbooks.io/c-language-programming/05/03-%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E6%A6%82%E5%BF%B5%E5%8F%8A%E8%BD%AC%E6%8D%A2.html">关于原码、反码、补码的基本概念补充</a></p></li>
+
 <li><p>数据在计算机内部是以补码的形式存储的</p></li>
 
-<li><p>数据分为有符号数和无符号数：无符号数都是正数，由十进制直接转换到二进制直接存储(其实也是该十进制的补码)即可。 有符号数用在计算机内部是以补码的形式储存的。( 正数的最高位是符号位0, 负数的最高位是符号位1。 对于正数: 反码==补码==原码。 对于负数: 反码==除符号位以外的各位取反。补码=反码+1)</p></li>
+<li><p>数据分为有符号数和无符号数：无符号数都是正数，由十进制直接转换到二进制直接存储(其实也是该十进制的补码)即可。 有符号数用在计算机内部是以补码的形式储存的。( 正数的最高位是符号位 0, 负数的最高位是符号位 1。 对于正数: 反码==补码==原码。 对于负数: 反码==除符号位以外的各位取反。补码=反码+1)</p></li>
 
 <li><p>原码：原码就是符号位加上真值的绝对值, 即用最左边第一位表示符号, 其余位表示值</p>
 <div class="highlight"><div class="chroma">
@@ -519,7 +496,7 @@
 </span><span class="lnt">2
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">原码: [+1]0000 0001 
+<pre class="chroma">原码: [+1]0000 0001
 原码：[-1]1000 0001</pre></td></tr></table>
 </div>
 </div></li>
@@ -548,12 +525,12 @@
 </div>
 </div></li>
 </ul></li>
-</ul></li>
 
 <li><p>第二，虽然直接把一个 <code>整数值</code> 转换为一个 <code>string 类型</code> 的值是可行的，但值得关注的是，被转化的整数值应该可以代表一个有效的 <code>Unicode</code> 代码点，否则转化的结果将会是 <code>&quot;�&quot;</code> (仅由高亮的问号组成的字符串值)。</p>
 
 <ul>
-<li><p>字符 <code>&quot;�&quot;</code> 的 Unicode 代码点是 U+FFFD。它是 Unicode 标准中定义的 Replacement Character，专用于替换那些未知的、不被认可的以及无法展示的字符。</p>
+<li>字符 <code>&quot;�&quot;</code> 的 Unicode 代码点是 U+FFFD。它是 Unicode 标准中定义的 Replacement Character，专用于替换那些未知的、不被认可的以及无法展示的字符。</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
@@ -578,28 +555,25 @@
 <ul>
 <li><a href="https://zh.wikipedia.org/wiki/Unicode">Wiki: Unicode</a></li>
 <li><a href="https://zh.wikipedia.org/wiki/Unicode%E5%AD%97%E7%AC%A6%E5%88%97%E8%A1%A8">Wiki: Unicode 字符列表</a></li>
-<li><a href="https://coolshell.cn/articles/1331.html">酷壳：UNICODE字符预览表</a></li>
-<li><a href="https://www.cnblogs.com/csguo/p/7401874.html">Unicode编码表/0000-0FFF</a></li>
+<li><a href="https://coolshell.cn/articles/1331.html">酷壳：UNICODE 字符预览表</a></li>
+<li><a href="https://www.cnblogs.com/csguo/p/7401874.html">Unicode 编码表/0000-0FFF</a></li>
 <li><a href="https://www.toptal.com/designers/htmlarrows/">常用符号的 Unicode 码点、HTML 代码和 HTML 实体写法</a></li>
 </ul></li>
-</ul></li>
-</ul></li>
 
-<li><p>第三，是关于 <code>string</code> 类型与各种切片类型之间的相互转化</p>
-
-<blockquote>
-<p>你先要了解的是，一个值在从 string 类型向 []byte 类型转换时代表着以 UTF-8 编码的字符串会被拆分成零散、独立的字节</p>
-</blockquote></li>
+<li><p>第三，是关于 <code>string</code> 类型与各种切片类型之间的相互转化</p></li>
 </ul>
 
 <blockquote>
+<p>你先要了解的是，一个值在从 string 类型向 []byte 类型转换时代表着以 UTF-8 编码的字符串会被拆分成零散、独立的字节</p>
+
 <p>什么是别名类型，什么是潜在类型？</p>
 </blockquote>
 
 <p>我们可以用关键字 <code>type</code> 声明自定义的各种类型。当然了，这些类型必须在 Go 语言基本类型和高级类型的范畴之内。</p>
 
 <ul>
-<li><p>别名类型</p>
+<li>别名类型</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
@@ -612,16 +586,16 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">MyString</span> <span class="p">=</span> <span class="kt">string</span>
-    
+
 <span class="c1">// Note：
-</span><span class="c1">// 
+</span><span class="c1">//
 </span><span class="c1">//  - MyString 是 string 类型的别名类型。顾名思义，别名类型与其源类型的区别恐怕只在名称上，它们是完全相同的
 </span><span class="c1">//  - 源类型与别名类型是一对概念，是两个对立的称呼。别名类型主要是为了代码重构而存在的。
 </span><span class="c1"></span><span class="o">//</span>  <span class="o">-</span> <span class="nx">Go</span> <span class="nx">语言内建的基本类型就存在两个别名类型</span><span class="err">。</span><span class="kt">byte</span> <span class="nx">是</span> <span class="nx">unit8</span> <span class="nx">的别名类型</span><span class="err">；</span><span class="kt">rune</span> <span class="nx">是</span> <span class="kt">int32</span> <span class="nx">的别名类型</span></code></pre></td></tr></table>
 </div>
-</div>
-<ul>
-<li>类型再定义</li>
+</div></li>
+
+<li><p>类型再定义</p></li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -631,10 +605,10 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">MyString</span> <span class="kt">string</span> <span class="c1">// 注意：这里没有等号
+<pre class="chroma"><code class="language-go" data-lang="go">  <span class="kd">type</span> <span class="nx">MyString</span> <span class="kt">string</span> <span class="c1">// 注意：这里没有等号
 </span><span class="c1"></span>
-<span class="c1">// Note:
-</span><span class="c1"></span><span class="o">//</span>  <span class="o">-</span> <span class="nx">MyString2</span> <span class="nx">和</span> <span class="kt">string</span> <span class="nx">这里属于两个不同的类型</span><span class="err">，</span><span class="nx">MyString2</span> <span class="nx">是一个新的类型</span><span class="err">，</span><span class="nx">不同于其他任何类型</span><span class="err">，</span><span class="nx">属于类型再定义</span><span class="err">，</span><span class="nx">而</span> <span class="kt">string</span> <span class="nx">类型就被称为</span> <span class="nx">MyString2</span> <span class="nx">类型的潜在类型</span><span class="p">(</span><span class="nx">潜在类型的含义是某个类型在本质上是哪个类型或者那个类型的集合</span><span class="p">)</span></code></pre></td></tr></table>
+  <span class="c1">// Note:
+</span><span class="c1"></span>  <span class="o">//</span>  <span class="o">-</span> <span class="nx">MyString2</span> <span class="nx">和</span> <span class="kt">string</span> <span class="nx">这里属于两个不同的类型</span><span class="err">，</span><span class="nx">MyString2</span> <span class="nx">是一个新的类型</span><span class="err">，</span><span class="nx">不同于其他任何类型</span><span class="err">，</span><span class="nx">属于类型再定义</span><span class="err">，</span><span class="nx">而</span> <span class="kt">string</span> <span class="nx">类型就被称为</span> <span class="nx">MyString2</span> <span class="nx">类型的潜在类型</span><span class="p">(</span><span class="nx">潜在类型的含义是某个类型在本质上是哪个类型或者那个类型的集合</span><span class="p">)</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>Demo 说明：</p>
@@ -675,39 +649,39 @@
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+<pre class="chroma"><code class="language-go" data-lang="go">  <span class="kn">package</span> <span class="nx">main</span>
 
-<span class="kn">import</span> <span class="s">&#34;reflect&#34;</span>
+  <span class="kn">import</span> <span class="s">&#34;reflect&#34;</span>
 
-<span class="c1">// MyString 定义为 string 类型的别名
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">MyString</span> <span class="p">=</span> <span class="kt">string</span>
+  <span class="c1">// MyString 定义为 string 类型的别名
+</span><span class="c1"></span>  <span class="kd">type</span> <span class="nx">MyString</span> <span class="p">=</span> <span class="kt">string</span>
 
-<span class="c1">// MyString2 属于类型再定义，其潜在类型为 string 类型
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">MyString2</span> <span class="kt">string</span>
+  <span class="c1">// MyString2 属于类型再定义，其潜在类型为 string 类型
+</span><span class="c1"></span>  <span class="kd">type</span> <span class="nx">MyString2</span> <span class="kt">string</span>
 
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nf">printInvalidUnicode</span><span class="p">()</span>
-    <span class="nf">testTypeAlias</span><span class="p">()</span>
-<span class="p">}</span>
+  <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nf">printInvalidUnicode</span><span class="p">()</span>
+      <span class="nf">testTypeAlias</span><span class="p">()</span>
+  <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">printInvalidUnicode</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">i</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="nb">println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
-    <span class="c1">// output:
-</span><span class="c1"></span>    <span class="c1">// �
-</span><span class="c1"></span><span class="p">}</span>
+  <span class="kd">func</span> <span class="nf">printInvalidUnicode</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">i</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="nb">println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
+      <span class="c1">// output:
+</span><span class="c1"></span>      <span class="c1">// �
+</span><span class="c1"></span>  <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">testTypeAlias</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">s</span> <span class="nx">MyString</span>
-    <span class="kd">var</span> <span class="nx">ss</span> <span class="nx">MyString2</span>
+  <span class="kd">func</span> <span class="nf">testTypeAlias</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">s</span> <span class="nx">MyString</span>
+      <span class="kd">var</span> <span class="nx">ss</span> <span class="nx">MyString2</span>
 
-    <span class="nb">println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">s</span><span class="p">).</span><span class="nf">String</span><span class="p">())</span>
-    <span class="nb">println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">ss</span><span class="p">).</span><span class="nf">String</span><span class="p">())</span>
+      <span class="nb">println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">s</span><span class="p">).</span><span class="nf">String</span><span class="p">())</span>
+      <span class="nb">println</span><span class="p">(</span><span class="nx">reflect</span><span class="p">.</span><span class="nf">TypeOf</span><span class="p">(</span><span class="nx">ss</span><span class="p">).</span><span class="nf">String</span><span class="p">())</span>
 
-    <span class="c1">// output:
-</span><span class="c1"></span>    <span class="c1">// string
-</span><span class="c1"></span>    <span class="c1">// main.MyString2
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+      <span class="c1">// output:
+</span><span class="c1"></span>      <span class="c1">// string
+</span><span class="c1"></span>      <span class="c1">// main.MyString2
+</span><span class="c1"></span>  <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
 <blockquote>
@@ -717,23 +691,25 @@
 <p>总结：</p>
 
 <ul>
-<li><p>请记住，一对不包裹任何东西的花括号，除了可以代表空的代码块之外，还可以用于表示不包含任何内容的数据结构（或者说数据类型）：</p></li>
+<li><p>请记住，一对不包裹任何东西的花括号，除了可以代表空的代码块之外，还可以用于表示不包含任何内容的数据结构（或者说数据类型）：</p>
 
-<li><p>interface{}：即不包含任何方法定义的空的接口类型</p></li>
-
-<li><p>struct{}: 即不包含任何字段和方法的，空的结构体类型</p></li>
-
-<li><p>[]string{}: 即空的切片类型</p></li>
-
-<li><p>map[int]string{}: 空的字典类型</p></li>
+<ul>
+<li>interface{}：即不包含任何方法定义的空的接口类型</li>
+<li>struct{}: 即不包含任何字段和方法的，空的结构体类型</li>
+<li>[]string{}: 即空的切片类型</li>
+<li>map[int]string{}: 空的字典类型</li>
+</ul></li>
 
 <li><p>类型断言的时候，结果最好赋值给两个变量 ——即带 ok 变量的写法：<code>v, ok := interface{}(x).(T)</code> 。另外还要保证被判断的变量是接口类型且不能为 <code>nil</code></p></li>
 
 <li><p>Go 中，不同类型之间不能相互赋值，不存在隐式的类型转化，必须显示强转</p></li>
 
 <li><p>type newType = Type 定义类型 Type 的别名 newType； type newType Type 定义新类型 newType</p></li>
-</ul></li>
 </ul>
+
+<p></div>
+</div></p>
+
     </div>
 
     <div class="post-copyright">
@@ -743,14 +719,18 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-11-16</span>
+    <span class="item-content">
+        2018-11-16
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/golang/">golang</a>
           </div>
@@ -787,6 +767,10 @@
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -796,7 +780,7 @@
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -839,7 +823,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

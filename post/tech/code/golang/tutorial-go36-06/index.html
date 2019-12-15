@@ -16,16 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="  进程、线程(系统级) goroutine(用户级) 调度器   专栏：16 | go语句及其执行规则（上）
-
-" /><meta name="keywords" content="go" />
+<meta name="author" content="zher" /><meta name="description" content="进程、线程(系统级) goroutine(用户级) 调度器 专栏：16 | go 语句及其执行规则（上） — Malcolm Lightbody @mlightbody 前导内容：进程与线程 进程：描述的就是程序的" /><meta name="keywords" content="go" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-06/" />
@@ -36,73 +34,31 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="『Go核心36讲』| 06 - go语句以及执行规则（上）" />
-<meta property="og:description" content="
-
-
-
-进程、线程(系统级)
-goroutine(用户级)
-调度器
-
-
-
-
-
-专栏：16 | go语句及其执行规则（上）
-
-" />
+<meta property="og:description" content="进程、线程(系统级) goroutine(用户级) 调度器 专栏：16 | go 语句及其执行规则（上） — Malcolm Lightbody @mlightbody 前导内容：进程与线程 进程：描述的就是程序的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-06/" />
 <meta property="article:published_time" content="2019-01-12T14:51:10&#43;08:00"/>
 <meta property="article:modified_time" content="2019-01-12T14:51:10&#43;00:00"/>
 
 <meta itemprop="name" content="『Go核心36讲』| 06 - go语句以及执行规则（上）">
-<meta itemprop="description" content="
-
-
-
-进程、线程(系统级)
-goroutine(用户级)
-调度器
-
-
-
-
-
-专栏：16 | go语句及其执行规则（上）
-
-">
+<meta itemprop="description" content="进程、线程(系统级) goroutine(用户级) 调度器 专栏：16 | go 语句及其执行规则（上） — Malcolm Lightbody @mlightbody 前导内容：进程与线程 进程：描述的就是程序的">
 
 
 <meta itemprop="datePublished" content="2019-01-12T14:51:10&#43;08:00" />
 <meta itemprop="dateModified" content="2019-01-12T14:51:10&#43;00:00" />
-<meta itemprop="wordCount" content="2187">
+<meta itemprop="wordCount" content="2184">
 
 
 
 <meta itemprop="keywords" content="golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="『Go核心36讲』| 06 - go语句以及执行规则（上）"/>
-<meta name="twitter:description" content="
-
-
-
-进程、线程(系统级)
-goroutine(用户级)
-调度器
-
-
-
-
-
-专栏：16 | go语句及其执行规则（上）
-
-"/>
+<meta name="twitter:description" content="进程、线程(系统级) goroutine(用户级) 调度器 专栏：16 | go 语句及其执行规则（上） — Malcolm Lightbody @mlightbody 前导内容：进程与线程 进程：描述的就是程序的"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -176,7 +132,7 @@ goroutine(用户级)
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 2187 words </span>
+          <span class="more-meta"> 2184 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -199,7 +155,9 @@ goroutine(用户级)
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <ul>
@@ -208,22 +166,16 @@ goroutine(用户级)
 <li>调度器</li>
 </ul>
 
-<p><div class='align-right'></p>
+<p><p align="right"> <a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：16 | go 语句及其执行规则（上）</a></p>
 </blockquote>
 
-<p><a href="https://time.geekbang.org/column/article/39841?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%3D">专栏：16 | go语句及其执行规则（上）</a></p>
+<!-- more -->
 
-<p></div></p>
+<p><p align="center">
+<img src="https://images.unsplash.com/photo-1547139371-4b4a9ef45205?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="" /></p>
 
-<div class='align-center'>
-  
-
-![](https://images.unsplash.com/photo-1547139371-4b4a9ef45205?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80)
-
-— [Malcolm Lightbody @mlightbody](https://unsplash.com/photos/5NTu77sRSbQ)
-
-
-</div>
+<p><p align="center">
+— <a href="https://unsplash.com/photos/5NTu77sRSbQ">Malcolm Lightbody @mlightbody</a></p>
 
 <h1 id="前导内容-进程与线程">前导内容：进程与线程</h1>
 
@@ -330,8 +282,9 @@ goroutine(用户级)
 </blockquote>
 
 <ul>
-<li><a href="https://time.geekbang.org/column/article/39844?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%253D">16 | go语句及其执行规则（上）</a></li>
+<li><a href="https://time.geekbang.org/column/article/39844?code=ti58hl0Fap2y5S-OE0G-O-2CiCtjLT94OxcNaBDzI6k%253D">16 | go 语句及其执行规则（上）</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -341,14 +294,18 @@ goroutine(用户级)
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2019-01-12</span>
+    <span class="item-content">
+        2019-01-12
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/golang/">golang</a>
           </div>
@@ -385,6 +342,10 @@ goroutine(用户级)
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -394,7 +355,7 @@ goroutine(用户级)
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -437,7 +398,7 @@ goroutine(用户级)
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

@@ -17,11 +17,7 @@
       <pubDate>Sun, 21 Apr 2019 21:05:02 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/tools/useful-tools/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>个人版工具集，涉及开发、日常办公，效率提升，浏览器插件等等等 Windows System tools 垃圾清理：Jetclean 截图工具：Pickpick 画图工具：Draw.I</description>
     </item>
     
     <item>
@@ -30,7 +26,7 @@
       <pubDate>Sun, 02 Sep 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/common-cmd/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>系统管理 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 # 查看系统内核版本号及系统名称 $ uname -a # 找出僵尸进程 $ ps aux | awk &amp;#39;{ print $8 &amp;#34; &amp;#34; $2 &amp;#34; &amp;#34; $11}&amp;#39; | grep</description>
     </item>
     
     <item>
@@ -39,7 +35,7 @@
       <pubDate>Tue, 29 May 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20180529-tools-htop/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>top top 命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用情况，类似win的任务管理器。 top 是一个动态显示过程，即可以通过</description>
     </item>
     
     <item>
@@ -48,7 +44,7 @@
       <pubDate>Fri, 11 May 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20180511-tools-logrotate/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>日志实在是太有用了，它记录了程序运行时各种信息。通过日志可以分析用户行为，记录运行轨迹，查找程序问题。可惜磁盘的空间是有限的，就像飞机里的黑</description>
     </item>
     
     <item>
@@ -57,7 +53,7 @@
       <pubDate>Fri, 15 Sep 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170915-linux.fedora-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Chrome http://www.itzgeek.com/how-tos/linux/centos-how-tos/how-to-run-google-chrome-as-root-fedora-16-centos-6-rhel-6.html Download &amp;amp; Install Entry /usr/share/applications Select chrome icon Right key Add -no-sandbox to startup command old: /usr/bin/google-chrome-stable %U new: /usr/bin/google-chrome-stable %U -no-sandbox Finished &amp;amp; Start Chrome. OK! Enjoy it. Go、Golang Download &amp;amp; Install Open In Termianl http://www.fedora.cc/fedora-zhongduan-1.html yum -y install nautilus-open-terminal reboot Install Lantern Linux系统提供一个软件ali</description>
     </item>
     
     <item>
@@ -66,7 +62,7 @@
       <pubDate>Mon, 26 Jun 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170626-linux.alpine-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>简介 https://alpinelinux.org/ 包管理 apk 镜像源配置 官方镜像源：http://rsync.alpinelinux.org/alpine/MIRRORS.txt MIRRO</description>
     </item>
     
     <item>
@@ -75,7 +71,7 @@
       <pubDate>Thu, 25 May 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170525-linux.centos-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>更新系统 备份系统镜像源 $ cd /etc/yum.repos.d $ cp CentOS-Base.repo CentOS-Base.repo.bak $ cp CentOS-Epel.repo CentOS-Epel.repo.bak 下载163的镜像源 $ wget http://mirrors.aliyun.com/repo/Centos-7.repo&amp;lsquo; $ mv Centos-7.repo CentOS-Base.repo 生成缓存 $ yum makecache 更新系统 $ yum upgrade 配置静态IP Centos-7·学习之</description>
     </item>
     
     <item>
@@ -84,7 +80,7 @@
       <pubDate>Mon, 15 May 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170515-bash-basic-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>一个工具·bash-completion 选项/参数补齐 1 $ apt install bash-completion Bash中的常用命令 type 1 # 查询指令是否为bash shell的内置指令(找指令</description>
     </item>
     
     <item>
@@ -93,7 +89,7 @@
       <pubDate>Thu, 11 May 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/os/linux/20170511-systemd-basic/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>由来 历史上，Linux 的启动一直采用init进程。下面的命令用来启动服务。 1 2 3 $ sudo /etc/init.d/apache2 start # 或者 $ service apache2 start 这种方法有两个缺点： 一是启动时间长。i</description>
     </item>
     
   </channel>

@@ -16,15 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content=" Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。
- Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语  " /><meta name="keywords" content="ci/cd, drone, docker" />
+<meta name="author" content="zher" /><meta name="description" content="Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。 Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语 转自：GeekPipe-基于Drone的持续集成实践之" /><meta name="keywords" content="ci/cd, drone, docker" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/" />
@@ -35,39 +34,19 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="DevOps | Drone 的基本概念" />
-<meta property="og:description" content="
-
-
-Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。
-
-
-Drone 的核心概念
-Drone 的运作原理(架构)
-Drone 的基本术语
-
-" />
+<meta property="og:description" content="Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。 Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语 转自：GeekPipe-基于Drone的持续集成实践之" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/" />
 <meta property="article:published_time" content="2018-09-25T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2018-11-02T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="DevOps | Drone 的基本概念">
-<meta itemprop="description" content="
-
-
-Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。
-
-
-Drone 的核心概念
-Drone 的运作原理(架构)
-Drone 的基本术语
-
-">
+<meta itemprop="description" content="Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。 Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语 转自：GeekPipe-基于Drone的持续集成实践之">
 
 
 <meta itemprop="datePublished" content="2018-09-25T00:00:00&#43;00:00" />
@@ -79,17 +58,7 @@ Drone 的基本术语
 <meta itemprop="keywords" content="devops,cicd,docker," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DevOps | Drone 的基本概念"/>
-<meta name="twitter:description" content="
-
-
-Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。
-
-
-Drone 的核心概念
-Drone 的运作原理(架构)
-Drone 的基本术语
-
-"/>
+<meta name="twitter:description" content="Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。 Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语 转自：GeekPipe-基于Drone的持续集成实践之"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -228,7 +197,9 @@ Drone 的基本术语
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <p><code>Drone</code> 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。</p>
@@ -238,9 +209,9 @@ Drone 的基本术语
 <li>Drone 的运作原理(架构)</li>
 <li>Drone 的基本术语</li>
 </ul>
-</blockquote>
 
-<blockquote>
+<!-- more -->
+
 <ul>
 <li><a href="https://developer.finogeeks.com/topic/11/geekpipe-%E5%9F%BA%E4%BA%8Edrone%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%AE%9E%E8%B7%B5%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E7%AF%87">转自：GeekPipe-基于Drone的持续集成实践之基本概念篇</a></li>
 </ul>
@@ -1319,6 +1290,7 @@ drone 为使用者预设的环境变量，详细变量列表请参考: <a href="
 <ul>
 <li><a href="https://golangcaff.com/topics/111/drone-deployment-of-the-go-language-project-with-kubernetes">Drone 搭配 Kubernetes 部署 Go 語言項目</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -1328,14 +1300,18 @@ drone 为使用者预设的环境变量，详细变量列表请参考: <a href="
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-11-02</span>
+    <span class="item-content">
+        2018-11-02
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/devops/">devops</a>
           <a href="/tags/cicd/">cicd</a>
@@ -1374,6 +1350,10 @@ drone 为使用者预设的环境变量，详细变量列表请参考: <a href="
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -1383,7 +1363,7 @@ drone 为使用者预设的环境变量，详细变量列表请参考: <a href="
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -1426,7 +1406,7 @@ drone 为使用者预设的环境变量，详细变量列表请参考: <a href="
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

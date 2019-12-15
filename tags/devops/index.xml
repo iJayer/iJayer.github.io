@@ -17,18 +17,7 @@
       <pubDate>Mon, 29 Oct 2018 16:58:16 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20181029-cicd-03-drone-03-practices2/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/cicd/20180925-drone-01-basic/&#34;&gt;Drone 的基本概念&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/cicd/20180926-cicd-03-practices/&#34;&gt;Drone 服务部署&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/docker/docker-compose-note/&#34;&gt;Docker-Compose 基础&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://iJayer.github.io/post/tech/devops/docker/registry-and-webui/&#34;&gt;Docker Registry 服务部署&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>前面完成了基础设施搭建和测试，接下来就该将 Drone CI/CD 应用到项目中了。 这里涉及到的前几篇内容有： Drone 的基本概念 Drone 服务部署 Docker-Compose 基础 Docker Registry 服务部署 简介 这里以一</description>
     </item>
     
     <item>
@@ -37,9 +26,7 @@
       <pubDate>Sat, 29 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180929-cicd-05-create-oauth-app-on-bitbucket-server/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;How to add an OAuth consumer(Application Links) to Bitbucket Server ?&lt;/p&gt;</description>
+      <description>How to add an OAuth consumer(Application Links) to Bitbucket Server ? Create Application Links Step1: 打开 Create Application Links 页面 =&amp;gt; Continue Step2: 创建 Application Link =&amp;gt; Continue Step3: 填写表单 1 2 3 4 5 6 7 8 Application Name: Drone Application Type: 默认(Generic Application) Consumer Key: &amp;lt;_your_key_&amp;gt; Shared Secret: &amp;lt;_your_secret_&amp;gt; Request Token URL: http://&amp;lt;_domain_&amp;gt;:8000/plugins/servlet/oauth/request-token</description>
     </item>
     
     <item>
@@ -48,13 +35,7 @@
       <pubDate>Thu, 27 Sep 2018 22:09:25 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180927-cicd-04-dockerizing-bitbucketserver/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;基于 Docker 部署 Bitbucket Server&lt;/li&gt;
-&lt;li&gt;基于 Docker 部署 Jira&lt;/li&gt;
-&lt;li&gt;基于 Docker 部署 Confluence&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>基于 Docker 部署 Bitbucket Server 基于 Docker 部署 Jira 基于 Docker 部署 Confluence Dockerizing Bitbucket Server 部署 Bitbucket Server 需要两个 Docker 镜像：Bitbucket-Server &amp;amp; Postgre-DB 1 2 $ docker pull atlassian/bitbucket-server:5.10.2 $ docker pull postgres:9.6 在宿主机创建 Bitbucket Server</description>
     </item>
     
     <item>
@@ -63,16 +44,7 @@
       <pubDate>Wed, 26 Sep 2018 23:40:06 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180926-cicd-03-drone-02-practices/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;怎么用 Docker 搭建 Bitbucket Server&lt;/li&gt;
-&lt;li&gt;怎么启动 Drone Service&lt;/li&gt;
-&lt;li&gt;实践过程中踩过那些坑&lt;/li&gt;
-&lt;li&gt;&amp;hellip;&amp;hellip;&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>经过几天的摸索之后，开始动手搭建一下 CI/CD 的环境吧！实践内容涉及： 怎么用 Docker 搭建 Bitbucket Server 怎么启动 Drone Service 实践过程中踩过那些坑 &amp;hellip;&amp;hellip; 说明 开始之前先了解一下实践环</description>
     </item>
     
     <item>
@@ -81,17 +53,7 @@
       <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180925-cicd-03-drone-01-basic/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;Drone&lt;/code&gt; 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Drone 的核心概念&lt;/li&gt;
-&lt;li&gt;Drone 的运作原理(架构)&lt;/li&gt;
-&lt;li&gt;Drone 的基本术语&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;</description>
+      <description>Drone 一个原生支持 Docker 的开源 CI 系统，基于 Go 编写。 Drone 的核心概念 Drone 的运作原理(架构) Drone 的基本术语 转自：GeekPipe-基于Drone的持续集成实践之</description>
     </item>
     
     <item>
@@ -100,11 +62,7 @@
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180919-cicd-02-search/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;了解当下主流的 CI/CD 方案&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>了解当下主流的 CI/CD 方案 开始之前 最近，项目节奏放缓，有了一定的空闲时间。所以呢，很早之前就想把 CI/CD 集成到现有项目中去的想法终于可以尝试一下了，同时</description>
     </item>
     
     <item>
@@ -113,13 +71,7 @@
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/cicd/20180919-cicd-01-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;持续集成&lt;/li&gt;
-&lt;li&gt;持续交付&lt;/li&gt;
-&lt;li&gt;持续部署&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>持续集成 持续交付 持续部署 [转] 阮一峰：持续集成是什么？ 1. 概念 1.1. 持续集成 持续集成(CI, Continuous Intergation): 指频繁的，一天多次将代码集成到主干。 它的好处主要有</description>
     </item>
     
     <item>
@@ -128,7 +80,7 @@
       <pubDate>Thu, 30 Aug 2018 18:57:08 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/20180830-persistent-monitoring-platform-data/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>背景说明 通常我们会采用本地持久存储卷来保存一些 Docker 容器服务的配置与数据，这样做的好处是配置与数据可以在容器主机上比较方便的进行修改、备份，因为</description>
     </item>
     
     <item>
@@ -137,11 +89,7 @@
       <pubDate>Sun, 05 Aug 2018 17:32:41 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/grafana-03-practice/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下： 添加数据源(InfluxDB) 添加InfluxDB数据源相关的配置: Name: 添</description>
     </item>
     
     <item>
@@ -150,7 +98,7 @@
       <pubDate>Sun, 29 Jul 2018 18:57:08 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/20180729-deploy-a-monitor-service-based-on-with-cadvisor-grafana-influxdb/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Docker 监控系统说明 系统说明 1 2 3 CentOS: 7.4 | X86_64 Docker: 18.06 | CE Monitor: 基于 docker 容器搭建监控系统 Docker 监控组件 1 2 3 cAdvisor: 用于数据采集, 对应镜像：google/cadvisor</description>
     </item>
     
     <item>
@@ -159,11 +107,7 @@
       <pubDate>Sun, 22 Jul 2018 17:22:38 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/grafana-02-config/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;每个服务程序，基本上都会指定一个或多个配置文件，用来定制其所要启用的功能，Grafana 也不例外，那么 Grafana 的配置文件有哪些，以及提供了什么样的配置选项呢？&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>每个服务程序，基本上都会指定一个或多个配置文件，用来定制其所要启用的功能，Grafana 也不例外，那么 Grafana 的配置文件有哪些，以及提供了什么样的</description>
     </item>
     
     <item>
@@ -172,13 +116,7 @@
       <pubDate>Sun, 22 Jul 2018 17:02:38 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/grafana-01-basic-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Grafana 能干什么？&lt;/li&gt;
-&lt;li&gt;Grafana 有什么特性？&lt;/li&gt;
-&lt;li&gt;用好 Grafana, 需要了解什么，即-基本概念&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>Grafana 能干什么？ Grafana 有什么特性？ 用好 Grafana, 需要了解什么，即-基本概念 Grafana Grafana 是一款采用 Go 语言编写的开源应用，主要用于大规模指标数据的可视化展示。有着非常漂</description>
     </item>
     
     <item>
@@ -187,11 +125,7 @@
       <pubDate>Sat, 21 Jul 2018 16:37:21 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/cadvisor-02-measurements/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;cAdvisor 作为监控系统的数据采集模块，那么可以采集到那些指标参数呢？&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>cAdvisor 作为监控系统的数据采集模块，那么可以采集到那些指标参数呢？ Measurements 打开 InfluxDB Web 管理界面，选择数据库：cadvisor, 执行命令： 1 Query: SHOW MEASUREMENTS 即可看到 cAdvisor 采</description>
     </item>
     
     <item>
@@ -200,11 +134,7 @@
       <pubDate>Sat, 21 Jul 2018 16:36:59 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/cadvisor-01-basic-concepts/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;有关 cAdvisor 的基础知识、安装和使用方法介绍&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+      <description>有关 cAdvisor 的基础知识、安装和使用方法介绍 1. cAdvisor cAdvisor 是 Google 用来让容器用户了解其所运行容器的资源使用和性能特征的工具。cAdvisor 是一个用来收集、聚合</description>
     </item>
     
     <item>
@@ -213,7 +143,7 @@
       <pubDate>Wed, 18 Jul 2018 18:57:08 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/devops/monitor/about-monitor-system/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>1. 关于监控 监控就是要把一切尽在掌控 1.1. 监控的目的 通过监控可以： 实时掌握系统的运行状态 减少宕机时间 对故障的提前预警 历史状态的回放、故障排除、分析</description>
     </item>
     
   </channel>

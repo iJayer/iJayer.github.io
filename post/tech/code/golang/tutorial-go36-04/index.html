@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="  性能分析，有哪些工具可以用？ 概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？ 每一种概要信息代表了什么，包含什么样的内容？ runtime/pprof.Lookup 函数的正确调用方式是什么？ 通过这些怎么检查程序瓶颈？ 怎么为基于 HTTP 协议的网络服务添加性能分析接口？ runtime/trace 代码包的功用是什么?  [专栏：48 &amp; 49 | 程序性能分析基础](https://time.geekbang.org/column/article/69812)  " /><meta name="keywords" content="go, container" />
+<meta name="author" content="zher" /><meta name="description" content="性能分析，有哪些工具可以用？ 概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度" /><meta name="keywords" content="go, container" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-04/" />
@@ -34,79 +34,31 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="『Go核心36讲』| 04 - 程序性能分析基础" />
-<meta property="og:description" content="
-
-
-
-性能分析，有哪些工具可以用？
-概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？
-每一种概要信息代表了什么，包含什么样的内容？
-runtime/pprof.Lookup 函数的正确调用方式是什么？
-通过这些怎么检查程序瓶颈？
-怎么为基于 HTTP 协议的网络服务添加性能分析接口？
-runtime/trace 代码包的功用是什么?
-
-
-
-   [专栏：48 & 49 | 程序性能分析基础](https://time.geekbang.org/column/article/69812) 
-
-" />
+<meta property="og:description" content="性能分析，有哪些工具可以用？ 概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/tutorial-go36-04/" />
 <meta property="article:published_time" content="2018-12-18T21:45:30&#43;08:00"/>
 <meta property="article:modified_time" content="2019-01-07T12:45:30&#43;00:00"/>
 
 <meta itemprop="name" content="『Go核心36讲』| 04 - 程序性能分析基础">
-<meta itemprop="description" content="
-
-
-
-性能分析，有哪些工具可以用？
-概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？
-每一种概要信息代表了什么，包含什么样的内容？
-runtime/pprof.Lookup 函数的正确调用方式是什么？
-通过这些怎么检查程序瓶颈？
-怎么为基于 HTTP 协议的网络服务添加性能分析接口？
-runtime/trace 代码包的功用是什么?
-
-
-
-   [专栏：48 & 49 | 程序性能分析基础](https://time.geekbang.org/column/article/69812) 
-
-">
+<meta itemprop="description" content="性能分析，有哪些工具可以用？ 概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度">
 
 
 <meta itemprop="datePublished" content="2018-12-18T21:45:30&#43;08:00" />
 <meta itemprop="dateModified" content="2019-01-07T12:45:30&#43;00:00" />
-<meta itemprop="wordCount" content="4930">
+<meta itemprop="wordCount" content="4855">
 
 
 
 <meta itemprop="keywords" content="golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="『Go核心36讲』| 04 - 程序性能分析基础"/>
-<meta name="twitter:description" content="
-
-
-
-性能分析，有哪些工具可以用？
-概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度？
-每一种概要信息代表了什么，包含什么样的内容？
-runtime/pprof.Lookup 函数的正确调用方式是什么？
-通过这些怎么检查程序瓶颈？
-怎么为基于 HTTP 协议的网络服务添加性能分析接口？
-runtime/trace 代码包的功用是什么?
-
-
-
-   [专栏：48 & 49 | 程序性能分析基础](https://time.geekbang.org/column/article/69812) 
-
-"/>
+<meta name="twitter:description" content="性能分析，有哪些工具可以用？ 概要文件的采样、收集和输出是怎样的，包括怎样启动和停止采样、怎样设定采样频率以及怎样控制输出内容的格式和详细程度"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -180,7 +132,7 @@ runtime/trace 代码包的功用是什么?
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 4930 words </span>
+          <span class="more-meta"> 4855 words </span>
           <span class="more-meta"> 10 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -219,7 +171,9 @@ runtime/trace 代码包的功用是什么?
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <ul>
@@ -232,19 +186,16 @@ runtime/trace 代码包的功用是什么?
 <li><code>runtime/trace</code> 代码包的功用是什么?</li>
 </ul>
 
-<div class='align-right'>
-   [专栏：48 & 49 | 程序性能分析基础](https://time.geekbang.org/column/article/69812) 
-</div>
+<p><p align="right"> <a href="https://time.geekbang.org/column/article/69812">专栏：48 &amp; 49 | 程序性能分析基础</a></p>
 </blockquote>
 
-<div class='align-center'>
-  
+<!-- more -->
 
-![](https://images.unsplash.com/photo-1520004434532-668416a08753?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80)
+<p><p align="center">
+<img src="https://images.unsplash.com/photo-1520004434532-668416a08753?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80" alt="" /></p>
 
-— [Kelly Sikkema](https://unsplash.com/@kellysikkema)
-
-</div>
+<p><p align="center">
+— <a href="https://unsplash.com/@kellysikkema">Kelly Sikkema</a></p>
 
 <h1 id="go-程序性能分析基础">Go 程序性能分析基础</h1>
 
@@ -311,7 +262,7 @@ Type: cpu
 Time: Nov <span class="m">9</span>, <span class="m">2018</span> at <span class="m">4</span>:31pm <span class="o">(</span>CST<span class="o">)</span>
 Duration: <span class="m">7</span>.96s, Total <span class="nv">samples</span> <span class="o">=</span> <span class="m">6</span>.88s <span class="o">(</span><span class="m">86</span>.38%<span class="o">)</span>
 Entering interactive mode <span class="o">(</span><span class="nb">type</span> <span class="s2">&#34;help&#34;</span> <span class="k">for</span> commands, <span class="s2">&#34;o&#34;</span> <span class="k">for</span> options<span class="o">)</span>
-<span class="o">(</span>pprof<span class="o">)</span> </code></pre></td></tr></table>
+<span class="o">(</span>pprof<span class="o">)</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>关于这个工具的具体用法：在交互式界面输入 <code>help</code> + <kbd>Enter</kbd></p>
@@ -349,20 +300,22 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 <p>StartCPUProfile 函数设定的 CPU 概要信息采样频率，相对于现代的 CPU 主频来说是非常低的。这主要有两个方面的原因：</p>
 
 <ul>
-<li><p>其一：</p>
+<li>其一：</li>
+</ul>
 
-<p>过高的采样频率会对 Go 程序的运行效率造成很明显的负面影响。因此，<code>runtime</code> 包中 <code>SetCPUProfileRate</code> 函数在被调用的时候，会保证采样频率不超过 1MHz(兆赫)，也就是说它只允许美 1 微秒最多采样一次。<code>StartCPUProfile</code> 函数正是通过调用这个函数来设定 CPU 概要信息的采样频率的。</p></li>
+<p>过高的采样频率会对 Go 程序的运行效率造成很明显的负面影响。因此，<code>runtime</code> 包中 <code>SetCPUProfileRate</code> 函数在被调用的时候，会保证采样频率不超过 1MHz(兆赫)，也就是说它只允许美 1 微秒最多采样一次。<code>StartCPUProfile</code> 函数正是通过调用这个函数来设定 CPU 概要信息的采样频率的。</p>
 
-<li><p>其二</p>
+<ul>
+<li>其二</li>
+</ul>
 
 <p>经过大量的实验，Go 语言团队发现 100 Hz 是一个比较合适的设定。因为这样做既可以得到足够多、足够有用的概要信息，又不至于让程序的运行出现停滞。另外，操作系统对高频采样的处理能力也是有限的，一般情况下，超过 500 Hz 就很可能得不到及时的响应了。</p>
 
 <p>在 StartCPUProfile 函数执行后，一个新启用的 goroutine 将会负责执行 CPU 概要信息的收集和输出，直到 <code>runtime/pprof</code> 包中的 StopCPUProfile 函数被成功调用。</p>
 
-<p>StopCPUProfile 函数也会调用 runtime.SetCPUProfileRate 函数，并把参数值(也就是采样频率) 设为0。这会让针对 CPU 概要信息的采样工作停止。同时，它也会给负责收集 CPU 概要信息的代码一个 <code>信号</code>，以告知收集工作也需要停止了。</p>
+<p>StopCPUProfile 函数也会调用 runtime.SetCPUProfileRate 函数，并把参数值(也就是采样频率) 设为 0。这会让针对 CPU 概要信息的采样工作停止。同时，它也会给负责收集 CPU 概要信息的代码一个 <code>信号</code>，以告知收集工作也需要停止了。</p>
 
-<p>在接收到这样的<code>信号</code>之后，那部分程序将会把这段时间内收集到的所有 CPU 概要信息，全部写入到我们在调用 StartCPUProfile 函数的时候指定的写入器中。只有在上述操作全部完成之后，StopCPUProfile 函数才会返回。</p></li>
-</ul>
+<p>在接收到这样的<code>信号</code>之后，那部分程序将会把这段时间内收集到的所有 CPU 概要信息，全部写入到我们在调用 StartCPUProfile 函数的时候指定的写入器中。只有在上述操作全部完成之后，StopCPUProfile 函数才会返回。</p>
 
 <h3 id="怎样设定内存概要信息的采样频率">怎样设定内存概要信息的采样频率？</h3>
 
@@ -384,7 +337,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 
 <p>我们调用 <code>runtime</code> 包中的 <code>SetBlockProfileRate</code> 函数，即可对阻塞概要信息的采样频率进行设定。该函数有一个名叫 rate 的参数，它是 int 类型的。</p>
 
-<p>这个参数的含义是，只要发现一个阻塞时间的持续时间达到了多少个纳秒，就可以对其进行采样。如果这个参数的值小于或等于0，那么久意味着 Go 语言运行时系统将会完全停止对阻塞概要信息的采样。</p>
+<p>这个参数的含义是，只要发现一个阻塞时间的持续时间达到了多少个纳秒，就可以对其进行采样。如果这个参数的值小于或等于 0，那么久意味着 Go 语言运行时系统将会完全停止对阻塞概要信息的采样。</p>
 
 <p>在 <code>runtime</code> 包中，还有一个名叫 <code>blockprofilerate</code> 的包级私有变量，它是 <code>uint64</code> 类型的。这个变量的含义是，只要发现一个阻塞事件的持续时间跨越了多少个 CPU 时钟周期，就可以对其进行采样。 (与 rate 参数很相似，其区别仅仅在于单位不同)</p>
 
@@ -399,7 +352,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 
 <li><p>当 debug 为 1 时，相应的包名、函数名、源码文件路径、代码行号等信息就都会作为注释被加入进去。另外，debug 为 0 时的概要信息，会经由 protocol buffers 转换为字节流。而在 debug 为 1 的时候，WriteTo 方法输出的这些概要信息就是我们可以读懂的普通文本了。</p></li>
 
-<li><p>除此之外，debug的值也可以是2。这时，被输出的概要信息也会是普通的文本，并且通常会包含更多的细节。至于这些细节都包含哪些内容，那就要看我们调用 <code>runtime/pprof.Lookup</code> 函数的时候传入的是什么样的参数值了。</p></li>
+<li><p>除此之外，debug 的值也可以是 2。这时，被输出的概要信息也会是普通的文本，并且通常会包含更多的细节。至于这些细节都包含哪些内容，那就要看我们调用 <code>runtime/pprof.Lookup</code> 函数的时候传入的是什么样的参数值了。</p></li>
 </ul>
 
 <h3 id="runtime-pprof-lookup-函数的正确调用方式是什么"><code>runtime/pprof.Lookup</code> 函数的正确调用方式是什么？</h3>
@@ -412,7 +365,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 <li><p>当我们把 <code>goroutine</code> 传入 <code>Lookup</code> 函数的时候，该函数会利用相应的方法，收集到当前正在使用的所有 goroutine 的堆栈跟踪信息。注意，这样的收集会引起 Go 语言调度器的短暂停顿。</p>
 
 <ul>
-<li>当调用该函数返回的 <code>Profile</code> 值得 <code>WriteTo</code> 方法时，如果参数 <code>debug</code> 的值大于或等于 2，那么该方法就会输出所有 <code>goroutine</code> 的堆栈跟踪信息。这些信息可能会非常多。如果它们占用的空间超过了 64 MB （也就是64兆字节），那么相应的方法就会将超出的部分截掉。</li>
+<li>当调用该函数返回的 <code>Profile</code> 值得 <code>WriteTo</code> 方法时，如果参数 <code>debug</code> 的值大于或等于 2，那么该方法就会输出所有 <code>goroutine</code> 的堆栈跟踪信息。这些信息可能会非常多。如果它们占用的空间超过了 64 MB （也就是 64 兆字节），那么相应的方法就会将超出的部分截掉。</li>
 </ul></li>
 
 <li><p>如果 <code>Lookup</code> 函数接到的参数值是 <code>heap</code>，那么它就会收集与堆内存的分配和释放有关的采样信息。这实际上就是我们在前面讨论过的内存概要信息。在我们传入 &ldquo;allocs&rdquo; 的时候，后续的操作会与之非常的相似。</p>
@@ -420,17 +373,15 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 <ul>
 <li><p>在这两种情况下，<code>Lookup</code> 函数返回的 <code>Profile</code> 函数值也会及其相像。只不过，在这两种 Profile 值得 WriteTo 方法被调用时，他们输出的概要信息会有细微的差别，而且这仅仅体现在参数 debug 等于 0 的时候</p></li>
 
-<li><p><code>heap</code> 会使得被输出的内存概要信息默认以 <code>在用空间(inuse_space)</code> 的视角呈现，而 <code>allocs</code> 对应的默认视角则是 <code>已分配空间(alloc_space)</code></p>
+<li><p><code>heap</code> 会使得被输出的内存概要信息默认以 <code>在用空间(inuse_space)</code> 的视角呈现，而 <code>allocs</code> 对应的默认视角则是 <code>已分配空间(alloc_space)</code></p></li>
 
-<ul>
-<li><code>在用空间(inuse_space)</code>：指已经分配但还未被释放的内存空间。go tool pprof 工具并不会去理会与已释放空间有关的那部分信息。而在“已分配空间”的视角下，所有的内存分配信息都会被展现出来，无论这些内存空间在采样时是否已被释放。</li>
-</ul></li>
+<li><p><code>在用空间(inuse_space)</code>：指已经分配但还未被释放的内存空间。go tool pprof 工具并不会去理会与已释放空间有关的那部分信息。而在“已分配空间”的视角下，所有的内存分配信息都会被展现出来，无论这些内存空间在采样时是否已被释放。</p></li>
 </ul></li>
 
-<li><p>参数值 <code>threadcreate</code> 会使Lookup函数去收集一些堆栈跟踪信息。这些堆栈跟踪信息中的每一个都会描绘出一个代码调用链，这些调用链上的代码都导致新的操作系统线程产生。这样的Profile值的输出规格也只有两种，取决于我们传给其WriteTo方法的参数值是否大于0。</p>
+<li><p>参数值 <code>threadcreate</code> 会使 Lookup 函数去收集一些堆栈跟踪信息。这些堆栈跟踪信息中的每一个都会描绘出一个代码调用链，这些调用链上的代码都导致新的操作系统线程产生。这样的 Profile 值的输出规格也只有两种，取决于我们传给其 WriteTo 方法的参数值是否大于 0。</p>
 
 <ul>
-<li>再说 <code>block</code> 和 <code>mutex</code>。<code>block</code> 代表的是，因争用同步原语而被阻塞的那些代码的堆栈跟踪信息。<code>mutex</code> 代表的是，曾经作为同步原语持有者的那些代码，它们的堆栈跟踪信息。它们的输出规格也都只有两种，取决于debug是否大于0。</li>
+<li>再说 <code>block</code> 和 <code>mutex</code>。<code>block</code> 代表的是，因争用同步原语而被阻塞的那些代码的堆栈跟踪信息。<code>mutex</code> 代表的是，曾经作为同步原语持有者的那些代码，它们的堆栈跟踪信息。它们的输出规格也都只有两种，取决于 debug 是否大于 0。</li>
 </ul></li>
 </ul>
 
@@ -554,9 +505,9 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 
 <ul>
 <li><a href="https://developers.google.com/protocol-buffers/?hl=zh-CN">Protocol Buffers Docs</a></li>
-<li><a href="https://time.geekbang.org/column/article/69812">Go语言核心36讲 | 48 | 程序性能分析基础（上）</a>
-<br /></li>
+<li><a href="https://time.geekbang.org/column/article/69812">Go 语言核心 36 讲 | 48 | 程序性能分析基础（上）</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -566,14 +517,18 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2019-01-07</span>
+    <span class="item-content">
+        2019-01-07
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/golang/">golang</a>
           </div>
@@ -610,6 +565,10 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -619,7 +578,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -662,7 +621,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

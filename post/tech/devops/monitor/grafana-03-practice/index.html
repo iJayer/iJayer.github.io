@@ -16,15 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content=" 要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：
-" /><meta name="keywords" content="monitor, grafana" />
+<meta name="author" content="zher" /><meta name="description" content="要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下： 添加数据源(InfluxDB) 添加InfluxDB数据源相关的配置: Name: 添" /><meta name="keywords" content="monitor, grafana" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/devops/monitor/grafana-03-practice/" />
@@ -35,27 +34,19 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Monitor | Grafana 使用" />
-<meta property="og:description" content="
-
-
-要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：
-" />
+<meta property="og:description" content="要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下： 添加数据源(InfluxDB) 添加InfluxDB数据源相关的配置: Name: 添" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/devops/monitor/grafana-03-practice/" />
 <meta property="article:published_time" content="2018-08-05T17:32:41&#43;00:00"/>
 <meta property="article:modified_time" content="2018-08-05T17:32:41&#43;00:00"/>
 
 <meta itemprop="name" content="Monitor | Grafana 使用">
-<meta itemprop="description" content="
-
-
-要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：
-">
+<meta itemprop="description" content="要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下： 添加数据源(InfluxDB) 添加InfluxDB数据源相关的配置: Name: 添">
 
 
 <meta itemprop="datePublished" content="2018-08-05T17:32:41&#43;00:00" />
@@ -67,11 +58,7 @@
 <meta itemprop="keywords" content="devops," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Monitor | Grafana 使用"/>
-<meta name="twitter:description" content="
-
-
-要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：
-"/>
+<meta name="twitter:description" content="要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下： 添加数据源(InfluxDB) 添加InfluxDB数据源相关的配置: Name: 添"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -184,11 +171,15 @@
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <p>要让 Grafana 展示我们采集到的数据，就需要对其进行一些列配置，配置说明如下：</p>
 </blockquote>
+
+<!-- more -->
 
 <h1 id="添加数据源-influxdb">添加数据源(InfluxDB)</h1>
 
@@ -376,6 +367,7 @@ upper_90    去除最高的10%的数据后的最高值</code></pre></td></tr></t
 <li><a href="https://frank6866.gitbooks.io/monitor/content/chapters/basic/monitor-basic-grafana-tutorial.html">Grafana Tutorial</a></li>
 <li><a href="https://developer.qiniu.com/insight/manual/4693/grafana">七牛云：对接 Grafana</a></li>
 </ul>
+
     </div>
 
     <div class="post-copyright">
@@ -385,14 +377,18 @@ upper_90    去除最高的10%的数据后的最高值</code></pre></td></tr></t
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-08-05</span>
+    <span class="item-content">
+        2018-08-05
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/devops/">devops</a>
           </div>
@@ -429,6 +425,10 @@ upper_90    去除最高的10%的数据后的最高值</code></pre></td></tr></t
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -438,7 +438,7 @@ upper_90    去除最高的10%的数据后的最高值</code></pre></td></tr></t
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -481,7 +481,7 @@ upper_90    去除最高的10%的数据后的最高值</code></pre></td></tr></t
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

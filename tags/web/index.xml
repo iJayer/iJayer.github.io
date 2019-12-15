@@ -17,9 +17,7 @@
       <pubDate>Sun, 26 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/web/20180826-web%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86-01-%E4%B8%80%E4%BA%9B%E6%8C%87%E6%A0%87%E6%A6%82%E5%BF%B5/</guid>
-      <description>&lt;!-- 摘要 --&gt;
-
-&lt;p&gt;&lt;strong&gt;学习笔记&lt;/strong&gt;：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&amp;hellip;&lt;/p&gt;</description>
+      <description>学习笔记：了解 Web 服务性能测试和压力测试中常见概念：QPS、TPS、RT、PV、VV、UV、吞吐率、吞吐量等等&amp;hellip; 1. 网站的 PV、V</description>
     </item>
     
     <item>
@@ -28,7 +26,7 @@
       <pubDate>Tue, 24 Apr 2018 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/web/20180424-nginx-learning-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>Nginx？ 1 2 3 4 Who? 俄罗斯人开发 What? 十分轻量级的HTTP服务器, &amp;#39;engine X&amp;#39; How? 高性能、模块丰富、配置灵活、低消耗 Why? 基于事件驱动方式编写 Nginx 有那些功能？</description>
     </item>
     
     <item>
@@ -37,7 +35,7 @@
       <pubDate>Wed, 19 Apr 2017 17:53:01 +0800</pubDate>
       
       <guid>https://ijayer.github.io/post/tech/web/20170419-caddy-learning-notes/</guid>
-      <description>&lt;!-- 摘要 --&gt;</description>
+      <description>安装 Linux Note: You must specify a personal or commercial license; see getcaddy.com for instructions. (安装时要求必须给出一种许可证，所以下面命令添加了选项：-s personal) 1 2 3 4 5 # 一键安装脚本 [zhe@zhe Temp]$ curl https://getcaddy.com | bash -s personal # 查看</description>
     </item>
     
   </channel>

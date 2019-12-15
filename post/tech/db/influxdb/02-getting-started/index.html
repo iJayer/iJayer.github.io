@@ -16,15 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content=" 通过命令行工具 influx 完成数据库的创建和读写练习
-" /><meta name="keywords" content="monitor, devops, influxdb" />
+<meta name="author" content="zher" /><meta name="description" content="通过命令行工具 influx 完成数据库的创建和读写练习 入门指南 这部分内容主要通过 influx (CLI) 工具操作 influxdb 数据库，即：创建数据库和读写数据。 说明：也可以直接发送裸的" /><meta name="keywords" content="monitor, devops, influxdb" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/db/influxdb/02-getting-started/" />
@@ -35,27 +34,19 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="InfluxDB | 入门指南" />
-<meta property="og:description" content="
-
-
-通过命令行工具 influx 完成数据库的创建和读写练习
-" />
+<meta property="og:description" content="通过命令行工具 influx 完成数据库的创建和读写练习 入门指南 这部分内容主要通过 influx (CLI) 工具操作 influxdb 数据库，即：创建数据库和读写数据。 说明：也可以直接发送裸的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/db/influxdb/02-getting-started/" />
 <meta property="article:published_time" content="2018-07-29T17:46:58&#43;00:00"/>
 <meta property="article:modified_time" content="2018-07-29T17:46:58&#43;00:00"/>
 
 <meta itemprop="name" content="InfluxDB | 入门指南">
-<meta itemprop="description" content="
-
-
-通过命令行工具 influx 完成数据库的创建和读写练习
-">
+<meta itemprop="description" content="通过命令行工具 influx 完成数据库的创建和读写练习 入门指南 这部分内容主要通过 influx (CLI) 工具操作 influxdb 数据库，即：创建数据库和读写数据。 说明：也可以直接发送裸的">
 
 
 <meta itemprop="datePublished" content="2018-07-29T17:46:58&#43;00:00" />
@@ -67,11 +58,7 @@
 <meta itemprop="keywords" content="db,influxdb," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="InfluxDB | 入门指南"/>
-<meta name="twitter:description" content="
-
-
-通过命令行工具 influx 完成数据库的创建和读写练习
-"/>
+<meta name="twitter:description" content="通过命令行工具 influx 完成数据库的创建和读写练习 入门指南 这部分内容主要通过 influx (CLI) 工具操作 influxdb 数据库，即：创建数据库和读写数据。 说明：也可以直接发送裸的"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -167,11 +154,15 @@
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <p>通过命令行工具 influx 完成数据库的创建和读写练习</p>
 </blockquote>
+
+<!-- more -->
 
 <h1 id="入门指南">入门指南</h1>
 
@@ -432,6 +423,7 @@ time                external internal machine type
 </blockquote>
 
 <p><a href="https://docs.influxdata.com/influxdb/v1.6/introduction/getting-started/">InfluxDB Getting Started</a></p>
+
     </div>
 
     <div class="post-copyright">
@@ -441,14 +433,18 @@ time                external internal machine type
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-07-29</span>
+    <span class="item-content">
+        2018-07-29
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/db/">db</a>
           <a href="/tags/influxdb/">influxdb</a>
@@ -486,6 +482,10 @@ time                external internal machine type
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -495,7 +495,7 @@ time                external internal machine type
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -538,7 +538,7 @@ time                external internal machine type
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">

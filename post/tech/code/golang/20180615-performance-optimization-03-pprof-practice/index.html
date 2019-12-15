@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="zher" /><meta name="description" content="  pprof 小练习  " /><meta name="keywords" content="go, golang, pprof" />
+<meta name="author" content="zher" /><meta name="description" content="pprof 小练习 实践练习项目：Golang profiling and optimizing 注册自定义的 pprof 接口(基于httprouter) 注册接口函数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 // 使用自定义" /><meta name="keywords" content="go, golang, pprof" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
 
 
 <link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/" />
@@ -34,49 +34,31 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<link href="/dist/even.93844dae.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Golang | Performance Optimization =&gt; pprof practice" />
-<meta property="og:description" content="
-
-
-
-pprof 小练习
-
-" />
+<meta property="og:description" content="pprof 小练习 实践练习项目：Golang profiling and optimizing 注册自定义的 pprof 接口(基于httprouter) 注册接口函数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 // 使用自定义" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/20180615-performance-optimization-03-pprof-practice/" />
 <meta property="article:published_time" content="2018-06-15T13:48:02&#43;08:00"/>
 <meta property="article:modified_time" content="2018-06-15T13:48:02&#43;00:00"/>
 
 <meta itemprop="name" content="Golang | Performance Optimization =&gt; pprof practice">
-<meta itemprop="description" content="
-
-
-
-pprof 小练习
-
-">
+<meta itemprop="description" content="pprof 小练习 实践练习项目：Golang profiling and optimizing 注册自定义的 pprof 接口(基于httprouter) 注册接口函数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 // 使用自定义">
 
 
 <meta itemprop="datePublished" content="2018-06-15T13:48:02&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-15T13:48:02&#43;00:00" />
-<meta itemprop="wordCount" content="1220">
+<meta itemprop="wordCount" content="1291">
 
 
 
 <meta itemprop="keywords" content="golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Golang | Performance Optimization =&gt; pprof practice"/>
-<meta name="twitter:description" content="
-
-
-
-pprof 小练习
-
-"/>
+<meta name="twitter:description" content="pprof 小练习 实践练习项目：Golang profiling and optimizing 注册自定义的 pprof 接口(基于httprouter) 注册接口函数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 // 使用自定义"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -150,7 +132,7 @@ pprof 小练习
         <div class="post-category">
             <a href="/categories/tech/"> tech </a>
             </div>
-          <span class="more-meta"> 1220 words </span>
+          <span class="more-meta"> 1291 words </span>
           <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -165,35 +147,6 @@ pprof 小练习
 <li><a href="#分析-memory">分析 Memory</a>
 <ul>
 <li><a href="#通过索引页-查看-heap-信息">通过索引页，查看 heap 信息</a></li>
-</ul></li>
-<li><a href="#runtime-memstats">runtime.MemStats</a></li>
-<li><a href="#alloc-4693984">Alloc = 4693984</a></li>
-<li><a href="#totalalloc-6570567768">TotalAlloc = 6570567768</a></li>
-<li><a href="#sys-15476984">Sys = 15476984</a></li>
-<li><a href="#lookups-6441">Lookups = 6441</a></li>
-<li><a href="#mallocs-106981880">Mallocs = 106981880</a></li>
-<li><a href="#frees-106936207">Frees = 106936207</a></li>
-<li><a href="#heapalloc-4693984">HeapAlloc = 4693984</a></li>
-<li><a href="#heapsys-10321920">HeapSys = 10321920</a></li>
-<li><a href="#heapidle-4726784">HeapIdle = 4726784</a></li>
-<li><a href="#heapinuse-5595136">HeapInuse = 5595136</a></li>
-<li><a href="#heapreleased-2342912">HeapReleased = 2342912</a></li>
-<li><a href="#heapobjects-45673">HeapObjects = 45673</a></li>
-<li><a href="#stack-2260992-2260992">Stack = 2260992 / 2260992</a></li>
-<li><a href="#mspan-95608-147456">MSpan = 95608 / 147456</a></li>
-<li><a href="#mcache-1736-16384">MCache = 1736 / 16384</a></li>
-<li><a href="#buckhashsys-1700763">BuckHashSys = 1700763</a></li>
-<li><a href="#gcsys-610304">GCSys = 610304</a></li>
-<li><a href="#othersys-419165">OtherSys = 419165</a></li>
-<li><a href="#nextgc-5206176">NextGC = 5206176</a></li>
-<li><a href="#lastgc-1529050738440737221">LastGC = 1529050738440737221</a></li>
-<li><a href="#pausens-24391-22047-27986-23706-33849-31450-29197-26735-40822-26734-25389-24701-32894-38224-22443-23303-31302-66411-73710">PauseNs = [24391 22047 27986 23706 33849 31450 29197 26735 40822 26734 25389 24701 32894 38224 22443 23303 31302 66411 73710 &hellip;&hellip;.]</a></li>
-<li><a href="#pauseend-1529050573425521907-1529050575212897649-1529050576923992459-1529050579026633238-1529050580885216128-1529050582768778420">PauseEnd = [1529050573425521907 1529050575212897649 1529050576923992459 1529050579026633238 1529050580885216128 1529050582768778420 &hellip;&hellip;.]</a></li>
-<li><a href="#numgc-2905">NumGC = 2905</a></li>
-<li><a href="#numforcedgc-0">NumForcedGC = 0</a></li>
-<li><a href="#gccpufraction-0-0006629790327640667">GCCPUFraction = 0.0006629790327640667</a></li>
-<li><a href="#debuggc-false">DebugGC = false</a>
-<ul>
 <li><a href="#通过-web-可视化视图查看内存分配信息">通过 web 可视化视图查看内存分配信息</a></li>
 </ul></li>
 <li><a href="#分析-cpu">分析 CPU</a></li>
@@ -203,13 +156,17 @@ pprof 小练习
   </div>
 </div>
     <div class="post-content">
-      <!-- 摘要 -->
+      
+
+<!-- 摘要 -->
 
 <blockquote>
 <ul>
 <li>pprof 小练习</li>
 </ul>
 </blockquote>
+
+<!-- more -->
 
 <blockquote>
 <p>实践练习项目：<a href="http://yangxikun.com/golang/2017/12/24/golang-profiling-optimizing.html">Golang profiling and optimizing</a></p>
@@ -303,85 +260,105 @@ full goroutine stack dump</pre></td></tr></table>
 <h2 id="通过索引页-查看-heap-信息">通过索引页，查看 heap 信息</h2>
 
 <p><a href="https://host:ip/debug/pprof/heap?debug=1">https://host:ip/debug/pprof/heap?debug=1</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">heap</span> <span class="nx">profile</span><span class="p">:</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1136</span> <span class="p">[</span><span class="mi">12390</span><span class="p">:</span> <span class="mi">25948656</span><span class="p">]</span> <span class="err">@</span> <span class="nx">heap</span><span class="o">/</span><span class="mi">1048576</span>
+<span class="mi">2</span><span class="p">:</span> <span class="mi">768</span> <span class="p">[</span><span class="mi">2</span><span class="p">:</span> <span class="mi">768</span><span class="p">]</span> <span class="err">@</span> <span class="mh">0x433b71</span> <span class="mh">0x43408d</span> <span class="mh">0x455ce6</span> <span class="mh">0x456739</span> <span class="mh">0x42f050</span>
+<span class="err">#</span>	<span class="mh">0x433b70</span>	<span class="nx">runtime</span><span class="p">.</span><span class="nx">malg</span><span class="o">+</span><span class="mh">0x30</span>		<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">runtime</span><span class="o">/</span><span class="nx">proc</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3221</span>
+<span class="err">#</span>	<span class="mh">0x43408c</span>	<span class="nx">runtime</span><span class="p">.</span><span class="nx">newproc1</span><span class="o">+</span><span class="mh">0x42c</span>		<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">runtime</span><span class="o">/</span><span class="nx">proc</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3273</span>
+<span class="err">#</span>	<span class="mh">0x455ce5</span>	<span class="nx">runtime</span><span class="p">.</span><span class="nx">newproc</span><span class="p">.</span><span class="nx">func1</span><span class="o">+</span><span class="mh">0x45</span>	<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">runtime</span><span class="o">/</span><span class="nx">proc</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3244</span>
+<span class="err">#</span>	<span class="mh">0x456738</span>	<span class="nx">runtime</span><span class="p">.</span><span class="nx">systemstack</span><span class="o">+</span><span class="mh">0x78</span>	<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">runtime</span><span class="o">/</span><span class="nx">asm_amd64</span><span class="p">.</span><span class="nx">s</span><span class="p">:</span><span class="mi">409</span>
+<span class="err">#</span>	<span class="mh">0x42f050</span>	<span class="nx">runtime</span><span class="p">.</span><span class="nx">mstart</span><span class="o">+</span><span class="mh">0x0</span>		<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">runtime</span><span class="o">/</span><span class="nx">proc</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">1175</span>
 
-<p>```</p></li>
+<span class="mi">1</span><span class="p">:</span> <span class="mi">352</span> <span class="p">[</span><span class="mi">137</span><span class="p">:</span> <span class="mi">48224</span><span class="p">]</span> <span class="err">@</span> <span class="mh">0x8a9f82</span> <span class="mh">0x76d1f7</span> <span class="mh">0x7726f8</span> <span class="mh">0x6beb00</span> <span class="mh">0x76310e</span> <span class="mh">0x66b5e4</span> <span class="mh">0x66e28c</span> <span class="mh">0x66a601</span> <span class="mh">0x4590a1</span>
+<span class="err">#</span>	<span class="mh">0x8a9f81</span>	<span class="nx">qx</span><span class="o">-</span><span class="nx">api</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">resource</span><span class="p">.(</span><span class="o">*</span><span class="nx">Robot</span><span class="p">).</span><span class="nx">Create</span><span class="o">+</span><span class="mh">0x41</span>			<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">code</span><span class="o">/</span><span class="nx">Go_Path</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">qx</span><span class="o">-</span><span class="nx">api</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">resource</span><span class="o">/</span><span class="nx">robot</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">59</span>
+<span class="err">#</span>	<span class="mh">0x76d1f6</span>	<span class="nx">qx</span><span class="o">-</span><span class="nx">api</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">api</span><span class="p">.(</span><span class="o">*</span><span class="nx">resource</span><span class="p">).</span><span class="nx">handleCreate</span><span class="o">+</span><span class="mh">0x186</span>			<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">code</span><span class="o">/</span><span class="nx">Go_Path</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">qx</span><span class="o">-</span><span class="nx">api</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">resource</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">121</span>
+<span class="err">#</span>	<span class="mh">0x7726f7</span>	<span class="nx">qx</span><span class="o">-</span><span class="nx">api</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">api</span><span class="p">.(</span><span class="o">*</span><span class="nx">API</span><span class="p">).</span><span class="nx">addResource</span><span class="p">.</span><span class="nx">func2</span><span class="o">+</span><span class="mh">0x407</span>			<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">code</span><span class="o">/</span><span class="nx">Go_Path</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">qx</span><span class="o">-</span><span class="nx">api</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">api</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">96</span>
+<span class="err">#</span>	<span class="mh">0x6beaff</span>	<span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">julienschmidt</span><span class="o">/</span><span class="nx">httprouter</span><span class="p">.(</span><span class="o">*</span><span class="nx">Router</span><span class="p">).</span><span class="nx">ServeHTTP</span><span class="o">+</span><span class="mh">0x76f</span>	<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">code</span><span class="o">/</span><span class="nx">Go_Path</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">julienschmidt</span><span class="o">/</span><span class="nx">httprouter</span><span class="o">/</span><span class="nx">router</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">344</span>
+<span class="err">#</span>	<span class="mh">0x76310d</span>	<span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">rs</span><span class="o">/</span><span class="nx">cors</span><span class="p">.(</span><span class="o">*</span><span class="nx">Cors</span><span class="p">).</span><span class="nx">Handler</span><span class="p">.</span><span class="nx">func1</span><span class="o">+</span><span class="mh">0xfd</span>			<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">code</span><span class="o">/</span><span class="nx">Go_Path</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">rs</span><span class="o">/</span><span class="nx">cors</span><span class="o">/</span><span class="nx">cors</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">190</span>
+<span class="err">#</span>	<span class="mh">0x66b5e3</span>	<span class="nx">net</span><span class="o">/</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">.</span><span class="nx">ServeHTTP</span><span class="o">+</span><span class="mh">0x43</span>				<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">net</span><span class="o">/</span><span class="nx">http</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">1947</span>
+<span class="err">#</span>	<span class="mh">0x66e28b</span>	<span class="nx">net</span><span class="o">/</span><span class="nx">http</span><span class="p">.</span><span class="nx">serverHandler</span><span class="p">.</span><span class="nx">ServeHTTP</span><span class="o">+</span><span class="mh">0xbb</span>				<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">net</span><span class="o">/</span><span class="nx">http</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">2694</span>
+<span class="err">#</span>	<span class="mh">0x66a600</span>	<span class="nx">net</span><span class="o">/</span><span class="nx">http</span><span class="p">.(</span><span class="o">*</span><span class="nx">conn</span><span class="p">).</span><span class="nx">serve</span><span class="o">+</span><span class="mh">0x650</span>					<span class="nx">D</span><span class="p">:</span><span class="o">/</span><span class="nx">Go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">net</span><span class="o">/</span><span class="nx">http</span><span class="o">/</span><span class="nx">server</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">1830</span>
+
+
+<span class="err">#</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">MemStats</span>
+<span class="err">#</span> <span class="nx">Alloc</span> <span class="p">=</span> <span class="mi">4693984</span>
+<span class="err">#</span> <span class="nx">TotalAlloc</span> <span class="p">=</span> <span class="mi">6570567768</span>
+<span class="err">#</span> <span class="nx">Sys</span> <span class="p">=</span> <span class="mi">15476984</span>
+<span class="err">#</span> <span class="nx">Lookups</span> <span class="p">=</span> <span class="mi">6441</span>
+<span class="err">#</span> <span class="nx">Mallocs</span> <span class="p">=</span> <span class="mi">106981880</span>
+<span class="err">#</span> <span class="nx">Frees</span> <span class="p">=</span> <span class="mi">106936207</span>
+<span class="err">#</span> <span class="nx">HeapAlloc</span> <span class="p">=</span> <span class="mi">4693984</span>
+<span class="err">#</span> <span class="nx">HeapSys</span> <span class="p">=</span> <span class="mi">10321920</span>
+<span class="err">#</span> <span class="nx">HeapIdle</span> <span class="p">=</span> <span class="mi">4726784</span>
+<span class="err">#</span> <span class="nx">HeapInuse</span> <span class="p">=</span> <span class="mi">5595136</span>
+<span class="err">#</span> <span class="nx">HeapReleased</span> <span class="p">=</span> <span class="mi">2342912</span>
+<span class="err">#</span> <span class="nx">HeapObjects</span> <span class="p">=</span> <span class="mi">45673</span>
+<span class="err">#</span> <span class="nx">Stack</span> <span class="p">=</span> <span class="mi">2260992</span> <span class="o">/</span> <span class="mi">2260992</span>
+<span class="err">#</span> <span class="nx">MSpan</span> <span class="p">=</span> <span class="mi">95608</span> <span class="o">/</span> <span class="mi">147456</span>
+<span class="err">#</span> <span class="nx">MCache</span> <span class="p">=</span> <span class="mi">1736</span> <span class="o">/</span> <span class="mi">16384</span>
+<span class="err">#</span> <span class="nx">BuckHashSys</span> <span class="p">=</span> <span class="mi">1700763</span>
+<span class="err">#</span> <span class="nx">GCSys</span> <span class="p">=</span> <span class="mi">610304</span>
+<span class="err">#</span> <span class="nx">OtherSys</span> <span class="p">=</span> <span class="mi">419165</span>
+<span class="err">#</span> <span class="nx">NextGC</span> <span class="p">=</span> <span class="mi">5206176</span>
+<span class="err">#</span> <span class="nx">LastGC</span> <span class="p">=</span> <span class="mi">1529050738440737221</span>
+<span class="err">#</span> <span class="nx">PauseNs</span> <span class="p">=</span> <span class="p">[</span><span class="mi">24391</span> <span class="mi">22047</span> <span class="mi">27986</span> <span class="mi">23706</span> <span class="mi">33849</span> <span class="mi">31450</span> <span class="mi">29197</span> <span class="mi">26735</span> <span class="mi">40822</span> <span class="mi">26734</span> <span class="mi">25389</span> <span class="mi">24701</span> <span class="mi">32894</span> <span class="mi">38224</span> <span class="mi">22443</span> <span class="mi">23303</span> <span class="mi">31302</span> <span class="mi">66411</span> <span class="mi">73710</span> <span class="o">......</span><span class="p">.]</span>
+<span class="err">#</span> <span class="nx">PauseEnd</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1529050573425521907</span> <span class="mi">1529050575212897649</span> <span class="mi">1529050576923992459</span> <span class="mi">1529050579026633238</span> <span class="mi">1529050580885216128</span> <span class="mi">1529050582768778420</span> <span class="o">......</span><span class="p">.]</span>
+<span class="err">#</span> <span class="nx">NumGC</span> <span class="p">=</span> <span class="mi">2905</span>
+<span class="err">#</span> <span class="nx">NumForcedGC</span> <span class="p">=</span> <span class="mi">0</span>
+<span class="err">#</span> <span class="nx">GCCPUFraction</span> <span class="p">=</span> <span class="mf">0.0006629790327640667</span>
+<span class="err">#</span> <span class="nx">DebugGC</span> <span class="p">=</span> <span class="kc">false</span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ol>
-
-<p>heap profile: 4: 1136 [12390: 25948656] @ heap/1048576
-2: 768 [2: 768] @ 0x433b71 0x43408d 0x455ce6 0x456739 0x42f050
-#	0x433b70	runtime.malg+0x30		D:/Go/src/runtime/proc.go:3221
-#	0x43408c	runtime.newproc1+0x42c		D:/Go/src/runtime/proc.go:3273
-#	0x455ce5	runtime.newproc.func1+0x45	D:/Go/src/runtime/proc.go:3244
-#	0x456738	runtime.systemstack+0x78	D:/Go/src/runtime/asm_amd64.s:409
-#	0x42f050	runtime.mstart+0x0		D:/Go/src/runtime/proc.go:1175</p>
-
-<p>1: 352 [137: 48224] @ 0x8a9f82 0x76d1f7 0x7726f8 0x6beb00 0x76310e 0x66b5e4 0x66e28c 0x66a601 0x4590a1
-#	0x8a9f81	qx-api/src/resource.(*Robot).Create+0x41			D:/code/Go_Path/src/qx-api/src/resource/robot.go:59
-#	0x76d1f6	qx-api/src/api.(*resource).handleCreate+0x186			D:/code/Go_Path/src/qx-api/src/api/resource.go:121
-#	0x7726f7	qx-api/src/api.(*API).addResource.func2+0x407			D:/code/Go_Path/src/qx-api/src/api/api.go:96
-#	0x6beaff	github.com/julienschmidt/httprouter.(*Router).ServeHTTP+0x76f	D:/code/Go_Path/src/github.com/julienschmidt/httprouter/router.go:344
-#	0x76310d	github.com/rs/cors.(*Cors).Handler.func1+0xfd			D:/code/Go_Path/src/github.com/rs/cors/cors.go:190
-#	0x66b5e3	net/http.HandlerFunc.ServeHTTP+0x43				D:/Go/src/net/http/server.go:1947
-#	0x66e28b	net/http.serverHandler.ServeHTTP+0xbb				D:/Go/src/net/http/server.go:2694
-#	0x66a600	net/http.(*conn).serve+0x650					D:/Go/src/net/http/server.go:1830</p>
-
-<hr />
-
-<h1 id="runtime-memstats">runtime.MemStats</h1>
-
-<h1 id="alloc-4693984">Alloc = 4693984</h1>
-
-<h1 id="totalalloc-6570567768">TotalAlloc = 6570567768</h1>
-
-<h1 id="sys-15476984">Sys = 15476984</h1>
-
-<h1 id="lookups-6441">Lookups = 6441</h1>
-
-<h1 id="mallocs-106981880">Mallocs = 106981880</h1>
-
-<h1 id="frees-106936207">Frees = 106936207</h1>
-
-<h1 id="heapalloc-4693984">HeapAlloc = 4693984</h1>
-
-<h1 id="heapsys-10321920">HeapSys = 10321920</h1>
-
-<h1 id="heapidle-4726784">HeapIdle = 4726784</h1>
-
-<h1 id="heapinuse-5595136">HeapInuse = 5595136</h1>
-
-<h1 id="heapreleased-2342912">HeapReleased = 2342912</h1>
-
-<h1 id="heapobjects-45673">HeapObjects = 45673</h1>
-
-<h1 id="stack-2260992-2260992">Stack = 2260992 / 2260992</h1>
-
-<h1 id="mspan-95608-147456">MSpan = 95608 / 147456</h1>
-
-<h1 id="mcache-1736-16384">MCache = 1736 / 16384</h1>
-
-<h1 id="buckhashsys-1700763">BuckHashSys = 1700763</h1>
-
-<h1 id="gcsys-610304">GCSys = 610304</h1>
-
-<h1 id="othersys-419165">OtherSys = 419165</h1>
-
-<h1 id="nextgc-5206176">NextGC = 5206176</h1>
-
-<h1 id="lastgc-1529050738440737221">LastGC = 1529050738440737221</h1>
-
-<h1 id="pausens-24391-22047-27986-23706-33849-31450-29197-26735-40822-26734-25389-24701-32894-38224-22443-23303-31302-66411-73710">PauseNs = [24391 22047 27986 23706 33849 31450 29197 26735 40822 26734 25389 24701 32894 38224 22443 23303 31302 66411 73710 &hellip;&hellip;.]</h1>
-
-<h1 id="pauseend-1529050573425521907-1529050575212897649-1529050576923992459-1529050579026633238-1529050580885216128-1529050582768778420">PauseEnd = [1529050573425521907 1529050575212897649 1529050576923992459 1529050579026633238 1529050580885216128 1529050582768778420 &hellip;&hellip;.]</h1>
-
-<h1 id="numgc-2905">NumGC = 2905</h1>
-
-<h1 id="numforcedgc-0">NumForcedGC = 0</h1>
-
-<h1 id="gccpufraction-0-0006629790327640667">GCCPUFraction = 0.0006629790327640667</h1>
-
-<h1 id="debuggc-false">DebugGC = false</h1>
-
-<p>```</p>
 
 <blockquote>
 <p>Note: 其中显示的内容会比较多，但是主体分为2个部分:
@@ -512,6 +489,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
 <li><a href="https://juejin.im/entry/596827706fb9a06bc569044c">golang 内存分析/动态追踪</a></li>
 </ul></li>
 </ol>
+
     </div>
 
     <div class="post-copyright">
@@ -521,14 +499,18 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-06-15</span>
+    <span class="item-content">
+        2018-06-15
+        
+    </span>
   </p>
   
   <p class="copyright-item">
     <span class="item-title">License</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
-</div><footer class="post-footer">
+</div>
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/golang/">golang</a>
           </div>
@@ -565,6 +547,10 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
+  
+
+  
+
       </div>
     </main>
 
@@ -574,7 +560,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
       <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
-      <a href="https://github.com/iJayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
       <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
@@ -617,7 +603,7 @@ Entering interactive mode <span class="o">(</span><span class="nb">type</span> <
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.ece58db6.min.js"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">
