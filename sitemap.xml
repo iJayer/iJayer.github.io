@@ -3,13 +3,44 @@
   
   <url>
     <loc>https://ijayer.github.io/categories/</loc>
-    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <lastmod>2020-03-08T21:58:50+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ijayer.github.io/post/</loc>
-    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
+    <lastmod>2020-03-08T21:58:50+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/post/tech/code/golang/20200308_simple_scheduler_lib/</loc>
+    <lastmod>2020-03-08T21:58:50+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/tags/</loc>
+    <lastmod>2020-03-08T21:58:50+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/tags/golang/</loc>
+    <lastmod>2020-03-08T21:58:50+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/</loc>
+    <lastmod>2020-03-08T21:58:50+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ijayer.github.io/categories/tech/</loc>
+    <lastmod>2020-03-08T21:58:50+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -21,24 +52,6 @@
   </url>
   
   <url>
-    <loc>https://ijayer.github.io/tags/</loc>
-    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/tags/golang/</loc>
-    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/</loc>
-    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ijayer.github.io/tags/mq/</loc>
     <lastmod>2019-06-23T22:56:56+00:00</lastmod>
     <priority>0</priority>
@@ -46,12 +59,6 @@
   
   <url>
     <loc>https://ijayer.github.io/tags/rabbitmq/</loc>
-    <lastmod>2019-06-23T22:56:56+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ijayer.github.io/categories/tech/</loc>
     <lastmod>2019-06-23T22:56:56+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -97,13 +104,13 @@
   </url>
   
   <url>
-    <loc>https://ijayer.github.io/categories/tools/</loc>
+    <loc>https://ijayer.github.io/tags/tools/</loc>
     <lastmod>2019-04-21T21:05:02+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ijayer.github.io/tags/tools/</loc>
+    <loc>https://ijayer.github.io/categories/tools/</loc>
     <lastmod>2019-04-21T21:05:02+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -278,13 +285,13 @@
   </url>
   
   <url>
-    <loc>https://ijayer.github.io/categories/essay/</loc>
+    <loc>https://ijayer.github.io/tags/essay/</loc>
     <lastmod>2018-10-15T21:18:24+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ijayer.github.io/tags/essay/</loc>
+    <loc>https://ijayer.github.io/categories/essay/</loc>
     <lastmod>2018-10-15T21:18:24+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -367,13 +374,13 @@
   </url>
   
   <url>
-    <loc>https://ijayer.github.io/categories/career/</loc>
+    <loc>https://ijayer.github.io/tags/career/</loc>
     <lastmod>2019-03-19T22:21:07+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ijayer.github.io/tags/career/</loc>
+    <loc>https://ijayer.github.io/categories/career/</loc>
     <lastmod>2019-03-19T22:21:07+00:00</lastmod>
     <priority>0</priority>
   </url>

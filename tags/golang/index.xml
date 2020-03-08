@@ -6,10 +6,21 @@
     <description>Recent content in golang on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 22 Jun 2019 22:56:56 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2020 21:58:50 +0800</lastBuildDate>
     
 	<atom:link href="https://ijayer.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Simple Scheduling Library (Go) [译]</title>
+      <link>https://ijayer.github.io/post/tech/code/golang/20200308_simple_scheduler_lib/</link>
+      <pubDate>Sun, 08 Mar 2020 21:58:50 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/post/tech/code/golang/20200308_simple_scheduler_lib/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;现在的应用程序或多或少都有这样得需求，既 &lt;code&gt;在给定的某段时间重复执行一段代码&lt;/code&gt;。这段代码可能是从其他数据源获取数据进行解析，亦或是发送一些数据到其他地方，如 MQ、Handler 等。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Rabbitmq | 06 - RPC</title>
