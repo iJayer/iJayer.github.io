@@ -6,10 +6,34 @@
     <description>Recent content in tech on ijayer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Mar 2020 21:58:50 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2020 22:20:58 +0800</lastBuildDate>
     
 	<atom:link href="https://ijayer.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Empty struct in Go[译]</title>
+      <link>https://ijayer.github.io/post/tech/code/golang/20200419_emtpy_struct_in_go/</link>
+      <pubDate>Sun, 19 Apr 2020 22:20:58 +0800</pubDate>
+      
+      <guid>https://ijayer.github.io/post/tech/code/golang/20200419_emtpy_struct_in_go/</guid>
+      <description>&lt;!-- 摘要 --&gt;
+
+&lt;p&gt;空结构体 &lt;code&gt;empty struct&lt;/code&gt; 也是结构体类型，不过呢它不包含有任何字段。声明定义如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Q&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;q&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;So, 一个没有包含任意字段的结构体能干什么用？或者说它的用途是什么呢？&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Simple Scheduling Library (Go) [译]</title>

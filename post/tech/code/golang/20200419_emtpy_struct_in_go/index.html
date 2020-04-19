@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Empty struct in Go[译] - ijayer</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="jayer" /><meta name="description" content="空结构体 empty struct 也是结构体类型，不过呢它不包含有任何字段。声明定义如下：
+1 2 3  type Q struct{} var q struct{}   So, 一个没有包含任意字段的结构体能干什么用？或者说它的用途是什么呢？
+" /><meta name="keywords" content="go, golang" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.55.6 with theme even" />
+
+
+<link rel="canonical" href="https://ijayer.github.io/post/tech/code/golang/20200419_emtpy_struct_in_go/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Empty struct in Go[译]" />
+<meta property="og:description" content="
+
+空结构体 empty struct 也是结构体类型，不过呢它不包含有任何字段。声明定义如下：
+
+
+1
+2
+3
+
+
+type Q struct{}
+
+var q struct{}
+
+
+So, 一个没有包含任意字段的结构体能干什么用？或者说它的用途是什么呢？" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ijayer.github.io/post/tech/code/golang/20200419_emtpy_struct_in_go/" />
+<meta property="article:published_time" content="2020-04-19T22:20:58&#43;08:00"/>
+<meta property="article:modified_time" content="2020-04-19T22:20:58&#43;00:00"/>
+
+<meta itemprop="name" content="Empty struct in Go[译]">
+<meta itemprop="description" content="
+
+空结构体 empty struct 也是结构体类型，不过呢它不包含有任何字段。声明定义如下：
+
+
+1
+2
+3
+
+
+type Q struct{}
+
+var q struct{}
+
+
+So, 一个没有包含任意字段的结构体能干什么用？或者说它的用途是什么呢？">
+
+
+<meta itemprop="datePublished" content="2020-04-19T22:20:58&#43;08:00" />
+<meta itemprop="dateModified" content="2020-04-19T22:20:58&#43;00:00" />
+<meta itemprop="wordCount" content="1442">
+
+
+
+<meta itemprop="keywords" content="golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Empty struct in Go[译]"/>
+<meta name="twitter:description" content="
+
+空结构体 empty struct 也是结构体类型，不过呢它不包含有任何字段。声明定义如下：
+
+
+1
+2
+3
+
+
+type Q struct{}
+
+var q struct{}
+
+
+So, 一个没有包含任意字段的结构体能干什么用？或者说它的用途是什么呢？"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">ijayer</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/categories/footprint/">
+        <li class="mobile-menu-item">FootPrint</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">ijayer</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/footprint/">FootPrint</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Empty struct in Go[译]</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-19 </span>
+        <div class="post-category">
+            <a href="/categories/tech/"> tech </a>
+            </div>
+          <span class="more-meta"> 1442 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#width-宽度">Width（宽度）</a></li>
+<li><a href="#空结构体">空结构体</a></li>
+<li><a href="#空结构体可以做什么">空结构体可以做什么？</a></li>
+<li><a href="#空结构体作为方法接收者">空结构体作为方法接收者</a></li>
+<li><a href="#and-more">And More</a></li>
+<li><a href="#see-also">See also</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- 摘要 -->
+
+<p>空结构体 <code>empty struct</code> 也是结构体类型，不过呢它不包含有任何字段。声明定义如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Q</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">q</span> <span class="kd">struct</span><span class="p">{}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>So, 一个没有包含任意字段的结构体能干什么用？或者说它的用途是什么呢？</p>
+
+<p>在进入 empty struct 之前，先了解下 Width（宽度）</p>
+
+<h1 id="width-宽度">Width（宽度）</h1>
+
+<p><code>宽度</code> 和其他大多数术语一样，来源于 gc 编译器，其起源可追溯到几十年前了。</p>
+
+<p>宽度，指的是存储一个 <code>类型实例</code> 所占用的字节数。由于处理器的地址空间是一维的，所以这里用宽度会比用大小一词更适用点。</p>
+
+<p>宽度是一个类型的属性。Go 程序中，每个值都会有一个类型，值的宽度就取决于其定义的类型，通常是 8bits 的整数倍。</p>
+
+<p>我们可以通过<code>unsafe.Sizeof(v)</code> 来获取值的宽度：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Sizeof takes an expression x of any type and returns the size in bytes
+</span><span class="c1">// of a hypothetical variable v as if v was declared via var v = x.
+</span><span class="c1">// The size does not include any memory possibly referenced by x.
+</span><span class="c1">// For instance, if x is a slice, Sizeof returns the size of the slice
+</span><span class="c1">// descriptor, not the size of the memory referenced by the slice.
+</span><span class="c1">// The return value of Sizeof is a Go constant.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Sizeof</span><span class="p">(</span><span class="nx">x</span> <span class="nx">ArbitraryType</span><span class="p">)</span> <span class="kt">uintptr</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>for examples:</p>
+
+<p>整数类型占用的宽度</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="kd">var</span> <span class="nx">i</span> <span class="kt">int</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span> <span class="o">//</span> <span class="nx">prints</span> <span class="mi">8</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>bool 类型占用的宽度</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">  <span class="kd">var</span> <span class="nx">b</span> <span class="kt">bool</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span> <span class="o">//</span> <span class="nx">prints</span> <span class="mi">1</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>string 类型占用的宽度</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// string type defined in /go/src/runtime/string.go
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">stringStruct</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">str</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+    <span class="nx">len</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// string 类型的变量占 16 bytes 与其底层的数据结构
+</span><span class="c1"></span>    <span class="c1">// 有关，如下 stringStruct 定义，由 unsafePointer
+</span><span class="c1"></span>    <span class="c1">// 个 int 类型两个字段组成，因此 string 类型的变量的
+</span><span class="c1"></span>    <span class="c1">// 宽度是其多个元素类型宽度之和
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">s</span> <span class="kt">string</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span> <span class="c1">// prints 16
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">ss</span> <span class="nx">stringStruct</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">ss</span><span class="p">))</span> <span class="c1">// prints 16
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>数组类型占用的宽度</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 数组类型变量的宽度也是其多个元素之和
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">arr</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">uint32</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">arr</span><span class="p">))</span> <span class="c1">// prints 12
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>结构体类型提供了更灵活方式，可以定义组合类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">type</span> <span class="nx">S</span> <span class="kd">struct</span> <span class="p">{</span>
+		<span class="nx">a</span> <span class="kt">uint64</span> <span class="c1">// 8
+</span><span class="c1"></span>		<span class="nx">b</span> <span class="kt">uint32</span> <span class="c1">// 4
+</span><span class="c1"></span>	<span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">s</span> <span class="nx">S</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span> <span class="c1">// prints 16, not 12
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note: <a href="https://dave.cheney.net/2014/03/25/the-empty-struct#comment-2815">有关内存对齐的解释</a></p>
+</blockquote>
+
+<h1 id="空结构体">空结构体</h1>
+
+<p>现在我们已经探讨了宽度，很明显，空结构的宽度为 0。它占据了零字节的存储空间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">s</span> <span class="kd">struct</span><span class="p">{}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span> <span class="o">//</span> <span class="nx">prints</span> <span class="mi">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>空结构体所占用的宽度为 0，所以作为结构体的字段时其宽度也不会叠加，即为 0。因此，由空结构组成的结构所占用的存储空间也为 0 bytes.</p>
+
+<p>如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">S</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">s1</span> <span class="kd">struct</span><span class="p">{}</span>
+	<span class="nx">s2</span> <span class="kd">struct</span><span class="p">{}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">s</span> <span class="nx">S</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span> <span class="o">//</span> <span class="nx">prints</span> <span class="mi">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="空结构体可以做什么">空结构体可以做什么？</h1>
+
+<p>根据 Go 的正交性原则，空结构体是一个与其他结构体类型一样的结构体类型。所有普通结构体中的惯用法都同样适用于空结构体。</p>
+
+<p>声明的空结构类型的数组，同样也是不消耗存储空间的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="p">[</span><span class="mi">100</span><span class="p">]</span><span class="kd">struct</span><span class="p">{}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="o">//</span> <span class="nx">prints</span> <span class="mi">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>slice 由于底层数据结构由 len(int)、cap(int)、array(unsafe.Pointer) 构成，所以声明为空结构体类型的切片，其底层的存储元素的数组结构也是不消耗内存的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">s</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">struct</span><span class="p">{},</span> <span class="mi">100</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width=%d\n&#34;</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="o">//</span> <span class="nx">prints</span> <span class="mi">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Note：声明空结构体类型的切片，len、cap 等依然适用。</p>
+</blockquote>
+
+<p>同时，空结构类型亦是可寻址的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">s</span> <span class="kd">struct</span><span class="p">{}</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">s</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;addr=%v&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>更有趣的是，声明两个空结构体类型的变量，其地址也是一样的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">s1</span><span class="p">,</span> <span class="nx">s2</span> <span class="kd">struct</span><span class="p">{}</span>
+<span class="nx">b2</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">s1</span> <span class="o">==</span> <span class="o">&amp;</span><span class="nx">s2</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;s1=s2=%v, s1_addr=%p, s2_addr=%p\n&#34;</span><span class="p">,</span> <span class="nx">b2</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s1</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s2</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>对于空结构体类型的数组，以上属性也是成立</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">a</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">struct</span><span class="p">{},</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nx">b</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">struct</span><span class="p">{},</span> <span class="mi">20</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">a</span> <span class="o">==</span> <span class="o">&amp;</span><span class="nx">b</span><span class="p">)</span>       <span class="c1">// false, a and b are different slices
+</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="o">&amp;</span><span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">//</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">their</span> <span class="nx">backing</span> <span class="nx">arrays</span> <span class="nx">are</span> <span class="nx">the</span> <span class="nx">same</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>为什么会这样？如果你仔细想想，空结构体类型没有包含任务字段，因此不持有任何数据。如果空结构体类型不持有任何数据，那么就没有办法说两个空结构体的值不相等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">s1</span> <span class="o">:=</span> <span class="kd">struct</span><span class="p">{}{}</span>  <span class="c1">// not the zero value, a real new struct{} instance
+</span><span class="c1"></span><span class="nx">s2</span> <span class="o">:=</span> <span class="kd">struct</span><span class="p">{}{}</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span> <span class="o">==</span> <span class="nx">s2</span><span class="p">)</span> <span class="o">//</span> <span class="kc">true</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="空结构体作为方法接收者">空结构体作为方法接收者</h1>
+
+<p>像普通结构体一样，空结构体也可以作为方法的接收者使用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">S</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">S</span><span class="p">)</span> <span class="nf">addr</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%p&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">s</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">S</span><span class="p">{}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%v\n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">addr</span><span class="p">())</span> <span class="c1">// print, 0x5a8da8
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>可以看到，在这篇文章的示例中，所有零大小的值的地址都是 0x5a8da8。这个值，也会随着 Go 版本的变化而改变。</p>
+
+<h1 id="and-more">And More</h1>
+
+<p>虽然整篇文章都在讨论语言层面的那些晦涩难懂的知识点，但是也空结构体也有一个很重要的用途，那就是用于在 goroutines 之间传递信号。</p>
+
+<p><a href="https://dave.cheney.net/2013/04/30/curious-channels">Reading more about channels on here</a></p>
+
+<h1 id="see-also">See also</h1>
+
+<ul>
+<li><a href="https://dave.cheney.net/2014/03/25/the-empty-struct">The empty struct</a></li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">jayer</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-04-19
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/tech/code/golang/20200308_simple_scheduler_lib/">
+            <span class="next-text nav-default">Simple Scheduling Library (Go) [译]</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-04-19 22:20:58 \x2b0800 CST',
+        title: 'Empty struct in Go[译]',
+        clientID: '4357c1dbcf7ef0515c29',
+        clientSecret: '1ad00adfd9544bff956529daf898d4b81fed2a9d',
+        repo: 'blog-comments',
+        owner: 'ijayer',
+        admin: ['ijayer'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhezh.boy@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/JayerCheung" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/zhe.zh.54" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://plus.google.com/u/0/103084907763171979239" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/ijayer" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/p/1005053510554731/home?from=page_100505&amp;mod=TAB&amp;is_all=1#place" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/boy-zhe/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.instagram.com/zher09/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://ijayer.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">jayer</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123995495-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
